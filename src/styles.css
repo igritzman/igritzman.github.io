@@ -294,6 +294,8 @@ h3 {
 }
 
 .daily-lesson-close {
+  position: relative;
+  z-index: 3;
   display: grid;
   flex: 0 0 auto;
   width: 38px;
@@ -703,13 +705,67 @@ h3 {
   color: #061016;
 }
 
-.guide-actual-map {
+.guide-actual-map,
+.guide-map-schematic {
   position: relative;
   width: min(720px, 100%);
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   background: rgba(9, 23, 31, 0.95);
+}
+
+.guide-map-schematic {
+  min-height: 300px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    #0d3554;
+  background-size: 34px 34px;
+}
+
+.guide-map-land {
+  position: absolute;
+  display: block;
+  border: 1px solid rgba(205, 211, 211, 0.78);
+  background: rgba(100, 164, 126, 0.92);
+}
+
+.guide-map-land.land-one {
+  left: 12%;
+  top: 22%;
+  width: 28%;
+  height: 32%;
+  border-radius: 44% 36% 48% 30%;
+}
+
+.guide-map-land.land-two {
+  right: 18%;
+  top: 18%;
+  width: 25%;
+  height: 30%;
+  border-radius: 32% 46% 35% 48%;
+}
+
+.guide-map-land.land-three {
+  left: 36%;
+  bottom: 14%;
+  width: 36%;
+  height: 23%;
+  border-radius: 48% 34% 40% 42%;
+}
+
+.guide-map-focus {
+  position: absolute;
+  left: 48%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  border: 2px solid rgba(255, 198, 84, 0.98);
+  border-radius: 999px;
+  background: rgba(8, 20, 27, 0.9);
+  color: #ffe2a0;
+  padding: 0.5rem 0.75rem;
+  font-weight: 900;
 }
 
 .guide-actual-map .map-stage {
@@ -1780,6 +1836,8 @@ h3 {
   height: 100%;
   pointer-events: auto;
   shape-rendering: geometricPrecision;
+  text-rendering: geometricPrecision;
+  image-rendering: auto;
 }
 
 .map-content {
@@ -1787,8 +1845,9 @@ h3 {
   inset: 0;
   transition: transform 420ms cubic-bezier(0.2, 0.85, 0.25, 1);
   will-change: transform;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
+  transform-style: flat;
+  backface-visibility: visible;
+  filter: none;
 }
 
 .completion-actions {
@@ -1839,7 +1898,7 @@ h3 {
   stroke-width: 0.18;
   opacity: 0.9;
   vector-effect: non-scaling-stroke;
-  transition: opacity 160ms ease, stroke 160ms ease, stroke-width 160ms ease, fill 160ms ease, filter 160ms ease;
+  transition: opacity 160ms ease, stroke 160ms ease, stroke-width 160ms ease, fill 160ms ease;
 }
 
 .territory-cell:hover,
@@ -1847,13 +1906,11 @@ h3 {
   opacity: 0.96;
   stroke: rgba(255, 218, 141, 0.78);
   stroke-width: 0.22;
-  filter: brightness(1.08) saturate(1.05);
 }
 
 .territory-cell.selected {
   stroke: rgba(255, 198, 84, 0.98);
   stroke-width: 0.36;
-  filter: brightness(1.16) saturate(1.14);
 }
 
 .deep-zoom .territory-cell {
@@ -2125,6 +2182,15 @@ h3 {
   border-radius: 8px;
   background: rgba(234, 244, 246, 0.94);
   padding: 0.2rem;
+}
+
+.subdivision-place-photo {
+  width: 100%;
+  max-height: 145px;
+  object-fit: cover;
+  border: 1px solid rgba(141, 179, 185, 0.22);
+  border-radius: 8px;
+  background: rgba(8, 20, 27, 0.82);
 }
 
 .subdivision-profile-heading div {
@@ -2547,6 +2613,44 @@ h3 {
   display: grid;
   gap: 0.75rem;
   margin: 0.9rem 0;
+}
+
+.country-profile-photo {
+  position: relative;
+  overflow: hidden;
+  min-height: 190px;
+  margin: 0;
+  border: 1px solid rgba(141, 179, 185, 0.22);
+  border-radius: 8px;
+  background: rgba(8, 20, 27, 0.9);
+}
+
+.country-profile-photo img {
+  display: block;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.country-profile-photo figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  background: linear-gradient(180deg, transparent, rgba(4, 12, 16, 0.92));
+  color: #f5fbfc;
+  padding: 2.2rem 0.8rem 0.75rem;
+}
+
+.country-profile-photo figcaption strong,
+.country-profile-photo figcaption span {
+  background: rgba(8, 20, 27, 0.78);
+  border-radius: 999px;
+  padding: 0.28rem 0.55rem;
 }
 
 .country-shape {
@@ -4281,7 +4385,8 @@ h3 {
     padding: 0.7rem;
   }
 
-  .guide-actual-map .map-stage {
+  .guide-actual-map .map-stage,
+  .guide-map-schematic {
     min-height: 230px;
   }
 

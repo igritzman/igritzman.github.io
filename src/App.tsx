@@ -5,6 +5,8 @@ import worldAtlas from "world-atlas/countries-110m.json";
 import { catalogCoverage, categoryLabels, difficultyLabels, difficultyLevels, questions, regions } from "./data";
 import { createRun, difficultyScore, isCorrect, nextDifficulty } from "./quiz";
 import regionalPopulationTable from "./regionalPopulations.json";
+import countryImageManifest from "./countryImageManifest.json";
+import usStateImageManifest from "./usStateImageManifest.json";
 import { createDefaultProfile, loadFriends, loadProfile, loadProfiles, loadRun, saveFriends, saveProfile, saveProfiles, saveRun } from "./storage";
 import type { DifficultyLevel, LocalFriend, PlayerProfile, Question, QuizRun, Region } from "./types";
 
@@ -1045,9 +1047,37 @@ const dailyLessonCountryImageFiles: Record<string, string> = {
   Zimbabwe: "Zimbabwe.png",
 };
 
+const countryImageFiles = countryImageManifest as Record<string, string>;
+const usStateImageFiles = usStateImageManifest as Record<string, string>;
+const countryImageAliases: Record<string, string> = {
+  unitedstates: "usa",
+  unitedstatesofamerica: "usa",
+  uae: "unitedarabemirates",
+  hongkong: "hongkong",
+  southkorea: "southkorea",
+  northkorea: "northkorea",
+  newzealand: "newzeland",
+  coteivoire: "cotedivoire",
+  ivorycoast: "cotedivoire",
+  democraticrepublicofthecongo: "drc",
+  republicofthecongo: "congo",
+};
+
+function imageLookupKey(name: string) {
+  return name.replace(/\([^)]*\)/g, "").replace(/[^A-Za-z0-9]+/g, "").toLowerCase();
+}
+
 function countryImagePathForName(name: string) {
-  const fileName = dailyLessonCountryImageFiles[name] ?? `${name.replace(/\s+/g, "")}.jpg`;
+  const key = imageLookupKey(name);
+  const alias = countryImageAliases[key] ?? key;
+  const fileName = dailyLessonCountryImageFiles[name] ?? countryImageFiles[key] ?? countryImageFiles[alias] ?? `${name.replace(/\s+/g, "")}.jpg`;
   return `/images/country-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}`;
+}
+
+function usStateImagePathForName(name: string) {
+  const key = imageLookupKey(name);
+  const fileName = usStateImageFiles[key];
+  return fileName ? `/images/us-state-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}` : "";
 }
 
 function loadPlaceImages() {
@@ -2176,17 +2206,17 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
   const guideSteps = [
     {
       title: "Read the Map",
-      text: "Start with the map. Search countries, pan smoothly, zoom, and center the selected country without fighting the view.",
+      text: "Search or click a country. The map centers it, keeps borders crisp, and lets you zoom or drag smoothly.",
       visual: "map",
     },
     {
       title: "Toggle Layers",
-      text: "Turn flags, transit networks, landmarks, regional boundaries, and base maps on or off. Use Select region layer to jump between countries with detailed regions.",
+      text: "Toggle flags, transit, landmarks, and regional boundaries. Keep only the layers you need.",
       visual: "layers",
     },
     {
       title: "Open a Profile",
-      text: "Profiles show flag, image, airport, transit, and landmark links. Google Maps opens locations; Wikipedia and Transitland explain networks.",
+      text: "Profiles show the country image, flag, airports, transit, landmarks, and exact reference links.",
       visual: "profile",
     },
     {
@@ -2196,7 +2226,7 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
     },
     {
       title: "Play Questions",
-      text: "Choose a short run or the 150-question ladder across 15 levels. Questions reflect transit, geography, images, landmarks, map layers, and harder regional flags.",
+      text: "Answer geography, transit, landmark, image, and regional flag questions across 15 levels.",
       visual: "start",
     },
     {
@@ -2206,7 +2236,7 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
     },
     {
       title: "Daily Lesson",
-      text: "Open Start Here for a daily country lesson with a profile image, five fast facts, transit clues, and one map challenge.",
+      text: "Open Start Here for one daily country or region lesson with a profile image, five facts, and downloads.",
       visual: "lesson",
     },
     {
@@ -2286,25 +2316,16 @@ function GuideVisual({ type }: { type: string }) {
       )}
       {type === "map" && (
         <>
-          <div className="guide-actual-map">
-            <OperationsMap
-              selectedId="hong-kong"
-              onSelect={() => undefined}
-              compact
-              mapStyle="topographic"
-              countryLayer
-              regionalBoundaryLayer
-              operationalOverlay
-              touristAttractionsLayer
-              transitSystemsLayer
-              zoom={5.4}
-              pan={{ x: 0, y: 0 }}
-            />
+          <div className="guide-map-schematic">
+            <span className="guide-map-land land-one" />
+            <span className="guide-map-land land-two" />
+            <span className="guide-map-land land-three" />
+            <span className="guide-map-focus">Gold border</span>
           </div>
           <div className="guide-map-tools">
-            <span>Centered selection</span>
-            <span>Gray borders</span>
-            <span>Gold highlight</span>
+            <span>Centered country</span>
+            <span>Crisp borders</span>
+            <span>Smooth zoom</span>
           </div>
         </>
       )}
@@ -2312,24 +2333,21 @@ function GuideVisual({ type }: { type: string }) {
         <>
           <div className="guide-layer-board">
             <div className="guide-basemaps">
-              <strong>Base maps</strong>
+              <strong>Base map</strong>
               <span>Default</span>
               <span>Aerial</span>
-              <span>Light gray</span>
-              <span>Dark</span>
               <span>Topo</span>
             </div>
             <div className="guide-layer-switches">
-              <span>On: Country layer</span>
-              <span>On: Tourist icons</span>
-              <span>On: Transit networks</span>
-              <span>On: Regional boundaries</span>
+              <span>Flags</span>
+              <span>Transit</span>
+              <span>Landmarks</span>
+              <span>Regions</span>
             </div>
             <div className="guide-zoom-stack">
               <span>+</span>
-              <span>530%</span>
+              <span>Zoom</span>
               <span>-</span>
-              <em>Deselect region</em>
             </div>
           </div>
         </>
@@ -3618,6 +3636,7 @@ function OperationsMap({
         const localSystems = selectedRegion ? transitSystemsForSubdivision(selectedSubdivision, selectedRegion.id) : [];
         const localAirports = selectedRegion ? airportsForSubdivision(selectedSubdivision, selectedRegion.id) : [];
         const regionFlagSrc = regionalFlagImageSrc(selectedSubdivision);
+        const stateImageSrc = selectedRegion?.id === "united-states" ? usStateImagePathForName(subdivisionName(selectedSubdivision)) : "";
         return (
           <aside className="subdivision-popover" aria-live="polite">
             <button type="button" onClick={() => setSelectedSubdivision(null)} aria-label="Close regional details">×</button>
@@ -3631,6 +3650,9 @@ function OperationsMap({
                 <em>{selectedSubdivision.properties?.COUNTRY ?? selectedRegion?.name}</em>
               </div>
             </div>
+            {stateImageSrc ? (
+              <img className="subdivision-place-photo" src={stateImageSrc} alt={`${subdivisionName(selectedSubdivision)} profile view`} loading="lazy" />
+            ) : null}
             <p><b>Capital</b> {note?.capital ?? "Regional capital note not loaded yet"}</p>
             <p><b>Population</b> {population ?? "Population data not loaded yet"}</p>
             {localAirports.length ? <p><b>Airports</b> {localAirports.join(", ")}</p> : null}
@@ -4141,11 +4163,19 @@ function CountryDiagram({ region }: { region: Region }) {
   const landmarks = region.landmarks.slice(0, 5);
   const [activeImage, setActiveImage] = useState(0);
   const activeLandmark = landmarks[activeImage] ?? landmarks[0] ?? region.name;
+  const countryImage = countryImagePathForName(region.name);
   const previousImage = () => setActiveImage((index) => (index + landmarks.length - 1) % landmarks.length);
   const nextImage = () => setActiveImage((index) => (index + 1) % landmarks.length);
 
   return (
     <div className="country-diagram">
+      <figure className="country-profile-photo">
+        <img src={countryImage} alt={`${region.name} profile view`} loading="lazy" />
+        <figcaption>
+          <strong>{region.name}</strong>
+          <span>{region.capital.includes("queued") ? "Capital profile" : region.capital}</span>
+        </figcaption>
+      </figure>
       <div className="country-shape">
         <span className="capital-pin">{region.capital.includes("queued") ? "Capital" : region.capital}</span>
         {cities.slice(1).map((city, index) => (
