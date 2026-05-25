@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-label="Greenland coastal settlement profile image">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#bfe3ff"/>
+      <stop offset="1" stop-color="#eef8ff"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#6bb9d6"/>
+      <stop offset="1" stop-color="#1f7098"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#sky)"/>
+  <path d="M0 470 C180 420 270 470 430 430 C590 390 690 410 820 365 C970 313 1080 315 1200 285 L1200 720 L0 720Z" fill="url(#water)"/>
+  <path d="M0 455 C110 318 188 248 275 196 C354 148 450 156 526 216 C590 266 650 294 742 258 C868 210 948 126 1068 100 C1118 88 1160 91 1200 106 L1200 342 C1120 321 1046 335 966 376 C845 438 739 467 608 424 C522 396 433 390 336 428 C224 472 107 494 0 500Z" fill="#f4fbff"/>
+  <path d="M45 455 C140 355 228 300 318 276 C398 255 467 276 540 338 C610 396 701 395 802 338 C918 272 1025 200 1200 210 L1200 350 C1063 336 962 377 854 426 C716 488 589 486 455 420 C344 366 244 384 138 448 C91 476 48 491 0 500 L0 475Z" fill="#d8ecf7"/>
+  <path d="M0 520 C130 485 255 496 348 525 C468 562 610 548 720 510 C820 475 910 465 1016 486 C1092 501 1148 506 1200 496 L1200 720 L0 720Z" fill="#eef6fb"/>
+  <g transform="translate(575 392)">
+    <path d="M0 54 L44 24 L89 54 L89 124 L0 124Z" fill="#d53232"/>
+    <path d="M110 40 L158 8 L206 40 L206 124 L110 124Z" fill="#2f8bd6"/>
+    <path d="M226 58 L270 30 L314 58 L314 124 L226 124Z" fill="#f3c331"/>
+    <path d="M335 45 L382 14 L429 45 L429 124 L335 124Z" fill="#30a96a"/>
+    <path d="M455 62 L500 34 L545 62 L545 124 L455 124Z" fill="#ffffff"/>
+    <path d="M0 54 L44 24 L89 54 M110 40 L158 8 L206 40 M226 58 L270 30 L314 58 M335 45 L382 14 L429 45 M455 62 L500 34 L545 62" fill="none" stroke="#4d5c67" stroke-width="8" stroke-linejoin="round"/>
+    <g fill="#263b47">
+      <rect x="17" y="73" width="20" height="23" rx="2"/>
+      <rect x="56" y="73" width="20" height="23" rx="2"/>
+      <rect x="130" y="64" width="22" height="24" rx="2"/>
+      <rect x="168" y="64" width="22" height="24" rx="2"/>
+      <rect x="244" y="78" width="20" height="23" rx="2"/>
+      <rect x="354" y="68" width="22" height="24" rx="2"/>
+      <rect x="391" y="68" width="22" height="24" rx="2"/>
+      <rect x="476" y="82" width="22" height="24" rx="2"/>
+    </g>
+  </g>
+  <path d="M520 534 C638 506 780 505 930 526 C1025 540 1110 535 1200 512 L1200 720 L437 720 C448 650 472 585 520 534Z" fill="#ffffff" opacity=".86"/>
+  <circle cx="1000" cy="96" r="42" fill="#fff8c7" opacity=".72"/>
+</svg>

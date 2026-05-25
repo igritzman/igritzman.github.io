@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-label="GEONTRANSIT profile placeholder">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0d3554"/>
+      <stop offset=".52" stop-color="#0f625b"/>
+      <stop offset="1" stop-color="#13212b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#g)"/>
+  <path d="M0 506 C170 442 300 481 438 421 C606 348 726 375 870 312 C1010 251 1111 264 1200 222 L1200 720 L0 720Z" fill="#e8f3ef" opacity=".88"/>
+  <path d="M0 526 C174 487 316 520 464 466 C633 404 762 439 905 382 C1035 330 1132 342 1200 306 L1200 720 L0 720Z" fill="#4f9a87" opacity=".84"/>
+  <path d="M146 228 C260 166 384 156 506 210 C612 257 742 245 853 180 C971 110 1088 106 1200 156 L1200 286 C1066 251 951 282 831 346 C690 421 556 419 418 358 C287 300 154 326 0 410 L0 292 C45 271 94 252 146 228Z" fill="#d8ecf7" opacity=".92"/>
+  <g fill="none" stroke="#ffe2a0" stroke-width="8" opacity=".72">
+    <path d="M180 560 C330 508 438 537 552 486 C682 428 784 448 916 394"/>
+    <path d="M231 602 C396 551 516 570 652 518 C764 475 856 471 1000 436"/>
+  </g>
+  <text x="72" y="112" fill="#ffffff" font-family="Arial, sans-serif" font-size="46" font-weight="800">GEONTRANSIT</text>
+  <text x="72" y="166" fill="#d7e8eb" font-family="Arial, sans-serif" font-size="28">Country profile image coming soon</text>
+</svg>

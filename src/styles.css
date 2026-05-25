@@ -2362,6 +2362,20 @@ h3 {
   opacity: 1;
 }
 
+.dc-subdivision-hotspot {
+  position: absolute;
+  z-index: 8;
+  width: 34px;
+  min-height: 34px;
+  border-color: rgba(255, 198, 84, 0.86);
+  border-radius: 999px;
+  background: rgba(8, 20, 27, 0.92);
+  color: #ffe2a0;
+  font-size: 0.72rem;
+  font-weight: 950;
+  box-shadow: 0 0 0 3px rgba(255, 198, 84, 0.18);
+}
+
 .transit-marker {
   position: absolute;
   display: inline-flex;

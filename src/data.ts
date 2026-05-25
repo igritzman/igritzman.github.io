@@ -2363,6 +2363,7 @@ const capitalOverrides: Record<string, string> = {
   iran: "Tehran",
   iraq: "Baghdad",
   gambia: "Banjul",
+  greenland: "Nuuk",
   grenada: "St. George's",
   guinea: "Conakry",
   "guinea-bissau": "Bissau",
@@ -2562,6 +2563,7 @@ function countryProfile(
 }
 
 Object.assign(generatedProfileOverrides, {
+  greenland: countryProfile("Greenland", "Nuuk", ["Sisimiut", "Ilulissat", "Qaqortoq", "Kangerlussuaq"], ["GOH", "Nuuk Airport", "SFJ", "JAV", "JEG"], ["no national railway", "Air Greenland domestic links", "Arctic coastal supply routes", "harbor freight corridors", "winter trail and helicopter links"], ["Nuup Bussii buses", "local settlement buses", "airport taxis", "harbor shuttles", "inter-settlement air and boat links"], ["Nuuk city roads", "Kangerlussuaq airport road", "Ilulissat local roads", "Qaqortoq harbor roads", "settlement tracks"], ["Port of Nuuk", "Arctic Umiaq Line coastal ferry", "Disko Bay boat routes", "Ilulissat harbor", "North Atlantic shipping"], ["Nuuk colorful houses", "Ilulissat Icefjord", "Greenland National Museum", "Disko Bay", "Kangerlussuaq gateway"], ["Greenland Ice Sheet", "Davis Strait", "Disko Bay", "Arctic Circle", "fjords and coastal mountains"], ["Nuuk harbor", "Ilulissat Icefjord", "Kangerlussuaq airport", "Qaqortoq center", "Sisimiut waterfront"]),
   algeria: countryProfile("Algeria", "Algiers", ["Oran", "Constantine", "Annaba", "Tamanrasset"], ["ALG", "ORN", "CZL", "AAE", "TMR"], ["SNTF rail network", "Algiers-Oran rail corridor", "Algiers suburban rail", "high plateau rail projects", "freight links to ports"], ["Algiers Metro", "Algiers tramway", "Oran tramway", "Constantine tramway", "airport bus/taxi corridors"], ["A1 East-West Highway", "N1 Trans-Sahara Highway", "Algiers ring roads", "N11 coastal road", "Tamanrasset desert corridor"], ["Port of Algiers", "Port of Oran", "Port of Annaba", "Mediterranean shipping", "Skikda energy port"], ["Casbah of Algiers", "Maqam Echahid", "Timgad", "Djémila", "M'Zab Valley"], ["Sahara Desert", "Atlas Mountains", "Mediterranean coast", "Hoggar Mountains", "Chott Melrhir"], ["Algiers central station", "Casbah of Algiers", "Oran waterfront", "Constantine bridges", "Tassili n'Ajjer"]),
   kenya: countryProfile("Kenya", "Nairobi", ["Mombasa", "Kisumu", "Nakuru", "Eldoret"], ["NBO", "MBA", "KIS", "EDL", "WIL"], ["Standard Gauge Railway", "Nairobi-Mombasa SGR", "Nairobi commuter rail", "Madaraka Express", "Rift Valley rail freight"], ["Nairobi matatu corridors", "Nairobi commuter rail", "BRT corridor plans", "airport bus/taxi links", "Mombasa local buses"], ["A104 Northern Corridor", "A2 Thika Road", "Mombasa Road", "Nairobi Expressway", "A109 to Mombasa"], ["Port of Mombasa", "Lamu Port", "Lake Victoria ferries", "Indian Ocean shipping", "Northern Corridor freight"], ["Maasai Mara", "Nairobi National Park", "Fort Jesus", "Mount Kenya", "Lamu Old Town"], ["Great Rift Valley", "Mount Kenya", "Lake Victoria", "Tana River", "Indian Ocean coast"], ["Nairobi SGR Terminus", "Mombasa Old Town", "Maasai Mara", "Kisumu lakefront", "Lamu waterfront"]),
   djibouti: countryProfile("Djibouti", "Djibouti City", ["Ali Sabieh", "Tadjoura", "Dikhil", "Obock"], ["JIB", "Tadjoura Airport", "Obock Airport", "Ali-Sabieh airstrip", "military/cargo airfields"], ["Addis Ababa-Djibouti Railway", "Doraleh rail terminal", "Ethiopia freight corridor", "Djibouti City rail station", "port rail links"], ["Djibouti City buses", "shared taxi corridors", "port worker shuttles", "airport taxis", "intercity minibus routes"], ["RN1 Ethiopia corridor", "RN2 Tadjoura road", "Doraleh port access road", "airport road", "coastal Obock road"], ["Port of Djibouti", "Doraleh Container Terminal", "Gulf of Aden shipping", "Bab el-Mandeb access", "Tadjoura ferry/port links"], ["Lake Assal", "Moucha Island", "Day Forest National Park", "Doraleh port", "Hamoudi Mosque"], ["Lake Assal", "Gulf of Tadjoura", "Bab el-Mandeb", "Grand Bara desert", "Gulf of Aden"], ["Doraleh port district", "Djibouti City waterfront", "Lake Assal viewpoint", "Tadjoura old town", "Moucha Island"]),
@@ -2792,6 +2794,7 @@ const extraCountryLikeRegions = [
   "French Polynesia",
   "Saint Pierre and Miquelon",
   "Hong Kong",
+  "Greenland",
 ] as const;
 
 function slugify(name: string) {
@@ -2808,6 +2811,7 @@ const slugOverrides: Record<string, string> = {
   "Czech Republic": "czech-republic",
   "U.S. Virgin Islands": "us-virgin-islands",
   "Hong Kong": "hong-kong",
+  "Greenland": "greenland",
 };
 
 function generatedPosition(index: number) {
@@ -3004,6 +3008,7 @@ const generatedPositionOverrides: Record<string, { x: number; y: number }> = {
   "saint-helena": { x: 49, y: 72 },
   "french-polynesia": { x: 82, y: 69 },
   "hong-kong": { x: 78.5, y: 52.2 },
+  greenland: { x: 31, y: 18 },
   "saint-vincent-and-the-grenadines": { x: 34, y: 52 },
   andorra: { x: 48, y: 42 },
   monaco: { x: 50, y: 42 },

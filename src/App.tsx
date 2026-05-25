@@ -445,6 +445,7 @@ const capitalCoordinatesByRegionId: Record<string, [number, number]> = {
   sweden: [18.0686, 59.3293],
   finland: [24.9384, 60.1699],
   iceland: [-21.9426, 64.1466],
+  greenland: [-51.7216, 64.1835],
   italy: [12.4964, 41.9028],
   spain: [-3.7038, 40.4168],
   portugal: [-9.1393, 38.7223],
@@ -1049,6 +1050,8 @@ const dailyLessonCountryImageFiles: Record<string, string> = {
 
 const countryImageFiles = countryImageManifest as Record<string, string>;
 const usStateImageFiles = usStateImageManifest as Record<string, string>;
+const MAP_PAN_LIMIT_X = 2600;
+const MAP_PAN_LIMIT_Y = 900;
 const countryImageAliases: Record<string, string> = {
   unitedstates: "usa",
   unitedstatesofamerica: "usa",
@@ -1057,10 +1060,15 @@ const countryImageAliases: Record<string, string> = {
   southkorea: "southkorea",
   northkorea: "northkorea",
   newzealand: "newzeland",
+  azerbaijan: "azerbaian",
+  belarus: "belurus",
+  caboverde: "capeverde",
   coteivoire: "cotedivoire",
+  cotedivoire: "cotedivoire",
   ivorycoast: "cotedivoire",
   democraticrepublicofthecongo: "drc",
   republicofthecongo: "congo",
+  greenland: "greenland",
 };
 
 function imageLookupKey(name: string) {
@@ -1070,13 +1078,13 @@ function imageLookupKey(name: string) {
 function countryImagePathForName(name: string) {
   const key = imageLookupKey(name);
   const alias = countryImageAliases[key] ?? key;
-  const fileName = dailyLessonCountryImageFiles[name] ?? countryImageFiles[key] ?? countryImageFiles[alias] ?? `${name.replace(/\s+/g, "")}.jpg`;
+  const fileName = dailyLessonCountryImageFiles[name] ?? countryImageFiles[key] ?? countryImageFiles[alias] ?? countryImageFiles[slugifyCountryName(name).replace(/-/g, "")] ?? "GeoTransitPlaceholder.svg";
   return `/images/country-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}`;
 }
 
 function usStateImagePathForName(name: string) {
   const key = imageLookupKey(name);
-  const fileName = usStateImageFiles[key];
+  const fileName = usStateImageFiles[key] ?? (key === "districtofcolumbia" ? usStateImageFiles.dc : undefined);
   return fileName ? `/images/us-state-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}` : "";
 }
 
@@ -2818,8 +2826,8 @@ function MapTab({
   const zoomIn = () => onMapZoomChange(Math.min(10, Number((mapZoom + 0.4).toFixed(1))));
   const panMap = (x: number, y: number) => {
     onMapPanChange({
-      x: Math.max(-920, Math.min(920, mapPan.x + x)),
-      y: Math.max(-520, Math.min(520, mapPan.y + y)),
+      x: Math.max(-MAP_PAN_LIMIT_X, Math.min(MAP_PAN_LIMIT_X, mapPan.x + x)),
+      y: Math.max(-MAP_PAN_LIMIT_Y, Math.min(MAP_PAN_LIMIT_Y, mapPan.y + y)),
     });
   };
   const selectRegionAndZoom = (id: string) => {
@@ -3379,6 +3387,10 @@ function OperationsMap({
   const originY = selectedPosition.y;
   const supportsGadmRegions = Boolean(selectedId && gadmLevelOneFiles[selectedId]);
   const showRegionalBoundaries = regionalBoundaryLayer && supportsGadmRegions && zoom >= 4.8;
+  const dcSubdivision = selectedId === "united-states"
+    ? gadmSubdivisions.find((feature) => subdivisionCode(feature) === "US-DC")
+    : undefined;
+  const dcProjected = worldProjection([-77.0369, 38.9072]);
 
   useEffect(() => {
     setSelectedSubdivision(null);
@@ -3430,8 +3442,8 @@ function OperationsMap({
         }
         if (!dragStart || !onPanChange || dragStart.pointerId !== event.pointerId) return;
         const rawX = dragStart.panX + event.clientX - dragStart.x;
-        const nextX = rawX > 920 ? -920 : rawX < -920 ? 920 : rawX;
-        const nextY = Math.max(-520, Math.min(520, dragStart.panY + event.clientY - dragStart.y));
+        const nextX = Math.max(-MAP_PAN_LIMIT_X, Math.min(MAP_PAN_LIMIT_X, rawX));
+        const nextY = Math.max(-MAP_PAN_LIMIT_Y, Math.min(MAP_PAN_LIMIT_Y, dragStart.panY + event.clientY - dragStart.y));
         onPanChange({ x: nextX, y: nextY });
       }}
       onPointerUp={(event) => {
@@ -3565,6 +3577,18 @@ function OperationsMap({
             </span>
           ))}
         </div>
+        {showRegionalBoundaries && dcSubdivision && dcProjected ? (
+          <button
+            type="button"
+            className="dc-subdivision-hotspot"
+            style={{ left: `${dcProjected[0]}%`, top: `${dcProjected[1]}%`, transform: `translate(-50%, -50%) scale(${1 / zoom})` }}
+            onClick={() => setSelectedSubdivision(dcSubdivision)}
+            aria-label="Select Washington, D.C."
+            title="Washington, D.C."
+          >
+            DC
+          </button>
+        ) : null}
         {touristAttractionsLayer && (
           <div className="attraction-marker-layer" aria-label="Tourist attractions layer">
             {projectedTouristAttractions.map((attraction) => (
