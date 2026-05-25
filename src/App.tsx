@@ -1324,17 +1324,39 @@ function airportsForSubdivision(feature: GadmSubdivisionFeature, countryId: stri
 
 function transitSystemsForSubdivision(feature: GadmSubdivisionFeature, countryId: string) {
   const name = subdivisionName(feature).toLowerCase();
+  const normalizedName = slugifyCountryName(subdivisionName(feature));
   const note = subdivisionStudyNote(feature)?.transit?.toLowerCase() ?? "";
+  const aliases = subdivisionTransitAliases[normalizedName] ?? [];
   return transitSystemsRepository.filter((system) => (
     system.countryId === countryId
     && (
       system.region.toLowerCase().includes(name)
       || system.city.toLowerCase().includes(name)
+      || aliases.includes(system.id)
       || note.includes(system.city.toLowerCase())
-      || system.keyNodes.some((node) => note.includes(node.toLowerCase()))
+      || note.includes(system.name.toLowerCase())
     )
   )).slice(0, 5);
 }
+
+const subdivisionTransitAliases: Record<string, string[]> = {
+  georgia: ["marta-atlanta"],
+  utah: ["uta-trax"],
+  ohio: ["cleveland-rta-rapid"],
+  arizona: ["phoenix-valley-metro", "tucson-sun-link"],
+  florida: ["brightline-florida", "jacksonville-skyway", "tampa-teco-line"],
+  washington: ["sound-transit"],
+  hawaii: ["honolulu-skyline"],
+  texas: ["houston-metrorail", "austin-capmetro-rail"],
+  "north-carolina": ["charlotte-lynx"],
+  pennsylvania: ["pittsburgh-light-rail"],
+  michigan: ["detroit-people-mover-qline"],
+  minnesota: ["minneapolis-metro"],
+  "british-columbia": ["vancouver-skytrain"],
+  alberta: ["calgary-ctrain"],
+  quebec: ["montreal-metro"],
+  ontario: ["toronto-ttc"],
+};
 
 function usePlaceImage(region: Region) {
   const [image, setImage] = useState<PlaceImage | null>(null);
@@ -1808,9 +1830,13 @@ function resetProfile() {
   return (
     <main className="app-shell">
       <header className="topbar">
-        <div>
+        <div className="brand-lockup">
+          <div className="geon-logo" aria-hidden="true">
+            <span>G</span>
+            <strong>N</strong>
+          </div>
           <p className="eyebrow">GEONTRANSIT</p>
-          <h1>Transit geography command deck</h1>
+          <h1>Explore the world through transit systems, geography, and interactive maps.</h1>
         </div>
         <div className="status-grid" aria-label="Profile status">
           <Metric label="Operator" value={`${profile.emoji ?? "🚇"} ${profile.name || (profile.isGuest ? "Guest user" : "Create username")}`} />
@@ -2112,16 +2138,16 @@ function StartHereMenu({
             <span>What GEONTRANSIT does and how profiles work</span>
           </button>
           <button type="button" onClick={onGuide} role="menuitem">
-            <strong>How to Use</strong>
-            <span>Map, profiles, layers, CSV, and questions</span>
+            <strong>🗺️ Explore the World</strong>
+            <span>Map, profiles, layers, and clean links</span>
           </button>
           <button type="button" onClick={onLesson} role="menuitem">
             <strong>Daily Lesson</strong>
             <span>Transit topic, map clue, and memory hook</span>
           </button>
           <button type="button" onClick={onSettings} role="menuitem">
-            <strong>Settings</strong>
-            <span>Sound, build mode, profile, friends</span>
+            <strong>▶ Geo Challenges</strong>
+            <span>Settings, sound, profile, and practice options</span>
           </button>
         </div>
       )}
@@ -2927,6 +2953,7 @@ function MapTab({
   const [lastCsvExport, setLastCsvExport] = useState<CsvExport | null>(null);
   const [countrySearch, setCountrySearch] = useState(selectedRegion?.name ?? "");
   const [countrySearchFocused, setCountrySearchFocused] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const selectedExportRegions = exportRegionIds
     .map((id) => regions.find((region) => region.id === id))
     .filter((region): region is Region => Boolean(region));
@@ -2976,7 +3003,7 @@ function MapTab({
     ? selectedExportRegions.map((region) => region.id)
     : selectedRegion ? [selectedRegion.id] : [];
   const countrySearchQuery = countrySearch.trim().toLowerCase();
-  const countryMatches = countrySearchQuery
+  const matchingCountries = countrySearchQuery
     ? sortedRegions
       .filter((region) => region.name.toLowerCase().startsWith(countrySearchQuery) || region.name.toLowerCase().includes(countrySearchQuery))
       .sort((a, b) => {
@@ -2984,8 +3011,24 @@ function MapTab({
         const bStarts = b.name.toLowerCase().startsWith(countrySearchQuery) ? 0 : 1;
         return aStarts - bStarts || a.name.localeCompare(b.name);
       })
-      .slice(0, 8)
+      .slice(0, 5)
     : [];
+  const matchingTransit = countrySearchQuery
+    ? projectedTransitSystems
+      .filter((system) => [system.name, system.city, system.region, system.type].some((value) => value.toLowerCase().includes(countrySearchQuery)))
+      .slice(0, 4)
+    : [];
+  const matchingAttractions = countrySearchQuery
+    ? projectedTouristAttractions
+      .filter((attraction) => [attraction.name, attraction.country, attraction.kind].some((value) => value.toLowerCase().includes(countrySearchQuery)))
+      .slice(0, 4)
+    : [];
+  const matchingCities = countrySearchQuery
+    ? projectedCityLabels
+      .filter((city) => city.name.toLowerCase().includes(countrySearchQuery))
+      .slice(0, 4)
+    : [];
+  const searchResultCount = matchingCountries.length + matchingTransit.length + matchingAttractions.length + matchingCities.length;
   const selectedRegionFileSlug = selectedRegion?.id ?? "country";
 
   useEffect(() => {
@@ -2996,6 +3039,40 @@ function MapTab({
     setCountrySearch(region.name);
     setCountrySearchFocused(false);
     selectRegionAndZoom(region.id);
+  };
+
+  const selectTransitSearchResult = (system: (typeof projectedTransitSystems)[number]) => {
+    const region = regions.find((item) => item.id === system.countryId);
+    setCountrySearch(system.name);
+    setCountrySearchFocused(false);
+    onTransitSystemsLayerChange(true);
+    onTransitSystemSelect(system);
+    if (region) onSelectRegion(region.id);
+    onMapZoomChange(Math.max(mapZoom, 5.4));
+    onMapPanChange({ x: 0, y: 0 });
+  };
+
+  const selectAttractionSearchResult = (attraction: (typeof projectedTouristAttractions)[number]) => {
+    setCountrySearch(attraction.name);
+    setCountrySearchFocused(false);
+    onTouristAttractionsLayerChange(true);
+    onAttractionSelect(attraction);
+    onSelectRegion(attraction.countryId);
+    onMapZoomChange(Math.max(mapZoom, 5.4));
+    onMapPanChange({ x: 0, y: 0 });
+  };
+
+  const selectCitySearchResult = (city: (typeof projectedCityLabels)[number]) => {
+    const region = regions.find((item) => (
+      item.capital.toLowerCase() === city.name.toLowerCase()
+      || item.majorCities.some((place) => place.toLowerCase() === city.name.toLowerCase())
+      || item.placesOfInterest.some((place) => place.toLowerCase().includes(city.name.toLowerCase()))
+    ));
+    setCountrySearch(city.name);
+    setCountrySearchFocused(false);
+    if (region) onSelectRegion(region.id);
+    onMapZoomChange(Math.max(mapZoom, 5.6));
+    onMapPanChange({ x: 0, y: 0 });
   };
 
   const updateCountrySearch = (value: string) => {
@@ -3012,7 +3089,7 @@ function MapTab({
   };
 
   return (
-    <section className="map-layout">
+    <section className={`map-layout ${sidebarCollapsed ? "sidebar-collapsed" : ""}`}>
       <div className="map-column">
         <details className="map-toolbar compact-tool-panel" open>
           <summary>
@@ -3033,21 +3110,21 @@ function MapTab({
               placeholder="Search countries: ca, cam, au..."
               autoComplete="off"
               role="combobox"
-              aria-expanded={countrySearchFocused && countryMatches.length > 0}
+              aria-expanded={countrySearchFocused && searchResultCount > 0}
               aria-controls="country-search-options"
               onFocus={() => setCountrySearchFocused(true)}
               onChange={(event) => updateCountrySearch(event.target.value)}
               onKeyDown={(event) => {
-                if (event.key === "Enter" && countryMatches[0]) {
+                if (event.key === "Enter" && matchingCountries[0]) {
                   event.preventDefault();
-                  selectCountrySearchResult(countryMatches[0]);
+                  selectCountrySearchResult(matchingCountries[0]);
                 }
                 if (event.key === "Escape") setCountrySearchFocused(false);
               }}
             />
-            {countrySearchFocused && countryMatches.length > 0 ? (
+            {countrySearchFocused && searchResultCount > 0 ? (
               <div className="country-search-options" id="country-search-options" role="listbox">
-                {countryMatches.map((region) => (
+                {matchingCountries.map((region) => (
                   <button
                     key={region.id}
                     type="button"
@@ -3058,6 +3135,24 @@ function MapTab({
                   >
                     <FlagAsset code={region.flag} label={`${region.name} flag`} />
                     <span>{region.name}</span>
+                  </button>
+                ))}
+                {matchingTransit.map((system) => (
+                  <button key={system.id} type="button" role="option" onMouseDown={(event) => event.preventDefault()} onClick={() => selectTransitSearchResult(system)}>
+                    <span className="search-result-icon">{transitIcon(system.kind)}</span>
+                    <span>{system.name}<em>{system.city}</em></span>
+                  </button>
+                ))}
+                {matchingAttractions.map((attraction) => (
+                  <button key={attraction.id} type="button" role="option" onMouseDown={(event) => event.preventDefault()} onClick={() => selectAttractionSearchResult(attraction)}>
+                    <span className="search-result-icon">{attractionIcon(attraction.kind)}</span>
+                    <span>{attraction.name}<em>{attraction.country}</em></span>
+                  </button>
+                ))}
+                {matchingCities.map((city) => (
+                  <button key={city.id} type="button" role="option" onMouseDown={(event) => event.preventDefault()} onClick={() => selectCitySearchResult(city)}>
+                    <span className="search-result-icon">◎</span>
+                    <span>{city.name}<em>city</em></span>
                   </button>
                 ))}
               </div>
@@ -3254,23 +3349,33 @@ function MapTab({
           ) : null}
         </details>
       </div>
-      {selectedRegion ? (
-        <RegionPanel
-          region={selectedRegion}
-          selectedAttractionId={selectedAttractionId}
-          onAttractionSelect={(attractionId) => {
-            const attraction = projectedTouristAttractions.find((item) => item.id === attractionId);
-            if (attraction) onAttractionSelect(attraction);
-          }}
-          selectedTransitSystemId={selectedTransitSystemId}
-          onTransitSystemSelect={(systemId) => {
-            const system = projectedTransitSystems.find((item) => item.id === systemId);
-            if (system) onTransitSystemSelect(system);
-          }}
-          onPracticeRegion={onPracticeRegion}
-          onReplay={onReplay}
-        />
-      ) : <EmptyRegionPanel />}
+      <div className="map-sidebar-shell">
+        <button
+          type="button"
+          className="sidebar-collapse-button"
+          onClick={() => setSidebarCollapsed((collapsed) => !collapsed)}
+          aria-expanded={!sidebarCollapsed}
+        >
+          {sidebarCollapsed ? "Open profile" : "×"}
+        </button>
+        {!sidebarCollapsed && (selectedRegion ? (
+          <RegionPanel
+            region={selectedRegion}
+            selectedAttractionId={selectedAttractionId}
+            onAttractionSelect={(attractionId) => {
+              const attraction = projectedTouristAttractions.find((item) => item.id === attractionId);
+              if (attraction) onAttractionSelect(attraction);
+            }}
+            selectedTransitSystemId={selectedTransitSystemId}
+            onTransitSystemSelect={(systemId) => {
+              const system = projectedTransitSystems.find((item) => item.id === systemId);
+              if (system) onTransitSystemSelect(system);
+            }}
+            onPracticeRegion={onPracticeRegion}
+            onReplay={onReplay}
+          />
+        ) : <EmptyRegionPanel />)}
+      </div>
     </section>
   );
 }
@@ -4407,7 +4512,7 @@ function TransitReferenceDocs({ region }: { region: Region }) {
             {reference.kind === "country-brief" && <span className="mini-brief">{flagEmoji(region.flag)}</span>}
           </div>
           <div>
-            <p>{reference.summary}</p>
+            <p>{reference.kind === "country-brief" ? transitBriefSummary(region, curatedSystems.length) : reference.summary}</p>
             <div className="reference-nodes">
               {reference.keyNodes.map((node) => <span key={node}>{node}</span>)}
             </div>
@@ -4436,6 +4541,14 @@ function InfoGroup({ title, items, regionName, badge = false }: { title: string;
       </div>
     </div>
   );
+}
+
+function transitBriefSummary(region: Region, systemCount: number) {
+  const systemText = systemCount ? `${systemCount} mapped transit reference${systemCount === 1 ? "" : "s"}` : "country profile transport references";
+  const airports = region.airports.slice(0, 2).join(", ");
+  const rail = region.rail[0];
+  const urban = region.metro[0];
+  return `${systemText}: ${airports}; ${rail}; ${urban}. Use the chips below to open exact map or reference links.`;
 }
 
 function isReferenceClickable(groupTitle: string, item: string) {

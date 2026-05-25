@@ -121,6 +121,42 @@ input {
   padding: 1rem 0 0.65rem;
 }
 
+.brand-lockup {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.brand-lockup .eyebrow,
+.brand-lockup h1 {
+  grid-column: 2;
+}
+
+.brand-lockup .eyebrow {
+  margin-bottom: -0.1rem;
+}
+
+.geon-logo {
+  grid-row: 1 / span 2;
+  display: grid;
+  width: 54px;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(102, 217, 198, 0.38);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(255, 255, 255, 0.2), transparent 1.1rem),
+    linear-gradient(135deg, rgba(20, 92, 52, 0.9), rgba(13, 40, 86, 0.94));
+  color: #fff;
+  font-weight: 950;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+}
+
+.geon-logo strong {
+  color: #ffc654;
+}
+
 .eyebrow {
   margin: 0 0 0.35rem;
   color: #66d9c6;
@@ -1107,6 +1143,27 @@ h3 {
   align-items: start;
 }
 
+.map-layout.sidebar-collapsed {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.map-sidebar-shell {
+  display: grid;
+  gap: 0.5rem;
+  align-self: start;
+}
+
+.sidebar-collapse-button {
+  justify-self: end;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  border-color: rgba(255, 198, 84, 0.34);
+  background: rgba(8, 20, 27, 0.92);
+  color: #ffe2a0;
+  font-weight: 950;
+}
+
 .map-column {
   display: grid;
   gap: 0.75rem;
@@ -1322,6 +1379,24 @@ h3 {
   border-radius: 6px;
   padding: 0.35rem 0.5rem;
   text-align: left;
+}
+
+.country-search-options em {
+  display: block;
+  color: #8fb2b8;
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 750;
+}
+
+.search-result-icon {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border-radius: 7px;
+  background: rgba(102, 217, 198, 0.12);
+  color: #ffe2a0;
 }
 
 .country-search-options button[aria-selected="true"] {
