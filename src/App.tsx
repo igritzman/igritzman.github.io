@@ -1140,7 +1140,7 @@ const dailyLessonCountryImageFiles: Record<string, string> = {
 
 const countryImageFiles = countryImageManifest as Record<string, string>;
 const usStateImageFiles = usStateImageManifest as Record<string, string>;
-const MAP_PAN_LIMIT_X = 5400;
+const MAP_PAN_LIMIT_X = 12000;
 const MAP_PAN_LIMIT_Y = 900;
 const countryImageAliases: Record<string, string> = {
   unitedstates: "usa",
@@ -1166,10 +1166,14 @@ function imageLookupKey(name: string) {
 }
 
 function countryImagePathForName(name: string) {
+  const fileName = countryImageFileNameForName(name) ?? "GeoTransitPlaceholder.svg";
+  return `/images/country-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}`;
+}
+
+function countryImageFileNameForName(name: string) {
   const key = imageLookupKey(name);
   const alias = countryImageAliases[key] ?? key;
-  const fileName = dailyLessonCountryImageFiles[name] ?? countryImageFiles[key] ?? countryImageFiles[alias] ?? countryImageFiles[slugifyCountryName(name).replace(/-/g, "")] ?? "GeoTransitPlaceholder.svg";
-  return `/images/country-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}`;
+  return dailyLessonCountryImageFiles[name] ?? countryImageFiles[key] ?? countryImageFiles[alias] ?? countryImageFiles[slugifyCountryName(name).replace(/-/g, "")];
 }
 
 function usStateImagePathForName(name: string) {
@@ -3586,7 +3590,7 @@ function OperationsMap({
           transformOrigin: "50% 50%",
         }}
       >
-        {[-100, 100].map((offset) => (
+        {[-200, -100, 100, 200].map((offset) => (
           <svg
             key={`world-repeat-${offset}`}
             className="world-repeat-copy"
@@ -4116,6 +4120,22 @@ function RegionPanel({
   const regionAttractions = attractionsForRegion(region.id);
   const regionTransitSystems = transitSystemsForRegion(region.id);
   const placeImage = usePlaceImage(region);
+  const countryImageFileName = countryImageFileNameForName(region.name);
+  const countryImage = countryImageFileName
+    ? {
+        name: region.name,
+        type: "country",
+        region: region.name,
+        imagePath: countryImagePathForName(region.name),
+        attribution: {
+          title: `${region.name} profile image`,
+          author: "GeoTransit image library",
+          license: "Local app asset",
+          sourceUrl: "#",
+        },
+      } satisfies PlaceImage
+    : null;
+  const profileImage = placeImage ?? countryImage;
   const practiceTopicOptions = practiceTopicOptionsForRegion(region, regionTransitSystems.length, regionAttractions.length);
   const [practiceTopics, setPracticeTopics] = useState<PracticeTopic[]>(practiceTopicOptions.map((topic) => topic.id));
   useEffect(() => {
@@ -4142,8 +4162,7 @@ function RegionPanel({
       <div className="fact-box compact-facts">
         <p><strong>Population:</strong> {region.population}</p>
       </div>
-      {placeImage && <PlaceImageCard image={placeImage} />}
-      <CountryDiagram region={region} />
+      {profileImage && <PlaceImageCard image={profileImage} />}
       <InfoGroup title="Major Cities" items={region.majorCities} regionName={region.name} />
       <InfoGroup title="Airports" items={region.airports} regionName={region.name} badge />
       <InfoGroup title="Rail" items={region.rail} regionName={region.name} />
