@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Montserrat green volcanic coast">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#dff6ff"/>
+      <stop offset=".58" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#9bd9ea"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0b83a4"/>
+      <stop offset="1" stop-color="#024c6d"/>
+    </linearGradient>
+    <linearGradient id="ridge" x1="0" x2="1">
+      <stop offset="0" stop-color="#23472d"/>
+      <stop offset=".5" stop-color="#6fad49"/>
+      <stop offset="1" stop-color="#14311f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <path d="M0 510c150-20 260-7 410 2 220 12 440-28 790 0v288H0z" fill="url(#sea)"/>
+  <path d="M0 455c95-22 135-86 214-92 68-6 105 25 178 0 83-28 112-128 195-148 112-27 179 93 282 104 72 8 131-33 209-7 65 22 88 75 122 116v137H0z" fill="url(#ridge)"/>
+  <path d="M420 352c82-18 140-124 226-108 84 16 126 118 226 111 53-3 101-31 168-16 64 15 105 62 160 103v99H315z" fill="#4e8c3b" opacity=".78"/>
+  <path d="M0 565c128-50 253-54 396-35 111 14 193 54 330 39 151-16 263-78 474-54v87c-229-16-343 40-512 58-165 17-268-33-412-49-105-11-187 1-276 34z" fill="#745f45" opacity=".74"/>
+  <path d="M0 625c170-46 327-40 492-8 162 32 316 48 476 0 87-26 151-32 232-18v201H0z" fill="#0c6e8d"/>
+  <g opacity=".72" fill="#fff">
+    <ellipse cx="180" cy="190" rx="150" ry="44"/>
+    <ellipse cx="785" cy="138" rx="185" ry="54"/>
+    <ellipse cx="640" cy="226" rx="250" ry="72"/>
+  </g>
+  <path d="M20 640c180-32 342-18 515 16s323 38 525-23" fill="none" stroke="#bdefff" stroke-width="12" opacity=".55"/>
+</svg>

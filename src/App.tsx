@@ -186,6 +186,96 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "FR.AR": { capital: "Lyon", transit: "Lyon Metro, trams, TGV and TER regional rail" },
   "GB.GL": { capital: "London", transit: "London Underground, Elizabeth line, Overground, DLR" },
   "GB.NY": { capital: "Northallerton", transit: "York rail hub, TransPennine, Northern, East Coast Main Line access" },
+  "US-AK": { capital: "Juneau", population: "about 730,000", transit: "Alaska Railroad, Anchorage People Mover, ferry and air links" },
+  "US-AR": { capital: "Little Rock", population: "about 3.1 million", transit: "Rock Region METRO, River Rail streetcar, intercity bus corridors" },
+  "US-CT": { capital: "Hartford", population: "about 3.6 million", transit: "CTrail, Metro-North, CTtransit, Bradley airport links" },
+  "US-DE": { capital: "Dover", population: "about 1 million", transit: "DART First State, Wilmington rail, SEPTA regional links" },
+  "US-HI": { capital: "Honolulu", population: "about 1.4 million", transit: "Skyline rail, TheBus, inter-island air links" },
+  "US-ID": { capital: "Boise", population: "about 2 million", transit: "Valley Regional Transit, Boise airport links" },
+  "US-IN": { capital: "Indianapolis", population: "about 6.9 million", transit: "IndyGo Red Line, South Shore Line, Amtrak corridor service" },
+  "US-KS": { capital: "Topeka", population: "about 2.9 million", transit: "KC Streetcar regional edge, Topeka Metro, Wichita Transit" },
+  "US-KY": { capital: "Frankfort", population: "about 4.5 million", transit: "TARC Louisville, Lextran, Cincinnati/Northern Kentucky airport links" },
+  "US-LA": { capital: "Baton Rouge", population: "about 4.6 million", transit: "New Orleans streetcars, RTA, Baton Rouge CATS" },
+  "US-ME": { capital: "Augusta", population: "about 1.4 million", transit: "Downeaster rail, METRO Portland, ferry links" },
+  "US-MD": { capital: "Annapolis", population: "about 6.2 million", transit: "MARC, Baltimore Metro SubwayLink, Light RailLink, WMATA links" },
+  "US-MN": { capital: "Saint Paul", population: "about 5.8 million", transit: "Metro Transit light rail, Northstar, MSP airport rail" },
+  "US-MS": { capital: "Jackson", population: "about 2.9 million", transit: "JTRAN, Coast Transit, intercity rail and bus corridors" },
+  "US-MT": { capital: "Helena", population: "about 1.1 million", transit: "Mountain Line Missoula, Streamline Bozeman, regional air links" },
+  "US-NE": { capital: "Lincoln", population: "about 2 million", transit: "Omaha Metro, StarTran Lincoln, Amtrak California Zephyr" },
+  "US-NV": { capital: "Carson City", population: "about 3.2 million", transit: "RTC Southern Nevada, Las Vegas Monorail, Reno RTC" },
+  "US-NH": { capital: "Concord", population: "about 1.4 million", transit: "Manchester Transit, Concord Coach, Downeaster access nearby" },
+  "US-NJ": { capital: "Trenton", population: "about 9.3 million", transit: "NJ Transit rail, PATH, Hudson-Bergen Light Rail, Newark AirTrain" },
+  "US-NM": { capital: "Santa Fe", population: "about 2.1 million", transit: "New Mexico Rail Runner, ABQ Ride, Santa Fe Trails" },
+  "US-ND": { capital: "Bismarck", population: "about 780,000", transit: "Bis-Man Transit, Fargo MATBUS, Amtrak Empire Builder" },
+  "US-OH": { capital: "Columbus", population: "about 11.8 million", transit: "COTA, RTA Cleveland rail, Cincinnati streetcar" },
+  "US-OK": { capital: "Oklahoma City", population: "about 4 million", transit: "OKC Streetcar, EMBARK, Tulsa Transit" },
+  "US-OR": { capital: "Salem", population: "about 4.2 million", transit: "TriMet MAX, Portland Streetcar, WES, Amtrak Cascades" },
+  "US-RI": { capital: "Providence", population: "about 1.1 million", transit: "RIPTA, Providence rail, MBTA commuter rail links" },
+  "US-SC": { capital: "Columbia", population: "about 5.4 million", transit: "The COMET, CARTA Charleston, regional airport links" },
+  "US-SD": { capital: "Pierre", population: "about 920,000", transit: "Sioux Area Metro, River Cities Transit, regional air links" },
+  "US-TN": { capital: "Nashville", population: "about 7.2 million", transit: "WeGo Nashville, Memphis MATA, Music City Star" },
+  "US-UT": { capital: "Salt Lake City", population: "about 3.5 million", transit: "UTA TRAX, FrontRunner, Salt Lake airport rail" },
+  "US-VT": { capital: "Montpelier", population: "about 650,000", transit: "Green Mountain Transit, Amtrak Vermonter and Ethan Allen Express" },
+  "US-VA": { capital: "Richmond", population: "about 8.8 million", transit: "WMATA Virginia stations, GRTC Pulse, VRE, Amtrak corridors" },
+  "US-WV": { capital: "Charleston", population: "about 1.8 million", transit: "Kanawha Valley bus, MARC edge service, Amtrak Cardinal" },
+  "US-WI": { capital: "Madison", population: "about 5.9 million", transit: "Milwaukee Hop, Madison Metro, Amtrak Hiawatha" },
+  "US-WY": { capital: "Cheyenne", population: "about 590,000", transit: "Cheyenne Transit, START Bus Jackson, regional air links" },
+  "CA-AB": { capital: "Edmonton", population: "about 5 million", transit: "Edmonton LRT, Calgary CTrain, airport bus links" },
+  "CA-MB": { capital: "Winnipeg", population: "about 1.5 million", transit: "Winnipeg Transit, Union Station rail, airport links" },
+  "CA-NB": { capital: "Fredericton", population: "about 870,000", transit: "Fredericton Transit, Saint John Transit, VIA Rail access nearby" },
+  "CA-NL": { capital: "St. John's", population: "about 550,000", transit: "Metrobus St. John's, Marine Atlantic ferry and air links" },
+  "CA-NS": { capital: "Halifax", population: "about 1.1 million", transit: "Halifax Transit buses and ferries, VIA Rail Ocean" },
+  "CA-NT": { capital: "Yellowknife", population: "about 45,000", transit: "Yellowknife Transit and northern air links" },
+  "CA-NU": { capital: "Iqaluit", population: "about 40,000", transit: "Air and sealift links; no intercity road or rail network" },
+  "CA-PE": { capital: "Charlottetown", population: "about 180,000", transit: "T3 Transit, ferry and Confederation Bridge road links" },
+  "CA-SK": { capital: "Regina", population: "about 1.3 million", transit: "Regina Transit, Saskatoon Transit, intercity highway and air links" },
+  "CA-YT": { capital: "Whitehorse", population: "about 48,000", transit: "Whitehorse Transit and northern air links" },
+  abruzzo: { capital: "L'Aquila", transit: "Regional rail and Adriatic corridor links through Pescara" },
+  "aosta-valley": { capital: "Aosta", transit: "Aosta Valley rail and Alpine bus links" },
+  apulia: { capital: "Bari", transit: "Bari Metro, regional rail, Adriatic port and airport links" },
+  basilicata: { capital: "Potenza", transit: "Regional rail and bus links through Potenza and Matera" },
+  calabria: { capital: "Catanzaro", transit: "Ferrovie della Calabria, regional rail, Lamezia Terme airport links" },
+  campania: { capital: "Naples", transit: "Naples Metro, Circumvesuviana, high-speed rail, ferry links" },
+  "emilia-romagna": { capital: "Bologna", transit: "Bologna Centrale, high-speed rail, regional rail and airport links" },
+  "friuli-venezia-giulia": { capital: "Trieste", transit: "Trieste rail, regional trains, port and airport links" },
+  lazio: { capital: "Rome", transit: "Rome Metro, Lazio regional rail, Roma Termini, Fiumicino rail" },
+  liguria: { capital: "Genoa", transit: "Genoa Metro, Ligurian coastal rail, port and airport links" },
+  lombardy: { capital: "Milan", transit: "Milan Metro, Trenord, tram network, Malpensa rail" },
+  marche: { capital: "Ancona", transit: "Adriatic rail corridor, port, regional bus links" },
+  molise: { capital: "Campobasso", transit: "Regional rail and bus links through Campobasso and Termoli" },
+  piedmont: { capital: "Turin", transit: "Turin Metro, regional rail, high-speed rail to Milan/France" },
+  sardinia: { capital: "Cagliari", transit: "Cagliari light rail, regional rail, ferry and airport links" },
+  sicily: { capital: "Palermo", transit: "Palermo rail, Catania Metro, ferry and airport links" },
+  "trentino-alto-adige": { capital: "Trento", transit: "Brenner rail corridor, regional rail and Alpine bus links" },
+  tuscany: { capital: "Florence", transit: "Florence tramway, high-speed rail, regional rail to Pisa and Siena" },
+  umbria: { capital: "Perugia", transit: "Minimetro Perugia, regional rail and bus links" },
+  veneto: { capital: "Venice", transit: "Venice Santa Lucia, ACTV waterbus, regional rail and airport links" },
+  "ilocos-region": { capital: "San Fernando", transit: "Regional bus corridors and Laoag/San Fernando air-road links" },
+  "cagayan-valley": { capital: "Tuguegarao", transit: "Regional bus links and Tuguegarao airport access" },
+  "central-luzon": { capital: "San Fernando", transit: "North-South Commuter Railway corridor, Clark airport links" },
+  calabarzon: { capital: "Calamba", transit: "PNR South corridor, expressway bus links, Manila commuter edge" },
+  mimaropa: { capital: "Calapan", transit: "Ferry links, regional buses, Puerto Princesa airport access" },
+  "bicol-region": { capital: "Legazpi", transit: "PNR Bicol corridor, Legazpi/Daraga airport links" },
+  "western-visayas": { capital: "Iloilo City", transit: "Iloilo transport hub, ferry links, regional airports" },
+  "central-visayas": { capital: "Cebu City", transit: "Cebu BRT corridor, ferries, Mactan-Cebu airport" },
+  "eastern-visayas": { capital: "Tacloban", transit: "Tacloban airport, ferry and highway links" },
+  "zamboanga-peninsula": { capital: "Pagadian", transit: "Regional bus, ferry, Zamboanga and Pagadian airport links" },
+  "northern-mindanao": { capital: "Cagayan de Oro", transit: "Laguindingan airport, port and regional bus links" },
+  "davao-region": { capital: "Davao City", transit: "Davao bus corridors, port and airport links" },
+  soccsksargen: { capital: "Koronadal", transit: "General Santos airport, regional bus and highway links" },
+  caraga: { capital: "Butuan", transit: "Butuan airport, regional bus and ferry links" },
+  barmm: { capital: "Cotabato City", transit: "Cotabato airport, ferry and regional road links" },
+  "cordillera-administrative-region": { capital: "Baguio", transit: "Mountain bus corridors and Baguio gateway links" },
+  "national-capital-region": { capital: "Manila", transit: "LRT, MRT, PNR, NAIA and commuter bus links" },
+  "eastern-cape": { capital: "Bhisho", transit: "East London and Gqeberha airports, Metrorail Eastern Cape corridors" },
+  "free-state": { capital: "Bloemfontein", transit: "Bloemfontein rail, airport and national highway links" },
+  gauteng: { capital: "Johannesburg", transit: "Gautrain, Metrorail Gauteng, Rea Vaya, airport rail links" },
+  "kwazulu-natal": { capital: "Pietermaritzburg", transit: "Durban commuter rail, People Mover, King Shaka airport links" },
+  limpopo: { capital: "Polokwane", transit: "Polokwane bus, rail freight corridors, regional air links" },
+  mpumalanga: { capital: "Mbombela", transit: "Mbombela bus links, rail corridors, Kruger Mpumalanga airport" },
+  "northern-cape": { capital: "Kimberley", transit: "Kimberley rail and airport links, long-distance bus routes" },
+  "north-west": { capital: "Mahikeng", transit: "Mahikeng road and regional rail links" },
+  "western-cape": { capital: "Cape Town", transit: "Metrorail Western Cape, MyCiTi, port and airport links" },
 };
 
 const regionalPopulationByCode: Record<string, string> = {
@@ -1050,7 +1140,7 @@ const dailyLessonCountryImageFiles: Record<string, string> = {
 
 const countryImageFiles = countryImageManifest as Record<string, string>;
 const usStateImageFiles = usStateImageManifest as Record<string, string>;
-const MAP_PAN_LIMIT_X = 2600;
+const MAP_PAN_LIMIT_X = 5400;
 const MAP_PAN_LIMIT_Y = 900;
 const countryImageAliases: Record<string, string> = {
   unitedstates: "usa",
@@ -1171,7 +1261,16 @@ function subdivisionCode(feature: GadmSubdivisionFeature) {
 
 function subdivisionStudyNote(feature: GadmSubdivisionFeature) {
   const key = subdivisionCode(feature);
-  return subdivisionStudyNotes[key] ?? (feature.properties?.HASC_1 ? subdivisionStudyNotes[feature.properties.HASC_1] : undefined);
+  const label = subdivisionName(feature);
+  const normalizedLabel = slugifyCountryName(label);
+  const gadmName = feature.properties?.NAME_1;
+  const normalizedGadmName = gadmName ? slugifyCountryName(gadmName) : "";
+  return subdivisionStudyNotes[key]
+    ?? (feature.properties?.HASC_1 ? subdivisionStudyNotes[feature.properties.HASC_1] : undefined)
+    ?? subdivisionStudyNotes[label]
+    ?? subdivisionStudyNotes[normalizedLabel]
+    ?? (gadmName ? subdivisionStudyNotes[gadmName] : undefined)
+    ?? (normalizedGadmName ? subdivisionStudyNotes[normalizedGadmName] : undefined);
 }
 
 function subdivisionPopulation(feature: GadmSubdivisionFeature) {
@@ -2214,7 +2313,7 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
   const guideSteps = [
     {
       title: "Read the Map",
-      text: "Search or click a country. The map centers it, keeps borders crisp, and lets you zoom or drag smoothly.",
+      text: "Search or click a country. The map centers it, keeps borders crisp, and lets you zoom, drag, and cross the dateline smoothly.",
       visual: "map",
     },
     {
@@ -2229,12 +2328,12 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
     },
     {
       title: "Use the Links",
-      text: "The profile sidebar uses Google Maps for places, Wikipedia for context, and Transitland for network maps. Transit documents and map images appear inside the relevant country profile.",
+      text: "Example: Hong Kong links open HKG Airport in Google Maps, MTR and Airport Express references, Star Ferry context, and Transitland network maps.",
       visual: "sidebar",
     },
     {
       title: "Play Questions",
-      text: "Answer geography, transit, landmark, image, and regional flag questions across 15 levels.",
+      text: "Answer station, image, landmark, airport, capital, and regional-flag prompts across 15 levels.",
       visual: "start",
     },
     {
@@ -2316,19 +2415,29 @@ function GuideVisual({ type }: { type: string }) {
           <div className="guide-run-screen">
             <strong>Play: Start Run</strong>
             <span>15 levels</span>
-            <span>Transit</span>
-            <span>Geography</span>
+            <span>Stations</span>
+            <span>Images</span>
+            <span>Landmarks</span>
             <em>Image prompts appear lightly</em>
           </div>
         </>
       )}
       {type === "map" && (
         <>
-          <div className="guide-map-schematic">
-            <span className="guide-map-land land-one" />
-            <span className="guide-map-land land-two" />
-            <span className="guide-map-land land-three" />
-            <span className="guide-map-focus">Gold border</span>
+          <div className="guide-actual-map">
+            <OperationsMap
+              selectedId="hong-kong"
+              onSelect={() => undefined}
+              compact
+              mapStyle="default"
+              countryLayer
+              regionalBoundaryLayer={false}
+              operationalOverlay={false}
+              touristAttractionsLayer={false}
+              transitSystemsLayer={false}
+              zoom={1.35}
+              pan={{ x: 0, y: 0 }}
+            />
           </div>
           <div className="guide-map-tools">
             <span>Centered country</span>
@@ -2402,7 +2511,7 @@ function GuideVisual({ type }: { type: string }) {
         <div className="guide-question-demo">
           <div className="guide-question-card">
             <span>Question 4/10</span>
-            <strong>Which place is shown in this transit or landmark image?</strong>
+            <strong>Which place, station, or landmark is shown?</strong>
             <div className="guide-photo-prompt">
               <span />
             </div>
@@ -2433,14 +2542,14 @@ function GuideVisual({ type }: { type: string }) {
           <div className="guide-mini-sidebar">
             <strong>Hong Kong</strong>
             <span><FlagAsset code="HK" label="Hong Kong flag" /> Flag profile</span>
-            <span>Google Maps</span>
-            <span>Wikipedia</span>
-            <span>Transit network</span>
+            <span>HKG Airport → Google Maps</span>
+            <span>MTR / Airport Express → Transitland</span>
+            <span>Star Ferry → Wikipedia</span>
           </div>
           <div className="guide-link-detail">
             <span>Click an icon, country, or flag</span>
             <strong>Open the exact reference</strong>
-            <p>Open transport sites, historic places, airport pages, and Transitland feeds from the sidebar.</p>
+            <p>Profiles keep airport, transit, ferry, landmark, and map references together.</p>
           </div>
         </div>
       )}
@@ -3477,6 +3586,31 @@ function OperationsMap({
           transformOrigin: "50% 50%",
         }}
       >
+        {[-100, 100].map((offset) => (
+          <svg
+            key={`world-repeat-${offset}`}
+            className="world-repeat-copy"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            style={{ transform: `translateX(${offset}%)` }}
+          >
+            <g className="country-boundaries">
+              {worldFeatures.map((country, index) => {
+                const regionId = regionIdForCountryName(country.properties.name);
+                const pathData = worldPath(country);
+                if (!pathData) return null;
+                return (
+                  <path
+                    key={`${country.properties.name}-${index}-${offset}`}
+                    className={`territory-cell territory-${index % 17} ${regionId ? `region-${regionId}` : ""} ${regionId === selectedId ? "selected" : ""}`}
+                    d={pathData}
+                  />
+                );
+              })}
+            </g>
+          </svg>
+        ))}
         <svg viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Interactive operations world map">
           <g className="country-boundaries" aria-label="Country boundary layer">
             {worldFeatures.map((country, index) => {
@@ -3660,7 +3794,9 @@ function OperationsMap({
         const localSystems = selectedRegion ? transitSystemsForSubdivision(selectedSubdivision, selectedRegion.id) : [];
         const localAirports = selectedRegion ? airportsForSubdivision(selectedSubdivision, selectedRegion.id) : [];
         const regionFlagSrc = regionalFlagImageSrc(selectedSubdivision);
-        const stateImageSrc = selectedRegion?.id === "united-states" ? usStateImagePathForName(subdivisionName(selectedSubdivision)) : "";
+        const stateImageSrc = selectedRegion?.id === "united-states" || selectedRegion?.id === "canada"
+          ? usStateImagePathForName(subdivisionName(selectedSubdivision))
+          : "";
         return (
           <aside className="subdivision-popover" aria-live="polite">
             <button type="button" onClick={() => setSelectedSubdivision(null)} aria-label="Close regional details">×</button>

@@ -1840,6 +1840,11 @@ h3 {
   image-rendering: auto;
 }
 
+.map-stage .world-repeat-copy {
+  pointer-events: none;
+  opacity: 0.98;
+}
+
 .map-content {
   position: absolute;
   inset: 0;
