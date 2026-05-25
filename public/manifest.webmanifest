@@ -1,0 +1,10 @@
+{
+  "name": "GEONTRANSIT",
+  "short_name": "GEONTRANSIT",
+  "description": "A transit-first geography quiz and interactive world map.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#081016",
+  "theme_color": "#081016",
+  "orientation": "any"
+}

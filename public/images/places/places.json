@@ -1,0 +1,1046 @@
+[
+  {
+    "name": "India",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "/images/places/india.jpg",
+    "attribution": {
+      "title": "Taj Mahal, Agra, India edit3",
+      "author": "Yann, King of Hearts, Jbarta",
+      "license": "CC BY-SA 3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Taj_Mahal,_Agra,_India_edit3.jpg"
+    }
+  },
+  {
+    "name": "Costa Rica",
+    "type": "country",
+    "region": "Central America",
+    "imagePath": "/images/places/costa-rica.jpg",
+    "attribution": {
+      "title": "Mirador Valle de Orosi, Cartago, Costa Rica - panoramio",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mirador_Valle_de_Orosi,_Cartago,_Costa_Rica_-_panoramio.jpg"
+    }
+  },
+  {
+    "name": "Slovenia",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "/images/places/slovenia.jpg",
+    "attribution": {
+      "title": "Church of the Assumption, Slovenia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Church_of_the_Assumption,_Slovenia.jpg"
+    }
+  },
+  {
+    "name": "Ghana",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Nzulezu_front.jpg/1280px-Nzulezu_front.jpg",
+    "attribution": {
+      "title": "Nzulezu front",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nzulezu_front.jpg"
+    }
+  },
+  {
+    "name": "Guatemala",
+    "type": "country",
+    "region": "Central America",
+    "imagePath": "/images/places/guatemala.jpg",
+    "attribution": {
+      "title": "Lago de Atitlan en Guatemala",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lago_de_Atitl%C3%A1n_en_Guatemala.jpg"
+    }
+  },
+  {
+    "name": "Taiwan",
+    "type": "territory",
+    "region": "Asia",
+    "imagePath": "/images/places/taiwan.jpg",
+    "attribution": {
+      "title": "Taipei skyline",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Taipei_skyline.jpg"
+    }
+  },
+  {
+    "name": "United States",
+    "type": "country",
+    "region": "North America",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Golden_Gate_Bridge_Yang_Ming_Line.jpg/1280px-Golden_Gate_Bridge_Yang_Ming_Line.jpg",
+    "attribution": {
+      "title": "Golden Gate Bridge Yang Ming Line",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Golden_Gate_Bridge_Yang_Ming_Line.jpg"
+    }
+  },
+  {
+    "name": "Canada",
+    "type": "country",
+    "region": "North America",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Lake_Louise_Canada.JPG/1280px-Lake_Louise_Canada.JPG",
+    "attribution": {
+      "title": "Lake Louise Canada",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lake_Louise_Canada.JPG"
+    }
+  },
+  {
+    "name": "Peru",
+    "type": "country",
+    "region": "South America",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Machu_Picchu%2C_Peru.jpg/1280px-Machu_Picchu%2C_Peru.jpg",
+    "attribution": {
+      "title": "Machu Picchu, Peru",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Machu_Picchu,_Peru.jpg"
+    }
+  },
+  {
+    "name": "Chile",
+    "type": "country",
+    "region": "South America",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Torres_del_Paine_National_Park.jpg/1280px-Torres_del_Paine_National_Park.jpg",
+    "attribution": {
+      "title": "Torres del Paine National Park",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Torres_del_Paine_National_Park.jpg"
+    }
+  },
+  {
+    "name": "Israel",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/AlAqsaFromKotel.JPG?width=1280",
+    "attribution": {
+      "title": "Western Wall Plaza Jerusalem",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Western_Wall_Plaza_Jerusalem.jpg"
+    }
+  },
+  {
+    "name": "Uzbekistan",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Kalta_Minor%2C_Khiva%2C_Uzbekistan.jpg?width=1280",
+    "attribution": {
+      "title": "Kalta Minor minaret, Khiva",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kalta_Minor_minaret,_Khiva.jpg"
+    }
+  },
+  {
+    "name": "United Kingdom",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/London_Skyline_%28125508655%29.jpeg/1280px-London_Skyline_%28125508655%29.jpeg",
+    "attribution": {
+      "title": "London Skyline",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:London_Skyline_(125508655).jpeg"
+    }
+  },
+  {
+    "name": "Spain",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Sagrada_Familia_01.jpg/1280px-Sagrada_Familia_01.jpg",
+    "attribution": {
+      "title": "Sagrada Familia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sagrada_Familia_01.jpg"
+    }
+  },
+  {
+    "name": "Thailand",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Wat_Phra_That_Doi_Suthep_Chiang_Mai.jpg/1280px-Wat_Phra_That_Doi_Suthep_Chiang_Mai.jpg",
+    "attribution": {
+      "title": "Wat Phra That Doi Suthep Chiang Mai",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Wat_Phra_That_Doi_Suthep_Chiang_Mai.jpg"
+    }
+  },
+  {
+    "name": "France",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Tour_Eiffel_Wikimedia_Commons.jpg/1280px-Tour_Eiffel_Wikimedia_Commons.jpg",
+    "attribution": {
+      "title": "Tour Eiffel",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tour_Eiffel_Wikimedia_Commons.jpg"
+    }
+  },
+  {
+    "name": "Australia",
+    "type": "country",
+    "region": "Oceania",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Sydney_Opera_House_Sails.jpg/1280px-Sydney_Opera_House_Sails.jpg",
+    "attribution": {
+      "title": "Sydney Opera House Sails",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sydney_Opera_House_Sails.jpg"
+    }
+  },
+  {
+    "name": "Greece",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Oia%2C_Santorini_HDR_sunset.jpg/1280px-Oia%2C_Santorini_HDR_sunset.jpg",
+    "attribution": {
+      "title": "Oia, Santorini HDR sunset",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Oia,_Santorini_HDR_sunset.jpg"
+    }
+  },
+  {
+    "name": "Philippines",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/El_Nido_Bay_December_2018.jpg?width=1280",
+    "attribution": {
+      "title": "El Nido Palawan Aerial view",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:El_Nido_Palawan_Aerial_view.jpg"
+    }
+  },
+  {
+    "name": "Netherlands",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/KeizersgrachtReguliersgrachtAmsterdam.jpg/1280px-KeizersgrachtReguliersgrachtAmsterdam.jpg",
+    "attribution": {
+      "title": "Keizersgracht Reguliersgracht Amsterdam",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:KeizersgrachtReguliersgrachtAmsterdam.jpg"
+    }
+  },
+  {
+    "name": "Switzerland",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Matterhorn_from_Domh%C3%BCtte_-_2.jpg/1280px-Matterhorn_from_Domh%C3%BCtte_-_2.jpg",
+    "attribution": {
+      "title": "Matterhorn from Domhutte",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Matterhorn_from_Domh%C3%BCtte_-_2.jpg"
+    }
+  },
+  {
+    "name": "Mauritius",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Le_Morne_Beach_with_Le_Morne_Brabant_Mountain_in_the_background%2C_Mauritius_%2853698223315%29.jpg?width=1280",
+    "attribution": {
+      "title": "Le Morne Brabant, Mauritius",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Le_Morne_Brabant,_Mauritius.jpg"
+    }
+  },
+  {
+    "name": "Japan",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Cherry_blossoms_tokyo.JPG?width=1280",
+    "attribution": {
+      "title": "Cherry blossoms Tokyo",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cherry_blossoms_tokyo.JPG"
+    }
+  },
+  {
+    "name": "Italy",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/1280px-Colosseo_2020.jpg",
+    "attribution": {
+      "title": "Colosseo 2020",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Colosseo_2020.jpg"
+    }
+  },
+  {
+    "name": "Czech Republic",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Charles_Bridge%2C_Prague.jpg/1280px-Charles_Bridge%2C_Prague.jpg",
+    "attribution": {
+      "title": "Charles Bridge, Prague",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Charles_Bridge,_Prague.jpg"
+    }
+  },
+  {
+    "name": "Turkey",
+    "type": "country",
+    "region": "Europe/Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Balloons_over_Cappadocia-2015-05-16-2.jpg?width=1280",
+    "attribution": {
+      "title": "Cappadocia Balloons",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cappadocia_Balloons.jpg"
+    }
+  },
+  {
+    "name": "Jordan",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Treasury_petra_crop.jpeg/1280px-Treasury_petra_crop.jpeg",
+    "attribution": {
+      "title": "Treasury Petra",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Treasury_petra_crop.jpeg"
+    }
+  },
+  {
+    "name": "Saint Lucia",
+    "type": "country",
+    "region": "Caribbean",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Gros_Piton_and_Petit_Piton_in_Saint_Lucia.JPG?width=1280",
+    "attribution": {
+      "title": "Pitons Saint Lucia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pitons_Saint_Lucia.jpg"
+    }
+  },
+  {
+    "name": "New Zealand",
+    "type": "country",
+    "region": "Oceania",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Milford_Sound_%28New_Zealand%29.JPG?width=1280",
+    "attribution": {
+      "title": "Milford Sound",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Milford_Sound_(New_Zealand).jpg"
+    }
+  },
+  {
+    "name": "Maldives",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Beach_at_Medhufushi_Island_Resort_in_the_Maldives2.jpg?width=1280",
+    "attribution": {
+      "title": "Maldives Resort",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Maldives_Resort.jpg"
+    }
+  },
+  {
+    "name": "South Korea",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Gyeongbokgung_Palace%2C_Seoul.jpg?width=1280",
+    "attribution": {
+      "title": "Gyeongbokgung palace",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gyeongbokgung-palace-1881x1254.jpg"
+    }
+  },
+  {
+    "name": "South Africa",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Table_Mountain_Cape_Town.jpg/1280px-Table_Mountain_Cape_Town.jpg",
+    "attribution": {
+      "title": "Table Mountain Cape Town",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Table_Mountain_Cape_Town.jpg"
+    }
+  },
+  {
+    "name": "Argentina",
+    "type": "country",
+    "region": "South America",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Buenos_Aires_Caminito_1.jpg?width=1280",
+    "attribution": {
+      "title": "Buenos Aires Caminito",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Buenos_Aires_Caminito_1.jpg"
+    }
+  },
+  {
+    "name": "Brazil",
+    "type": "country",
+    "region": "South America",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Cristo_Redentor_-_Rio_de_Janeiro%2C_Brasil.jpg/1280px-Cristo_Redentor_-_Rio_de_Janeiro%2C_Brasil.jpg",
+    "attribution": {
+      "title": "Cristo Redentor - Rio de Janeiro",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cristo_Redentor_-_Rio_de_Janeiro,_Brasil.jpg"
+    }
+  },
+  {
+    "name": "United Arab Emirates",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Burj_dubai_3.11.08.jpg?width=1280",
+    "attribution": {
+      "title": "Burj Khalifa",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Burj_Khalifa.jpg"
+    }
+  },
+  {
+    "name": "Indonesia",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Brantan_Bali_Pura-Ulun-Danu-Bratan-01.jpg?width=1280",
+    "attribution": {
+      "title": "Pura Ulun Danu Bratan, Bali",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pura_Ulun_Danu_Bratan,_Bali.jpg"
+    }
+  },
+  {
+    "name": "San Marino",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Fortress_of_Guaita_2013-09-19.jpg?width=1280",
+    "attribution": {
+      "title": "San Marino fortress",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:San_Marino_fortress.jpg"
+    }
+  },
+  {
+    "name": "Tanzania",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/042_Masai_giraffe_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg/1280px-042_Masai_giraffe_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg",
+    "attribution": {
+      "title": "Masai giraffe in Serengeti National Park",
+      "author": "Giles Laurent",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:042_Masai_giraffe_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg"
+    }
+  },
+  {
+    "name": "Portugal",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Caldeira%2C_isla_de_Fayal%2C_Azores%2C_Portugal%2C_2020-07-28%2C_DD_25-30_PAN.jpg?width=1280",
+    "attribution": {
+      "title": "Caldeira, isla de Fayal, Azores, Portugal",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Caldeira,_isla_de_Fayal,_Azores,_Portugal,_2020-07-28,_DD_25-30_PAN.jpg"
+    }
+  },
+  {
+    "name": "Belgium",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Ghent_April_2012-2.jpg?width=1280",
+    "attribution": {
+      "title": "Ghent April 2012",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ghent_April_2012-2.jpg"
+    }
+  },
+  {
+    "name": "Puerto Rico",
+    "type": "territory",
+    "region": "Caribbean",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Juan_Diego_Falls_in_R%C3%ADo_Grande%2C_Puerto_Rico.jpg?width=1280",
+    "attribution": {
+      "title": "Juan Diego Falls in Rio Grande, Puerto Rico",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Juan_Diego_Falls_in_R%C3%ADo_Grande,_Puerto_Rico.jpg"
+    }
+  },
+  {
+    "name": "Latvia",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Vistas_desde_la_iglesia_de_San_Pedro%2C_Riga%2C_Letonia%2C_2012-08-07%2C_DD_12.JPG?width=1280",
+    "attribution": {
+      "title": "View from St. Peter's Church, Riga",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vistas_desde_la_iglesia_de_San_Pedro,_Riga,_Letonia,_2012-08-07,_DD_12.JPG"
+    }
+  },
+  {
+    "name": "Iceland",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Gullfoss%2C_an_iconic_waterfall_of_Iceland.jpg?width=1280",
+    "attribution": {
+      "title": "Gullfoss, Iceland",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gullfoss,_an_iconic_waterfall_of_Iceland.jpg"
+    }
+  },
+  {
+    "name": "Tunisia",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/La_Marsa%2C_Tunisia_-_Street_view_towards_water%2C_January_2024.jpg?width=1280",
+    "attribution": {
+      "title": "La Marsa, Tunisia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:La_Marsa,_Tunisia_-_Street_view_towards_water,_January_2024.jpg"
+    }
+  },
+  {
+    "name": "Finland",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Tuira_Bridges_Oulu_20130715.JPG?width=1280",
+    "attribution": {
+      "title": "Tuira Bridges, Oulu",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tuira_Bridges_Oulu_20130715.JPG"
+    }
+  },
+  {
+    "name": "Albania",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Vajz%C3%AB%2C_Selenic%C3%AB%2C_Albania_2019_07_%E2%80%93_Landscape.jpg/1280px-Vajz%C3%AB%2C_Selenic%C3%AB%2C_Albania_2019_07_%E2%80%93_Landscape.jpg",
+    "attribution": {
+      "title": "Vajze, Selenice, Albania landscape",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vajz%C3%AB,_Selenic%C3%AB,_Albania_2019_07_%E2%80%93_Landscape.jpg"
+    }
+  },
+  {
+    "name": "Timor-Leste",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Timor-Leste_Coastline.jpg?width=1280",
+    "attribution": {
+      "title": "Timor-Leste coastline",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Timor-Leste_Coastline.jpg"
+    }
+  },
+  {
+    "name": "Sweden",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Hotell_i_G%C3%B6teborg_%28Radisson_BLU%29.jpg?width=1280",
+    "attribution": {
+      "title": "Gothenburg hotel view",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hotell_i_G%C3%B6teborg_(Radisson_BLU).jpg"
+    }
+  },
+  {
+    "name": "Croatia",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Plitvice_Lakes_National_Park_%282%29.jpg?width=1280",
+    "attribution": {
+      "title": "Plitvice Lakes National Park",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Plitvice_Lakes_National_Park_(2).jpg"
+    }
+  },
+  {
+    "name": "Turkmenistan",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/By_the_Independence_monument_park_%282%29_%2832291462448%29.jpg/1280px-By_the_Independence_monument_park_%282%29_%2832291462448%29.jpg",
+    "attribution": {
+      "title": "By the Independence Monument park, Ashgabat",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:By_the_Independence_monument_park_(2)_(32291462448).jpg"
+    }
+  },
+  {
+    "name": "Kiribati",
+    "type": "country",
+    "region": "Oceania",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/South_Tarawa_from_the_air.jpg?width=1280",
+    "attribution": {
+      "title": "South Tarawa from the air",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:South_Tarawa_from_the_air.jpg"
+    }
+  },
+  {
+    "name": "Lesotho",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Maletsunyanefalls.JPG?width=1280",
+    "attribution": {
+      "title": "Maletsunyane Falls, Lesotho",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Maletsunyanefalls.JPG"
+    }
+  },
+  {
+    "name": "Ireland",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Cliffs_of_Moher_bei_bestem_Wetter_%282007%29.jpg/1280px-Cliffs_of_Moher_bei_bestem_Wetter_%282007%29.jpg",
+    "attribution": {
+      "title": "Cliffs of Moher",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cliffs_of_Moher_bei_bestem_Wetter_(2007).jpg"
+    }
+  },
+  {
+    "name": "Denmark",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Boats_at_Nyhavn%2C_Copenhagen%2C_20220616_1937_6628.jpg?width=1280",
+    "attribution": {
+      "title": "Boats at Nyhavn, Copenhagen",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Boats_at_Nyhavn,_Copenhagen,_20220616_1937_6628.jpg"
+    }
+  },
+  {
+    "name": "Morocco",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Chefchaouen2007.JPG?width=1280",
+    "attribution": {
+      "title": "Chefchaouen",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chefchaouen2007.JPG"
+    }
+  },
+  {
+    "name": "Mexico",
+    "type": "country",
+    "region": "North America",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Chichen_Itza_3.jpg?width=1280",
+    "attribution": {
+      "title": "Chichen Itza",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chichen_Itza_3.jpg"
+    }
+  },
+  {
+    "name": "Iran",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Azadi_Tower_%2829358497718%29_%28cropped%29.jpg?width=1280",
+    "attribution": {
+      "title": "Azadi Tower",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Azadi_Tower_(29358497718)_(cropped).jpg"
+    }
+  },
+  {
+    "name": "Norway",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Bergen_V%C3%A5gen_Fl%C3%B8yen_Vestland_Norway_%282022.06.25%29.jpg?width=1280",
+    "attribution": {
+      "title": "Bergen Vagen Floyen, Norway",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bergen_V%C3%A5gen_Fl%C3%B8yen_Vestland_Norway_(2022.06.25).jpg"
+    }
+  },
+  {
+    "name": "Tajikistan",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Pamir_Mountains_%281%29.jpg?width=1280",
+    "attribution": {
+      "title": "Pamir Mountains, Tajikistan",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pamir_Mountains_(1).jpg"
+    }
+  },
+  {
+    "name": "Poland",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Pozna%C5%84%2C_Stary_Rynek_%28domki_budnicze_i_ratusz%29.jpg/1280px-Pozna%C5%84%2C_Stary_Rynek_%28domki_budnicze_i_ratusz%29.jpg",
+    "attribution": {
+      "title": "Poznan Old Market Square",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pozna%C5%84,_Stary_Rynek_(domki_budnicze_i_ratusz).jpg"
+    }
+  },
+  {
+    "name": "Austria",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Hallstatt_300.jpg?width=1280",
+    "attribution": {
+      "title": "Hallstatt mountain town",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hallstatt_300.jpg"
+    }
+  },
+  {
+    "name": "Togo",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Lome_Togo.jpg?width=1280",
+    "attribution": {
+      "title": "Lome, Togo",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lome_Togo.jpg"
+    }
+  },
+  {
+    "name": "Afghanistan",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Kabul_Afghanistan%2C_place_where_I_live.jpg?width=1280",
+    "attribution": {
+      "title": "Kabul Afghanistan, place where I live",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kabul_Afghanistan,_place_where_I_live.jpg"
+    }
+  },
+  {
+    "name": "Namibia",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Sossusvlei_Dune_Namib_Desert_Namibia_Luca_Galuzzi_2004.JPG/1280px-Sossusvlei_Dune_Namib_Desert_Namibia_Luca_Galuzzi_2004.JPG",
+    "attribution": {
+      "title": "Sossusvlei dunes, Namibia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sossusvlei_Dune_Namib_Desert_Namibia_Luca_Galuzzi_2004.JPG"
+    }
+  },
+  {
+    "name": "French Polynesia",
+    "type": "territory",
+    "region": "Oceania",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Mouaroa%2C_French_Polynesia%2C_December%2C_2011.jpg/1280px-Mouaroa%2C_French_Polynesia%2C_December%2C_2011.jpg",
+    "attribution": {
+      "title": "Moorea, French Polynesia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mouaroa,_French_Polynesia,_December,_2011.jpg"
+    }
+  },
+  {
+    "name": "Tuvalu",
+    "type": "country",
+    "region": "Oceania",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Funafuti_International_Airport.jpg?width=1280",
+    "attribution": {
+      "title": "Funafuti International Airport",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Funafuti_International_Airport.jpg"
+    }
+  },
+  {
+    "name": "China",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/China-Shanghai-YuGarden-the_Lantern_Festival-2012_1846.JPG/1280px-China-Shanghai-YuGarden-the_Lantern_Festival-2012_1846.JPG",
+    "attribution": {
+      "title": "Yu Garden Lantern Festival",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:China-Shanghai-YuGarden-the_Lantern_Festival-2012_1846.JPG"
+    }
+  },
+  {
+    "name": "Malaysia",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Gombak_Selangor_Batu-Caves-01.jpg/1280px-Gombak_Selangor_Batu-Caves-01.jpg",
+    "attribution": {
+      "title": "Batu Caves, Malaysia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gombak_Selangor_Batu-Caves-01.jpg"
+    }
+  },
+  {
+    "name": "Colombia",
+    "type": "country",
+    "region": "South America",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Colombia-Guatape-Fachadas_02.jpg/1280px-Colombia-Guatape-Fachadas_02.jpg",
+    "attribution": {
+      "title": "Guatape, Colombia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Colombia-Guatape-Fachadas_02.jpg"
+    }
+  },
+  {
+    "name": "Ecuador",
+    "type": "country",
+    "region": "South America",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Quito_as_from_panecillo_Basilica.jpg/1280px-Quito_as_from_panecillo_Basilica.jpg",
+    "attribution": {
+      "title": "El Panecillo, Quito, Ecuador",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Quito_as_from_panecillo_Basilica.jpg"
+    }
+  },
+  {
+    "name": "Sri Lanka",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Sigiriya_02.jpg/1280px-Sigiriya_02.jpg",
+    "attribution": {
+      "title": "Sigiriya Rock, Sri Lanka",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sigiriya_02.jpg"
+    }
+  },
+  {
+    "name": "Bahamas",
+    "type": "country",
+    "region": "Caribbean",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Paradise_Island_Light_and_Atlantic_Resort%2C_Bahamas.jpg?width=1280",
+    "attribution": {
+      "title": "Paradise Island Light and Atlantis Resort, Bahamas",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Paradise_Island_Light_and_Atlantic_Resort,_Bahamas.jpg"
+    }
+  },
+  {
+    "name": "Panama",
+    "type": "country",
+    "region": "Central America",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Panama_City_skyline.jpg?width=1280",
+    "attribution": {
+      "title": "Panama City skyline",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Panama_City_skyline.jpg"
+    }
+  },
+  {
+    "name": "Hungary",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Budapest_Parliament_4604.JPG/1280px-Budapest_Parliament_4604.JPG",
+    "attribution": {
+      "title": "Hungarian Parliament Building, Budapest",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Budapest_Parliament_4604.JPG"
+    }
+  },
+  {
+    "name": "Lithuania",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Trakai_Island_Castle.jpg?width=1280",
+    "attribution": {
+      "title": "Trakai Island Castle, Lithuania",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Trakai_Island_Castle.jpg"
+    }
+  },
+  {
+    "name": "Kazakhstan",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Night_at_Esil_District%2C_Astana_%28P1190721%29.jpg/1280px-Night_at_Esil_District%2C_Astana_%28P1190721%29.jpg",
+    "attribution": {
+      "title": "Astana Bayterek, Kazakhstan",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Night_at_Esil_District,_Astana_(P1190721).jpg"
+    }
+  },
+  {
+    "name": "Mongolia",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Life_in_a_Ger.jpg/1280px-Life_in_a_Ger.jpg",
+    "attribution": {
+      "title": "Yurts in Mongolia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Life_in_a_Ger.jpg"
+    }
+  },
+  {
+    "name": "Ethiopia",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/0/07/The_Simien_Mountains%2C_Ethiopia.jpg",
+    "attribution": {
+      "title": "Simien Mountains, Ethiopia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Simien_Mountains,_Ethiopia.jpg"
+    }
+  },
+  {
+    "name": "Sierra Leone",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/The_Dwzark_view_of_freetown.jpg/1280px-The_Dwzark_view_of_freetown.jpg",
+    "attribution": {
+      "title": "View of Freetown, Sierra Leone",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Dwzark_view_of_freetown.jpg"
+    }
+  },
+  {
+    "name": "Moldova",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Orheiul_Vechi_hillside_view_%28182410493%29.jpg/1280px-Orheiul_Vechi_hillside_view_%28182410493%29.jpg",
+    "attribution": {
+      "title": "Orheiul Vechi, Moldova",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Orheiul_Vechi_hillside_view_(182410493).jpg"
+    }
+  },
+  {
+    "name": "Montenegro",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Kotor_and_Boka_kotorska_-_view_from_city_wall.jpg/1280px-Kotor_and_Boka_kotorska_-_view_from_city_wall.jpg",
+    "attribution": {
+      "title": "Kotor Bay, Montenegro",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kotor_and_Boka_kotorska_-_view_from_city_wall.jpg"
+    }
+  },
+  {
+    "name": "Egypt",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/All_Gizah_Pyramids.jpg?width=1280",
+    "attribution": {
+      "title": "Pyramids of Giza, Egypt",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:All_Gizah_Pyramids.jpg"
+    }
+  },
+  {
+    "name": "North Korea",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Ryugyong_Hotel%2C_Pyongyang%2C_North_Korea.jpg/1280px-Ryugyong_Hotel%2C_Pyongyang%2C_North_Korea.jpg",
+    "attribution": {
+      "title": "Ryugyong Hotel, Pyongyang",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ryugyong_Hotel,_Pyongyang,_North_Korea.jpg"
+    }
+  },
+  {
+    "name": "Bosnia and Herzegovina",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Mostar_Old_Town_Panorama_2007.jpg/1280px-Mostar_Old_Town_Panorama_2007.jpg",
+    "attribution": {
+      "title": "Mostar Old Bridge, Bosnia and Herzegovina",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mostar_Old_Town_Panorama_2007.jpg"
+    }
+  },
+  {
+    "name": "Iraq",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Erbil_Citadel.jpg?width=1280",
+    "attribution": {
+      "title": "Erbil Citadel, Iraq",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Erbil_Citadel.jpg"
+    }
+  },
+  {
+    "name": "Kyrgyzstan",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Song-Kul%2C_Kyrgyzstan_%2842769968080%29.jpg/1280px-Song-Kul%2C_Kyrgyzstan_%2842769968080%29.jpg",
+    "attribution": {
+      "title": "Yurts at Song Kul Lake, Kyrgyzstan",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Song-Kul,_Kyrgyzstan_(42769968080).jpg"
+    }
+  },
+  {
+    "name": "El Salvador",
+    "type": "country",
+    "region": "Central America",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Los_Volcanes_National_Park%2C_El_Salvador.jpg?width=1280",
+    "attribution": {
+      "title": "Los Volcanes National Park, El Salvador",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Los_Volcanes_National_Park,_El_Salvador.jpg"
+    }
+  }
+]
