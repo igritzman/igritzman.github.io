@@ -117,6 +117,10 @@ function isTransportQuestion(question: Question) {
   return ["airports", "airport-codes", "metro", "rail", "highways", "maritime"].includes(question.category);
 }
 
+function isImageQuestion(question: Question) {
+  return Boolean(question.visualType && question.visualType !== "flag" && question.image);
+}
+
 function airportPromptTarget(region: (typeof regions)[number]) {
   const preferredCity = region.majorCities.find((city) => city !== region.capital) ?? region.majorCities[0] ?? region.capital ?? region.name;
   return preferredCity && !preferredCity.includes("Largest commercial") && !preferredCity.includes("Primary airport") ? preferredCity : region.name;
@@ -132,7 +136,7 @@ function buildMonthlyRotationQuestions(monthKey = currentMonthKey()) {
   const capitalPool = regions.map((region) => region.capital).filter(Boolean);
   const countryPool = regions.map((region) => region.name);
   const questionsByDay: Question[] = [];
-  const slotsPerDay = difficultyLevels.length * 10;
+  const slotsPerDay = 170;
 
   for (let day = 0; day < 30; day += 1) {
     for (let slot = 0; slot < slotsPerDay; slot += 1) {
@@ -268,7 +272,7 @@ function buildMonthlyRotationQuestions(monthKey = currentMonthKey()) {
 }
 
 export function monthlyRotationCatalogSize() {
-  return difficultyLevels.length * 10 * 30;
+  return 5100;
 }
 
 function questionVarietyScore(question: Question, recentMissIds: Set<string>, recentlySeenIds: Set<string>, profile: PlayerProfile | undefined, selected: Question[]) {
@@ -295,7 +299,7 @@ export function pickQuestions(startDifficulty: DifficultyLevel, count = 10, prof
   const recentlySeenIds = new Set(profile?.answeredQuestionIds.slice(-600) ?? []);
   const monthlyQuestions = buildMonthlyRotationQuestions();
   const today = currentRotationDay();
-  const slotsPerDay = difficultyLevels.length * 10;
+  const slotsPerDay = 170;
   const todaysDeck = monthlyQuestions.slice(today * slotsPerDay, today * slotsPerDay + slotsPerDay);
   const allQuestions = [...questions, ...monthlyQuestions];
   const pools = difficultyLevels.map((level) => allQuestions.filter((question) => question.difficulty === level));
@@ -304,11 +308,15 @@ export function pickQuestions(startDifficulty: DifficultyLevel, count = 10, prof
   const targetTransportCount = Math.round(count * 0.7);
   const maxGeneralCount = count - targetTransportCount;
   const maxFlagCount = allowedFlagCount(count, startDifficulty);
+  const targetImageCount = Math.max(1, Math.round(count * 0.1));
+  const maxImageCount = Math.max(targetImageCount, Math.ceil(count * 0.15));
   const canAddQuestion = (question: Question) => {
     const categoryCount = selected.filter((item) => item.category === question.category).length;
     const maxCategoryCount = Math.max(2, Math.ceil(count * 0.34));
     const generalCount = selected.filter((item) => !isTransportQuestion(item)).length;
+    const imageCount = selected.filter(isImageQuestion).length;
     if (!isTransportQuestion(question) && generalCount >= maxGeneralCount) return false;
+    if (isImageQuestion(question) && imageCount >= maxImageCount) return false;
     if (question.category === "flags" && categoryCount >= maxFlagCount) return false;
     return categoryCount < maxCategoryCount;
   };
@@ -363,6 +371,15 @@ export function pickQuestions(startDifficulty: DifficultyLevel, count = 10, prof
   const mapClick = mapClickPool[0] ?? allQuestions.find((question) => question.inputType === "map-click" && !selected.some((item) => item.id === question.id));
   if (!selected.some((question) => question.inputType === "typed") && typed) selected[1] = typed;
   if (!selected.some((question) => question.inputType === "map-click") && mapClick) selected[Math.min(5, count - 1)] = mapClick;
+  const imagePool = allQuestions
+    .filter(isImageQuestion)
+    .filter((question) => !selected.some((item) => item.id === question.id))
+    .sort((a, b) => questionVarietyScore(b, recentMissIds, recentlySeenIds, profile, selected) - questionVarietyScore(a, recentMissIds, recentlySeenIds, profile, selected));
+  while (selected.filter(isImageQuestion).length < targetImageCount && imagePool.length > 0) {
+    const replacementIndex = selected.findIndex((question, index) => index > 0 && question.inputType !== "typed" && question.inputType !== "map-click" && !isImageQuestion(question));
+    if (replacementIndex < 0) break;
+    selected[replacementIndex] = imagePool.shift()!;
+  }
 
   return selected;
 }

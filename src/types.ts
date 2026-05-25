@@ -39,7 +39,7 @@ export type Question = {
   choices?: string[];
   explanation: string;
   image?: string;
-  visualType?: "flag" | "landmark" | "street-view" | "metro-diagram" | "aerial-map" | "station-map" | "wmata-map" | "transit-photo" | "landmark-photo";
+  visualType?: "flag" | "regional-flag" | "landmark" | "street-view" | "metro-diagram" | "marta-map" | "aerial-map" | "station-map" | "wmata-map" | "transit-photo" | "landmark-photo";
   visualCaption?: string;
   mapTarget?: {
     lat: number;

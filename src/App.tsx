@@ -4,6 +4,7 @@ import { feature } from "topojson-client";
 import worldAtlas from "world-atlas/countries-110m.json";
 import { catalogCoverage, categoryLabels, difficultyLabels, difficultyLevels, questions, regions } from "./data";
 import { createRun, difficultyScore, isCorrect, nextDifficulty } from "./quiz";
+import regionalPopulationTable from "./regionalPopulations.json";
 import { createDefaultProfile, loadFriends, loadProfile, loadProfiles, loadRun, saveFriends, saveProfile, saveProfiles, saveRun } from "./storage";
 import type { DifficultyLevel, LocalFriend, PlayerProfile, Question, QuizRun, Region } from "./types";
 
@@ -15,6 +16,34 @@ type WorldFeature = {
   properties: { name: string };
   geometry: GeoJSON.Geometry;
 };
+
+type WriBoundaryFeature = GeoJSON.Feature<GeoJSON.Geometry, { name?: string; abbrev?: string; iso_a3?: string }>;
+type GadmSubdivisionProperties = {
+  GID_1?: string;
+  GID_2?: string;
+  GID_0?: string;
+  COUNTRY?: string;
+  NAME_1?: string;
+  NAME_2?: string;
+  VARNAME_1?: string;
+  VARNAME_2?: string;
+  NL_NAME_1?: string;
+  NL_NAME_2?: string;
+  TYPE_1?: string;
+  TYPE_2?: string;
+  ENGTYPE_1?: string;
+  ENGTYPE_2?: string;
+  ISO_1?: string;
+  ISO_2?: string;
+  HASC_1?: string;
+  HASC_2?: string;
+  shapeName?: string;
+  shapeISO?: string;
+  shapeID?: string;
+  shapeGroup?: string;
+  shapeType?: string;
+};
+type GadmSubdivisionFeature = GeoJSON.Feature<GeoJSON.Geometry, GadmSubdivisionProperties>;
 
 type CsvExport = {
   csv: string;
@@ -38,12 +67,283 @@ type PlaceImage = {
   };
 };
 
+const metroImageByPrompt: Record<string, string> = {
+  "Medellin MetroCable": "/images/metro-images/Medellin%20Metro.jpg",
+  "Al Boraq high-speed train": "/images/metro-images/Railways_Morocco.png",
+  "Shinkansen station order": "/images/metro-images/Shinkansen_map_202405_en.png",
+  "High-speed rail corridor map": "/images/metro-images/Shinkansen_map_202405_en.png",
+  "Washington DC Metro core": "/images/metro-images/WMATA.png",
+  "Washington DC Metro transfer": "/images/metro-images/WMATA.png",
+  "WMATA regional map": "/images/metro-images/WMATA.png",
+  "TTC subway reference": "/images/metro-images/TTC%20Toronto%20Subway.png",
+  "Bangkok rapid transit map": "/images/metro-images/bangkok-map.png",
+  "Mumbai rail map": "/images/metro-images/Mumbai_Rail_Map_-_English.jpg",
+  "Hyderabad Metro map": "/images/metro-images/Hyderabad%20Metro.png",
+  "Zhengzhou Metro network": "/images/metro-images/Zhengzhou_Metro_Network.png",
+  "Phoenix Valley Metro Rail": "/images/metro-images/PhoenixValleyMetroval_msys_rail-oct-2025-lgfmt.jpg",
+  "Tucson Sun Link streetcar": "/images/metro-images/Tucson%20Sun%20Link%20streetcar-scaled.jpg",
+  "SunRail Central Florida": "/images/metro-images/SunRail.webp",
+  "Luoyang Metro network": "/images/metro-images/System_Map_of_Luoyang_Metro.png",
+  "Hong Kong MTR": "/images/metro-images/Hong%20Kong.png",
+  "Cairo rapid transit": "/images/metro-images/Cairo_Rapid_Transit_map.png",
+  "Guangzhou Metro network": "/images/metro-images/Guangzhou_Metro_Network.png",
+  "Shenzhen Metro network": "/images/metro-images/Shenzhen_Metro_(Rapid_Transit)_System_Map.svg.png",
+  "Chongqing Rail Transit": "/images/metro-images/Chongqing%20Rail%20Plan.png",
+};
+
+const transitSystemImageById: Record<string, string> = {
+  wmata: "/images/metro-images/WMATA.png",
+  shinkansen: "/images/metro-images/Shinkansen_map_202405_en.png",
+  "bangkok-bts-mrt": "/images/metro-images/bangkok-map.png",
+  marta: "/images/metro-images/MARTA.png",
+  "chongqing-rail-transit": "/images/metro-images/Chongqing%20Rail%20Plan.png",
+  "mumbai-suburban": "/images/metro-images/Mumbai_Rail_Map_-_English.jpg",
+  "toronto-ttc": "/images/metro-images/TTC%20Toronto%20Subway.png",
+  "hyderabad-metro": "/images/metro-images/Hyderabad%20Metro.png",
+};
+
 let placeImagesCache: Record<string, PlaceImage> | null = null;
 let placeImagesPromise: Promise<Record<string, PlaceImage>> | null = null;
+let wriBoundaryCache: WriBoundaryFeature[] | null = null;
+let wriBoundaryPromise: Promise<WriBoundaryFeature[]> | null = null;
+const gadmSubdivisionCache: Record<string, GadmSubdivisionFeature[]> = {};
+const gadmSubdivisionPromises: Record<string, Promise<GadmSubdivisionFeature[]>> = {};
+
+const gadmLevelOneFiles: Record<string, string> = {
+  "united-states": "/data/gadm/level1/gadm41_USA_1.json",
+  canada: "/data/gadm/level1/gadm41_CAN_1.json",
+  estonia: "/data/gadm/level1/gadm41_EST_2.json",
+  ethiopia: "/data/gadm/level1/gadm41_ETH_1.json",
+  ghana: "/data/gadm/level1/gadm41_GHA_1.json",
+  kenya: "/data/gadm/level1/gadm41_KEN_1.json",
+  japan: "/data/gadm/level1/gadm41_JPN_1.json",
+  poland: "/data/gadm/level1/gadm41_POL_1.json",
+  india: "/data/gadm/level1/gadm41_IND_1.json",
+  australia: "/data/gadm/level1/gadm41_AUS_1.json",
+  mexico: "/data/gadm/level1/gadm41_MEX_1.json",
+  nepal: "/data/gadm/level1/geoboundaries_NPL_ADM1.json",
+  nigeria: "/data/gadm/level1/gadm41_NGA_1.json",
+  philippines: "/data/gadm/level1/gadm41_PHL_1.json",
+  romania: "/data/gadm/level1/gadm41_ROU_1.json",
+  russia: "/data/gadm/level1/gadm41_RUS_1.json",
+  "south-africa": "/data/gadm/level1/gadm41_ZAF_1.json",
+  italy: "/data/gadm/level1/gadm41_ITA_1.json",
+  france: "/data/gadm/level1/gadm41_FRA_2.json",
+  ireland: "/data/gadm/level1/gadm41_IRL_1.json",
+  ukraine: "/data/gadm/level1/gadm41_UKR_1.json",
+  "united-kingdom": "/data/gadm/level1/gadm41_GBR_2.json",
+  zimbabwe: "/data/gadm/level1/gadm41_ZWE_1.json",
+};
+
+const importedRegionalPopulations = regionalPopulationTable as Record<string, Record<string, string>>;
+
+const subdivisionStudyNotes: Record<string, { capital?: string; population?: string; transit?: string; flagCode?: string }> = {
+  "US-FL": { capital: "Tallahassee", population: "about 23 million", transit: "Brightline, SunRail, Miami-Dade Transit, Tri-Rail; major airports MIA, MCO, FLL, TPA, JAX" },
+  "US-AL": { capital: "Montgomery", population: "about 5.1 million", transit: "Birmingham MAX, Montgomery Transit, Huntsville Orbit" },
+  "US-AZ": { capital: "Phoenix", population: "about 7.5 million", transit: "Valley Metro Rail, Tucson Sun Link, Phoenix Sky Harbor rail connection" },
+  "US-CA": { capital: "Sacramento", population: "about 39 million", transit: "BART, LA Metro, Caltrain, Metrolink, San Diego Trolley" },
+  "US-CO": { capital: "Denver", population: "about 5.9 million", transit: "Denver RTD rail, airport rail, Front Range bus links" },
+  "US-DC": { capital: "Washington, D.C.", population: "about 700,000", transit: "Washington Metro, DC Circulator, Union Station rail" },
+  "US-GA": { capital: "Atlanta", population: "about 11 million", transit: "MARTA rail, Atlanta Streetcar, regional bus links" },
+  "US-IA": { capital: "Des Moines", population: "about 3.2 million", transit: "DART Des Moines, Iowa City Transit, CyRide, intercity bus corridors" },
+  "US-IL": { capital: "Springfield", population: "about 12.5 million", transit: "Chicago L, Metra, Amtrak Illinois corridors" },
+  "US-MA": { capital: "Boston", population: "about 7 million", transit: "MBTA subway, commuter rail, regional bus and ferry links" },
+  "US-MI": { capital: "Lansing", population: "about 10 million", transit: "Detroit People Mover, QLine, SMART, Amtrak Michigan services" },
+  "US-MO": { capital: "Jefferson City", population: "about 6.2 million", transit: "MetroLink St. Louis, Kansas City Streetcar, Amtrak Missouri River Runner" },
+  "US-NC": { capital: "Raleigh", population: "about 11 million", transit: "Charlotte LYNX, GoTriangle, Piedmont rail corridor" },
+  "US-NY": { capital: "Albany", population: "about 19.5 million", transit: "MTA subway, LIRR, Metro-North, PATH connections" },
+  "US-PA": { capital: "Harrisburg", population: "about 13 million", transit: "SEPTA, PATCO links, Pittsburgh light rail, Amtrak Keystone" },
+  "US-TX": { capital: "Austin", population: "about 31 million", transit: "DART, Houston METRORail, Austin MetroRail, VIA" },
+  "US-WA": { capital: "Olympia", population: "about 8 million", transit: "Sound Transit Link, Sounder, Washington State Ferries" },
+  "CA-BC": { capital: "Victoria", transit: "SkyTrain, West Coast Express, BC Ferries" },
+  "CA-ON": { capital: "Toronto", population: "about 16 million", transit: "TTC, GO Transit, UP Express, Ottawa O-Train; major airports YYZ and YOW" },
+  "CA-QC": { capital: "Quebec City", transit: "Montreal Metro, REM, exo, RTC buses" },
+  "JP-01": { capital: "Sapporo", transit: "Sapporo Subway, JR Hokkaido, airport rail to New Chitose" },
+  "JP-13": { capital: "Tokyo", transit: "Tokyo Metro, Toei Subway, JR East, private railways" },
+  "JP-23": { capital: "Nagoya", transit: "Nagoya Subway, Meitetsu, JR Central, Shinkansen access" },
+  "JP-26": { capital: "Kyoto", transit: "Kyoto Municipal Subway, JR West, private railways, Shinkansen" },
+  "JP-27": { capital: "Osaka", transit: "Osaka Metro, JR West, Hankyu, Hanshin, Kintetsu" },
+  "JP-34": { capital: "Hiroshima", transit: "Hiroshima Electric Railway, JR West, Sanyo Shinkansen" },
+  "MX-JAL": { capital: "Guadalajara", transit: "SITEUR light rail, Mi Macro BRT, Guadalajara airport access" },
+  "MX-CMX": { capital: "Mexico City", transit: "Mexico City Metro, Metrobús, suburban rail" },
+  "AU-NSW": { capital: "Sydney", transit: "Sydney Trains, Sydney Metro, light rail, ferries" },
+  "AU-WA": { capital: "Perth", transit: "Transperth trains, buses, ferries, Airport Line" },
+  "AU-VIC": { capital: "Melbourne", transit: "Melbourne trams, trains, V/Line, airport bus links" },
+  "IN-DL": { capital: "New Delhi", transit: "Delhi Metro, Airport Express, NCR rail" },
+  "IN-GJ": { capital: "Gandhinagar", transit: "Ahmedabad Metro, BRTS, western rail corridors" },
+  "IN-MH": { capital: "Mumbai", transit: "Mumbai Suburban Railway, Metro, Monorail, BEST buses" },
+  "IN-TG": { capital: "Hyderabad", transit: "Hyderabad Metro, MMTS, TSRTC buses" },
+  "IN-TN": { capital: "Chennai", transit: "Chennai Metro, suburban rail, MRTS" },
+  "ZA-WC": { capital: "Cape Town", transit: "Metrorail Western Cape, MyCiTi, port and airport links" },
+  "ZA-GP": { capital: "Johannesburg", transit: "Gautrain, Rea Vaya, Metrorail Gauteng" },
+  "ZA-GT": { capital: "Johannesburg", transit: "Gautrain, Rea Vaya, Metrorail Gauteng" },
+  "ZA.NL": { capital: "Pietermaritzburg", transit: "Metrorail Durban corridors, People Mover, King Shaka airport links" },
+  "IT-62": { capital: "Rome", transit: "Rome Metro, Lazio regional rail, Roma Termini, Fiumicino rail" },
+  "IT-25": { capital: "Milan", transit: "Milan Metro, Trenord, tram network, Malpensa rail" },
+  "FR.IF": { capital: "Paris", transit: "Paris Metro, RER, Transilien, tramways, CDG/Orly rail links" },
+  "FR.AR": { capital: "Lyon", transit: "Lyon Metro, trams, TGV and TER regional rail" },
+  "GB.GL": { capital: "London", transit: "London Underground, Elizabeth line, Overground, DLR" },
+  "GB.NY": { capital: "Northallerton", transit: "York rail hub, TransPennine, Northern, East Coast Main Line access" },
+};
+
+const regionalPopulationByCode: Record<string, string> = {
+  "AU-ACT": "486,200 (Sep. 30, 2025 estimate)",
+  "AU-NSW": "8,624,500 (Sep. 30, 2025 estimate)",
+  "AU-NT": "265,500 (Sep. 30, 2025 estimate)",
+  "AU-QLD": "5,692,600 (Sep. 30, 2025 estimate)",
+  "AU-SA": "1,908,200 (Sep. 30, 2025 estimate)",
+  "AU-TAS": "576,700 (Sep. 30, 2025 estimate)",
+  "AU-VIC": "7,104,300 (Sep. 30, 2025 estimate)",
+  "AU-WA": "3,061,700 (Sep. 30, 2025 estimate)",
+  "CA-AB": "5,048,151 (Q1 2026 estimate)",
+  "CA-BC": "5,658,528 (Q1 2026 estimate)",
+  "CA-MB": "1,505,117 (Q1 2026 estimate)",
+  "CA-NB": "867,383 (Q1 2026 estimate)",
+  "CA-NL": "548,557 (Q1 2026 estimate)",
+  "CA-NS": "1,090,074 (Q1 2026 estimate)",
+  "CA-ON": "16,136,480 (Q1 2026 estimate)",
+  "CA-PE": "182,001 (Q1 2026 estimate)",
+  "CA-QC": "9,033,887 (Q1 2026 estimate)",
+  "CA-SK": "1,265,936 (Q1 2026 estimate)",
+  "CA-YT": "48,218 (Q1 2026 estimate)",
+  "IN-AP": "49,577,103 (2011 census)",
+  "IN-AS": "31,205,576 (2011 census)",
+  "IN-BR": "104,099,452 (2011 census)",
+  "IN-CT": "25,545,198 (2011 census)",
+  "IN-DL": "16,787,941 (2011 census)",
+  "IN-GJ": "60,439,692 (2011 census)",
+  "IN-HR": "25,351,462 (2011 census)",
+  "IN-JK": "12,541,302 (2011 census)",
+  "IN-KA": "61,095,297 (2011 census)",
+  "IN-KL": "33,406,061 (2011 census)",
+  "IN-MH": "112,374,333 (2011 census)",
+  "IN-MP": "72,626,809 (2011 census)",
+  "IN-OR": "41,974,218 (2011 census)",
+  "IN-PB": "27,743,338 (2011 census)",
+  "IN-RJ": "68,548,437 (2011 census)",
+  "IN-TN": "72,147,030 (2011 census)",
+  "IN-TG": "35,193,978 (2011 census)",
+  "IN-UP": "199,812,341 (2011 census)",
+  "IN-WB": "91,276,115 (2011 census)",
+  "JP-01": "5,091,000 (2024 estimate)",
+  "JP-13": "14,180,000 (2024 estimate)",
+  "JP-23": "7,480,000 (2024 estimate)",
+  "JP-26": "2,540,000 (2024 estimate)",
+  "JP-27": "8,770,000 (2024 estimate)",
+  "JP-34": "2,730,000 (2024 estimate)",
+  "JP-40": "5,130,000 (2024 estimate)",
+  "MX-AGU": "1,425,607 (2020 census)",
+  "MX-BCN": "3,769,020 (2020 census)",
+  "MX-BCS": "798,447 (2020 census)",
+  "MX-CAM": "928,363 (2020 census)",
+  "MX-CHH": "3,741,869 (2020 census)",
+  "MX-CHP": "5,543,828 (2020 census)",
+  "MX-CMX": "9,209,944 (2020 census)",
+  "MX-COA": "3,146,771 (2020 census)",
+  "MX-COL": "731,391 (2020 census)",
+  "MX-DUR": "1,857,985 (2020 census)",
+  "MX-GRO": "3,540,685 (2020 census)",
+  "MX-GUA": "6,166,934 (2020 census)",
+  "MX-HID": "3,082,841 (2020 census)",
+  "MX-JAL": "8,348,151 (2020 census)",
+  "MX-MEX": "16,992,418 (2020 census)",
+  "MX-MIC": "4,748,846 (2020 census)",
+  "MX-MOR": "1,971,520 (2020 census)",
+  "MX-NAY": "1,235,456 (2020 census)",
+  "MX-NLE": "5,784,442 (2020 census)",
+  "MX-OAX": "4,132,148 (2020 census)",
+  "MX-PUE": "6,583,278 (2020 census)",
+  "MX-QUE": "2,368,467 (2020 census)",
+  "MX-ROO": "1,857,985 (2020 census)",
+  "MX-SIN": "3,026,943 (2020 census)",
+  "MX-SLP": "2,822,255 (2020 census)",
+  "MX-SON": "2,944,840 (2020 census)",
+  "MX-TAB": "2,402,598 (2020 census)",
+  "MX-TAM": "3,527,735 (2020 census)",
+  "MX-TLA": "1,342,977 (2020 census)",
+  "MX-VER": "8,062,579 (2020 census)",
+  "MX-YUC": "2,320,898 (2020 census)",
+  "MX-ZAC": "1,832,650 (2020 census)",
+  "US-AK": "737,270 (July 1, 2025 estimate)",
+  "US-AL": "5,193,088 (July 1, 2025 estimate)",
+  "US-AR": "3,114,791 (July 1, 2025 estimate)",
+  "US-AZ": "7,623,818 (July 1, 2025 estimate)",
+  "US-CA": "39,355,309 (July 1, 2025 estimate)",
+  "US-CO": "6,012,561 (July 1, 2025 estimate)",
+  "US-CT": "3,688,496 (July 1, 2025 estimate)",
+  "US-DC": "693,645 (July 1, 2025 estimate)",
+  "US-DE": "1,059,952 (July 1, 2025 estimate)",
+  "US-FL": "23,462,518 (July 1, 2025 estimate)",
+  "US-GA": "11,302,748 (July 1, 2025 estimate)",
+  "US-HI": "1,432,820 (July 1, 2025 estimate)",
+  "US-IA": "3,238,387 (July 1, 2025 estimate)",
+  "US-ID": "2,029,733 (July 1, 2025 estimate)",
+  "US-IL": "12,719,141 (July 1, 2025 estimate)",
+  "US-IN": "6,973,333 (July 1, 2025 estimate)",
+  "US-KS": "2,977,220 (July 1, 2025 estimate)",
+  "US-KY": "4,606,864 (July 1, 2025 estimate)",
+  "US-LA": "4,618,189 (July 1, 2025 estimate)",
+  "US-MA": "7,154,084 (July 1, 2025 estimate)",
+  "US-MD": "6,265,347 (July 1, 2025 estimate)",
+  "US-ME": "1,414,874 (July 1, 2025 estimate)",
+  "US-MI": "10,127,884 (July 1, 2025 estimate)",
+  "US-MN": "5,830,405 (July 1, 2025 estimate)",
+  "US-MO": "6,270,541 (July 1, 2025 estimate)",
+  "US-MS": "2,954,160 (July 1, 2025 estimate)",
+  "US-MT": "1,144,694 (July 1, 2025 estimate)",
+  "US-NC": "11,197,968 (July 1, 2025 estimate)",
+  "US-ND": "799,358 (July 1, 2025 estimate)",
+  "US-NE": "2,018,006 (July 1, 2025 estimate)",
+  "US-NH": "1,415,342 (July 1, 2025 estimate)",
+  "US-NJ": "9,548,215 (July 1, 2025 estimate)",
+  "US-NM": "2,125,498 (July 1, 2025 estimate)",
+  "US-NV": "3,282,188 (July 1, 2025 estimate)",
+  "US-NY": "20,002,427 (July 1, 2025 estimate)",
+  "US-OH": "11,900,510 (July 1, 2025 estimate)",
+  "US-OK": "4,123,288 (July 1, 2025 estimate)",
+  "US-OR": "4,273,586 (July 1, 2025 estimate)",
+  "US-PA": "13,059,432 (July 1, 2025 estimate)",
+  "US-RI": "1,114,521 (July 1, 2025 estimate)",
+  "US-SC": "5,570,274 (July 1, 2025 estimate)",
+  "US-SD": "935,094 (July 1, 2025 estimate)",
+  "US-TN": "7,315,076 (July 1, 2025 estimate)",
+  "US-TX": "31,709,821 (July 1, 2025 estimate)",
+  "US-UT": "3,538,904 (July 1, 2025 estimate)",
+  "US-VA": "8,880,107 (July 1, 2025 estimate)",
+  "US-VT": "644,663 (July 1, 2025 estimate)",
+  "US-WA": "8,001,020 (July 1, 2025 estimate)",
+  "US-WI": "5,972,787 (July 1, 2025 estimate)",
+  "US-WV": "1,766,147 (July 1, 2025 estimate)",
+  "US-WY": "588,753 (July 1, 2025 estimate)",
+  "ZA-EC": "6,676,000 (2022 census)",
+  "ZA-FS": "2,965,000 (2022 census)",
+  "ZA-GP": "15,100,000 (2022 census)",
+  "ZA.GT": "15,100,000 (2022 census)",
+  "ZA-KZN": "12,400,000 (2022 census)",
+  "ZA.NL": "12,400,000 (2022 census)",
+  "ZA-LP": "6,572,000 (2022 census)",
+  "ZA-MP": "5,144,000 (2022 census)",
+  "ZA-NC": "1,356,000 (2022 census)",
+  "ZA-NW": "4,804,000 (2022 census)",
+  "ZA.NW": "4,804,000 (2022 census)",
+  "ZA-WC": "7,433,000 (2022 census)",
+};
+
+const regionalPopulationByName: Record<string, string> = {
+  England: "57,690,300 (mid-2024 estimate)",
+  "Northern Ireland": "1,957,000 (mid-2024 estimate)",
+  Scotland: "5,546,900 (mid-2024 estimate)",
+  "United Kingdom": "69,281,400 (mid-2024 estimate)",
+  Wales: "3,187,200 (mid-2024 estimate)",
+};
+
+const gadmRegionLayerNames = Object.keys(gadmLevelOneFiles)
+  .map((regionId) => regions.find((region) => region.id === regionId)?.name ?? regionId)
+  .sort((a, b) => a.localeCompare(b));
 
 const tabs: Array<{ id: Tab; label: string; icon: string }> = [
-  { id: "play", label: "Play", icon: "" },
   { id: "map", label: "Map", icon: "" },
+  { id: "play", label: "Play", icon: "" },
   { id: "review", label: "Review", icon: "" },
   { id: "profile", label: "Profile", icon: "" },
 ];
@@ -122,7 +422,7 @@ const projectedRegionPositions = worldFeatures.reduce<Record<string, { x: number
 }, {});
 
 const capitalCoordinatesByRegionId: Record<string, [number, number]> = {
-  "united-states": [-77.0369, 38.9072],
+  "united-states": [-98.5795, 39.8283],
   canada: [-75.6972, 45.4215],
   mexico: [-99.1332, 19.4326],
   brazil: [-47.8825, -15.7942],
@@ -175,6 +475,7 @@ const capitalCoordinatesByRegionId: Record<string, [number, number]> = {
   japan: [139.6917, 35.6895],
   "south-korea": [126.978, 37.5665],
   taiwan: [121.5654, 25.033],
+  "hong-kong": [114.1694, 22.3193],
   singapore: [103.8198, 1.3521],
   malaysia: [101.6869, 3.139],
   thailand: [100.5018, 13.7563],
@@ -266,6 +567,7 @@ const capitalCoordinatesByRegionId: Record<string, [number, number]> = {
   pakistan: [73.0479, 33.6844],
   afghanistan: [69.2075, 34.5553],
   bangladesh: [90.4125, 23.8103],
+  "vatican-city": [12.4534, 41.9029],
 };
 
 const projectedCapitalPositions = Object.fromEntries(
@@ -293,6 +595,7 @@ const touristAttractions: Array<{
   { id: "banff-national-park", name: "Banff National Park", country: "Canada", countryId: "canada", kind: "nature", coordinate: [-115.5708, 51.4968], url: "https://en.wikipedia.org/wiki/Banff_National_Park" },
   { id: "taj-mahal", name: "Taj Mahal", country: "India", countryId: "india", kind: "culture", coordinate: [78.0421, 27.1751], url: "https://en.wikipedia.org/wiki/Taj_Mahal" },
   { id: "taipei-101", name: "Taipei 101", country: "Taiwan", countryId: "taiwan", kind: "major", coordinate: [121.5645, 25.0339], url: "https://en.wikipedia.org/wiki/Taipei_101" },
+  { id: "victoria-peak", name: "Victoria Peak", country: "Hong Kong", countryId: "hong-kong", kind: "major", coordinate: [114.1455, 22.2759], url: "https://en.wikipedia.org/wiki/Victoria_Peak" },
   { id: "pyramids-giza", name: "Pyramids of Giza", country: "Egypt", countryId: "egypt", kind: "culture", coordinate: [31.1342, 29.9792], url: "https://en.wikipedia.org/wiki/Giza_pyramid_complex" },
   { id: "statue-liberty", name: "Statue of Liberty", country: "United States", countryId: "united-states", kind: "major", coordinate: [-74.0445, 40.6892], url: "https://en.wikipedia.org/wiki/Statue_of_Liberty" },
   { id: "golden-gate", name: "Golden Gate Bridge", country: "United States", countryId: "united-states", kind: "photo", coordinate: [-122.4783, 37.8199], url: "https://en.wikipedia.org/wiki/Golden_Gate_Bridge" },
@@ -370,6 +673,8 @@ const cityLabels = [
   { id: "accra", name: "Accra", coordinate: [-0.187, 5.6037] },
   { id: "shanghai", name: "Shanghai", coordinate: [121.4737, 31.2304] },
   { id: "beijing", name: "Beijing", coordinate: [116.4074, 39.9042] },
+  { id: "zhengzhou", name: "Zhengzhou", coordinate: [113.6254, 34.7466] },
+  { id: "luoyang", name: "Luoyang", coordinate: [112.454, 34.6197] },
   { id: "guangzhou", name: "Guangzhou", coordinate: [113.2644, 23.1291] },
   { id: "shenzhen", name: "Shenzhen", coordinate: [114.0579, 22.5431] },
   { id: "chongqing", name: "Chongqing", coordinate: [106.5516, 29.563] },
@@ -409,6 +714,9 @@ const cityLabels = [
   { id: "honolulu", name: "Honolulu", coordinate: [-157.8583, 21.3069] },
   { id: "calgary", name: "Calgary", coordinate: [-114.0719, 51.0447] },
   { id: "houston", name: "Houston", coordinate: [-95.3698, 29.7604] },
+  { id: "phoenix", name: "Phoenix", coordinate: [-112.074, 33.4484] },
+  { id: "tucson", name: "Tucson", coordinate: [-110.9747, 32.2226] },
+  { id: "jacksonville", name: "Jacksonville", coordinate: [-81.6557, 30.3322] },
   { id: "charlotte", name: "Charlotte", coordinate: [-80.8431, 35.2271] },
   { id: "austin", name: "Austin", coordinate: [-97.7431, 30.2672] },
   { id: "tampa", name: "Tampa", coordinate: [-82.4572, 27.9506] },
@@ -495,6 +803,7 @@ const transitSystemsRepository = [
   { id: "singapore-mrt", countryId: "singapore", name: "Singapore MRT", city: "Singapore", region: "Singapore", type: "Metro", kind: "metro", coordinate: [103.8198, 1.3521], sourceUrl: "https://en.wikipedia.org/wiki/Mass_Rapid_Transit_(Singapore)", mapUrl: "https://www.transit.land/map#11/1.3521/103.8198", keyNodes: ["Dhoby Ghaut", "City Hall", "Changi Airport", "Jurong East"], quizFocus: "island-state metro transfers and airport access" },
   { id: "bangkok-bts-mrt", countryId: "thailand", name: "Bangkok BTS and MRT", city: "Bangkok", region: "Thailand", type: "Metro/skytrain", kind: "metro", coordinate: [100.5018, 13.7563], sourceUrl: "https://en.wikipedia.org/wiki/Rapid_transit_in_Bangkok", mapUrl: "https://www.transit.land/map#11/13.7563/100.5018", keyNodes: ["Siam", "Asok", "Mo Chit", "Sukhumvit"], quizFocus: "elevated rail and metro interchange geography" },
   { id: "hanoi-metro", countryId: "vietnam", name: "Hanoi Metro", city: "Hanoi", region: "Northern Vietnam", type: "Metro", kind: "metro", coordinate: [105.8342, 21.0278], sourceUrl: "https://en.wikipedia.org/wiki/Hanoi_Metro", mapUrl: "https://www.transit.land/map#11/21.0278/105.8342", keyNodes: ["Cat Linh", "Ha Dong", "Nhon", "Hanoi Station"], quizFocus: "Vietnam capital metro corridors" },
+  { id: "toronto-ttc", countryId: "canada", name: "TTC subway", city: "Toronto", region: "Ontario", type: "Subway/streetcar", kind: "subway", coordinate: [-79.3832, 43.6532], sourceUrl: "https://en.wikipedia.org/wiki/Toronto_subway", mapUrl: "https://www.transit.land/map#11/43.6532/-79.3832", keyNodes: ["Union", "Bloor-Yonge", "St George", "Kipling", "Finch"], quizFocus: "Toronto subway transfers, downtown spine, and GO/UP Express rail context" },
   { id: "manila-lrt-mrt", countryId: "philippines", name: "Manila LRT and MRT", city: "Manila", region: "Metro Manila", type: "Urban rail", kind: "light-rail", coordinate: [120.9842, 14.5995], sourceUrl: "https://en.wikipedia.org/wiki/Manila_Light_Rail_Transit_System", mapUrl: "https://www.transit.land/map#11/14.5995/120.9842", keyNodes: ["Recto", "Cubao", "Taft Avenue", "North Avenue"], quizFocus: "Metro Manila rail transfer and terminal clues" },
   { id: "lagos-rail-mass-transit", countryId: "nigeria", name: "Lagos Rail Mass Transit", city: "Lagos", region: "Lagos State", type: "Metro/light rail", kind: "light-rail", coordinate: [3.3792, 6.5244], sourceUrl: "https://en.wikipedia.org/wiki/Lagos_Rail_Mass_Transit", mapUrl: "https://www.transit.land/map#11/6.5244/3.3792", keyNodes: ["Marina", "Mile 2", "National Theatre", "Agbado"], quizFocus: "West African urban rail and lagoon-city geography" },
   { id: "accra-rail", countryId: "ghana", name: "Accra suburban rail", city: "Accra", region: "Greater Accra", type: "Commuter rail", kind: "regional-rail", coordinate: [-0.187, 5.6037], sourceUrl: "https://en.wikipedia.org/wiki/Ghana_Railway_Corporation", mapUrl: "https://www.transit.land/map#11/5.6037/-0.1870", keyNodes: ["Accra", "Tema", "Nsawam", "Achimota"], quizFocus: "Ghana coastal commuter rail and port access" },
@@ -528,13 +837,17 @@ const transitSystemsRepository = [
   { id: "guangzhou-metro", countryId: "china", name: "Guangzhou Metro", city: "Guangzhou", region: "Pearl River Delta", type: "Metro", kind: "metro", coordinate: [113.2644, 23.1291], sourceUrl: "https://en.wikipedia.org/wiki/Guangzhou_Metro", mapUrl: "https://www.transit.land/map#11/23.1291/113.2644", keyNodes: ["Tiyu Xilu", "Guangzhou South", "Zhujiang New Town", "Airport South"], quizFocus: "Pearl River Delta metro and airport rail geography" },
   { id: "shenzhen-metro", countryId: "china", name: "Shenzhen Metro", city: "Shenzhen", region: "Pearl River Delta", type: "Metro", kind: "metro", coordinate: [114.0579, 22.5431], sourceUrl: "https://en.wikipedia.org/wiki/Shenzhen_Metro", mapUrl: "https://www.transit.land/map#11/22.5431/114.0579", keyNodes: ["Futian", "Luohu", "Window of the World", "Shenzhen North"], quizFocus: "border-city metro and high-speed rail transfers" },
   { id: "chongqing-rail-transit", countryId: "china", name: "Chongqing Rail Transit", city: "Chongqing", region: "Southwest China", type: "Metro/monorail", kind: "metro", coordinate: [106.5516, 29.563], sourceUrl: "https://en.wikipedia.org/wiki/Chongqing_Rail_Transit", mapUrl: "https://www.transit.land/map#11/29.5630/106.5516", keyNodes: ["Jiefangbei", "Liziba", "Chongqing North", "Jiangbei Airport"], quizFocus: "mountain-city monorail and airport route geography" },
+  { id: "zhengzhou-metro", countryId: "china", name: "Zhengzhou Metro", city: "Zhengzhou", region: "Henan", type: "Metro", kind: "metro", coordinate: [113.6254, 34.7466], sourceUrl: "https://en.wikipedia.org/wiki/Zhengzhou_Metro", mapUrl: "https://www.transit.land/map#11/34.7466/113.6254", keyNodes: ["Zhengzhou East", "Erqi Square", "Zhengzhou Railway Station", "Xinzheng Airport"], quizFocus: "Henan metro map recognition and high-speed rail hub geography" },
+  { id: "luoyang-metro", countryId: "china", name: "Luoyang Metro", city: "Luoyang", region: "Henan", type: "Metro", kind: "metro", coordinate: [112.454, 34.6197], sourceUrl: "https://en.wikipedia.org/wiki/Luoyang_Subway", mapUrl: "https://www.transit.land/map#11/34.6197/112.4540", keyNodes: ["Luoyang Railway Station", "Longmen High-Speed Railway", "Jiefang Road", "Wuhan Road"], quizFocus: "smaller Chinese metro network and ancient capital geography" },
   { id: "mumbai-suburban", countryId: "india", name: "Mumbai Suburban Railway", city: "Mumbai", region: "Maharashtra", type: "Suburban rail", kind: "regional-rail", coordinate: [72.8777, 19.076], sourceUrl: "https://en.wikipedia.org/wiki/Mumbai_Suburban_Railway", mapUrl: "https://www.transit.land/map#11/19.0760/72.8777", keyNodes: ["Churchgate", "CST", "Dadar", "Bandra"], quizFocus: "dense commuter rail and peninsula-city geography" },
+  { id: "ahmedabad-metro", countryId: "india", name: "Ahmedabad Metro", city: "Ahmedabad", region: "Gujarat", type: "Metro", kind: "metro", coordinate: [72.5714, 23.0225], sourceUrl: "https://en.wikipedia.org/wiki/Ahmedabad_Metro", mapUrl: "https://www.transit.land/map#11/23.0225/72.5714", keyNodes: ["Old High Court", "Kalupur", "Vastral Gam", "APMC"], quizFocus: "Gujarat metro expansion and western India city geography" },
+  { id: "hyderabad-metro", countryId: "india", name: "Hyderabad Metro", city: "Hyderabad", region: "Telangana", type: "Metro", kind: "metro", coordinate: [78.4867, 17.385], sourceUrl: "https://en.wikipedia.org/wiki/Hyderabad_Metro", mapUrl: "https://www.transit.land/map#11/17.3850/78.4867", keyNodes: ["Ameerpet", "Secunderabad East", "Miyapur", "Raidurg"], quizFocus: "Hyderabad interchange geography and Telangana metro corridors" },
   { id: "jakarta-mrt", countryId: "indonesia", name: "Jakarta MRT", city: "Jakarta", region: "Java", type: "Metro", kind: "metro", coordinate: [106.8456, -6.2088], sourceUrl: "https://en.wikipedia.org/wiki/Jakarta_MRT", mapUrl: "https://www.transit.land/map#11/-6.2088/106.8456", keyNodes: ["Bundaran HI", "Dukuh Atas", "Lebak Bulus", "ASEAN"], quizFocus: "Indonesian capital metro and transfer geography" },
   { id: "perth-rail", countryId: "australia", name: "Transperth rail", city: "Perth", region: "Western Australia", type: "Suburban rail", kind: "regional-rail", coordinate: [115.8613, -31.9523], sourceUrl: "https://en.wikipedia.org/wiki/Transperth_Trains", mapUrl: "https://www.transit.land/map#11/-31.9523/115.8613", keyNodes: ["Perth", "Elizabeth Quay", "Fremantle", "Airport Central"], quizFocus: "Western Australia rail and Indian Ocean city geography" },
   { id: "frankfurt-u-bahn", countryId: "germany", name: "Frankfurt U-Bahn", city: "Frankfurt", region: "Hesse", type: "Metro/light rail", kind: "metro", coordinate: [8.6821, 50.1109], sourceUrl: "https://en.wikipedia.org/wiki/Frankfurt_U-Bahn", mapUrl: "https://www.transit.land/map#11/50.1109/8.6821", keyNodes: ["Hauptwache", "Konstablerwache", "Willy-Brandt-Platz", "Suedbahnhof"], quizFocus: "German financial hub metro and rail interchange clues" },
   { id: "lyon-metro", countryId: "france", name: "Lyon Metro", city: "Lyon", region: "Auvergne-Rhone-Alpes", type: "Metro", kind: "metro", coordinate: [4.8357, 45.764], sourceUrl: "https://en.wikipedia.org/wiki/Lyon_Metro", mapUrl: "https://www.transit.land/map#11/45.7640/4.8357", keyNodes: ["Part-Dieu", "Bellecour", "Vieux Lyon", "Perrache"], quizFocus: "French regional metro and high-speed rail transfer clues" },
   { id: "marseille-metro", countryId: "france", name: "Marseille Metro", city: "Marseille", region: "Provence-Alpes-Cote d'Azur", type: "Metro", kind: "metro", coordinate: [5.3698, 43.2965], sourceUrl: "https://en.wikipedia.org/wiki/Marseille_Metro", mapUrl: "https://www.transit.land/map#11/43.2965/5.3698", keyNodes: ["Saint-Charles", "Vieux-Port", "Castellane", "La Rose"], quizFocus: "Mediterranean port city metro geography" },
-  { id: "hong-kong-mtr", countryId: "china", name: "Hong Kong MTR", city: "Hong Kong", region: "Hong Kong SAR", type: "Metro/airport rail", kind: "metro", coordinate: [114.1694, 22.3193], sourceUrl: "https://en.wikipedia.org/wiki/MTR", mapUrl: "https://www.transit.land/map#11/22.3193/114.1694", keyNodes: ["Central", "Tsim Sha Tsui", "Kowloon", "Hong Kong Airport"], quizFocus: "dense harbor metro, airport express, and cross-harbor station geography" },
+  { id: "hong-kong-mtr", countryId: "hong-kong", name: "Hong Kong MTR", city: "Hong Kong", region: "Hong Kong SAR", type: "Metro/airport rail", kind: "metro", coordinate: [114.1694, 22.3193], sourceUrl: "https://en.wikipedia.org/wiki/MTR", mapUrl: "https://www.transit.land/map#11/22.3193/114.1694", keyNodes: ["Central", "Tsim Sha Tsui", "Kowloon", "Hong Kong Airport"], quizFocus: "dense harbor metro, airport express, and cross-harbor station geography" },
   { id: "busan-metro", countryId: "south-korea", name: "Busan Metro", city: "Busan", region: "South Korea", type: "Metro", kind: "metro", coordinate: [129.0756, 35.1796], sourceUrl: "https://en.wikipedia.org/wiki/Busan_Metro", mapUrl: "https://www.transit.land/map#11/35.1796/129.0756", keyNodes: ["Seomyeon", "Busan Station", "Haeundae", "Sasang"], quizFocus: "Korean port-city metro and station transfer geography" },
   { id: "osaka-metro", countryId: "japan", name: "Osaka Metro", city: "Osaka", region: "Kansai", type: "Metro", kind: "metro", coordinate: [135.5023, 34.6937], sourceUrl: "https://en.wikipedia.org/wiki/Osaka_Metro", mapUrl: "https://www.transit.land/map#11/34.6937/135.5023", keyNodes: ["Umeda", "Namba", "Shin-Osaka", "Tennoji"], quizFocus: "Kansai subway hubs and Shinkansen transfer clues" },
   { id: "kaohsiung-metro", countryId: "taiwan", name: "Kaohsiung Metro", city: "Kaohsiung", region: "Southern Taiwan", type: "Metro/light rail", kind: "metro", coordinate: [120.3014, 22.6273], sourceUrl: "https://en.wikipedia.org/wiki/Kaohsiung_Metro", mapUrl: "https://www.transit.land/map#11/22.6273/120.3014", keyNodes: ["Formosa Boulevard", "Zuoying", "Kaohsiung Main", "Siaogang"], quizFocus: "southern Taiwan metro, port, and HSR transfer geography" },
@@ -565,6 +878,9 @@ const transitSystemsRepository = [
   { id: "calgary-ctrain", countryId: "canada", name: "Calgary CTrain", city: "Calgary", region: "Alberta", type: "Light rail", kind: "light-rail", coordinate: [-114.0719, 51.0447], sourceUrl: "https://en.wikipedia.org/wiki/CTrain", mapUrl: "https://www.transit.land/map#11/51.0447/-114.0719", keyNodes: ["City Hall", "7 Avenue", "Somerset-Bridlewood", "Tuscany"], quizFocus: "Prairie city light rail and downtown transit mall geography" },
   { id: "montreal-metro", countryId: "canada", name: "Montreal Metro", city: "Montreal", region: "Quebec", type: "Metro", kind: "metro", coordinate: [-73.5673, 45.5017], sourceUrl: "https://en.wikipedia.org/wiki/Montreal_Metro", mapUrl: "https://www.transit.land/map#11/45.5017/-73.5673", keyNodes: ["Berri-UQAM", "Lionel-Groulx", "McGill", "Longueuil"], quizFocus: "Quebec metro transfers and island-city geography" },
   { id: "houston-metrorail", countryId: "united-states", name: "Houston METRORail", city: "Houston", region: "Texas", type: "Light rail", kind: "light-rail", coordinate: [-95.3698, 29.7604], sourceUrl: "https://en.wikipedia.org/wiki/METRORail", mapUrl: "https://www.transit.land/map#11/29.7604/-95.3698", keyNodes: ["Downtown Transit Center", "Texas Medical Center", "Museum District", "Northline"], quizFocus: "Texas light rail and medical-center corridor geography" },
+  { id: "phoenix-valley-metro", countryId: "united-states", name: "Valley Metro Rail", city: "Phoenix", region: "Arizona", type: "Light rail", kind: "light-rail", coordinate: [-112.074, 33.4484], sourceUrl: "https://en.wikipedia.org/wiki/Valley_Metro_Rail", mapUrl: "https://www.transit.land/map#11/33.4484/-112.0740", keyNodes: ["Downtown Phoenix", "Tempe", "Mesa", "Phoenix Sky Harbor"], quizFocus: "Arizona light rail and desert metro-region geography" },
+  { id: "tucson-sun-link", countryId: "united-states", name: "Sun Link streetcar", city: "Tucson", region: "Arizona", type: "Streetcar", kind: "light-rail", coordinate: [-110.9747, 32.2226], sourceUrl: "https://en.wikipedia.org/wiki/Sun_Link", mapUrl: "https://www.transit.land/map#12/32.2226/-110.9747", keyNodes: ["University of Arizona", "Downtown Tucson", "Mercado", "Fourth Avenue"], quizFocus: "Tucson streetcar, university corridor, and downtown geography" },
+  { id: "jacksonville-skyway", countryId: "united-states", name: "Jacksonville Skyway", city: "Jacksonville", region: "Florida", type: "People mover", kind: "metro", coordinate: [-81.6557, 30.3322], sourceUrl: "https://en.wikipedia.org/wiki/Jacksonville_Skyway", mapUrl: "https://www.transit.land/map#13/30.3322/-81.6557", keyNodes: ["Central", "Rosa Parks", "Riverplace", "Kings Avenue"], quizFocus: "downtown automated people mover and St. Johns River geography" },
   { id: "charlotte-lynx", countryId: "united-states", name: "Charlotte LYNX", city: "Charlotte", region: "North Carolina", type: "Light rail", kind: "light-rail", coordinate: [-80.8431, 35.2271], sourceUrl: "https://en.wikipedia.org/wiki/Lynx_Blue_Line", mapUrl: "https://www.transit.land/map#11/35.2271/-80.8431", keyNodes: ["Charlotte Transportation Center", "UNC Charlotte", "South End", "I-485/South Boulevard"], quizFocus: "Southeastern light rail and university corridor geography" },
   { id: "austin-capmetro-rail", countryId: "united-states", name: "Austin MetroRail", city: "Austin", region: "Texas", type: "Commuter rail", kind: "regional-rail", coordinate: [-97.7431, 30.2672], sourceUrl: "https://en.wikipedia.org/wiki/Capital_MetroRail", mapUrl: "https://www.transit.land/map#11/30.2672/-97.7431", keyNodes: ["Downtown", "Plaza Saltillo", "Lakeline", "Leander"], quizFocus: "Central Texas commuter rail and downtown station geography" },
   { id: "tampa-teco-line", countryId: "united-states", name: "TECO Line Streetcar", city: "Tampa", region: "Florida", type: "Streetcar", kind: "light-rail", coordinate: [-82.4572, 27.9506], sourceUrl: "https://en.wikipedia.org/wiki/TECO_Line_Streetcar", mapUrl: "https://www.transit.land/map#12/27.9506/-82.4572", keyNodes: ["Downtown Tampa", "Channel District", "Ybor City", "Amalie Arena"], quizFocus: "Florida streetcar geography and downtown-waterfront orientation" },
@@ -608,6 +924,132 @@ function flagImageSrc(code: string) {
   return `/flag-pack/country-flags-main/svg/${code.toLowerCase()}.svg`;
 }
 
+const regionalFlagByCode: Record<string, string> = {
+  "CA-AB": "/images/region-flags/regional/canada-alberta.png",
+  "CA-BC": "/images/region-flags/regional/canada-british-columbia.png",
+  "CA-MB": "/images/region-flags/regional/canada-manitoba.png",
+  "CA-NB": "/images/region-flags/regional/canada-new-brunswick.png",
+  "CA-NL": "/images/region-flags/regional/canada-newfoundland-and-labrador.png",
+  "CA-NS": "/images/region-flags/regional/canada-nova-scotia.png",
+  "CA-NT": "/images/region-flags/regional/canada-northwest-territories.png",
+  "CA-NU": "/images/region-flags/regional/canada-nunavut.png",
+  "CA-ON": "/images/region-flags/regional/canada-ontario.png",
+  "CA-PE": "/images/region-flags/regional/canada-prince-edward-island.png",
+  "CA-QC": "/images/region-flags/regional/canada-quebec.png",
+  "CA-SK": "/images/region-flags/regional/canada-saskatchewan.png",
+  "CA-YT": "/images/region-flags/regional/canada-yukon.png",
+  "ZA-EC": "/images/region-flags/regional/south-africa-eastern-cape.png",
+  "ZA-FS": "/images/region-flags/regional/south-africa-free-state.png",
+  "ZA-GP": "/images/region-flags/regional/south-africa-gauteng.png",
+  "ZA-KZN": "/images/region-flags/regional/south-africa-kwazulu-natal.png",
+  "ZA-LP": "/images/region-flags/regional/south-africa-limpopo.png",
+  "ZA-MP": "/images/region-flags/regional/south-africa-mpumalanga.png",
+  "ZA-NC": "/images/region-flags/regional/south-africa-northern-cape.png",
+  "ZA-NW": "/images/region-flags/regional/south-africa-north-west.png",
+  "ZA-WC": "/images/region-flags/regional/south-africa-western-cape.png",
+  "ZA.EC": "/images/region-flags/regional/south-africa-eastern-cape.png",
+  "ZA.FS": "/images/region-flags/regional/south-africa-free-state.png",
+  "ZA.GT": "/images/region-flags/regional/south-africa-gauteng.png",
+  "ZA.NL": "/images/region-flags/regional/south-africa-kwazulu-natal.png",
+  "ZA.NP": "/images/region-flags/regional/south-africa-limpopo.png",
+  "ZA.MP": "/images/region-flags/regional/south-africa-mpumalanga.png",
+  "ZA.NC": "/images/region-flags/regional/south-africa-northern-cape.png",
+  "ZA.NW": "/images/region-flags/regional/south-africa-north-west.png",
+  "ZA.WC": "/images/region-flags/regional/south-africa-western-cape.png",
+  "PH-ALB": "/images/region-flags/regional/philippines-albay.png",
+  "PH-BTG": "/images/region-flags/regional/philippines-batangas.jpg",
+  "PH-QUE": "/images/region-flags/regional/philippines-quezon.png",
+  "PH-SLU": "/images/region-flags/regional/philippines-sulu.png",
+};
+
+const regionalFlagByName: Record<string, string> = {
+  alberta: "/images/region-flags/regional/canada-alberta.png",
+  "british-columbia": "/images/region-flags/regional/canada-british-columbia.png",
+  manitoba: "/images/region-flags/regional/canada-manitoba.png",
+  "new-brunswick": "/images/region-flags/regional/canada-new-brunswick.png",
+  "newfoundland-and-labrador": "/images/region-flags/regional/canada-newfoundland-and-labrador.png",
+  "nova-scotia": "/images/region-flags/regional/canada-nova-scotia.png",
+  nunavut: "/images/region-flags/regional/canada-nunavut.png",
+  ontario: "/images/region-flags/regional/canada-ontario.png",
+  quebec: "/images/region-flags/regional/canada-quebec.png",
+  "prince-edward-island": "/images/region-flags/regional/canada-prince-edward-island.png",
+  "northwest-territories": "/images/region-flags/regional/canada-northwest-territories.png",
+  yukon: "/images/region-flags/regional/canada-yukon.png",
+  saskatchewan: "/images/region-flags/regional/canada-saskatchewan.png",
+  "eastern-cape": "/images/region-flags/regional/south-africa-eastern-cape.png",
+  "free-state": "/images/region-flags/regional/south-africa-free-state.png",
+  gauteng: "/images/region-flags/regional/south-africa-gauteng.png",
+  "kwazulu-natal": "/images/region-flags/regional/south-africa-kwazulu-natal.png",
+  limpopo: "/images/region-flags/regional/south-africa-limpopo.png",
+  mpumalanga: "/images/region-flags/regional/south-africa-mpumalanga.png",
+  "northern-cape": "/images/region-flags/regional/south-africa-northern-cape.png",
+  "north-west": "/images/region-flags/regional/south-africa-north-west.png",
+  "western-cape": "/images/region-flags/regional/south-africa-western-cape.png",
+  albay: "/images/region-flags/regional/philippines-albay.png",
+  batangas: "/images/region-flags/regional/philippines-batangas.jpg",
+  quezon: "/images/region-flags/regional/philippines-quezon.png",
+  sulu: "/images/region-flags/regional/philippines-sulu.png",
+  rome: "/images/region-flags/regional/italy-rome-province.png",
+  roma: "/images/region-flags/regional/italy-rome-province.png",
+  milan: "/images/region-flags/regional/italy-milan-province.png",
+  naples: "/images/region-flags/regional/italy-naples-metropolitan-city.jpg",
+  latina: "/images/region-flags/regional/italy-latina-province.png",
+  pisa: "/images/region-flags/regional/italy-pisa-province.png",
+  siena: "/images/region-flags/regional/italy-siena-province.png",
+  lucca: "/images/region-flags/regional/italy-lucca-province.png",
+  gorizia: "/images/region-flags/regional/italy-gorizia-province.png",
+  udine: "/images/region-flags/regional/italy-udine-province.gif",
+  treviso: "/images/region-flags/regional/italy-treviso-province.gif",
+  trapani: "/images/region-flags/regional/italy-trapani-province.gif",
+  asti: "/images/region-flags/regional/italy-asti-province.gif",
+  "barletta-andria-trani": "/images/region-flags/regional/italy-barletta-andria-trani-province.png",
+  caltanissetta: "/images/region-flags/regional/italy-caltanissetta-province.png",
+};
+
+function regionalFlagImageSrc(feature: GadmSubdivisionFeature) {
+  const code = subdivisionCode(feature);
+  const normalizedCode = code.replace(".", "-");
+  if (/^US[-.][A-Z]{2}$/.test(code)) return `/images/region-flags/us/${code.slice(3).toLowerCase()}.png`;
+  const direct = regionalFlagByCode[code]
+    ?? regionalFlagByCode[normalizedCode]
+    ?? (feature.properties?.HASC_1 ? regionalFlagByCode[feature.properties.HASC_1] ?? regionalFlagByCode[feature.properties.HASC_1.replace(".", "-")] : undefined);
+  if (direct) return direct;
+  return regionalFlagByName[slugifyCountryName(subdivisionName(feature))]
+    ?? (feature.properties?.NAME_1 ? regionalFlagByName[slugifyCountryName(feature.properties.NAME_1)] : undefined)
+    ?? "";
+}
+
+const dailyLessonCountryImageFiles: Record<string, string> = {
+  "United States": "USA.jpg",
+  "United Kingdom": "UnitedKingdom.jpg",
+  "United Arab Emirates": "United Arab Emirates.jpg",
+  "New Zealand": "NewZeland.JPG",
+  "South Africa": "South Africa.jpg",
+  "South Korea": "South Korea.jpg",
+  Colombia: "Colombia.jpg",
+  Brazil: "Brazil.jpg",
+  France: "France.jpg",
+  Japan: "Japan.jpg",
+  Mexico: "Mexico.jpg",
+  China: "China.JPG",
+  Russia: "Russia.jpg",
+  Australia: "Australia.jpg",
+  Romania: "Romania.jpg",
+  Estonia: "Estonia.jpg",
+  Ethiopia: "Ethiopia.jpg",
+  Kenya: "Kenya.jpg",
+  Ghana: "Ghana.jpg",
+  Nepal: "Nepal.jpg",
+  Nigeria: "Nigeria.jpg",
+  Ukraine: "Ukraine.jpg",
+  Zimbabwe: "Zimbabwe.png",
+};
+
+function countryImagePathForName(name: string) {
+  const fileName = dailyLessonCountryImageFiles[name] ?? `${name.replace(/\s+/g, "")}.jpg`;
+  return `/images/country-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}`;
+}
+
 function loadPlaceImages() {
   if (placeImagesCache) return Promise.resolve(placeImagesCache);
   if (!placeImagesPromise) {
@@ -627,6 +1069,130 @@ function loadPlaceImages() {
       });
   }
   return placeImagesPromise;
+}
+
+function loadWriBoundaries() {
+  if (wriBoundaryCache) return Promise.resolve(wriBoundaryCache);
+  if (!wriBoundaryPromise) {
+    wriBoundaryPromise = fetch("/data/wri/all_countries.min.geojson")
+      .then((response) => response.ok ? response.json() : { features: [] })
+      .then((collection: GeoJSON.FeatureCollection<GeoJSON.Geometry, WriBoundaryFeature["properties"]>) => {
+        wriBoundaryCache = collection.features ?? [];
+        return wriBoundaryCache;
+      })
+      .catch(() => {
+        wriBoundaryCache = [];
+        return wriBoundaryCache;
+      });
+  }
+  return wriBoundaryPromise;
+}
+
+function loadGadmSubdivisions(regionId: string) {
+  const filePath = gadmLevelOneFiles[regionId];
+  if (!filePath) return Promise.resolve([]);
+  if (gadmSubdivisionCache[regionId]) return Promise.resolve(gadmSubdivisionCache[regionId]);
+  if (!gadmSubdivisionPromises[regionId]) {
+    gadmSubdivisionPromises[regionId] = fetch(filePath)
+      .then((response) => {
+        if (!response.ok) throw new Error(`Unable to load subdivisions for ${regionId}`);
+        return response.json();
+      })
+      .then((collection: GeoJSON.FeatureCollection<GeoJSON.Geometry, GadmSubdivisionProperties>) => {
+        gadmSubdivisionCache[regionId] = collection.features ?? [];
+        return gadmSubdivisionCache[regionId];
+      })
+      .catch(() => {
+        gadmSubdivisionCache[regionId] = [];
+        return [];
+      });
+  }
+  return gadmSubdivisionPromises[regionId];
+}
+
+function subdivisionName(feature: GadmSubdivisionFeature) {
+  const name = feature.properties?.shapeName ?? feature.properties?.NAME_2 ?? feature.properties?.NAME_1 ?? "Regional subdivision";
+  return name.replace(/([a-z])([A-Z])/g, "$1 $2");
+}
+
+function subdivisionType(feature: GadmSubdivisionFeature) {
+  return feature.properties?.shapeType ?? feature.properties?.ENGTYPE_2 ?? feature.properties?.TYPE_2 ?? feature.properties?.ENGTYPE_1 ?? feature.properties?.TYPE_1 ?? "Region";
+}
+
+function subdivisionCode(feature: GadmSubdivisionFeature) {
+  return feature.properties?.ISO_1 && feature.properties.ISO_1 !== "NA"
+    ? feature.properties.ISO_1
+    : feature.properties?.shapeISO && feature.properties.shapeISO !== "NA"
+      ? feature.properties.shapeISO
+    : feature.properties?.HASC_2 && feature.properties.HASC_2 !== "NA"
+      ? feature.properties.HASC_2
+      : feature.properties?.HASC_1 && feature.properties.HASC_1 !== "NA"
+        ? feature.properties.HASC_1
+        : feature.properties?.shapeID ?? feature.properties?.GID_2 ?? feature.properties?.GID_1 ?? "";
+}
+
+function subdivisionStudyNote(feature: GadmSubdivisionFeature) {
+  const key = subdivisionCode(feature);
+  return subdivisionStudyNotes[key] ?? (feature.properties?.HASC_1 ? subdivisionStudyNotes[feature.properties.HASC_1] : undefined);
+}
+
+function subdivisionPopulation(feature: GadmSubdivisionFeature) {
+  const code = subdivisionCode(feature);
+  const compactName = subdivisionName(feature);
+  const plainName = compactName.replace(/\([^)]*\)/g, "").trim();
+  const parentName = feature.properties?.NAME_1 ? feature.properties.NAME_1.replace(/([a-z])([A-Z])/g, "$1 $2") : "";
+  const countryName = feature.properties?.COUNTRY ?? (feature.properties?.shapeGroup === "NPL" ? "Nepal" : "");
+  const countryRows = countryName ? importedRegionalPopulations[countryName] : undefined;
+  return regionalPopulationByCode[code]
+    ?? (feature.properties?.HASC_1 ? regionalPopulationByCode[feature.properties.HASC_1] : undefined)
+    ?? regionalPopulationByName[compactName]
+    ?? regionalPopulationByName[parentName]
+    ?? countryRows?.[plainName]
+    ?? countryRows?.[plainName.replace(/\s+/g, "")]
+    ?? countryRows?.[plainName.replace(/\s+/g, "") + "Parish"]
+    ?? countryRows?.[compactName]
+    ?? countryRows?.[compactName.replace(/\s+/g, "")]
+    ?? countryRows?.[compactName.replace(/\s+/g, "") + "Parish"]
+    ?? countryRows?.[parentName]
+    ?? countryRows?.[parentName.replace(/\s+/g, "")];
+}
+
+function airportsForSubdivision(feature: GadmSubdivisionFeature, countryId: string) {
+  const name = subdivisionName(feature).toLowerCase();
+  const note = subdivisionStudyNote(feature);
+  const transitText = note?.transit?.toLowerCase() ?? "";
+  const region = regions.find((item) => item.id === countryId);
+  if (!region) return [];
+  return region.airports.filter((airport) => {
+    const text = airport.toLowerCase();
+    return transitText.includes(text) || text.includes(name) || (
+      name === "florida" && /\b(MIA|MCO|FLL|TPA|JAX)\b/i.test(airport)
+    ) || (
+      name === "new york" && /\b(JFK|LGA|EWR)\b/i.test(airport)
+    ) || (
+      name === "california" && /\b(LAX|SFO|SAN|SJC)\b/i.test(airport)
+    ) || (
+      name === "georgia" && /\bATL\b/i.test(airport)
+    ) || (
+      name === "ontario" && /\bYYZ|YOW\b/i.test(airport)
+    ) || (
+      name === "new south wales" && /\bSYD\b/i.test(airport)
+    );
+  }).slice(0, 6);
+}
+
+function transitSystemsForSubdivision(feature: GadmSubdivisionFeature, countryId: string) {
+  const name = subdivisionName(feature).toLowerCase();
+  const note = subdivisionStudyNote(feature)?.transit?.toLowerCase() ?? "";
+  return transitSystemsRepository.filter((system) => (
+    system.countryId === countryId
+    && (
+      system.region.toLowerCase().includes(name)
+      || system.city.toLowerCase().includes(name)
+      || note.includes(system.city.toLowerCase())
+      || system.keyNodes.some((node) => note.includes(node.toLowerCase()))
+    )
+  )).slice(0, 5);
 }
 
 function usePlaceImage(region: Region) {
@@ -838,18 +1404,32 @@ function FlagAsset({ code, label = "Country flag" }: { code: string; label?: str
   return <img src={src} alt={label} onError={() => setFailed(true)} />;
 }
 
+function hydrateSavedRun(savedRun: QuizRun | null) {
+  if (!savedRun) return null;
+  const questionById = new Map(questions.map((question) => [question.id, question]));
+  return {
+    ...savedRun,
+    questions: savedRun.questions.map((question) => questionById.get(question.id) ?? question),
+    answers: savedRun.answers.map((answer) => {
+      const refreshedQuestion = questionById.get(answer.question.id) ?? answer.question;
+      return { ...answer, question: refreshedQuestion };
+    }),
+  };
+}
+
 function App() {
-  const [activeTab, setActiveTab] = useState<Tab>("play");
+  const [activeTab, setActiveTab] = useState<Tab>("map");
   const [profile, setProfile] = useState<PlayerProfile>(() => loadProfile());
   const [profiles, setProfiles] = useState<PlayerProfile[]>(() => loadProfiles());
   const [friends, setFriends] = useState<LocalFriend[]>(() => loadFriends());
-  const [run, setRun] = useState<QuizRun | null>(() => loadRun());
+  const [run, setRun] = useState<QuizRun | null>(() => hydrateSavedRun(loadRun()));
   const [selectedRegionId, setSelectedRegionId] = useState<string | null>("united-states");
   const [mapStyle, setMapStyle] = useState<MapStyle>("default");
   const [operationalOverlay, setOperationalOverlay] = useState(false);
   const [mapZoom, setMapZoom] = useState(1);
   const [mapPan, setMapPan] = useState({ x: 0, y: 0 });
   const [countryLayer, setCountryLayer] = useState(true);
+  const [regionalBoundaryLayer, setRegionalBoundaryLayer] = useState(false);
   const [touristAttractionsLayer, setTouristAttractionsLayer] = useState(false);
   const [selectedAttractionId, setSelectedAttractionId] = useState<string | null>(null);
   const [transitSystemsLayer, setTransitSystemsLayer] = useState(false);
@@ -857,9 +1437,11 @@ function App() {
   const [questionCount, setQuestionCount] = useState<10 | 15 | 20 | 150>(10);
   const [selectedStartLevel, setSelectedStartLevel] = useState<DifficultyLevel>("gateway");
   const [showReviewAnswers, setShowReviewAnswers] = useState(false);
-  const [showGuide, setShowGuide] = useState(false);
+  const [showGuide, setShowGuide] = useState(() => localStorage.getItem("geontransit.guide.seen.v3") !== "yes");
   const [showSettings, setShowSettings] = useState(false);
-  const [guideButtonWide, setGuideButtonWide] = useState(false);
+  const [showAbout, setShowAbout] = useState(false);
+  const [showStartMenu, setShowStartMenu] = useState(false);
+  const [showDailyLesson, setShowDailyLesson] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(() => localStorage.getItem("geontransit.sound.v1") !== "off");
 
   useEffect(() => saveProfile(profile), [profile]);
@@ -1077,6 +1659,11 @@ function resetProfile() {
     });
   }
 
+  function closeGuide() {
+    localStorage.setItem("geontransit.guide.seen.v3", "yes");
+    setShowGuide(false);
+  }
+
   return (
     <main className="app-shell">
       <header className="topbar">
@@ -1099,18 +1686,29 @@ function resetProfile() {
           </button>
         ))}
       </nav>
-      <div className={`guide-launch-group ${guideButtonWide ? "wide" : ""}`}>
-        <button className="floating-guide-launch" type="button" onClick={() => setShowGuide(true)}>
-          How to Play
-        </button>
-        <button className="guide-resize-toggle" type="button" title="Stretch or shrink this button" onClick={() => setGuideButtonWide((wide) => !wide)}>
-          ↔
-        </button>
-      </div>
-      <button className="settings-launch" type="button" onClick={() => setShowSettings((open) => !open)} aria-expanded={showSettings} aria-label="Open settings">
-        ⚙️
-      </button>
-      {showGuide && <GuideOverlay onClose={() => setShowGuide(false)} />}
+      <StartHereMenu
+        open={showStartMenu}
+        onToggle={() => setShowStartMenu((open) => !open)}
+        onAbout={() => {
+          setShowAbout((open) => !open);
+          setShowStartMenu(false);
+        }}
+        onGuide={() => {
+          setShowGuide(true);
+          setShowStartMenu(false);
+        }}
+        onSettings={() => {
+          setShowSettings((open) => !open);
+          setShowStartMenu(false);
+        }}
+        onLesson={() => {
+          setShowDailyLesson((open) => !open);
+          setShowStartMenu(false);
+        }}
+      />
+      {showGuide && <GuideOverlay onClose={closeGuide} />}
+      {showAbout && <AboutPanel onClose={() => setShowAbout(false)} />}
+      {showDailyLesson && <DailyLessonPanel onClose={() => setShowDailyLesson(false)} />}
       {showSettings && (
         <SettingsPanel
           profile={profile}
@@ -1179,6 +1777,8 @@ function resetProfile() {
           onMapPanChange={setMapPan}
           countryLayer={countryLayer}
           onCountryLayerChange={setCountryLayer}
+          regionalBoundaryLayer={regionalBoundaryLayer}
+          onRegionalBoundaryLayerChange={setRegionalBoundaryLayer}
           touristAttractionsLayer={touristAttractionsLayer}
           onTouristAttractionsLayerChange={setTouristAttractionsLayer}
           transitSystemsLayer={transitSystemsLayer}
@@ -1343,47 +1943,279 @@ function LocalLeaderboard({ profile, profiles, friends }: { profile: PlayerProfi
   );
 }
 
+function StartHereMenu({
+  open,
+  onToggle,
+  onAbout,
+  onGuide,
+  onSettings,
+  onLesson,
+}: {
+  open: boolean;
+  onToggle: () => void;
+  onAbout: () => void;
+  onGuide: () => void;
+  onSettings: () => void;
+  onLesson: () => void;
+}) {
+  return (
+    <div className={`start-here-menu ${open ? "open" : ""}`}>
+      <button className="start-here-launch" type="button" onClick={onToggle} aria-expanded={open} aria-label="Open start menu">
+        <span>Start Here</span>
+        <strong>◆</strong>
+      </button>
+      {open && (
+        <div className="start-here-popover" role="menu" aria-label="Start here options">
+          <button type="button" onClick={onAbout} role="menuitem">
+            <strong>About This App</strong>
+            <span>What GEONTRANSIT does and how profiles work</span>
+          </button>
+          <button type="button" onClick={onGuide} role="menuitem">
+            <strong>How to Use</strong>
+            <span>Map, profiles, layers, CSV, and questions</span>
+          </button>
+          <button type="button" onClick={onLesson} role="menuitem">
+            <strong>Daily Lesson</strong>
+            <span>Transit topic, map clue, and memory hook</span>
+          </button>
+          <button type="button" onClick={onSettings} role="menuitem">
+            <strong>Settings</strong>
+            <span>Sound, build mode, profile, friends</span>
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+type DailyLesson = {
+  title: string;
+  summary: string;
+  facts: string[];
+  prompt: string;
+};
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function dailyLessonQuestions(lesson: DailyLesson) {
+  const region = regions.find((item) => item.name === lesson.title);
+  if (!region) return [];
+  return buildRegionPracticeQuestions(region, 12, "gateway", ["transport", "capitals", "geography", "landmarks", "tourist"]);
+}
+
+function downloadDailyLessonCsv(lesson: DailyLesson) {
+  const rows = dailyLessonQuestions(lesson).map((question) => [
+    question.prompt,
+    question.answer,
+    categoryLabels[question.category],
+    difficultyLabels[question.difficulty],
+    question.explanation,
+  ]);
+  const csv = [
+    ["prompt", "answer", "category", "level", "explanation"],
+    ...rows,
+  ].map((row) => row.map(csvCell).join(",")).join("\r\n");
+  const blob = new Blob([`\uFEFF${csv}`], { type: "text/csv;charset=utf-8" });
+  const objectUrl = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = objectUrl;
+  anchor.download = `${slugifyCountryName(lesson.title)}-daily-lesson-questions.csv`;
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+}
+
+function downloadDailyLessonReviewPage(lesson: DailyLesson) {
+  const cards = dailyLessonQuestions(lesson);
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(lesson.title)} GEONTRANSIT Daily Lesson</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111}h1{margin-bottom:6px}.facts{display:grid;gap:8px;margin:18px 0}.facts div,.card{border:1px solid #999;border-radius:10px;padding:12px;break-inside:avoid}.label{font-size:12px;text-transform:uppercase;color:#555;font-weight:700}.prompt{font-size:17px;font-weight:700}.answer{margin-top:8px}</style></head><body><h1>${escapeHtml(lesson.title)} Daily Lesson</h1><p>${escapeHtml(lesson.summary)}</p><div class="facts">${lesson.facts.map((fact, index) => `<div><span class="label">Fact ${index + 1}</span><p>${escapeHtml(fact)}</p></div>`).join("")}</div><h2>Review Questions</h2>${cards.map((question) => `<section class="card"><div class="label">${escapeHtml(categoryLabels[question.category])}</div><div class="prompt">${escapeHtml(question.prompt)}</div><div class="answer"><strong>Answer:</strong> ${escapeHtml(question.answer)}</div><p>${escapeHtml(question.explanation)}</p></section>`).join("")}</body></html>`;
+  const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+  const objectUrl = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = objectUrl;
+  anchor.download = `${slugifyCountryName(lesson.title)}-daily-lesson-review.html`;
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+}
+
+function DailyLessonPanel({ onClose }: { onClose: () => void }) {
+  const now = new Date();
+  const localMidnightDay = Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 86400000);
+  const lessonIndex = localMidnightDay % dailyLessons.length;
+  const lesson = dailyLessons[lessonIndex];
+  const lessonImage = countryImagePathForName(lesson.title);
+  return (
+    <aside className="daily-lesson-panel" aria-label="Daily transit lesson">
+      <div className="daily-lesson-heading">
+        <div>
+          <p className="eyebrow">Daily lesson</p>
+          <h3>{lesson.title}</h3>
+        </div>
+        <button type="button" className="daily-lesson-close" onClick={onClose} aria-label="Close daily lesson">×</button>
+      </div>
+      <figure className="daily-lesson-hero">
+        <img className="daily-lesson-image" src={lessonImage} alt={`${lesson.title} profile view`} />
+        <figcaption>
+          <span>Today</span>
+          <strong>{lesson.title}</strong>
+        </figcaption>
+      </figure>
+      <p>{lesson.summary}</p>
+      <div className="daily-lesson-actions" aria-label="Download daily lesson review files">
+        <button type="button" onClick={() => downloadDailyLessonReviewPage(lesson)}>Download Review Page</button>
+        <button type="button" onClick={() => downloadDailyLessonCsv(lesson)}>Download CSV</button>
+      </div>
+      <div className="lesson-card-grid">
+        {lesson.facts.map((fact, index) => (
+          <article key={fact}>
+            <span>Fact {index + 1}</span>
+            <strong>{fact}</strong>
+          </article>
+        ))}
+        <article className="lesson-action-card">
+          <span>Try this today</span>
+          <strong>{lesson.prompt}</strong>
+        </article>
+      </div>
+    </aside>
+  );
+}
+
+const dailyLessons = [
+  {
+    title: "United States",
+    summary: "A huge federal country where state geography and transit clues matter as much as national geography.",
+    facts: ["50 states plus D.C.", "Grand Canyon and Yosemite are major landmark anchors", "New York's MTA subway is one of the world's busiest urban rail systems", "Brightline is a modern intercity rail clue in Florida", "Chicago, Washington, Atlanta, Boston, and Los Angeles all have strong metro map clues"],
+    prompt: "Today, click the U.S., zoom into regions, and compare Florida, New York, California, Georgia, and D.C.",
+  },
+  {
+    title: "Brazil",
+    summary: "Brazil combines Amazon geography, Atlantic megacities, and major metro systems in Sao Paulo and Rio de Janeiro.",
+    facts: ["Brasilia is the capital", "The Amazon is the dominant geography clue", "Sao Paulo has a major metro network", "Rio de Janeiro pairs coastal geography with urban rail", "Large airports and ports make Brazil a strong multimodal country"],
+    prompt: "Look for Amazon, Atlantic coast, Sao Paulo, Rio, and Brasilia clues.",
+  },
+  {
+    title: "United Kingdom",
+    summary: "The UK is a rail-heavy country where London, regional rail, and historic regions create strong map clues.",
+    facts: ["London is the capital", "The London Underground is a signature transit system", "The Elizabeth line links across Greater London", "Scotland, Wales, England, and Northern Ireland shape regional geography", "Yorkshire rail clues often point to northern England"],
+    prompt: "Find the Tube clue, then compare London with northern rail regions.",
+  },
+  {
+    title: "France",
+    summary: "France is a classic rail geography lesson: Paris, regions, the TGV, and dense urban transit clues.",
+    facts: ["Paris is the capital", "The Paris Metro and RER are key map clues", "TGV corridors link Paris with Lyon, Marseille, and beyond", "Ile-de-France is the core capital region", "CDG and Orly are major airport clues"],
+    prompt: "Use Paris, TGV, RER, and Ile-de-France as today's anchors.",
+  },
+  {
+    title: "Japan",
+    summary: "Japan is perfect for station-order thinking: Shinkansen corridors, dense metros, and island regions.",
+    facts: ["Tokyo is the capital", "Shinkansen means bullet train network", "Honshu carries the busiest high-speed rail spine", "Tokyo and Osaka have major metro systems", "Hokkaido, Kyushu, and Shikoku add island-region clues"],
+    prompt: "Read the rail corridor order before answering the map question.",
+  },
+  {
+    title: "Colombia",
+    summary: "Colombia is a great example of transit adapting to terrain, especially Medellin's cable transit.",
+    facts: ["Bogota is the capital", "Medellin MetroCable connects hillside comunas with the city", "The route toward Parque Arvi is a famous cable-car geography clue", "TransMilenio is Bogota's BRT system", "Andean terrain shapes transport corridors"],
+    prompt: "Use terrain: valley, hillsides, cable cars, and BRT corridors.",
+  },
+  {
+    title: "Peru",
+    summary: "Peru combines Andes geography with one of the world's most memorable rail travel experiences.",
+    facts: ["Lima is the capital", "Machu Picchu is reached through the Sacred Valley", "Aguas Calientes to Ollantaytambo is a famous scenic rail segment", "The Andes shape nearly every overland route", "Lima has metro and BRT-style urban transit clues"],
+    prompt: "Think mountain rail: Aguas Calientes, Ollantaytambo, and Machu Picchu.",
+  },
+  {
+    title: "Vietnam",
+    summary: "Vietnam's north-south shape makes rail and street-level geography very memorable.",
+    facts: ["Hanoi is the capital", "Ho Chi Minh City is the largest city", "Hanoi has famous train-street cafe imagery", "The north-south railway follows the long coastal country shape", "Hanoi Metro and urban rail clues are growing"],
+    prompt: "Use the long coastline and train-street image as your memory hook.",
+  },
+  {
+    title: "Mexico",
+    summary: "Mexico mixes high-altitude capital geography, major metro systems, and strong regional identity.",
+    facts: ["Mexico City is the capital", "The Mexico City Metro is one of the largest in the Americas", "Jalisco points to Guadalajara and SITEUR light rail", "The Yucatan and Baja peninsulas are strong map-shape clues", "MEX and CUN are major aviation clues"],
+    prompt: "Zoom into regions and compare Mexico City, Jalisco, Baja California, and Yucatan.",
+  },
+  {
+    title: "China",
+    summary: "China is a high-speed rail and metro geography powerhouse with many huge urban systems.",
+    facts: ["Beijing is the capital", "Shanghai, Guangzhou, Shenzhen, Chongqing, and Zhengzhou have major metro clues", "High-speed rail links many megacity corridors", "Airport and railway-station labels help decode dense maps", "Chinese labels are easier when paired with romanized station names and route icons"],
+    prompt: "Use airport icons, high-speed railway stations, and city hubs before guessing.",
+  },
+  {
+    title: "Australia",
+    summary: "Australia is a continent-scale geography lesson with state capitals, coasts, and urban rail clues.",
+    facts: ["Canberra is the capital", "Sydney has heavy rail, metro, light rail, and ferries", "Melbourne is famous for trams", "Western Australia points to Perth and Transperth", "The Outback and Great Barrier Reef are major geography anchors"],
+    prompt: "Compare Sydney/New South Wales, Melbourne/Victoria, and Perth/Western Australia.",
+  },
+  {
+    title: "Singapore",
+    summary: "Singapore is compact, but its transit geography is exceptionally rich.",
+    facts: ["Singapore is both city and country", "The MRT is the main rapid transit clue", "Changi Airport is a global aviation hub", "Jurong East, City Hall, and Dhoby Ghaut are useful interchange clues", "Its island shape makes map identification quick"],
+    prompt: "Use Changi Airport and MRT interchanges as your anchor points.",
+  },
+  {
+    title: "Thailand",
+    summary: "Thailand combines Bangkok transit clues with strong tourism and coastal geography.",
+    facts: ["Bangkok is the capital", "BTS and MRT are the main rapid transit clues", "Siam and Asok are useful interchange clues", "Phuket and Krabi are strong coastal tourism anchors", "Long-distance rail links Bangkok with northern and southern corridors"],
+    prompt: "Read the Bangkok rail map by interchange first, then airport and river clues.",
+  },
+];
+
 function GuideOverlay({ onClose }: { onClose: () => void }) {
   const [activeStep, setActiveStep] = useState(0);
   const guideSteps = [
     {
-      icon: "▶",
-      title: "1. Start a Run",
-      text: "Choose 10, 15, or 20 questions, or use Level Ladder. The app has 15 levels, from easy Gateway questions to extremely difficult Outer Limits prompts.",
+      title: "Read the Map",
+      text: "Start with the map. Search countries, pan smoothly, zoom, and center the selected country without fighting the view.",
+      visual: "map",
     },
     {
-      icon: "🗺️",
-      title: "2. Explore the Map",
-      text: "Open Map tools to pick a region, zoom, and switch country flags, tourist attractions, or transit networks on and off. Clear Selection resets the active layers like a GIS clear-selection tool.",
+      title: "Toggle Layers",
+      text: "Turn flags, transit networks, landmarks, regional boundaries, and base maps on or off. Use Select region layer to jump between countries with detailed regions.",
+      visual: "layers",
     },
     {
-      icon: "🚇",
-      title: "3. Read the Sidebar",
-      text: "Country sidebars show capitals, flags, cities, airports, rail, metro, roads, maritime links, landmarks, geography, fun facts, and reference links.",
+      title: "Open a Profile",
+      text: "Profiles show flag, image, airport, transit, and landmark links. Google Maps opens locations; Wikipedia and Transitland explain networks.",
+      visual: "profile",
     },
     {
-      icon: "🎯",
-      title: "4. Practice Decks",
-      text: "Inside a country sidebar, choose only the available topics for that country. Large countries offer deeper transit and attraction decks; smaller countries keep to capitals and geography basics.",
+      title: "Use the Links",
+      text: "The profile sidebar uses Google Maps for places, Wikipedia for context, and Transitland for network maps. Transit documents and map images appear inside the relevant country profile.",
+      visual: "sidebar",
     },
     {
-      icon: "📄",
-      title: "5. Export Data",
-      text: "On the Map tab, export country profiles, transit networks, or tourist attractions as CSV. Practice decks and missed questions can also become printable flashcards.",
+      title: "Play Questions",
+      text: "Choose a short run or the 150-question ladder across 15 levels. Questions reflect transit, geography, images, landmarks, map layers, and harder regional flags.",
+      visual: "start",
     },
     {
-      icon: "🧠",
-      title: "6. Review",
-      text: "Missed questions save here. Replay them, reveal answers, and use memory tricks to make facts stick.",
+      title: "Answer Images",
+      text: "Some questions use real transit maps, landmarks, and regional flags. Easier rounds may show Florida or Texas; harder rounds may show Eastern Cape, Italy, or Philippines province flags.",
+      visual: "questions",
     },
     {
-      icon: "👤",
-      title: "7. Profile",
-      text: "Set your operator name, choose an emoji or flag, use guest mode, and track accuracy, high score, and category strengths.",
+      title: "Daily Lesson",
+      text: "Open Start Here for a daily country lesson with a profile image, five fast facts, transit clues, and one map challenge.",
+      visual: "lesson",
+    },
+    {
+      title: "Review and Export",
+      text: "Review misses, print flashcards, then export CSVs. Use Current, Selected, or All Countries; deselect the map when you do not want one-country context.",
+      visual: "export",
     },
   ];
 
-  const levelSummary = "There are 15 difficulty levels, ranging from easy Gateway questions to extremely difficult Outer Limits questions. Start low while learning, then jump higher when you are ready.";
   const currentStep = guideSteps[activeStep];
   const nextStep = () => {
     if (activeStep >= guideSteps.length - 1) {
@@ -1394,45 +2226,33 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="guide-backdrop" role="dialog" aria-modal="false" aria-label="How to use GEONTRANSIT">
+    <div className="guide-backdrop" role="dialog" aria-modal="false" aria-label="How to use the GEONTRANSIT application">
       <section className="guide-panel">
         <div className="guide-heading">
           <div>
             <p className="eyebrow">Quick start</p>
-            <h2>How to Play GEONTRANSIT</h2>
+            <h2>How to Use the GEONTRANSIT Application</h2>
           </div>
           <div className="guide-close-actions">
+            <button type="button" onClick={onClose}>Skip</button>
             <button type="button" className="guide-x" onClick={onClose} aria-label="Close instructions guide">×</button>
           </div>
         </div>
         <div className="guide-spotlight" key={currentStep.title}>
           <span>Step {activeStep + 1} of {guideSteps.length}</span>
-          <h3><em>{currentStep.icon}</em>{currentStep.title}</h3>
+          <h3>{currentStep.title}</h3>
           <p>{currentStep.text}</p>
-          <div className={`guide-mini-visual guide-mini-${activeStep + 1}`} aria-hidden="true">
-            <span>{currentStep.icon}</span>
-            <strong>{activeStep === 0 ? "Run setup" : activeStep === 1 ? "Map layer" : activeStep === 3 ? "Practice deck" : activeStep === 5 ? "Review queue" : "Country brief"}</strong>
-            <em>{activeStep === 0 ? "10 / 15 / 20" : activeStep === 1 ? "Zoom + layers" : activeStep === 3 ? "Topic filters" : activeStep === 5 ? "Flashcards" : "In-app facts"}</em>
-          </div>
+          <GuideVisual type={currentStep.visual} />
           <div className="guide-step-actions">
             <button type="button" onClick={() => setActiveStep((step) => Math.max(0, step - 1))} disabled={activeStep === 0}>
               Previous
             </button>
             <button type="button" className="primary-action" onClick={nextStep}>
-              {activeStep === guideSteps.length - 1 ? "Start Using App" : "Next"}
+              {activeStep === guideSteps.length - 1 ? "Start Using App" : "Play Next"}
             </button>
           </div>
         </div>
-        <div className="guide-route" aria-hidden="true">
-          {guideSteps.map((step, index) => (
-            <span
-              key={step.title}
-              className={index <= activeStep ? "active" : ""}
-              style={{ animationDelay: `${index * 180}ms` }}
-            />
-          ))}
-        </div>
-        <div className="guide-card-grid">
+        <div className="guide-card-grid" aria-label="Guide slide selector">
           {guideSteps.map((step, index) => (
             <article
               key={step.title}
@@ -1440,21 +2260,217 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
               style={{ animationDelay: `${index * 90}ms` }}
               onClick={() => setActiveStep(index)}
             >
-              <span>{step.icon}</span>
               <h3>{step.title}</h3>
-              <p>{step.text}</p>
             </article>
           ))}
         </div>
-        <div className="guide-levels">
-          <h3>15-Level Difficulty Ladder</h3>
-          <p>{levelSummary}</p>
-        </div>
-        <div className="guide-note">
-          <strong>Tip:</strong> Start with Gateway if you are learning. If you already score well, pick a higher start level before a run. Outer Limits is intentionally brutal.
-        </div>
       </section>
     </div>
+  );
+}
+
+function GuideVisual({ type }: { type: string }) {
+  return (
+    <div className={`guide-visual guide-visual-${type}`} aria-hidden="true">
+      {type === "start" && (
+        <>
+          <div className="guide-browser-bar"><span /><span /><span /></div>
+          <div className="guide-run-screen">
+            <strong>Play: Start Run</strong>
+            <span>15 levels</span>
+            <span>Transit</span>
+            <span>Geography</span>
+            <em>Image prompts appear lightly</em>
+          </div>
+        </>
+      )}
+      {type === "map" && (
+        <>
+          <div className="guide-actual-map">
+            <OperationsMap
+              selectedId="hong-kong"
+              onSelect={() => undefined}
+              compact
+              mapStyle="topographic"
+              countryLayer
+              regionalBoundaryLayer
+              operationalOverlay
+              touristAttractionsLayer
+              transitSystemsLayer
+              zoom={5.4}
+              pan={{ x: 0, y: 0 }}
+            />
+          </div>
+          <div className="guide-map-tools">
+            <span>Centered selection</span>
+            <span>Gray borders</span>
+            <span>Gold highlight</span>
+          </div>
+        </>
+      )}
+      {type === "layers" && (
+        <>
+          <div className="guide-layer-board">
+            <div className="guide-basemaps">
+              <strong>Base maps</strong>
+              <span>Default</span>
+              <span>Aerial</span>
+              <span>Light gray</span>
+              <span>Dark</span>
+              <span>Topo</span>
+            </div>
+            <div className="guide-layer-switches">
+              <span>On: Country layer</span>
+              <span>On: Tourist icons</span>
+              <span>On: Transit networks</span>
+              <span>On: Regional boundaries</span>
+            </div>
+            <div className="guide-zoom-stack">
+              <span>+</span>
+              <span>530%</span>
+              <span>-</span>
+              <em>Deselect region</em>
+            </div>
+          </div>
+        </>
+      )}
+      {type === "regions" && (
+        <div className="guide-region-demo">
+          <div>
+            <strong>Regional Boundaries</strong>
+            <span>Florida</span>
+            <span>Jalisco</span>
+            <span>Western Cape</span>
+            <span>Île-de-France</span>
+          </div>
+          <div>
+            <strong>Click Panel</strong>
+            <span>Region name</span>
+            <span>Capital or hub</span>
+            <span>Transit systems</span>
+            <em>Boundaries only, no color clutter</em>
+          </div>
+        </div>
+      )}
+      {type === "profile" && (
+        <div className="guide-profile-screen">
+          <div className="guide-hk-photo">
+            <img src="/images/country-images/HongKong.png" alt="" />
+          </div>
+          <div className="guide-hk-panel">
+            <span className="guide-flag"><FlagAsset code="HK" label="Hong Kong flag" /></span>
+            <strong>Hong Kong</strong>
+            <p>Airport, metro, ferries, landmarks, and map links in one tidy profile.</p>
+            <div>
+              <span>HKG Airport</span>
+              <span>MTR</span>
+              <span>Victoria Harbour</span>
+              <span>Google Maps</span>
+              <span>Wikipedia</span>
+              <span>Transitland</span>
+            </div>
+          </div>
+        </div>
+      )}
+      {type === "questions" && (
+        <div className="guide-question-demo">
+          <div className="guide-question-card">
+            <span>Question 4/10</span>
+            <strong>Which place is shown in this transit or landmark image?</strong>
+            <div className="guide-photo-prompt">
+              <span />
+            </div>
+          </div>
+          <div className="guide-practice-card">
+            <strong>Practice Deck</strong>
+            <span>Country-specific questions</span>
+            <span>Transit photos and maps</span>
+            <span>Short hints after you answer</span>
+          </div>
+        </div>
+      )}
+      {type === "lesson" && (
+        <div className="guide-lesson-demo">
+          <div className="guide-lesson-photo">
+            <img src="/images/country-images/Colombia.jpg" alt="" />
+            <strong>Colombia</strong>
+          </div>
+          <span>Five quick facts</span>
+          <span>One country or region per day</span>
+          <span>Geography + transit + landmarks</span>
+          <span>Download CSV or review page</span>
+          <em>Refreshes after midnight.</em>
+        </div>
+      )}
+      {type === "sidebar" && (
+        <div className="guide-sidebar-demo">
+          <div className="guide-mini-sidebar">
+            <strong>Hong Kong</strong>
+            <span><FlagAsset code="HK" label="Hong Kong flag" /> Flag profile</span>
+            <span>Google Maps</span>
+            <span>Wikipedia</span>
+            <span>Transit network</span>
+          </div>
+          <div className="guide-link-detail">
+            <span>Click an icon, country, or flag</span>
+            <strong>Open the exact reference</strong>
+            <p>Open transport sites, historic places, airport pages, and Transitland feeds from the sidebar.</p>
+          </div>
+        </div>
+      )}
+      {type === "review" && (
+        <div className="guide-review-screen">
+          <div>
+            <strong>Review Tab</strong>
+            <span>Missed question</span>
+            <span>Memory trick expanded</span>
+            <span>Replay prompt</span>
+          </div>
+          <div>
+            <strong>Flashcards</strong>
+            <span>Front: HKG</span>
+            <span>Back: Hong Kong gateway</span>
+            <em>Practice what matters</em>
+          </div>
+        </div>
+      )}
+      {type === "export" && (
+        <div className="guide-export-screen">
+          <div className="guide-profile-picker">
+            <strong>Profile</strong>
+            <span>Map</span>
+            <span>Metro</span>
+            <span>Air</span>
+            <em>Save username</em>
+          </div>
+          <div className="guide-csv-card">
+            <strong>CSV Export</strong>
+            <span>Current, Selected, or All</span>
+            <span>Airports + transit</span>
+            <span>Selected countries combine</span>
+            <em>Open in Sheets or Excel</em>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function AboutPanel({ onClose }: { onClose: () => void }) {
+  return (
+    <aside className="about-panel" aria-label="About GEONTRANSIT">
+      <div>
+        <p className="eyebrow">About</p>
+        <button type="button" onClick={onClose} aria-label="Close about panel">×</button>
+      </div>
+      <h2>GEONTRANSIT</h2>
+      <p>
+        GEONTRANSIT is a map-first transit geography trainer. Explore countries, metro systems, airports, landmarks, regional boundaries, and study images, then jump into questions that connect what you see on the map with how places actually move.
+      </p>
+      <p>
+        Country profiles bring together flags, local images, transport links, Google Maps, Wikipedia, Transitland, practice decks, review cards, and CSV exports so you can study one country, compare several, or build your own reference sheet.
+      </p>
+    </aside>
   );
 }
 
@@ -1728,6 +2744,8 @@ function MapTab({
   onMapPanChange,
   countryLayer,
   onCountryLayerChange,
+  regionalBoundaryLayer,
+  onRegionalBoundaryLayerChange,
   touristAttractionsLayer,
   onTouristAttractionsLayerChange,
   transitSystemsLayer,
@@ -1752,6 +2770,8 @@ function MapTab({
   onMapPanChange: (pan: { x: number; y: number }) => void;
   countryLayer: boolean;
   onCountryLayerChange: (enabled: boolean) => void;
+  regionalBoundaryLayer: boolean;
+  onRegionalBoundaryLayerChange: (enabled: boolean) => void;
   touristAttractionsLayer: boolean;
   onTouristAttractionsLayerChange: (enabled: boolean) => void;
   transitSystemsLayer: boolean;
@@ -1766,6 +2786,8 @@ function MapTab({
   const sortedRegions = [...regions].sort((a, b) => a.name.localeCompare(b.name));
   const [exportRegionIds, setExportRegionIds] = useState<string[]>([]);
   const [lastCsvExport, setLastCsvExport] = useState<CsvExport | null>(null);
+  const [countrySearch, setCountrySearch] = useState(selectedRegion?.name ?? "");
+  const [countrySearchFocused, setCountrySearchFocused] = useState(false);
   const selectedExportRegions = exportRegionIds
     .map((id) => regions.find((region) => region.id === id))
     .filter((region): region is Region => Boolean(region));
@@ -1776,24 +2798,19 @@ function MapTab({
   }, [lastCsvExport]);
   const zoomOut = () => onMapZoomChange(Math.max(1, Number((mapZoom - 0.4).toFixed(1))));
   const zoomIn = () => onMapZoomChange(Math.min(10, Number((mapZoom + 0.4).toFixed(1))));
-  const resetZoom = () => {
-    onMapZoomChange(1);
-    onMapPanChange({ x: 0, y: 0 });
-  };
-  const focusPanForRegion = (id: string, nextZoom: number) => {
-    const region = regions.find((item) => item.id === id);
-    if (!region) return { x: 0, y: 0 };
-    const position = mapPositionForRegion(region);
-    return {
-      x: Math.max(-920, Math.min(920, Number(((50 - position.x) * nextZoom * 5.2).toFixed(1)))),
-      y: Math.max(-520, Math.min(520, Number(((50 - position.y) * nextZoom * 5.2).toFixed(1)))),
-    };
+  const panMap = (x: number, y: number) => {
+    onMapPanChange({
+      x: Math.max(-920, Math.min(920, mapPan.x + x)),
+      y: Math.max(-520, Math.min(520, mapPan.y + y)),
+    });
   };
   const selectRegionAndZoom = (id: string) => {
-    const nextZoom = Math.max(mapZoom, 5.2);
+    const hasDetailedRegions = Boolean(gadmLevelOneFiles[id]);
+    const nextZoom = Math.max(mapZoom, hasDetailedRegions ? 6 : 5.2);
     onSelectRegion(id);
+    if (hasDetailedRegions) onRegionalBoundaryLayerChange(true);
     onMapZoomChange(nextZoom);
-    onMapPanChange(focusPanForRegion(id, nextZoom));
+    onMapPanChange({ x: 0, y: 0 });
   };
   const selectedRegionId = selectedRegion?.id ?? "";
   const toggleExportRegion = (id: string) => {
@@ -1819,6 +2836,41 @@ function MapTab({
   const exportScopeIds = selectedExportRegions.length > 0
     ? selectedExportRegions.map((region) => region.id)
     : selectedRegion ? [selectedRegion.id] : [];
+  const countrySearchQuery = countrySearch.trim().toLowerCase();
+  const countryMatches = countrySearchQuery
+    ? sortedRegions
+      .filter((region) => region.name.toLowerCase().startsWith(countrySearchQuery) || region.name.toLowerCase().includes(countrySearchQuery))
+      .sort((a, b) => {
+        const aStarts = a.name.toLowerCase().startsWith(countrySearchQuery) ? 0 : 1;
+        const bStarts = b.name.toLowerCase().startsWith(countrySearchQuery) ? 0 : 1;
+        return aStarts - bStarts || a.name.localeCompare(b.name);
+      })
+      .slice(0, 8)
+    : [];
+  const selectedRegionFileSlug = selectedRegion?.id ?? "country";
+
+  useEffect(() => {
+    setCountrySearch(selectedRegion?.name ?? "");
+  }, [selectedRegion?.id, selectedRegion?.name]);
+
+  const selectCountrySearchResult = (region: Region) => {
+    setCountrySearch(region.name);
+    setCountrySearchFocused(false);
+    selectRegionAndZoom(region.id);
+  };
+
+  const updateCountrySearch = (value: string) => {
+    setCountrySearch(value);
+    if (!value.trim()) {
+      onSelectRegion(null);
+      return;
+    }
+    const exactMatch = sortedRegions.find((region) => region.name.toLowerCase() === value.trim().toLowerCase());
+    if (exactMatch) {
+      selectRegionAndZoom(exactMatch.id);
+      setCountrySearchFocused(false);
+    }
+  };
 
   return (
     <section className="map-layout">
@@ -1833,32 +2885,49 @@ function MapTab({
             <strong>{catalogCoverage.unMemberCountries} UN countries + Taiwan, Bougainville, Kosovo</strong>
             <span>Click a country, then scroll the sidebar for facts, links, images, and sample questions.</span>
           </div>
-          <label className="country-select" htmlFor="country-select">
+          <label className="country-select country-combobox" htmlFor="country-search">
             Country
-            <select
-              id="country-select"
-              value={selectedRegionId}
-              onChange={(event) => {
-                if (event.target.value) selectRegionAndZoom(event.target.value);
-                else onSelectRegion(null);
+            <input
+              id="country-search"
+              type="search"
+              value={countrySearch}
+              placeholder="Search countries: ca, cam, au..."
+              autoComplete="off"
+              role="combobox"
+              aria-expanded={countrySearchFocused && countryMatches.length > 0}
+              aria-controls="country-search-options"
+              onFocus={() => setCountrySearchFocused(true)}
+              onChange={(event) => updateCountrySearch(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" && countryMatches[0]) {
+                  event.preventDefault();
+                  selectCountrySearchResult(countryMatches[0]);
+                }
+                if (event.key === "Escape") setCountrySearchFocused(false);
               }}
-            >
-              <option value="">No region selected</option>
-              {sortedRegions.map((region) => (
-                <option key={region.id} value={region.id}>{region.name}</option>
-              ))}
-            </select>
+            />
+            {countrySearchFocused && countryMatches.length > 0 ? (
+              <div className="country-search-options" id="country-search-options" role="listbox">
+                {countryMatches.map((region) => (
+                  <button
+                    key={region.id}
+                    type="button"
+                    role="option"
+                    aria-selected={region.id === selectedRegionId}
+                    onMouseDown={(event) => event.preventDefault()}
+                    onClick={() => selectCountrySearchResult(region)}
+                  >
+                    <FlagAsset code={region.flag} label={`${region.name} flag`} />
+                    <span>{region.name}</span>
+                  </button>
+                ))}
+              </div>
+            ) : null}
           </label>
           <button type="button" onClick={() => onSelectRegion(null)} disabled={!selectedRegion}>
             Deselect Region
           </button>
-          <div className="zoom-controls" aria-label="Map zoom controls">
-            <button onClick={zoomOut} aria-label="Zoom out">-</button>
-            <span>{Math.round(mapZoom * 100)}%</span>
-            <button onClick={zoomIn} aria-label="Zoom in">+</button>
-            <button onClick={resetZoom}>Reset</button>
-          </div>
-          <label className="overlay-toggle">
+          <label className={`overlay-toggle ${countryLayer ? "active" : ""}`}>
             <input
               type="checkbox"
               checked={countryLayer}
@@ -1866,7 +2935,31 @@ function MapTab({
             />
             Country flags
           </label>
-          <label className="overlay-toggle">
+          <label className={`overlay-toggle boundary-toggle ${regionalBoundaryLayer ? "active" : ""}`}>
+            <input
+              type="checkbox"
+              checked={regionalBoundaryLayer}
+              onChange={(event) => onRegionalBoundaryLayerChange(event.target.checked)}
+            />
+            Regional boundaries
+          </label>
+          <details className="region-availability-note">
+            <summary>Select region layer</summary>
+            <select
+              value={selectedRegionId}
+              onChange={(event) => event.target.value && selectRegionAndZoom(event.target.value)}
+              aria-label="Select a country with regional boundaries"
+            >
+              {Object.keys(gadmLevelOneFiles)
+                .map((regionId) => regions.find((region) => region.id === regionId))
+                .filter((region): region is Region => Boolean(region))
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((region) => (
+                  <option key={region.id} value={region.id}>{region.name}</option>
+                ))}
+            </select>
+          </details>
+          <label className={`overlay-toggle ${operationalOverlay ? "active" : ""}`}>
             <input
               type="checkbox"
               checked={operationalOverlay}
@@ -1874,7 +2967,7 @@ function MapTab({
             />
             Operational overlay
           </label>
-          <label className="overlay-toggle attractions-toggle">
+          <label className={`overlay-toggle attractions-toggle ${touristAttractionsLayer ? "active" : ""}`}>
             <input
               type="checkbox"
               checked={touristAttractionsLayer}
@@ -1882,7 +2975,7 @@ function MapTab({
             />
             Tourist attractions
           </label>
-          <label className="overlay-toggle transit-toggle">
+          <label className={`overlay-toggle transit-toggle ${transitSystemsLayer ? "active" : ""}`}>
             <input
               type="checkbox"
               checked={transitSystemsLayer}
@@ -1907,6 +3000,45 @@ function MapTab({
             ))}
           </div>
         </details>
+        <div className="map-frame">
+          <OperationsMap
+            selectedId={selectedRegionId}
+            onSelect={selectRegionAndZoom}
+            mapStyle={mapStyle}
+            countryLayer={countryLayer}
+            regionalBoundaryLayer={regionalBoundaryLayer}
+            operationalOverlay={operationalOverlay}
+            touristAttractionsLayer={touristAttractionsLayer}
+            selectedAttractionId={selectedAttractionId}
+            onAttractionSelect={onAttractionSelect}
+            transitSystemsLayer={transitSystemsLayer}
+            selectedTransitSystemId={selectedTransitSystemId}
+            onTransitSystemSelect={onTransitSystemSelect}
+            zoom={mapZoom}
+            pan={mapPan}
+            onPanChange={onMapPanChange}
+            onZoomChange={onMapZoomChange}
+          />
+          <div className="map-zoom-overlay" aria-label="Map zoom controls">
+            <button onClick={zoomIn} aria-label="Zoom in">+</button>
+            <button onClick={zoomOut} aria-label="Zoom out">-</button>
+          </div>
+          <div className="map-pan-overlay" aria-label="Map pan controls">
+            <button type="button" className="pan-up-button" onClick={() => panMap(0, 90)} aria-label="Move map north">↑</button>
+            <button type="button" className="pan-left-button" onClick={() => panMap(120, 0)} aria-label="Move map west">←</button>
+            <button type="button" className="pan-center-button" onClick={() => onMapPanChange({ x: 0, y: 0 })} aria-label="Center selected country">⌖</button>
+            <button type="button" className="pan-right-button" onClick={() => panMap(-120, 0)} aria-label="Move map east">→</button>
+            <button type="button" className="pan-down-button" onClick={() => panMap(0, -90)} aria-label="Move map south">↓</button>
+          </div>
+        </div>
+        <p className="map-drag-hint">Drag the map to move across regions.</p>
+        <div className="map-movement-legend" aria-label="Map movement and layer legend">
+          <span><strong>Pan</strong> drag the map</span>
+          <span><strong>Zoom</strong> wheel, pinch, or +/- to 1000%</span>
+          <span><strong>Labels</strong> city names appear at deep zoom</span>
+          <span><strong>Regions</strong> detailed subdivisions appear at 480%+</span>
+          <span><strong>Transit</strong> toggle network pins in Map tools</span>
+        </div>
         <details className="export-panel compact-tool-panel">
           <summary>
             <span>Export data</span>
@@ -1918,10 +3050,10 @@ function MapTab({
             <span>Use current country, selected countries, or all countries. Transit exports include Transitland/Wikipedia links; attraction exports include Wikipedia links.</span>
           </div>
           <div className="export-actions">
-            <button type="button" onClick={() => selectedRegion && exportRegionsCsv([selectedRegion], `${selectedRegion.id}-geontransit.csv`)} disabled={!selectedRegion}>
+            <button type="button" onClick={() => selectedRegion && exportRegionsCsv([selectedRegion], `${selectedRegionFileSlug}.csv`)} disabled={!selectedRegion}>
               Current Country
             </button>
-            <button type="button" onClick={() => exportRegionsCsv(selectedExportRegions, "geontransit-selected-countries.csv")} disabled={selectedExportRegions.length === 0}>
+            <button type="button" onClick={() => exportRegionsCsv(selectedExportRegions, "geontransit-countries.csv")} disabled={selectedExportRegions.length === 0}>
               Selected ({selectedExportRegions.length})
             </button>
             <button type="button" onClick={() => exportRegionsCsv(sortedRegions, "geontransit-all-countries.csv")}>
@@ -1982,30 +3114,6 @@ function MapTab({
             </div>
           ) : null}
         </details>
-        <OperationsMap
-          selectedId={selectedRegionId}
-          onSelect={selectRegionAndZoom}
-          mapStyle={mapStyle}
-          countryLayer={countryLayer}
-          operationalOverlay={operationalOverlay}
-          touristAttractionsLayer={touristAttractionsLayer}
-          selectedAttractionId={selectedAttractionId}
-          onAttractionSelect={onAttractionSelect}
-          transitSystemsLayer={transitSystemsLayer}
-          selectedTransitSystemId={selectedTransitSystemId}
-          onTransitSystemSelect={onTransitSystemSelect}
-          zoom={mapZoom}
-          pan={mapPan}
-          onPanChange={onMapPanChange}
-          onZoomChange={onMapZoomChange}
-        />
-        <p className="map-drag-hint">Drag the map to move across regions.</p>
-        <div className="map-movement-legend" aria-label="Map movement and layer legend">
-          <span><strong>Pan</strong> drag the map</span>
-          <span><strong>Zoom</strong> wheel, pinch, or +/- to 1000%</span>
-          <span><strong>Labels</strong> city names appear at deep zoom</span>
-          <span><strong>Transit</strong> toggle network pins in Map tools</span>
-        </div>
       </div>
       {selectedRegion ? (
         <RegionPanel
@@ -2209,6 +3317,7 @@ function OperationsMap({
   compact = false,
   mapStyle = "default",
   countryLayer = true,
+  regionalBoundaryLayer = false,
   operationalOverlay = false,
   touristAttractionsLayer = false,
   selectedAttractionId = null,
@@ -2227,6 +3336,7 @@ function OperationsMap({
   compact?: boolean;
   mapStyle?: MapStyle;
   countryLayer?: boolean;
+  regionalBoundaryLayer?: boolean;
   operationalOverlay?: boolean;
   touristAttractionsLayer?: boolean;
   selectedAttractionId?: string | null;
@@ -2243,14 +3353,34 @@ function OperationsMap({
   const [dragStart, setDragStart] = useState<{ pointerId: number; x: number; y: number; panX: number; panY: number } | null>(null);
   const [activePointers, setActivePointers] = useState<Array<{ id: number; x: number; y: number }>>([]);
   const [pinchStart, setPinchStart] = useState<{ distance: number; zoom: number } | null>(null);
+  const [gadmSubdivisions, setGadmSubdivisions] = useState<GadmSubdivisionFeature[]>([]);
+  const [selectedSubdivision, setSelectedSubdivision] = useState<GadmSubdivisionFeature | null>(null);
   const selectedRegion = selectedId ? regions.find((region) => region.id === selectedId) : undefined;
   const selectedPosition = selectedRegion ? mapPositionForRegion(selectedRegion) : { x: 50, y: 50 };
   const originX = selectedPosition.x;
   const originY = selectedPosition.y;
+  const supportsGadmRegions = Boolean(selectedId && gadmLevelOneFiles[selectedId]);
+  const showRegionalBoundaries = regionalBoundaryLayer && supportsGadmRegions && zoom >= 4.8;
+
+  useEffect(() => {
+    setSelectedSubdivision(null);
+    setGadmSubdivisions([]);
+  }, [selectedId]);
+
+  useEffect(() => {
+    if (!regionalBoundaryLayer || !selectedId || !supportsGadmRegions || zoom < 4.5) return;
+    let cancelled = false;
+    loadGadmSubdivisions(selectedId).then((features) => {
+      if (!cancelled) setGadmSubdivisions(features);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [regionalBoundaryLayer, selectedId, supportsGadmRegions, zoom]);
 
   return (
     <div
-      className={`map-stage ${compact ? "compact" : ""} map-style-${mapStyle} ${countryLayer ? "countries-on" : "countries-off"} ${touristAttractionsLayer && !countryLayer ? "attractions-solo" : ""} ${operationalOverlay ? "ops-on" : "ops-off"} ${zoom >= 2.5 ? "attraction-labels-on" : "attraction-labels-off"} ${zoom >= 2.2 ? "transit-labels-on" : "transit-labels-off"} ${zoom >= 4 ? "city-labels-on" : "city-labels-off"} ${zoom >= 5 ? "deep-zoom" : ""} ${dragStart ? "dragging" : ""}`}
+      className={`map-stage ${compact ? "compact" : ""} map-style-${mapStyle} ${countryLayer ? "countries-on" : "countries-off"} ${touristAttractionsLayer && !countryLayer ? "attractions-solo" : ""} ${regionalBoundaryLayer ? "regional-boundaries-requested" : ""} ${showRegionalBoundaries ? "regional-boundaries-on" : "regional-boundaries-off"} ${operationalOverlay ? "ops-on" : "ops-off"} ${zoom >= 2.5 ? "attraction-labels-on" : "attraction-labels-off"} ${zoom >= 2.2 ? "transit-labels-on" : "transit-labels-off"} ${zoom >= 4 ? "city-labels-on" : "city-labels-off"} ${zoom >= 5 ? "deep-zoom" : ""} ${dragStart ? "dragging" : ""}`}
       onPointerDown={(event) => {
         if (!onPanChange) return;
         const target = event.target;
@@ -2313,8 +3443,8 @@ function OperationsMap({
       <div
         className="map-content"
         style={{
-          transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
-          transformOrigin: `${originX}% ${originY}%`,
+          transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom}) translate(${50 - originX}%, ${50 - originY}%)`,
+          transformOrigin: "50% 50%",
         }}
       >
         <svg viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Interactive operations world map">
@@ -2327,7 +3457,7 @@ function OperationsMap({
               return (
                 <path
                   key={`${country.properties.name}-${index}`}
-                  className={`territory-cell territory-${index % 9} ${regionId === selectedId ? "selected" : ""} ${region ? "clickable" : "unmapped"}`}
+                  className={`territory-cell territory-${index % 17} ${regionId ? `region-${regionId}` : ""} ${regionId === selectedId ? "selected" : ""} ${region ? "clickable" : "unmapped"}`}
                   d={pathData}
                   data-region-id={regionId}
                   onPointerDown={(event) => event.stopPropagation()}
@@ -2345,16 +3475,47 @@ function OperationsMap({
               );
             })}
           </g>
-          <text className="ocean-label pacific-label" x="14" y="58">Pacific Ocean</text>
-          <text className="ocean-label atlantic-label" x="40" y="48">
-            <tspan x="40" dy="0">Atlantic</tspan>
-            <tspan x="40" dy="2.15">Ocean</tspan>
-          </text>
-          <text className="ocean-label indian-label" x="73" y="60">Indian Ocean</text>
-          <text className="pole-label north-pole" x="50" y="5">North Pole</text>
-          <text className="pole-label south-pole" x="50" y="96">South Pole</text>
-          <path className="route-line" d="M18 39 C36 25, 55 26, 84 43" />
-          <path className="route-line secondary" d="M31 67 C44 51, 57 47, 73 58" />
+          {showRegionalBoundaries && (
+            <g className="gadm-boundary-layer" aria-label="Regional subdivision layer">
+              {gadmSubdivisions.map((subdivision, index) => {
+                const pathData = worldPath(subdivision);
+                if (!pathData) return null;
+                const label = subdivisionName(subdivision);
+                const type = subdivisionType(subdivision);
+                return (
+                  <path
+                    key={`${subdivision.properties?.GID_1 ?? label}-${index}`}
+                    className={selectedSubdivision && subdivisionCode(selectedSubdivision) === subdivisionCode(subdivision) ? "selected" : ""}
+                    d={pathData}
+                    tabIndex={0}
+                    role="button"
+                    aria-label={`${label} ${type}`}
+                    onFocus={() => setSelectedSubdivision(subdivision)}
+                    onPointerDown={(event) => {
+                      event.stopPropagation();
+                      setSelectedSubdivision(subdivision);
+                    }}
+                    onPointerUp={(event) => {
+                      event.stopPropagation();
+                      setSelectedSubdivision(subdivision);
+                    }}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      setSelectedSubdivision(subdivision);
+                    }}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        setSelectedSubdivision(subdivision);
+                      }
+                    }}
+                  >
+                    <title>{label} · {type}</title>
+                  </path>
+                );
+              })}
+            </g>
+          )}
         </svg>
         {countryLayer && <div className="map-marker-layer" aria-label="Clickable map regions">
           {regions.map((region) => {
@@ -2451,6 +3612,42 @@ function OperationsMap({
           </div>
         )}
       </div>
+      {selectedSubdivision && !compact ? (() => {
+        const note = subdivisionStudyNote(selectedSubdivision);
+        const population = subdivisionPopulation(selectedSubdivision) ?? note?.population;
+        const localSystems = selectedRegion ? transitSystemsForSubdivision(selectedSubdivision, selectedRegion.id) : [];
+        const localAirports = selectedRegion ? airportsForSubdivision(selectedSubdivision, selectedRegion.id) : [];
+        const regionFlagSrc = regionalFlagImageSrc(selectedSubdivision);
+        return (
+          <aside className="subdivision-popover" aria-live="polite">
+            <button type="button" onClick={() => setSelectedSubdivision(null)} aria-label="Close regional details">×</button>
+            <div className="subdivision-profile-heading">
+              {regionFlagSrc ? (
+                <img src={regionFlagSrc} alt={`${subdivisionName(selectedSubdivision)} flag`} loading="lazy" />
+              ) : null}
+              <div>
+                <span>{subdivisionType(selectedSubdivision)}</span>
+                <strong>{subdivisionName(selectedSubdivision)}</strong>
+                <em>{selectedSubdivision.properties?.COUNTRY ?? selectedRegion?.name}</em>
+              </div>
+            </div>
+            <p><b>Capital</b> {note?.capital ?? "Regional capital note not loaded yet"}</p>
+            <p><b>Population</b> {population ?? "Population data not loaded yet"}</p>
+            {localAirports.length ? <p><b>Airports</b> {localAirports.join(", ")}</p> : null}
+            <p><b>Transit</b> {note?.transit ?? (localSystems.length ? "Mapped systems below" : "No local transit note loaded yet")}</p>
+            {localSystems.length ? (
+              <div className="subdivision-transit-list">
+                {localSystems.map((system) => (
+                  <a key={system.id} href={system.mapUrl} target="_blank" rel="noreferrer">
+                    {transitIcon(system.kind)} {system.name}
+                  </a>
+                ))}
+              </div>
+            ) : null}
+            <p><b>Region code</b> {subdivisionCode(selectedSubdivision)}</p>
+          </aside>
+        );
+      })() : null}
     </div>
   );
 }
@@ -2464,6 +3661,58 @@ function QuizMap({ onAnswer }: { onAnswer: (answer: string) => void }) {
 }
 
 function QuestionVisual({ question, onAnswer }: { question: Question; onAnswer?: (answer: string) => void }) {
+  const metroImageSrc = question.image ? metroImageByPrompt[question.image] : "";
+  if (metroImageSrc) {
+    return (
+      <figure className="question-image-card">
+        <img src={metroImageSrc} alt={question.visualCaption ?? question.image ?? "Transit image prompt"} />
+        <figcaption>
+          <strong>Reference image</strong>
+          <span>Use the visual clues, not the caption, to answer.</span>
+        </figcaption>
+      </figure>
+    );
+  }
+
+  if (question.visualType === "marta-map") {
+    const stations = [
+      ["North Springs", "50%", "9%"],
+      ["Buckhead", "48%", "30%"],
+      ["Lindbergh Center", "50%", "40%"],
+      ["Five Points", "50%", "55%"],
+      ["Doraville", "84%", "18%"],
+      ["College Park", "34%", "77%"],
+      ["Airport", "31%", "86%"],
+      ["Indian Creek", "94%", "55%"],
+    ] as const;
+    return (
+      <div className="visual-card marta-visual" aria-label={question.visualCaption}>
+        <svg viewBox="0 0 100 78" aria-hidden="true">
+          <path className="marta-line red" d="M50 5 L50 24 L46 36 L39 49 L31 65" />
+          <path className="marta-line gold" d="M84 16 L70 27 L58 40 L45 52 L31 65" />
+          <path className="marta-line blue" d="M8 43 L30 43 L50 43 L72 43 L94 43" />
+          <path className="marta-line green" d="M8 49 L29 49 L50 43 L71 48 L90 54" />
+          <circle className="marta-core" cx="50" cy="43" r="5" />
+          <circle className="marta-terminal" cx="31" cy="65" r="3.6" />
+          <circle className="marta-terminal" cx="50" cy="5" r="3.6" />
+          <circle className="marta-terminal" cx="84" cy="16" r="3.6" />
+          <circle className="marta-terminal" cx="94" cy="43" r="3.6" />
+        </svg>
+        {stations.map(([station, left, top]) => (
+          <button
+            key={station}
+            className="marta-station-target"
+            style={{ left, top }}
+            aria-label={`Select ${station}`}
+            onClick={() => onAnswer?.(station)}
+            title="Station"
+          />
+        ))}
+        <strong>Blank rail diagram</strong>
+      </div>
+    );
+  }
+
   if (question.visualType === "metro-diagram") {
     return (
       <div className="visual-card metro-visual" aria-label={question.visualCaption}>
@@ -2488,6 +3737,14 @@ function QuestionVisual({ question, onAnswer }: { question: Question; onAnswer?:
     return (
       <div className="flag-image-visual">
         {src ? <img src={src} alt="Country flag prompt" /> : <span>{question.image}</span>}
+      </div>
+    );
+  }
+
+  if (question.visualType === "regional-flag") {
+    return (
+      <div className="flag-image-visual regional-flag-visual">
+        {question.image ? <img src={question.image} alt="Regional flag prompt" /> : <span>?</span>}
       </div>
     );
   }
@@ -2722,23 +3979,36 @@ function RegionPanel({
               <span>The in-app brief gives the quiz focus; Transitland and Wikipedia are optional references for route context, stations, and service notes.</span>
             </div>
           )}
-          {regionTransitSystems.map((system) => (
-            <article key={system.id} className={selectedTransitSystemId === system.id ? "selected" : ""}>
-              <button type="button" onClick={() => onTransitSystemSelect(system.id)}>
-                <span>{transitIcon(system.kind)}</span>
-                <strong>{system.name}</strong>
-              </button>
-              <span>{system.city} · {system.region} · {system.type}</span>
-              <p>{system.quizFocus}</p>
-              <div className="transit-nodes">
-                {system.keyNodes.map((node) => <span key={node}>{node}</span>)}
-              </div>
-              <div>
-                <a href={system.mapUrl} target="_blank" rel="noreferrer">Transitland map</a>
-                <a href={system.sourceUrl} target="_blank" rel="noreferrer">Reference</a>
-              </div>
-            </article>
-          ))}
+          {regionTransitSystems.map((system) => {
+            const imageSrc = transitSystemImageById[system.id];
+            return (
+              <article key={system.id} className={selectedTransitSystemId === system.id ? "selected" : ""}>
+                <button type="button" onClick={() => onTransitSystemSelect(system.id)}>
+                  <span>{transitIcon(system.kind)}</span>
+                  <strong>{system.name}</strong>
+                </button>
+                {imageSrc && (
+                  <button
+                    type="button"
+                    className="transit-system-image-button"
+                    onClick={() => onTransitSystemSelect(system.id)}
+                    aria-label={`Focus ${system.name} on the map`}
+                  >
+                    <img src={imageSrc} alt={`${system.name} reference map`} loading="lazy" />
+                  </button>
+                )}
+                <span>{system.city} · {system.region} · {system.type}</span>
+                <p>{system.quizFocus}</p>
+                <div className="transit-nodes">
+                  {system.keyNodes.map((node) => <span key={node}>{node}</span>)}
+                </div>
+                <div>
+                  <a href={system.mapUrl} target="_blank" rel="noreferrer">Transitland map</a>
+                  <a href={system.sourceUrl} target="_blank" rel="noreferrer">Reference</a>
+                </div>
+              </article>
+            );
+          })}
         </details>
       )}
       <InfoGroup title="Highways" items={region.highways} regionName={region.name} badge />
@@ -2845,6 +4115,7 @@ function subregionsFor(regionId: string) {
     "united-kingdom": ["England", "Scotland", "Wales", "Northern Ireland", "Greater London", "West Midlands"],
     "south-africa": ["Gauteng", "Western Cape", "KwaZulu-Natal", "Eastern Cape", "Free State", "Mpumalanga", "Limpopo"],
     china: ["Beijing", "Shanghai", "Guangdong", "Sichuan", "Yunnan", "Xinjiang", "Tibet", "Hong Kong"],
+    "hong-kong": ["Hong Kong Island", "Kowloon", "New Territories", "Lantau Island", "Outlying Islands", "Sha Tin", "Tsuen Wan", "Yuen Long"],
     india: ["Delhi", "Maharashtra", "Karnataka", "Tamil Nadu", "West Bengal", "Gujarat", "Uttar Pradesh", "Kerala"],
     indonesia: ["Java", "Sumatra", "Bali", "Kalimantan", "Sulawesi", "Papua"],
     argentina: ["Buenos Aires Province", "Cordoba", "Santa Fe", "Mendoza", "Patagonia", "Tierra del Fuego"],
