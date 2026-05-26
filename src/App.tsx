@@ -2610,12 +2610,12 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="guide-backdrop" role="dialog" aria-modal="false" aria-label="How to use the GEONTRANSIT application">
+    <div className="guide-backdrop" role="dialog" aria-modal="false" aria-label="GEONTRANSIT quick start">
       <section className="guide-panel">
         <div className="guide-heading">
           <div>
             <p className="eyebrow">Quick start</p>
-            <h2>How to Use the GEONTRANSIT Application</h2>
+            <h2>Quick Start</h2>
           </div>
           <div className="guide-close-actions">
             <button type="button" onClick={onClose}>Skip</button>
