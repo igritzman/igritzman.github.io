@@ -6,6 +6,8 @@ import { catalogCoverage, categoryLabels, difficultyLabels, difficultyLevels, qu
 import { createRun, difficultyScore, isCorrect, nextDifficulty } from "./quiz";
 import regionalPopulationTable from "./regionalPopulations.json";
 import countryImageManifest from "./countryImageManifest.json";
+import regionFlagManifest from "./regionFlagManifest.json";
+import regionImageManifest from "./regionImageManifest.json";
 import usStateImageManifest from "./usStateImageManifest.json";
 import { createDefaultProfile, loadFriends, loadProfile, loadProfiles, loadRun, saveFriends, saveProfile, saveProfiles, saveRun } from "./storage";
 import type { DifficultyLevel, LocalFriend, PlayerProfile, Question, QuizRun, Region } from "./types";
@@ -130,7 +132,7 @@ const gadmLevelOneFiles: Record<string, string> = {
   russia: "/data/gadm/level1/gadm41_RUS_1.json",
   "south-africa": "/data/gadm/level1/gadm41_ZAF_1.json",
   italy: "/data/gadm/level1/gadm41_ITA_1.json",
-  france: "/data/gadm/level1/gadm41_FRA_2.json",
+  france: "/data/gadm/level1/gadm41_FRA_1.json",
   ireland: "/data/gadm/level1/gadm41_IRL_1.json",
   ukraine: "/data/gadm/level1/gadm41_UKR_1.json",
   "united-kingdom": "/data/gadm/level1/gadm41_GBR_2.json",
@@ -184,6 +186,88 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "IT-25": { capital: "Milan", transit: "Milan Metro, Trenord, tram network, Malpensa rail" },
   "FR.IF": { capital: "Paris", transit: "Paris Metro, RER, Transilien, tramways, CDG/Orly rail links" },
   "FR.AR": { capital: "Lyon", transit: "Lyon Metro, trams, TGV and TER regional rail" },
+  "auvergne-rhone-alpes": { capital: "Lyon", transit: "Lyon Metro, Grenoble trams, TER Auvergne-Rhone-Alpes, TGV links" },
+  "bourgogne-franche-comte": { capital: "Dijon", transit: "TER Bourgogne-Franche-Comte, Dijon tramway, TGV links" },
+  brittany: { capital: "Rennes", transit: "Rennes Metro, TER Bretagne, regional coach and ferry links" },
+  "centre-val-de-loire": { capital: "Orleans", transit: "Tours and Orleans tramways, TER Centre-Val de Loire" },
+  corsica: { capital: "Ajaccio", transit: "Corsican Railways, ferries, Ajaccio and Bastia airports" },
+  "grand-est": { capital: "Strasbourg", transit: "Strasbourg tramway, TER Grand Est, TGV Est" },
+  "hauts-de-france": { capital: "Lille", transit: "Lille Metro, TER Hauts-de-France, TGV and Eurostar links" },
+  "ile-de-france": { capital: "Paris", transit: "Paris Metro, RER, Transilien, tramways, CDG and Orly airport links" },
+  normandy: { capital: "Rouen", transit: "TER Normandie, Rouen tramway, Caen tramway, ferry links" },
+  "nouvelle-aquitaine": { capital: "Bordeaux", transit: "Bordeaux tramway, TER Nouvelle-Aquitaine, TGV Atlantique" },
+  occitanie: { capital: "Toulouse", transit: "Toulouse Metro, Montpellier trams, TER Occitanie" },
+  "pays-de-la-loire": { capital: "Nantes", transit: "Nantes tramway, TER Pays de la Loire, Atlantic rail corridors" },
+  "provence-alpes-cote-d-azur": { capital: "Marseille", transit: "Marseille Metro, Nice tramway, TER Zou!, TGV Mediterranee" },
+  guadeloupe: { capital: "Basse-Terre", transit: "Regional buses, ferry links, Pointe-a-Pitre airport" },
+  martinique: { capital: "Fort-de-France", transit: "TCSP Martinique BRT, ferries, airport links" },
+  guyane: { capital: "Cayenne", transit: "Regional road links, Cayenne-Felix Eboue airport" },
+  reunion: { capital: "Saint-Denis", transit: "Car Jaune regional buses, island road corridors, Roland Garros airport" },
+  mayotte: { capital: "Mamoudzou", transit: "Ferry and road links, Dzaoudzi-Pamandzi airport" },
+  hokkaido: { capital: "Sapporo", transit: "Sapporo Subway, JR Hokkaido, airport rail to New Chitose" },
+  aomori: { capital: "Aomori", transit: "JR East, Aoimori Railway, Tohoku Shinkansen access" },
+  iwate: { capital: "Morioka", transit: "Tohoku Shinkansen, JR East regional rail, IGR Iwate Galaxy Railway" },
+  miyagi: { capital: "Sendai", transit: "Sendai Subway, Tohoku Shinkansen, airport rail" },
+  akita: { capital: "Akita", transit: "Akita Shinkansen, JR Ou and Uetsu lines, Akita airport links" },
+  yamagata: { capital: "Yamagata", transit: "Yamagata Shinkansen, JR Senzan and Ou lines" },
+  fukushima: { capital: "Fukushima", transit: "Tohoku and Yamagata Shinkansen, JR East regional rail" },
+  ibaraki: { capital: "Mito", transit: "JR Joban Line, Tsukuba Express access, Ibaraki airport links" },
+  tochigi: { capital: "Utsunomiya", transit: "Tohoku Shinkansen, Utsunomiya Light Rail, JR regional lines" },
+  gunma: { capital: "Maebashi", transit: "Joetsu and Hokuriku Shinkansen access, JR Ryomo and Takasaki lines" },
+  saitama: { capital: "Saitama", transit: "JR East, Saitama Railway, Tobu and Seibu networks" },
+  chiba: { capital: "Chiba", transit: "JR East, Keisei, Chiba Urban Monorail, Narita airport rail" },
+  tokyo: { capital: "Tokyo", transit: "Tokyo Metro, Toei Subway, JR East, private railways" },
+  kanagawa: { capital: "Yokohama", transit: "Yokohama Subway, JR East, Tokyu, Keikyu, Minatomirai Line" },
+  niigata: { capital: "Niigata", transit: "Joetsu Shinkansen, JR East regional rail, port and airport links" },
+  toyama: { capital: "Toyama", transit: "Hokuriku Shinkansen, Toyama tram network, Ainokaze Railway" },
+  ishikawa: { capital: "Kanazawa", transit: "Hokuriku Shinkansen, IR Ishikawa Railway, bus corridors" },
+  fukui: { capital: "Fukui", transit: "Hokuriku Shinkansen, Echizen Railway, Fukui Railway tram-train" },
+  yamanashi: { capital: "Kofu", transit: "JR Chuo Main Line, Fujikyu Railway, bus links to Fuji Five Lakes" },
+  nagano: { capital: "Nagano", transit: "Hokuriku Shinkansen, Shinano Railway, Nagano Dentetsu" },
+  gifu: { capital: "Gifu", transit: "JR Central, Meitetsu, Takayama Main Line" },
+  shizuoka: { capital: "Shizuoka", transit: "Tokaido Shinkansen, JR Tokaido Line, Shizutetsu Railway" },
+  aichi: { capital: "Nagoya", transit: "Nagoya Subway, Meitetsu, JR Central, Shinkansen access" },
+  mie: { capital: "Tsu", transit: "Kintetsu, JR Central, Ise Railway" },
+  shiga: { capital: "Otsu", transit: "JR Biwako Line, Keihan Ishiyama Sakamoto Line, Lake Biwa corridors" },
+  kyoto: { capital: "Kyoto", transit: "Kyoto Municipal Subway, JR West, private railways, Shinkansen" },
+  osaka: { capital: "Osaka", transit: "Osaka Metro, JR West, Hankyu, Hanshin, Kintetsu" },
+  hyogo: { capital: "Kobe", transit: "Kobe Subway, JR West, Hankyu, Hanshin, Sanyo Shinkansen" },
+  nara: { capital: "Nara", transit: "Kintetsu Railway, JR West, regional bus links" },
+  wakayama: { capital: "Wakayama", transit: "JR West, Nankai Railway, ferry links" },
+  tottori: { capital: "Tottori", transit: "JR Sanin Line, regional bus and airport links" },
+  shimane: { capital: "Matsue", transit: "JR Sanin Line, Ichibata Electric Railway, airport links" },
+  okayama: { capital: "Okayama", transit: "Sanyo Shinkansen, Okayama Electric Tramway, JR regional hub" },
+  hiroshima: { capital: "Hiroshima", transit: "Hiroshima Electric Railway, JR West, Sanyo Shinkansen" },
+  yamaguchi: { capital: "Yamaguchi", transit: "Sanyo Shinkansen access, JR West regional lines" },
+  tokushima: { capital: "Tokushima", transit: "JR Shikoku, regional buses, ferry links" },
+  kagawa: { capital: "Takamatsu", transit: "JR Shikoku, Kotoden rail, ferry links" },
+  ehime: { capital: "Matsuyama", transit: "Iyotetsu trams and rail, JR Shikoku" },
+  kochi: { capital: "Kochi", transit: "Tosa Electric Railway trams, JR Shikoku, airport links" },
+  fukuoka: { capital: "Fukuoka", transit: "Fukuoka Subway, JR Kyushu, Nishitetsu, Sanyo/Kyushu Shinkansen" },
+  saga: { capital: "Saga", transit: "JR Kyushu Nagasaki Main Line, airport and bus links" },
+  nagasaki: { capital: "Nagasaki", transit: "Nagasaki Electric Tramway, Nishi Kyushu Shinkansen" },
+  kumamoto: { capital: "Kumamoto", transit: "Kumamoto City Tram, JR Kyushu, Kyushu Shinkansen" },
+  oita: { capital: "Oita", transit: "JR Kyushu Nippo Main Line, airport and ferry links" },
+  miyazaki: { capital: "Miyazaki", transit: "JR Kyushu, airport rail access, regional buses" },
+  kagoshima: { capital: "Kagoshima", transit: "Kagoshima City Tram, Kyushu Shinkansen, ferry links" },
+  okinawa: { capital: "Naha", transit: "Yui Rail monorail, Naha airport, island bus network" },
+  "new-south-wales": { capital: "Sydney", transit: "Sydney Trains, Sydney Metro, light rail, ferries" },
+  queensland: { capital: "Brisbane", transit: "Queensland Rail Citytrain, Brisbane busways, Gold Coast light rail" },
+  "south-australia": { capital: "Adelaide", transit: "Adelaide Metro trains, trams, O-Bahn busway" },
+  tasmania: { capital: "Hobart", transit: "Metro Tasmania buses, ferry and airport links" },
+  victoria: { capital: "Melbourne", transit: "Melbourne trams, trains, V/Line, airport bus links" },
+  "western-australia": { capital: "Perth", transit: "Transperth trains, buses, ferries, Airport Line" },
+  "australian-capital-territory": { capital: "Canberra", transit: "Canberra light rail, ACTION buses, airport links" },
+  "northern-territory": { capital: "Darwin", transit: "Darwin buses, Ghan rail terminal, airport and port links" },
+  "eastern-cape": { capital: "Bhisho", transit: "Metrorail Eastern Cape corridors, ports, East London and Gqeberha airports" },
+  "free-state": { capital: "Bloemfontein", transit: "Mangaung buses, national rail and road corridors" },
+  gauteng: { capital: "Johannesburg", transit: "Gautrain, Rea Vaya, Metrorail Gauteng" },
+  "kwazulu-natal": { capital: "Pietermaritzburg", transit: "Metrorail Durban corridors, People Mover, King Shaka airport links" },
+  limpopo: { capital: "Polokwane", transit: "Regional bus corridors, Polokwane airport links" },
+  mpumalanga: { capital: "Mbombela", transit: "Regional buses, N4 corridor, Kruger Mpumalanga airport links" },
+  "north-west": { capital: "Mahikeng", transit: "Regional road and bus links, Pilanesberg airport access" },
+  "northern-cape": { capital: "Kimberley", transit: "Regional rail, bus corridors, Kimberley airport links" },
+  "western-cape": { capital: "Cape Town", transit: "Metrorail Western Cape, MyCiTi, port and airport links" },
   "GB.GL": { capital: "London", transit: "London Underground, Elizabeth line, Overground, DLR" },
   "GB.NY": { capital: "Northallerton", transit: "York rail hub, TransPennine, Northern, East Coast Main Line access" },
   "US-AK": { capital: "Juneau", population: "about 730,000", transit: "Alaska Railroad, Anchorage People Mover, ferry and air links" },
@@ -267,15 +351,6 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   barmm: { capital: "Cotabato City", transit: "Cotabato airport, ferry and regional road links" },
   "cordillera-administrative-region": { capital: "Baguio", transit: "Mountain bus corridors and Baguio gateway links" },
   "national-capital-region": { capital: "Manila", transit: "LRT, MRT, PNR, NAIA and commuter bus links" },
-  "eastern-cape": { capital: "Bhisho", transit: "East London and Gqeberha airports, Metrorail Eastern Cape corridors" },
-  "free-state": { capital: "Bloemfontein", transit: "Bloemfontein rail, airport and national highway links" },
-  gauteng: { capital: "Johannesburg", transit: "Gautrain, Metrorail Gauteng, Rea Vaya, airport rail links" },
-  "kwazulu-natal": { capital: "Pietermaritzburg", transit: "Durban commuter rail, People Mover, King Shaka airport links" },
-  limpopo: { capital: "Polokwane", transit: "Polokwane bus, rail freight corridors, regional air links" },
-  mpumalanga: { capital: "Mbombela", transit: "Mbombela bus links, rail corridors, Kruger Mpumalanga airport" },
-  "northern-cape": { capital: "Kimberley", transit: "Kimberley rail and airport links, long-distance bus routes" },
-  "north-west": { capital: "Mahikeng", transit: "Mahikeng road and regional rail links" },
-  "western-cape": { capital: "Cape Town", transit: "Metrorail Western Cape, MyCiTi, port and airport links" },
 };
 
 const regionalPopulationByCode: Record<string, string> = {
@@ -434,10 +509,10 @@ const gadmRegionLayerNames = Object.keys(gadmLevelOneFiles)
   .sort((a, b) => a.localeCompare(b));
 
 const tabs: Array<{ id: Tab; label: string; icon: string }> = [
-  { id: "map", label: "Map", icon: "" },
-  { id: "play", label: "Play", icon: "" },
-  { id: "review", label: "Review", icon: "" },
-  { id: "profile", label: "Profile", icon: "" },
+  { id: "map", label: "Map", icon: "🗺️" },
+  { id: "play", label: "Play", icon: "▶️" },
+  { id: "review", label: "Review", icon: "📖" },
+  { id: "profile", label: "Profile", icon: "👤" },
 ];
 
 const levelTone: Record<DifficultyLevel, string> = {
@@ -1107,6 +1182,8 @@ function regionalFlagImageSrc(feature: GadmSubdivisionFeature) {
     ?? regionalFlagByCode[normalizedCode]
     ?? (feature.properties?.HASC_1 ? regionalFlagByCode[feature.properties.HASC_1] ?? regionalFlagByCode[feature.properties.HASC_1.replace(".", "-")] : undefined);
   if (direct) return direct;
+  const countryFlagFile = regionFlagFiles[subdivisionCountryKey(feature)]?.[slugifyCountryName(subdivisionName(feature))];
+  if (countryFlagFile) return `/images/region-flags/imported/${encodeURIComponent(countryFlagFile).replace(/%2F/g, "/")}`;
   return regionalFlagByName[slugifyCountryName(subdivisionName(feature))]
     ?? (feature.properties?.NAME_1 ? regionalFlagByName[slugifyCountryName(feature.properties.NAME_1)] : undefined)
     ?? "";
@@ -1139,6 +1216,8 @@ const dailyLessonCountryImageFiles: Record<string, string> = {
 };
 
 const countryImageFiles = countryImageManifest as Record<string, string>;
+const regionFlagFiles = regionFlagManifest as Record<string, Record<string, string>>;
+const regionImageFiles = regionImageManifest as Record<string, Record<string, string>>;
 const usStateImageFiles = usStateImageManifest as Record<string, string>;
 const MAP_PAN_LIMIT_X = 12000;
 const MAP_PAN_LIMIT_Y = 900;
@@ -1165,6 +1244,21 @@ function imageLookupKey(name: string) {
   return name.replace(/\([^)]*\)/g, "").replace(/[^A-Za-z0-9]+/g, "").toLowerCase();
 }
 
+function prettifySubdivisionCountryName(name?: string) {
+  if (!name) return "";
+  return name
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/\bUnitedStates\b/g, "United States")
+    .replace(/\bSouthAfrica\b/g, "South Africa")
+    .replace(/\bUnitedKingdom\b/g, "United Kingdom")
+    .trim();
+}
+
+function subdivisionCountryKey(feature: GadmSubdivisionFeature) {
+  const pretty = prettifySubdivisionCountryName(feature.properties?.COUNTRY);
+  return regionIdForCountryName(pretty) || slugifyCountryName(pretty);
+}
+
 function countryImagePathForName(name: string) {
   const fileName = countryImageFileNameForName(name) ?? "GeoTransitPlaceholder.svg";
   return `/images/country-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}`;
@@ -1180,6 +1274,16 @@ function usStateImagePathForName(name: string) {
   const key = imageLookupKey(name);
   const fileName = usStateImageFiles[key] ?? (key === "districtofcolumbia" ? usStateImageFiles.dc : undefined);
   return fileName ? `/images/us-state-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}` : "";
+}
+
+function regionImagePathForName(countryId: string, name: string) {
+  const fileName = regionImageFiles[countryId]?.[slugifyCountryName(name)];
+  return fileName ? `/images/region-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}` : "";
+}
+
+function subdivisionImagePathForRegion(countryId: string, name: string) {
+  return regionImagePathForName(countryId, name)
+    || (countryId === "united-states" || countryId === "canada" ? usStateImagePathForName(name) : "");
 }
 
 function loadPlaceImages() {
@@ -1831,11 +1935,9 @@ function resetProfile() {
     <main className="app-shell">
       <header className="topbar">
         <div className="brand-lockup">
-          <div className="geon-full-logo" aria-label="GEONTRANSIT">
-            <span className="logo-geo">GEO</span><span className="logo-n">N</span><span className="logo-transit">TRANSIT</span>
-          </div>
+          <img className="brand-logo-image" src="/images/brand/geontransit-logo.svg" alt="GEONTRANSIT" />
           <p className="eyebrow">GEONTRANSIT</p>
-          <h1>Explore the world through transit systems, geography, and interactive maps.</h1>
+          <h1>How to use GEONTRANSIT</h1>
         </div>
         <div className="status-grid" aria-label="Profile status">
           <Metric label="Operator" value={`${profile.emoji ?? "🚇"} ${profile.name || (profile.isGuest ? "Guest user" : "Create username")}`} />
@@ -1848,6 +1950,7 @@ function resetProfile() {
       <nav className="tabbar" aria-label="Main navigation">
         {tabs.map((tab) => (
           <button key={tab.id} className={activeTab === tab.id ? "active" : ""} onClick={() => setActiveTab(tab.id)}>
+            <span aria-hidden="true">{tab.icon}</span>
             {tab.label}
           </button>
         ))}
@@ -2133,19 +2236,19 @@ function StartHereMenu({
       {open && (
         <div className="start-here-popover" role="menu" aria-label="Start here options">
           <button type="button" onClick={onAbout} role="menuitem">
-            <strong>About This App</strong>
+            <strong>ℹ️ About This App</strong>
             <span>What GEONTRANSIT does and how profiles work</span>
           </button>
           <button type="button" onClick={onGuide} role="menuitem">
-            <strong>How to Use</strong>
+            <strong>❓ How to Use</strong>
             <span>Map, profiles, layers, and clean links</span>
           </button>
           <button type="button" onClick={onLesson} role="menuitem">
-            <strong>Daily Lesson</strong>
+            <strong>💡 Daily Lesson</strong>
             <span>Transit topic, map clue, and memory hook</span>
           </button>
           <button type="button" onClick={onSettings} role="menuitem">
-            <strong>🗺️ GeoTransit Explorer</strong>
+            <strong>⚙️ Settings</strong>
             <span>Settings, sound, profile, and practice options</span>
           </button>
         </div>
@@ -3902,9 +4005,7 @@ function OperationsMap({
         const localSystems = selectedRegion ? transitSystemsForSubdivision(selectedSubdivision, selectedRegion.id) : [];
         const localAirports = selectedRegion ? airportsForSubdivision(selectedSubdivision, selectedRegion.id) : [];
         const regionFlagSrc = regionalFlagImageSrc(selectedSubdivision);
-        const stateImageSrc = selectedRegion?.id === "united-states" || selectedRegion?.id === "canada"
-          ? usStateImagePathForName(subdivisionName(selectedSubdivision))
-          : "";
+        const stateImageSrc = selectedRegion ? subdivisionImagePathForRegion(selectedRegion.id, subdivisionName(selectedSubdivision)) : "";
         return (
           <aside className="subdivision-popover" aria-live="polite">
             <button type="button" onClick={() => setSelectedSubdivision(null)} aria-label="Close regional details">×</button>
@@ -3915,7 +4016,7 @@ function OperationsMap({
               <div>
                 <span>{subdivisionType(selectedSubdivision)}</span>
                 <strong>{subdivisionName(selectedSubdivision)}</strong>
-                <em>{selectedSubdivision.properties?.COUNTRY ?? selectedRegion?.name}</em>
+                <em>{selectedRegion?.name ?? prettifySubdivisionCountryName(selectedSubdivision.properties?.COUNTRY)}</em>
               </div>
             </div>
             {stateImageSrc ? (

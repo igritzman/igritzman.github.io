@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 300" role="img" aria-label="GEONTRANSIT">
+  <rect width="1600" height="300" fill="#ffffff"/>
+  <g font-family="Arial Black, Arial, Helvetica, sans-serif" font-style="italic" font-weight="900">
+    <text x="52" y="184" font-size="142" fill="#07551c" letter-spacing="-8">GE</text>
+    <g transform="translate(365 72)">
+      <circle cx="78" cy="72" r="68" fill="#edf4ee" stroke="#0b5f21" stroke-width="16"/>
+      <path d="M18 82 C52 54 93 39 136 31 C107 61 78 95 43 128 Z" fill="#0b5f21"/>
+      <path d="M-4 156 L156 -7" stroke="#0b5f21" stroke-width="13" stroke-linecap="round"/>
+      <path d="M38 74 C58 65 82 58 108 54" fill="none" stroke="#c9d7c8" stroke-width="8" stroke-linecap="round"/>
+    </g>
+    <text x="520" y="184" font-size="142" fill="#d9a713" letter-spacing="-6">N</text>
+    <text x="655" y="184" font-size="142" fill="#092653" letter-spacing="-7">TRANSIT</text>
+  </g>
+  <g fill="#092653">
+    <rect x="790" y="86" width="120" height="58" rx="12"/>
+    <circle cx="814" cy="158" r="12" fill="#ffffff"/>
+    <circle cx="886" cy="158" r="12" fill="#ffffff"/>
+    <path d="M1045 154 C1071 112 1125 112 1151 154 L1098 212 Z" opacity="0.95"/>
+    <circle cx="1098" cy="151" r="13" fill="#ffffff"/>
+  </g>
+</svg>

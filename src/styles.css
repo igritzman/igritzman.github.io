@@ -128,34 +128,15 @@ input {
   gap: 0.7rem;
 }
 
-.geon-full-logo {
-  display: inline-flex;
+.brand-logo-image {
+  display: block;
   flex: 0 0 auto;
-  align-items: center;
-  min-height: 46px;
+  width: clamp(160px, 18vw, 235px);
+  height: auto;
   border: 1px solid rgba(141, 179, 185, 0.18);
   border-radius: 8px;
-  background: rgba(247, 250, 247, 0.96);
-  color: #0a2143;
-  padding: 0.42rem 0.65rem;
-  font-size: 1.18rem;
-  line-height: 1;
-  font-weight: 950;
-  letter-spacing: 0;
+  background: rgba(247, 250, 247, 0.98);
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.2);
-}
-
-.logo-geo {
-  color: #0a5d21;
-}
-
-.logo-n {
-  color: #ffc654;
-  padding: 0 0.08rem 0 0.18rem;
-}
-
-.logo-transit {
-  color: #0b244d;
 }
 
 .brand-lockup .eyebrow {
@@ -166,7 +147,7 @@ input {
   min-width: 0;
   max-width: 560px;
   color: #dceff1;
-  font-size: clamp(0.92rem, 1.45vw, 1.2rem);
+  font-size: clamp(0.86rem, 1.25vw, 1.06rem);
   line-height: 1.25;
   font-weight: 850;
 }
@@ -4306,9 +4287,8 @@ h3 {
     align-items: start;
   }
 
-  .geon-full-logo {
-    font-size: 1.04rem;
-    min-height: 42px;
+  .brand-logo-image {
+    width: min(210px, 62vw);
   }
 
   .status-grid {
