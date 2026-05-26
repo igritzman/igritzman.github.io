@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 216" role="img" aria-label="Washington, D.C. flag">
+  <rect width="360" height="216" fill="#fff"/>
+  <path fill="#e31837" d="M0 96h360v28H0zM0 150h360v28H0z"/>
+  <g fill="#e31837" transform="translate(0 0)">
+    <path d="M90 35l8 25h26l-21 15 8 25-21-15-21 15 8-25-21-15h26z"/>
+    <path d="M180 35l8 25h26l-21 15 8 25-21-15-21 15 8-25-21-15h26z"/>
+    <path d="M270 35l8 25h26l-21 15 8 25-21-15-21 15 8-25-21-15h26z"/>
+  </g>
+</svg>

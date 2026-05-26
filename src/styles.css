@@ -131,7 +131,7 @@ input {
 .brand-logo-image {
   display: block;
   flex: 0 0 auto;
-  width: clamp(160px, 18vw, 235px);
+  width: clamp(190px, 22vw, 300px);
   height: auto;
   border: 1px solid rgba(141, 179, 185, 0.18);
   border-radius: 8px;
@@ -4288,7 +4288,7 @@ h3 {
   }
 
   .brand-logo-image {
-    width: min(210px, 62vw);
+    width: min(250px, 70vw);
   }
 
   .status-grid {

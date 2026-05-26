@@ -124,16 +124,21 @@ const gadmLevelOneFiles: Record<string, string> = {
   poland: "/data/gadm/level1/gadm41_POL_1.json",
   india: "/data/gadm/level1/gadm41_IND_1.json",
   australia: "/data/gadm/level1/gadm41_AUS_1.json",
+  germany: "/data/gadm/level1/gadm41_DEU_1.json",
   mexico: "/data/gadm/level1/gadm41_MEX_1.json",
   nepal: "/data/gadm/level1/geoboundaries_NPL_ADM1.json",
   nigeria: "/data/gadm/level1/gadm41_NGA_1.json",
   philippines: "/data/gadm/level1/gadm41_PHL_1.json",
+  portugal: "/data/gadm/level1/gadm41_PRT_1.json",
   romania: "/data/gadm/level1/gadm41_ROU_1.json",
   russia: "/data/gadm/level1/gadm41_RUS_1.json",
   "south-africa": "/data/gadm/level1/gadm41_ZAF_1.json",
+  spain: "/data/gadm/level1/gadm41_ESP_1.json",
   italy: "/data/gadm/level1/gadm41_ITA_1.json",
   france: "/data/gadm/level1/gadm41_FRA_1.json",
   ireland: "/data/gadm/level1/gadm41_IRL_1.json",
+  turkey: "/data/gadm/level1/gadm41_TUR_1.json",
+  uae: "/data/gadm/level1/gadm41_ARE_1.json",
   ukraine: "/data/gadm/level1/gadm41_UKR_1.json",
   "united-kingdom": "/data/gadm/level1/gadm41_GBR_2.json",
   zimbabwe: "/data/gadm/level1/gadm41_ZWE_1.json",
@@ -268,6 +273,13 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "north-west": { capital: "Mahikeng", transit: "Regional road and bus links, Pilanesberg airport access" },
   "northern-cape": { capital: "Kimberley", transit: "Regional rail, bus corridors, Kimberley airport links" },
   "western-cape": { capital: "Cape Town", transit: "Metrorail Western Cape, MyCiTi, port and airport links" },
+  "abu-dhabi": { capital: "Abu Dhabi", population: "4,135,985 (2024)", transit: "Zayed International Airport, Abu Dhabi Central Bus Station, Etihad Rail hub, Yas Island links" },
+  ajman: { capital: "Ajman", population: "582,852 (2024)", transit: "Ajman bus network, Dubai-Sharjah-Ajman road corridors, DXB/SHJ airport access" },
+  dubai: { capital: "Dubai", population: "3,759,864 (2024)", transit: "Dubai Metro, Dubai Tram, DXB, Jebel Ali, intercity buses" },
+  fujairah: { capital: "Fujairah", population: "314,829 (2024)", transit: "Fujairah International Airport, port links, E84/E89 road corridors" },
+  "ras-al-khaimah": { capital: "Ras Al Khaimah", population: "400,000 (2023)", transit: "Ras Al Khaimah International Airport, intercity buses, northern emirates road links" },
+  sharjah: { capital: "Sharjah", population: "1,800,000 (2022)", transit: "Sharjah bus network, SHJ airport, Dubai-Sharjah commuter corridors" },
+  "umm-al-quwain": { capital: "Umm Al Quwain", population: "72,000 (2007)", transit: "Northern emirates road links and Dubai/Sharjah airport access" },
   "GB.GL": { capital: "London", transit: "London Underground, Elizabeth line, Overground, DLR" },
   "GB.NY": { capital: "Northallerton", transit: "York rail hub, TransPennine, Northern, East Coast Main Line access" },
   "US-AK": { capital: "Juneau", population: "about 730,000", transit: "Alaska Railroad, Anchorage People Mover, ferry and air links" },
@@ -497,11 +509,84 @@ const regionalPopulationByCode: Record<string, string> = {
 };
 
 const regionalPopulationByName: Record<string, string> = {
+  Abruzzo: "1,267,222 (Jan. 1, 2026 estimate)",
+  Aichi: "7,475,630 (Apr. 1, 2023 estimate)",
+  Akita: "918,811 (Apr. 1, 2023 estimate)",
+  Aomori: "1,190,685 (Apr. 1, 2023 estimate)",
+  Apulia: "3,865,277 (Jan. 1, 2026 estimate)",
+  Basilicata: "525,281 (Jan. 1, 2026 estimate)",
+  Calabria: "1,827,571 (Jan. 1, 2026 estimate)",
+  Campania: "5,568,703 (Jan. 1, 2026 estimate)",
+  Chiba: "6,269,572 (Apr. 1, 2023 estimate)",
+  "Emilia-Romagna": "4,477,009 (Jan. 1, 2026 estimate)",
   England: "57,690,300 (mid-2024 estimate)",
+  Ehime: "1,296,061 (Apr. 1, 2023 estimate)",
+  Fukui: "746,733 (Apr. 1, 2023 estimate)",
+  Fukuoka: "5,101,340 (Apr. 1, 2023 estimate)",
+  Fukushima: "1,773,723 (Apr. 1, 2023 estimate)",
+  "Friuli-Venezia Giulia": "1,193,496 (Jan. 1, 2026 estimate)",
+  Gifu: "1,933,019 (Apr. 1, 2023 estimate)",
+  Gunma: "1,902,834 (Apr. 1, 2023 estimate)",
+  Hiroshima: "2,745,295 (Apr. 1, 2023 estimate)",
+  Hokkaido: "5,114,809 (Apr. 1, 2023 estimate)",
+  Hyogo: "5,378,405 (Apr. 1, 2023 estimate)",
+  Hyōgo: "5,378,405 (Apr. 1, 2023 estimate)",
+  Ibaraki: "2,828,848 (Apr. 1, 2023 estimate)",
+  Ishikawa: "1,111,483 (Apr. 1, 2023 estimate)",
+  Iwate: "1,168,771 (Apr. 1, 2023 estimate)",
+  Kagawa: "926,866 (Apr. 1, 2023 estimate)",
+  Kagoshima: "1,553,060 (Apr. 1, 2023 estimate)",
+  Kanagawa: "9,222,108 (Apr. 1, 2023 estimate)",
+  Kochi: "669,516 (Apr. 1, 2023 estimate)",
+  Kōchi: "669,516 (Apr. 1, 2023 estimate)",
+  Kumamoto: "1,708,761 (Apr. 1, 2023 estimate)",
+  Kyoto: "2,537,860 (Apr. 1, 2023 estimate)",
+  Kyōto: "2,537,860 (Apr. 1, 2023 estimate)",
+  Lazio: "5,709,444 (Jan. 1, 2026 estimate)",
+  Liguria: "1,511,988 (Jan. 1, 2026 estimate)",
+  Lombardia: "10,065,694 (Jan. 1, 2026 estimate)",
+  Marche: "1,479,832 (Jan. 1, 2026 estimate)",
+  Mie: "1,731,863 (Apr. 1, 2023 estimate)",
+  Miyagi: "2,264,921 (Apr. 1, 2023 estimate)",
+  Miyazaki: "1,043,524 (Apr. 1, 2023 estimate)",
+  Molise: "285,940 (Jan. 1, 2026 estimate)",
+  Nagano: "2,007,647 (Apr. 1, 2023 estimate)",
+  Nagasaki: "1,270,358 (Apr. 1, 2023 estimate)",
+  Nara: "1,298,946 (Apr. 1, 2023 estimate)",
+  Niigata: "2,135,036 (Apr. 1, 2023 estimate)",
   "Northern Ireland": "1,957,000 (mid-2024 estimate)",
+  Oita: "1,098,383 (Apr. 1, 2023 estimate)",
+  Ōita: "1,098,383 (Apr. 1, 2023 estimate)",
+  Okayama: "1,850,210 (Apr. 1, 2023 estimate)",
+  Okinawa: "1,462,871 (Apr. 1, 2023 estimate)",
+  Osaka: "8,770,650 (Apr. 1, 2023 estimate)",
+  Ōsaka: "8,770,650 (Apr. 1, 2023 estimate)",
+  Piemonte: "4,255,006 (Jan. 1, 2026 estimate)",
+  Sardegna: "1,554,490 (Jan. 1, 2026 estimate)",
+  Saga: "795,157 (Apr. 1, 2023 estimate)",
+  Saitama: "7,328,073 (Apr. 1, 2023 estimate)",
   Scotland: "5,546,900 (mid-2024 estimate)",
+  Sicily: "4,775,194 (Jan. 1, 2026 estimate)",
+  Shiga: "1,405,299 (Apr. 1, 2023 estimate)",
+  Shimane: "650,900 (Apr. 1, 2023 estimate)",
+  Shizuoka: "3,561,252 (Apr. 1, 2023 estimate)",
+  Tochigi: "1,898,513 (Apr. 1, 2023 estimate)",
+  Tokushima: "697,733 (Apr. 1, 2023 estimate)",
+  Tokyo: "14,063,564 (Apr. 1, 2023 estimate)",
+  Tōkyō: "14,063,564 (Apr. 1, 2023 estimate)",
+  Tottori: "539,190 (Apr. 1, 2023 estimate)",
+  Toyama: "1,009,050 (Apr. 1, 2023 estimate)",
+  Toscana: "3,659,222 (Jan. 1, 2026 estimate)",
+  "Trentino-Alto Adige": "1,090,818 (Jan. 1, 2026 estimate)",
+  Umbria: "850,627 (Jan. 1, 2026 estimate)",
   "United Kingdom": "69,281,400 (mid-2024 estimate)",
+  "Valle d'Aosta": "122,554 (Jan. 1, 2026 estimate)",
+  Veneto: "4,857,460 (Jan. 1, 2026 estimate)",
   Wales: "3,187,200 (mid-2024 estimate)",
+  Wakayama: "895,931 (Apr. 1, 2023 estimate)",
+  Yamagata: "1,031,642 (Apr. 1, 2023 estimate)",
+  Yamaguchi: "1,301,480 (Apr. 1, 2023 estimate)",
+  Yamanashi: "796,231 (Apr. 1, 2023 estimate)",
 };
 
 const gadmRegionLayerNames = Object.keys(gadmLevelOneFiles)
@@ -549,6 +634,7 @@ const worldFeatures = worldFeatureCollection.features as WorldFeature[];
 const countryNameOverrides: Record<string, string> = {
   "United States of America": "united-states",
   "United Kingdom": "united-kingdom",
+  "United Arab Emirates": "uae",
   "Czechia": "czech-republic",
   "Dem. Rep. Congo": "democratic-republic-of-the-congo",
   "Congo": "congo",
@@ -568,7 +654,13 @@ const countryNameOverrides: Record<string, string> = {
 };
 
 function slugifyCountryName(name: string) {
-  return name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return name
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 function regionIdForCountryName(name: string) {
@@ -1177,6 +1269,7 @@ const regionalFlagByName: Record<string, string> = {
 function regionalFlagImageSrc(feature: GadmSubdivisionFeature) {
   const code = subdivisionCode(feature);
   const normalizedCode = code.replace(".", "-");
+  if (code === "US-DC") return "/images/region-flags/us/dc.svg";
   if (/^US[-.][A-Z]{2}$/.test(code)) return `/images/region-flags/us/${code.slice(3).toLowerCase()}.png`;
   const direct = regionalFlagByCode[code]
     ?? regionalFlagByCode[normalizedCode]
@@ -1249,6 +1342,7 @@ function prettifySubdivisionCountryName(name?: string) {
   return name
     .replace(/([a-z])([A-Z])/g, "$1 $2")
     .replace(/\bUnitedStates\b/g, "United States")
+    .replace(/\bUnitedArabEmirates\b/g, "United Arab Emirates")
     .replace(/\bSouthAfrica\b/g, "South Africa")
     .replace(/\bUnitedKingdom\b/g, "United Kingdom")
     .trim();
@@ -1348,7 +1442,30 @@ function loadGadmSubdivisions(regionId: string) {
 
 function subdivisionName(feature: GadmSubdivisionFeature) {
   const name = feature.properties?.shapeName ?? feature.properties?.NAME_2 ?? feature.properties?.NAME_1 ?? "Regional subdivision";
-  return name.replace(/([a-z])([A-Z])/g, "$1 $2");
+  const displayNames: Record<string, string> = {
+    AbuDhabi: "Abu Dhabi",
+    AustralianCapitalTerritory: "Australian Capital Territory",
+    BenshangulGumaz: "Benshangul-Gumaz",
+    CoralSeaIslandsTerritory: "Coral Sea Islands Territory",
+    Fujairah: "Fujairah",
+    GambelaPeoples: "Gambela Peoples",
+    HarariPeople: "Harari People",
+    JervisBayTerritory: "Jervis Bay Territory",
+    Naoasaki: "Nagasaki",
+    NewSouthWales: "New South Wales",
+    NorthernTerritory: "Northern Territory",
+    RasAlKhaimah: "Ras Al Khaimah",
+    "RasAl-Khaimah": "Ras Al Khaimah",
+    SouthAustralia: "South Australia",
+    SouthernNationsNationalities: "Southern Nations, Nationalities",
+    "SouthernNations,Nationalities": "Southern Nations, Nationalities",
+    UmmalQaywayn: "Umm Al Quwain",
+    "Ummal-Qaywayn": "Umm Al Quwain",
+    ValledAosta: "Valle d'Aosta",
+    "Valled'Aosta": "Valle d'Aosta",
+    WesternAustralia: "Western Australia",
+  };
+  return displayNames[name] ?? name.replace(/([a-z])([A-Z])/g, "$1 $2");
 }
 
 function subdivisionType(feature: GadmSubdivisionFeature) {
@@ -1936,8 +2053,6 @@ function resetProfile() {
       <header className="topbar">
         <div className="brand-lockup">
           <img className="brand-logo-image" src="/images/brand/geontransit-logo.svg" alt="GEONTRANSIT" />
-          <p className="eyebrow">GEONTRANSIT</p>
-          <h1>How to use GEONTRANSIT</h1>
         </div>
         <div className="status-grid" aria-label="Profile status">
           <Metric label="Operator" value={`${profile.emoji ?? "🚇"} ${profile.name || (profile.isGuest ? "Guest user" : "Create username")}`} />
@@ -3835,11 +3950,6 @@ function OperationsMap({
                   className={`territory-cell territory-${index % 17} ${regionId ? `region-${regionId}` : ""} ${regionId === selectedId ? "selected" : ""} ${region ? "clickable" : "unmapped"}`}
                   d={pathData}
                   data-region-id={regionId}
-                  onPointerDown={(event) => event.stopPropagation()}
-                  onPointerUp={(event) => {
-                    event.stopPropagation();
-                    if (regionId) onSelect(regionId);
-                  }}
                   onClick={() => regionId && onSelect(regionId)}
                   tabIndex={region ? 0 : -1}
                   role={region ? "button" : "img"}
@@ -3866,14 +3976,6 @@ function OperationsMap({
                     role="button"
                     aria-label={`${label} ${type}`}
                     onFocus={() => setSelectedSubdivision(subdivision)}
-                    onPointerDown={(event) => {
-                      event.stopPropagation();
-                      setSelectedSubdivision(subdivision);
-                    }}
-                    onPointerUp={(event) => {
-                      event.stopPropagation();
-                      setSelectedSubdivision(subdivision);
-                    }}
                     onClick={(event) => {
                       event.stopPropagation();
                       setSelectedSubdivision(subdivision);
