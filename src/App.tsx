@@ -1831,9 +1831,8 @@ function resetProfile() {
     <main className="app-shell">
       <header className="topbar">
         <div className="brand-lockup">
-          <div className="geon-logo" aria-hidden="true">
-            <span>G</span>
-            <strong>N</strong>
+          <div className="geon-full-logo" aria-label="GEONTRANSIT">
+            <span className="logo-geo">GEO</span><span className="logo-n">N</span><span className="logo-transit">TRANSIT</span>
           </div>
           <p className="eyebrow">GEONTRANSIT</p>
           <h1>Explore the world through transit systems, geography, and interactive maps.</h1>
@@ -2138,7 +2137,7 @@ function StartHereMenu({
             <span>What GEONTRANSIT does and how profiles work</span>
           </button>
           <button type="button" onClick={onGuide} role="menuitem">
-            <strong>🗺️ Explore the World</strong>
+            <strong>How to Use</strong>
             <span>Map, profiles, layers, and clean links</span>
           </button>
           <button type="button" onClick={onLesson} role="menuitem">
@@ -2146,7 +2145,7 @@ function StartHereMenu({
             <span>Transit topic, map clue, and memory hook</span>
           </button>
           <button type="button" onClick={onSettings} role="menuitem">
-            <strong>▶ Geo Challenges</strong>
+            <strong>🗺️ GeoTransit Explorer</strong>
             <span>Settings, sound, profile, and practice options</span>
           </button>
         </div>
@@ -4273,7 +4272,7 @@ function RegionPanel({
       <InfoGroup title="Rail" items={region.rail} regionName={region.name} />
       <InfoGroup title="Metro" items={region.metro} regionName={region.name} />
       {regionTransitSystems.length > 0 && (
-        <details className="transit-repository-panel" open={regionTransitSystems.length <= 4}>
+        <details className="transit-repository-panel">
           <summary>
             <span>Transit Systems</span>
             <em>{regionTransitSystems.length} mapped reference{regionTransitSystems.length === 1 ? "" : "s"}</em>
