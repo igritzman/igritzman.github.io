@@ -3654,6 +3654,43 @@ h3 {
   margin-top: 0.8rem;
 }
 
+.collapsible-info summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 34px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.collapsible-info summary::-webkit-details-marker {
+  display: none;
+}
+
+.collapsible-info summary span {
+  color: #e7f4f5;
+  font-size: 0.95rem;
+  font-weight: 900;
+}
+
+.collapsible-info summary em {
+  min-width: 28px;
+  border-radius: 999px;
+  background: rgba(102, 217, 198, 0.12);
+  color: #8fe8dc;
+  padding: 0.12rem 0.45rem;
+  text-align: center;
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 950;
+}
+
+.collapsible-info .chip-list,
+.collapsible-info .badge-list {
+  padding-top: 0.55rem;
+}
+
 .chip-list,
 .badge-list {
   display: flex;
@@ -4329,6 +4366,16 @@ h3 {
     position: static;
   }
 
+  .subdivision-popover {
+    left: 0.7rem;
+    right: 0.7rem;
+    top: auto;
+    bottom: 0.7rem;
+    width: auto;
+    max-height: min(64vh, 420px);
+    overflow: auto;
+  }
+
   .map-toolbar {
     align-items: stretch;
   }
@@ -4394,6 +4441,16 @@ h3 {
 
   .map-stage {
     min-height: min(540px, 72vh);
+  }
+
+  .chip-list a,
+  .badge-list a,
+  .chip-list span,
+  .badge-list span,
+  .chip-list button,
+  .badge-list button {
+    max-width: 100%;
+    overflow-wrap: anywhere;
   }
 
   .log-row,

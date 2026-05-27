@@ -1,20 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 260" role="img" aria-label="GEONTRANSIT">
-  <rect width="1500" height="260" fill="#fff"/>
-  <g font-family="Arial Black, Arial, Helvetica, sans-serif" font-style="italic" font-weight="900" letter-spacing="-9">
-    <text x="34" y="166" font-size="130" fill="#07551c">GE</text>
-    <g transform="translate(235 48)">
-      <circle cx="72" cy="72" r="62" fill="#eef5ef" stroke="#0a5a20" stroke-width="15"/>
-      <path d="M15 84 C51 50 96 35 132 28 C104 60 74 95 38 125 Z" fill="#0a5a20"/>
-      <path d="M-2 148 L150 -3" stroke="#0a5a20" stroke-width="12" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 240" role="img" aria-label="GEO N TRANSIT">
+  <defs>
+    <style>
+      .word { font-family: Arial, Helvetica, sans-serif; font-weight: 900; font-style: italic; letter-spacing: 0; }
+    </style>
+  </defs>
+  <g class="word">
+    <text x="28" y="158" font-size="124" fill="#0b6828">GE</text>
+    <g transform="translate(206 40)">
+      <circle cx="72" cy="72" r="58" fill="#f8fbf7" stroke="#0b6828" stroke-width="12"/>
+      <path d="M72 17 L91 72 L72 127 L53 72 Z" fill="#0b6828"/>
+      <path d="M17 72 L72 53 L127 72 L72 91 Z" fill="#73b987"/>
+      <circle cx="72" cy="72" r="10" fill="#f8fbf7" stroke="#0b6828" stroke-width="6"/>
     </g>
-    <text x="383" y="166" font-size="130" fill="#d5a20d">N</text>
-    <text x="492" y="166" font-size="130" fill="#092653">TRANSIT</text>
+    <text x="352" y="158" font-size="124" fill="#d4a017">N</text>
+    <text x="454" y="158" font-size="124" fill="#092653">TRANSIT</text>
   </g>
-  <g fill="#092653" opacity="0.96">
-    <rect x="710" y="76" width="98" height="50" rx="11"/>
-    <circle cx="732" cy="138" r="10" fill="#fff"/>
-    <circle cx="787" cy="138" r="10" fill="#fff"/>
-    <path d="M955 135 C980 98 1026 98 1050 135 L1003 187 Z"/>
-    <circle cx="1003" cy="132" r="12" fill="#fff"/>
+  <g fill="none" stroke="#092653" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M480 190 H1080" stroke-width="8"/>
+    <path d="M560 210 H1010" stroke-width="5" opacity="0.65"/>
+    <circle cx="565" cy="190" r="12" fill="#092653" stroke="none"/>
+    <circle cx="725" cy="190" r="12" fill="#092653" stroke="none"/>
+    <circle cx="885" cy="190" r="12" fill="#092653" stroke="none"/>
+    <circle cx="1045" cy="190" r="12" fill="#092653" stroke="none"/>
   </g>
 </svg>

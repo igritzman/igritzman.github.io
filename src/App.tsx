@@ -116,11 +116,19 @@ const gadmSubdivisionPromises: Record<string, Promise<GadmSubdivisionFeature[]>>
 const gadmLevelOneFiles: Record<string, string> = {
   "united-states": "/data/gadm/level1/gadm41_USA_1.json",
   canada: "/data/gadm/level1/gadm41_CAN_1.json",
-  estonia: "/data/gadm/level1/gadm41_EST_2.json",
+  algeria: "/data/gadm/level1/gadm41_DZA_1.json",
+  argentina: "/data/gadm/level1/gadm41_ARG_1.json",
+  brazil: "/data/gadm/level1/gadm41_BRA_1.json",
+  chile: "/data/gadm/level1/gadm41_CHL_1.json",
+  china: "/data/gadm/level1/gadm41_CHN_1.json",
+  egypt: "/data/gadm/level1/gadm41_EGY_1.json",
   ethiopia: "/data/gadm/level1/gadm41_ETH_1.json",
   ghana: "/data/gadm/level1/gadm41_GHA_1.json",
+  indonesia: "/data/gadm/level1/gadm41_IDN_1.json",
   kenya: "/data/gadm/level1/gadm41_KEN_1.json",
   japan: "/data/gadm/level1/gadm41_JPN_1.json",
+  "south-korea": "/data/gadm/level1/gadm41_KOR_1.json",
+  morocco: "/data/gadm/level1/gadm41_MAR_1.json",
   poland: "/data/gadm/level1/gadm41_POL_1.json",
   india: "/data/gadm/level1/gadm41_IND_1.json",
   australia: "/data/gadm/level1/gadm41_AUS_1.json",
@@ -137,10 +145,12 @@ const gadmLevelOneFiles: Record<string, string> = {
   italy: "/data/gadm/level1/gadm41_ITA_1.json",
   france: "/data/gadm/level1/gadm41_FRA_1.json",
   ireland: "/data/gadm/level1/gadm41_IRL_1.json",
+  thailand: "/data/gadm/level1/gadm41_THA_1.json",
   turkey: "/data/gadm/level1/gadm41_TUR_1.json",
   uae: "/data/gadm/level1/gadm41_ARE_1.json",
   ukraine: "/data/gadm/level1/gadm41_UKR_1.json",
   "united-kingdom": "/data/gadm/level1/gadm41_GBR_2.json",
+  vietnam: "/data/gadm/level1/gadm41_VNM_1.json",
   zimbabwe: "/data/gadm/level1/gadm41_ZWE_1.json",
 };
 
@@ -363,6 +373,20 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   barmm: { capital: "Cotabato City", transit: "Cotabato airport, ferry and regional road links" },
   "cordillera-administrative-region": { capital: "Baguio", transit: "Mountain bus corridors and Baguio gateway links" },
   "national-capital-region": { capital: "Manila", transit: "LRT, MRT, PNR, NAIA and commuter bus links" },
+  "ET.AA": { capital: "Addis Ababa", population: "5,709,000 (2024 estimate)", transit: "Addis Ababa Light Rail, Bole International Airport, national rail and bus hub" },
+  "ET-AF": { capital: "Semera", population: "3,350,000 (2024 estimate)", transit: "Semera airport access, Awash road and rail corridor links" },
+  "ET.AF": { capital: "Semera", population: "3,350,000 (2024 estimate)", transit: "Semera airport access, Awash road and rail corridor links" },
+  "ET.AM": { capital: "Bahir Dar", population: "30,216,000 (2024 estimate)", transit: "Bahir Dar airport, Addis Ababa-Dessie-Bahir Dar road corridor, regional bus links" },
+  "ET.BE": { capital: "Asosa", population: "1,251,000 (2024 estimate)", transit: "Asosa airport, western road corridors, regional bus links" },
+  "ET-DD": { capital: "Dire Dawa", population: "551,000 (2024 estimate)", transit: "Addis Ababa-Djibouti Railway, Dire Dawa airport, Harar road links" },
+  "ET.DD": { capital: "Dire Dawa", population: "551,000 (2024 estimate)", transit: "Addis Ababa-Djibouti Railway, Dire Dawa airport, Harar road links" },
+  "ET.GA": { capital: "Gambela", population: "525,000 (2024 estimate)", transit: "Gambela airport, Baro River and western road links" },
+  "ET.HA": { capital: "Harar", population: "283,000 (2024 estimate)", transit: "Dire Dawa gateway, Harar-Dire Dawa road links, regional bus corridors" },
+  "ET.OR": { capital: "Addis Ababa", population: "40,884,000 (2024 estimate)", transit: "Addis Ababa gateway, Oromia road network, rail corridors toward Djibouti and central Ethiopia" },
+  "ET.SO": { capital: "Jijiga", population: "6,657,000 (2024 estimate)", transit: "Jijiga airport, Somali region road corridors, links toward Dire Dawa and border crossings" },
+  "ET.SN": { capital: "Former SNNPR; current successor capitals include Hosaina, Hawassa, Wolaita Sodo, and Bonga", population: "Current successor regions total about 27.6 million (2024 estimates)", transit: "Southern corridor road network, Hawassa gateway, regional bus links" },
+  "ET-TI": { capital: "Mekelle", population: "6,838,000 (2024 estimate)", transit: "Mekelle airport, northern road corridors, regional bus links" },
+  "ET.TI": { capital: "Mekelle", population: "6,838,000 (2024 estimate)", transit: "Mekelle airport, northern road corridors, regional bus links" },
 };
 
 const regionalPopulationByCode: Record<string, string> = {
@@ -385,25 +409,44 @@ const regionalPopulationByCode: Record<string, string> = {
   "CA-QC": "9,033,887 (Q1 2026 estimate)",
   "CA-SK": "1,265,936 (Q1 2026 estimate)",
   "CA-YT": "48,218 (Q1 2026 estimate)",
-  "IN-AP": "49,577,103 (2011 census)",
-  "IN-AS": "31,205,576 (2011 census)",
-  "IN-BR": "104,099,452 (2011 census)",
-  "IN-CT": "25,545,198 (2011 census)",
-  "IN-DL": "16,787,941 (2011 census)",
-  "IN-GJ": "60,439,692 (2011 census)",
-  "IN-HR": "25,351,462 (2011 census)",
-  "IN-JK": "12,541,302 (2011 census)",
-  "IN-KA": "61,095,297 (2011 census)",
-  "IN-KL": "33,406,061 (2011 census)",
-  "IN-MH": "112,374,333 (2011 census)",
-  "IN-MP": "72,626,809 (2011 census)",
-  "IN-OR": "41,974,218 (2011 census)",
-  "IN-PB": "27,743,338 (2011 census)",
-  "IN-RJ": "68,548,437 (2011 census)",
-  "IN-TN": "72,147,030 (2011 census)",
-  "IN-TG": "35,193,978 (2011 census)",
-  "IN-UP": "199,812,341 (2011 census)",
-  "IN-WB": "91,276,115 (2011 census)",
+  "IN-AN": "406,000 (2026 projection)",
+  "IN-AP": "53,740,000 (2026 projection)",
+  "IN.AR": "1,608,000 (2026 projection)",
+  "IN-AR": "1,608,000 (2026 projection)",
+  "IN-AS": "36,815,000 (2026 projection)",
+  "IN-BR": "132,850,000 (2026 projection)",
+  "IN-CH": "1,270,000 (2026 projection)",
+  "IN-CT": "31,311,000 (2026 projection)",
+  "IN.DL": "22,674,000 (2026 projection)",
+  "IN-DL": "22,674,000 (2026 projection)",
+  "IN-GA": "1,601,000 (2026 projection)",
+  "IN-GJ": "74,343,000 (2026 projection)",
+  "IN-HR": "31,409,000 (2026 projection)",
+  "IN.HP": "7,588,000 (2026 projection)",
+  "IN-HP": "7,588,000 (2026 projection)",
+  "IN-JH": "41,108,000 (2026 projection)",
+  "IN-JK": "13,927,000 (2026 projection)",
+  "IN-KA": "69,074,000 (2026 projection)",
+  "IN-KL": "36,239,000 (2026 projection)",
+  "IN-LD": "70,000 (2026 projection)",
+  "IN-MH": "129,584,000 (2026 projection)",
+  "IN-ML": "3,447,000 (2026 projection)",
+  "IN-MN": "3,318,000 (2026 projection)",
+  "IN-MP": "89,965,000 (2026 projection)",
+  "IN-MZ": "1,275,000 (2026 projection)",
+  "IN-NL": "2,299,000 (2026 projection)",
+  "IN-OR": "47,221,000 (2026 projection)",
+  "IN-PB": "31,370,000 (2026 projection)",
+  "IN-PY": "1,771,000 (2026 projection)",
+  "IN-RJ": "83,879,000 (2026 projection)",
+  "IN-SK": "709,000 (2026 projection)",
+  "IN-TG": "38,665,000 (2026 projection)",
+  "IN-TN": "77,582,000 (2026 projection)",
+  "IN-TR": "4,268,000 (2026 projection)",
+  "IN-UP": "243,466,000 (2026 projection)",
+  "IN.UT": "12,028,000 (2026 projection)",
+  "IN-UT": "12,028,000 (2026 projection)",
+  "IN-WB": "100,631,000 (2026 projection)",
   "JP-01": "5,091,000 (2024 estimate)",
   "JP-13": "14,180,000 (2024 estimate)",
   "JP-23": "7,480,000 (2024 estimate)",
@@ -1331,6 +1374,8 @@ const countryImageAliases: Record<string, string> = {
   democraticrepublicofthecongo: "drc",
   republicofthecongo: "congo",
   greenland: "greenland",
+  saintpierreandmiquelon: "saintpierreandmiquelon",
+  stpierreandmiquelon: "stpierreandmiquelon",
 };
 
 function imageLookupKey(name: string) {
@@ -1444,21 +1489,52 @@ function subdivisionName(feature: GadmSubdivisionFeature) {
   const name = feature.properties?.shapeName ?? feature.properties?.NAME_2 ?? feature.properties?.NAME_1 ?? "Regional subdivision";
   const displayNames: Record<string, string> = {
     AbuDhabi: "Abu Dhabi",
+    AddisAbeba: "Addis Ababa",
+    Andalucia: "Andalusia",
+    "Andalucía": "Andalusia",
+    Aragon: "Aragon",
+    "Aragón": "Aragon",
     AustralianCapitalTerritory: "Australian Capital Territory",
+    Bayern: "Bavaria",
     BenshangulGumaz: "Benshangul-Gumaz",
+    CastillaLaMancha: "Castilla-La Mancha",
+    "Castilla-LaMancha": "Castilla-La Mancha",
+    CastillayLeon: "Castile and Leon",
+    "CastillayLeón": "Castile and Leon",
+    Cataluna: "Catalonia",
+    "Cataluña": "Catalonia",
+    ComunidaddeMadrid: "Community of Madrid",
+    ComunidadForaldeNavarra: "Navarre",
+    ComunidadValenciana: "Valencian Community",
     CoralSeaIslandsTerritory: "Coral Sea Islands Territory",
     Fujairah: "Fujairah",
     GambelaPeoples: "Gambela Peoples",
     HarariPeople: "Harari People",
+    IslasBaleares: "Balearic Islands",
+    IslasCanarias: "Canary Islands",
     JervisBayTerritory: "Jervis Bay Territory",
+    MecklenburgVorpommern: "Mecklenburg-Western Pomerania",
+    "Mecklenburg-Vorpommern": "Mecklenburg-Western Pomerania",
     Naoasaki: "Nagasaki",
     NewSouthWales: "New South Wales",
+    Niedersachsen: "Lower Saxony",
+    NordrheinWestfalen: "North Rhine-Westphalia",
+    "Nordrhein-Westfalen": "North Rhine-Westphalia",
     NorthernTerritory: "Northern Territory",
+    PaisVasco: "Basque Country",
+    "PaísVasco": "Basque Country",
+    PrincipadodeAsturias: "Asturias",
     RasAlKhaimah: "Ras Al Khaimah",
     "RasAl-Khaimah": "Ras Al Khaimah",
+    RheinlandPfalz: "Rhineland-Palatinate",
+    "Rheinland-Pfalz": "Rhineland-Palatinate",
+    RegiondeMurcia: "Region of Murcia",
+    "RegióndeMurcia": "Region of Murcia",
     SouthAustralia: "South Australia",
     SouthernNationsNationalities: "Southern Nations, Nationalities",
     "SouthernNations,Nationalities": "Southern Nations, Nationalities",
+    Thuringen: "Thuringia",
+    "Thüringen": "Thuringia",
     UmmalQaywayn: "Umm Al Quwain",
     "Ummal-Qaywayn": "Umm Al Quwain",
     ValledAosta: "Valle d'Aosta",
@@ -4101,7 +4177,7 @@ function OperationsMap({
           </div>
         )}
       </div>
-      {selectedSubdivision && !compact ? (() => {
+      {selectedSubdivision ? (() => {
         const note = subdivisionStudyNote(selectedSubdivision);
         const population = subdivisionPopulation(selectedSubdivision) ?? note?.population;
         const localSystems = selectedRegion ? transitSystemsForSubdivision(selectedSubdivision, selectedRegion.id) : [];
@@ -4616,25 +4692,29 @@ function subregionsFor(regionId: string) {
   const subregions: Record<string, string[]> = {
     "united-states": ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming", "District of Columbia", "Puerto Rico"],
     canada: ["Ontario", "Quebec", "British Columbia", "Alberta", "Manitoba", "Nova Scotia", "New Brunswick", "Saskatchewan", "Newfoundland and Labrador"],
-    brazil: ["Sao Paulo", "Rio de Janeiro", "Bahia", "Minas Gerais", "Parana", "Rio Grande do Sul", "Amazonas", "Pernambuco"],
-    chile: ["Santiago Metropolitan Region", "Valparaiso Region", "Biobio Region", "Antofagasta Region", "Los Lagos Region", "Magallanes Region"],
+    algeria: ["Algiers", "Oran", "Constantine", "Annaba", "Blida", "Setif", "Tlemcen", "Tamanrasset"],
+    argentina: ["Buenos Aires Province", "CABA", "Cordoba", "Santa Fe", "Mendoza", "Tucuman", "Salta", "Tierra del Fuego"],
+    brazil: ["Sao Paulo", "Rio de Janeiro", "Bahia", "Minas Gerais", "Parana", "Rio Grande do Sul", "Amazonas", "Pernambuco", "Distrito Federal"],
+    chile: ["Santiago Metropolitan Region", "Valparaiso Region", "Biobio Region", "Antofagasta Region", "Los Lagos Region", "Magallanes Region", "Araucania Region"],
     japan: ["Hokkaido", "Honshu", "Shikoku", "Kyushu", "Okinawa", "Kanto", "Kansai", "Chugoku"],
     australia: ["New South Wales", "Victoria", "Queensland", "Western Australia", "South Australia", "Tasmania", "Northern Territory"],
     "united-kingdom": ["England", "Scotland", "Wales", "Northern Ireland", "Greater London", "West Midlands"],
     "south-africa": ["Gauteng", "Western Cape", "KwaZulu-Natal", "Eastern Cape", "Free State", "Mpumalanga", "Limpopo"],
-    china: ["Beijing", "Shanghai", "Guangdong", "Sichuan", "Yunnan", "Xinjiang", "Tibet", "Hong Kong"],
+    china: ["Beijing", "Shanghai", "Guangdong", "Sichuan", "Yunnan", "Xinjiang", "Tibet", "Hong Kong", "Macau"],
+    egypt: ["Cairo", "Giza", "Alexandria", "Port Said", "Suez", "Luxor", "Aswan", "South Sinai"],
     "hong-kong": ["Hong Kong Island", "Kowloon", "New Territories", "Lantau Island", "Outlying Islands", "Sha Tin", "Tsuen Wan", "Yuen Long"],
     india: ["Delhi", "Maharashtra", "Karnataka", "Tamil Nadu", "West Bengal", "Gujarat", "Uttar Pradesh", "Kerala"],
-    indonesia: ["Java", "Sumatra", "Bali", "Kalimantan", "Sulawesi", "Papua"],
-    argentina: ["Buenos Aires Province", "Cordoba", "Santa Fe", "Mendoza", "Patagonia", "Tierra del Fuego"],
+    indonesia: ["Jakarta", "West Java", "Central Java", "East Java", "Bali", "North Sumatra", "South Sulawesi", "Papua"],
     nigeria: ["Lagos State", "Federal Capital Territory", "Kano State", "Rivers State", "Oyo State", "Kaduna State"],
     russia: ["Moscow", "Saint Petersburg", "Siberia", "Far East", "Tatarstan", "Krasnodar Krai"],
     france: ["Ile-de-France", "Provence-Alpes-Cote d'Azur", "Occitanie", "Nouvelle-Aquitaine", "Brittany", "Corsica"],
     spain: ["Madrid", "Catalonia", "Andalusia", "Valencian Community", "Basque Country", "Galicia"],
-    "south-korea": ["Seoul Capital Area", "Busan", "Incheon", "Daegu", "Jeju", "Gyeonggi"],
+    morocco: ["Casablanca-Settat", "Rabat-Sale-Kenitra", "Marrakesh-Safi", "Fes-Meknes", "Tangier-Tetouan-Al Hoceima", "Souss-Massa", "Dakhla-Oued Ed-Dahab"],
+    "south-korea": ["Seoul", "Busan", "Incheon", "Daegu", "Gyeonggi", "Jeju", "South Gyeongsang", "North Jeolla"],
     uae: ["Abu Dhabi", "Dubai", "Sharjah", "Ajman", "Ras Al Khaimah", "Fujairah"],
     denmark: ["Zealand", "Jutland", "Funen", "Capital Region", "Aarhus Region"],
-    thailand: ["Bangkok", "Chiang Mai", "Phuket", "Isan", "Chonburi", "Krabi"],
+    thailand: ["Bangkok", "Chiang Mai", "Phuket", "Chonburi", "Nakhon Ratchasima", "Khon Kaen", "Songkhla", "Krabi"],
+    vietnam: ["Hanoi", "Ho Chi Minh City", "Da Nang", "Hai Phong", "Can Tho", "Quang Ninh", "Thua Thien Hue", "Khanh Hoa"],
     finland: ["Uusimaa", "Lapland", "Southwest Finland", "Pirkanmaa", "North Ostrobothnia"],
     iceland: ["Capital Region", "Southern Peninsula", "South Iceland", "Westfjords", "North Iceland"],
     norway: ["Oslo", "Vestland", "Trondelag", "Troms", "Nordland", "Svalbard"],
@@ -4726,21 +4806,36 @@ function TransitReferenceDocs({ region }: { region: Region }) {
 }
 
 function InfoGroup({ title, items, regionName, badge = false }: { title: string; items: string[]; regionName: string; badge?: boolean }) {
+  const shouldCollapse = items.length > 5 || ["States, Provinces & Regions", "Fun Facts", "Places of Interest"].includes(title);
+  const body = (
+    <div className={badge ? "badge-list" : "chip-list"}>
+      {items.map((item) => {
+        if (!isReferenceClickable(title, item)) {
+          return <span key={item}>{item}</span>;
+        }
+        return (
+          <a key={item} href={referenceUrlForItem(title, item, regionName)} target="_blank" rel="noreferrer" title={`Open reference for ${item}`}>
+            {item}
+          </a>
+        );
+      })}
+    </div>
+  );
+  if (shouldCollapse) {
+    return (
+      <details className="info-group collapsible-info">
+        <summary>
+          <span>{title}</span>
+          <em>{items.length}</em>
+        </summary>
+        {body}
+      </details>
+    );
+  }
   return (
     <div className="info-group">
       <h3>{title}</h3>
-      <div className={badge ? "badge-list" : "chip-list"}>
-        {items.map((item) => {
-          if (!isReferenceClickable(title, item)) {
-            return <span key={item}>{item}</span>;
-          }
-          return (
-            <a key={item} href={referenceUrlForItem(title, item, regionName)} target="_blank" rel="noreferrer" title={`Open reference for ${item}`}>
-              {item}
-            </a>
-          );
-        })}
-      </div>
+      {body}
     </div>
   );
 }
