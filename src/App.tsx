@@ -79,6 +79,7 @@ const metroImageByPrompt: Record<string, string> = {
   "Washington DC Metro core": "/images/metro-images/WMATA.png",
   "Washington DC Metro transfer": "/images/metro-images/WMATA.png",
   "WMATA regional map": "/images/metro-images/WMATA.png",
+  "MARTA rail map": "/images/metro-images/MARTA.png",
   "TTC subway reference": "/images/metro-images/TTC%20Toronto%20Subway.png",
   "Bangkok rapid transit map": "/images/metro-images/bangkok-map.png",
   "Mumbai rail map": "/images/metro-images/Mumbai_Rail_Map_-_English.jpg",
@@ -188,6 +189,58 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "AU-NSW": { capital: "Sydney", transit: "Sydney Trains, Sydney Metro, light rail, ferries" },
   "AU-WA": { capital: "Perth", transit: "Transperth trains, buses, ferries, Airport Line" },
   "AU-VIC": { capital: "Melbourne", transit: "Melbourne trams, trains, V/Line, airport bus links" },
+  "AR-B": { capital: "La Plata", transit: "Buenos Aires suburban rail, La Plata rail, provincial coach corridors" },
+  "AR.BA": { capital: "La Plata", transit: "Buenos Aires suburban rail, La Plata rail, provincial coach corridors" },
+  "AR-K": { capital: "San Fernando del Valle de Catamarca", transit: "Regional buses, mountain road corridors, airport links" },
+  "AR-H": { capital: "Resistencia", transit: "Resistencia buses, regional rail and road links" },
+  "AR-U": { capital: "Rawson", transit: "Patagonian highway corridors, Trelew airport, coastal buses" },
+  "AR.DF": { capital: "Buenos Aires", transit: "Subte, commuter rail, Metrobus, ferry and airport links" },
+  "AR.CB": { capital: "Córdoba", transit: "Córdoba buses, intercity rail, airport links" },
+  "AR-W": { capital: "Corrientes", transit: "Regional buses, Paraná River crossings, airport links" },
+  "AR.ER": { capital: "Paraná", transit: "Regional buses, Paraná River crossings, riverfront road corridors" },
+  "AR-P": { capital: "Formosa", transit: "Regional buses, Paraguay River road and river corridors" },
+  "AR-Y": { capital: "San Salvador de Jujuy", transit: "Mountain road corridors, regional buses, airport links" },
+  "AR-L": { capital: "Santa Rosa", transit: "Regional buses and central Pampas road links" },
+  "AR-F": { capital: "La Rioja", transit: "Regional buses, mountain road corridors, airport links" },
+  "AR-M": { capital: "Mendoza", transit: "Metrotranvía Mendoza, wine-country buses, Andes corridor roads" },
+  "AR-N": { capital: "Posadas", transit: "Regional buses, Paraná River bridge links, airport service" },
+  "AR.NQ": { capital: "Neuquén", transit: "Patagonian rail edge, regional buses, airport links" },
+  "AR.RN": { capital: "Viedma", transit: "Patagonian rail and coach corridors, Atlantic coast roads" },
+  "AR-A": { capital: "Salta", transit: "Salta buses, Tren a las Nubes tourism rail, airport links" },
+  "AR-J": { capital: "San Juan", transit: "Regional buses, Andes road corridors, airport links" },
+  "AR-D": { capital: "San Luis", transit: "Regional buses, central Argentina highway corridors" },
+  "AR-Z": { capital: "Río Gallegos", transit: "Patagonian buses, airport links, Atlantic port access" },
+  "AR-S": { capital: "Santa Fe", transit: "Santa Fe-Paraná bus corridors, regional rail and river links" },
+  "AR-G": { capital: "Santiago del Estero", transit: "Regional buses, rail corridor legacy, airport links" },
+  "AR-V": { capital: "Ushuaia", transit: "Ushuaia buses, airport and port links, tourism rail" },
+  "AR.TM": { capital: "San Miguel de Tucumán", transit: "Regional buses, rail corridor legacy, airport links" },
+  "BR-AC": { capital: "Rio Branco", transit: "Rio Branco buses, BR-364 corridor, airport links" },
+  "BR-AL": { capital: "Maceió", transit: "Maceió VLT, city buses, coastal road corridors" },
+  "BR.AP": { capital: "Macapá", transit: "Macapá buses, river port links, airport service" },
+  "BR-AM": { capital: "Manaus", transit: "Manaus buses, Amazon River port links, airport service" },
+  "BR-BA": { capital: "Salvador", transit: "Salvador Metro, suburban rail, ferry and airport links" },
+  "BR.CE": { capital: "Fortaleza", transit: "Fortaleza Metro, VLT, buses and airport links" },
+  "BR-DF": { capital: "Brasília", transit: "Brasília Metro, BRT, airport road links" },
+  "BR.ES": { capital: "Vitória", transit: "Greater Vitória buses, port and airport links" },
+  "BR.GO": { capital: "Goiânia", transit: "Goiânia buses, Anhanguera corridor, regional road links" },
+  "BR.MA": { capital: "São Luís", transit: "São Luís buses, ferry and port links, airport service" },
+  "BR-MT": { capital: "Cuiabá", transit: "Cuiabá buses, regional road corridors, airport links" },
+  "BR-MS": { capital: "Campo Grande", transit: "Campo Grande buses, regional road corridors, airport links" },
+  "BR-MG": { capital: "Belo Horizonte", transit: "Belo Horizonte Metro, MOVE BRT, regional rail and buses" },
+  "BR.PA": { capital: "Belém", transit: "Belém BRT, river port links, airport service" },
+  "BR.PB": { capital: "João Pessoa", transit: "João Pessoa buses, CBTU commuter rail, airport links" },
+  "BR.PR": { capital: "Curitiba", transit: "Curitiba BRT, regional buses, airport links" },
+  "BR-PE": { capital: "Recife", transit: "Recife Metro, buses, port and airport links" },
+  "BR.PI": { capital: "Teresina", transit: "Teresina metro/commuter rail, buses, airport links" },
+  "BR-RJ": { capital: "Rio de Janeiro", transit: "Rio Metro, SuperVia, VLT, BRT, ferries" },
+  "BR-RN": { capital: "Natal", transit: "Natal commuter rail, buses, airport links" },
+  "BR-RS": { capital: "Porto Alegre", transit: "Trensurb, buses, airport and port links" },
+  "BR.RO": { capital: "Porto Velho", transit: "Porto Velho buses, Madeira River links, airport service" },
+  "BR-RR": { capital: "Boa Vista", transit: "Boa Vista buses, BR-174 corridor, airport links" },
+  "BR-SC": { capital: "Florianópolis", transit: "Island-mainland buses, regional road and airport links" },
+  "BR.SP": { capital: "São Paulo", transit: "São Paulo Metro, CPTM, EMTU, bus corridors and airports" },
+  "BR-SE": { capital: "Aracaju", transit: "Aracaju buses, coastal road corridors, airport links" },
+  "BR-TO": { capital: "Palmas", transit: "Palmas buses, BR-153 corridor, airport links" },
   "DE.BW": { capital: "Stuttgart", transit: "Stuttgart S-Bahn and Stadtbahn, Baden-Wuerttemberg regional rail" },
   "DE-BY": { capital: "Munich", transit: "Munich U-Bahn and S-Bahn, Nuremberg U-Bahn, Bayern regional rail" },
   "DE-BE": { capital: "Berlin", transit: "Berlin U-Bahn, S-Bahn, trams, regional and intercity rail" },
@@ -526,6 +579,91 @@ const regionalPopulationByCode: Record<string, string> = {
   "CA-QC": "9,033,887 (Q1 2026 estimate)",
   "CA-SK": "1,265,936 (Q1 2026 estimate)",
   "CA-YT": "48,218 (Q1 2026 estimate)",
+  "AR-B": "17,523,996 (2022 census)",
+  "AR.BA": "17,523,996 (2022 census)",
+  "AR-K": "429,562 (2022 census)",
+  "AR.CT": "429,562 (2022 census)",
+  "AR-H": "1,129,606 (2022 census)",
+  "AR.CC": "1,129,606 (2022 census)",
+  "AR-U": "592,621 (2022 census)",
+  "AR.CH": "592,621 (2022 census)",
+  "AR.DF": "3,121,707 (2022 census)",
+  "AR.CB": "3,840,905 (2022 census)",
+  "AR-W": "1,212,696 (2022 census)",
+  "AR.CN": "1,212,696 (2022 census)",
+  "AR.ER": "1,425,578 (2022 census)",
+  "AR-P": "607,419 (2022 census)",
+  "AR.FM": "607,419 (2022 census)",
+  "AR-Y": "811,611 (2022 census)",
+  "AR.JY": "811,611 (2022 census)",
+  "AR-L": "361,859 (2022 census)",
+  "AR.LP": "361,859 (2022 census)",
+  "AR-F": "383,865 (2022 census)",
+  "AR.LR": "383,865 (2022 census)",
+  "AR-M": "2,043,540 (2022 census)",
+  "AR.MZ": "2,043,540 (2022 census)",
+  "AR-N": "1,278,873 (2022 census)",
+  "AR.MN": "1,278,873 (2022 census)",
+  "AR.NQ": "710,814 (2022 census)",
+  "AR.RN": "750,768 (2022 census)",
+  "AR-A": "1,441,351 (2022 census)",
+  "AR.SA": "1,441,351 (2022 census)",
+  "AR-J": "822,853 (2022 census)",
+  "AR.SJ": "822,853 (2022 census)",
+  "AR-D": "542,069 (2022 census)",
+  "AR.SL": "542,069 (2022 census)",
+  "AR-Z": "337,226 (2022 census)",
+  "AR.SC": "337,226 (2022 census)",
+  "AR-S": "3,544,908 (2022 census)",
+  "AR.SF": "3,544,908 (2022 census)",
+  "AR-G": "1,060,906 (2022 census)",
+  "AR.SE": "1,060,906 (2022 census)",
+  "AR-V": "185,651 (2022 census)",
+  "AR.TF": "185,651 (2022 census)",
+  "AR.TM": "1,731,820 (2022 census)",
+  "BR-AC": "830,018 (2022 census)",
+  "BR.AC": "830,018 (2022 census)",
+  "BR-AL": "3,127,683 (2022 census)",
+  "BR.AL": "3,127,683 (2022 census)",
+  "BR.AP": "733,508 (2022 census)",
+  "BR-AM": "3,941,613 (2022 census)",
+  "BR.AM": "3,941,613 (2022 census)",
+  "BR-BA": "14,136,417 (2022 census)",
+  "BR.BA": "14,136,417 (2022 census)",
+  "BR.CE": "8,794,957 (2022 census)",
+  "BR-DF": "2,817,381 (2022 census)",
+  "BR.DF": "2,817,381 (2022 census)",
+  "BR.ES": "3,833,486 (2022 census)",
+  "BR.GO": "7,055,228 (2022 census)",
+  "BR.MA": "6,775,152 (2022 census)",
+  "BR-MT": "3,658,813 (2022 census)",
+  "BR.MT": "3,658,813 (2022 census)",
+  "BR-MS": "2,756,700 (2022 census)",
+  "BR.MS": "2,756,700 (2022 census)",
+  "BR-MG": "20,539,989 (2022 census)",
+  "BR.MG": "20,539,989 (2022 census)",
+  "BR.PA": "8,120,131 (2022 census)",
+  "BR.PB": "3,974,687 (2022 census)",
+  "BR.PR": "11,444,380 (2022 census)",
+  "BR-PE": "9,058,155 (2022 census)",
+  "BR.PE": "9,058,155 (2022 census)",
+  "BR.PI": "3,271,199 (2022 census)",
+  "BR-RJ": "16,055,174 (2022 census)",
+  "BR.RJ": "16,055,174 (2022 census)",
+  "BR-RN": "3,302,729 (2022 census)",
+  "BR.RN": "3,302,729 (2022 census)",
+  "BR-RS": "10,882,965 (2022 census)",
+  "BR.RS": "10,882,965 (2022 census)",
+  "BR.RO": "1,581,196 (2022 census)",
+  "BR-RR": "636,707 (2022 census)",
+  "BR.RR": "636,707 (2022 census)",
+  "BR-SC": "7,609,601 (2022 census)",
+  "BR.SC": "7,609,601 (2022 census)",
+  "BR.SP": "44,411,238 (2022 census)",
+  "BR-SE": "2,210,004 (2022 census)",
+  "BR.SE": "2,210,004 (2022 census)",
+  "BR-TO": "1,511,460 (2022 census)",
+  "BR.TO": "1,511,460 (2022 census)",
   "DE.BW": "11,245,898 (Dec. 31, 2024 estimate)",
   "DE-BY": "13,248,928 (Dec. 31, 2024 estimate)",
   "DE.BY": "13,248,928 (Dec. 31, 2024 estimate)",
@@ -1721,42 +1859,76 @@ function subdivisionName(feature: GadmSubdivisionFeature) {
     AddisAbeba: "Addis Ababa",
     Andalucia: "Andalusia",
     "Andalucía": "Andalusia",
+    Alagoas: "Alagoas",
+    Amapa: "Amapa",
+    "Amapá": "Amapa",
     AndamanandNicobar: "Andaman and Nicobar Islands",
     AndhraPradesh: "Andhra Pradesh",
     Aragon: "Aragon",
     "Aragón": "Aragon",
     ArunachalPradesh: "Arunachal Pradesh",
     AustralianCapitalTerritory: "Australian Capital Territory",
+    Bahia: "Bahia",
     Bayern: "Bavaria",
     BenshangulGumaz: "Benshangul-Gumaz",
+    BuenosAires: "Buenos Aires Province",
+    Catamarca: "Catamarca",
     CastillaLaMancha: "Castilla-La Mancha",
     "Castilla-LaMancha": "Castilla-La Mancha",
     CastillayLeon: "Castile and Leon",
     "CastillayLeón": "Castile and Leon",
     Cataluna: "Catalonia",
     "Cataluña": "Catalonia",
+    Chaco: "Chaco",
+    Chubut: "Chubut",
     Chhattisgarh: "Chhattisgarh",
+    CiudaddeBuenosAires: "Ciudad de Buenos Aires",
     ComunidaddeMadrid: "Community of Madrid",
     ComunidadForaldeNavarra: "Navarre",
     ComunidadValenciana: "Valencian Community",
+    Cordoba: "Cordoba",
+    "Córdoba": "Cordoba",
+    Corrientes: "Corrientes",
+    Ceara: "Ceara",
+    "Ceará": "Ceara",
     CoralSeaIslandsTerritory: "Coral Sea Islands Territory",
     DadraandNagarHaveli: "Dadra and Nagar Haveli",
     DamanandDiu: "Daman and Diu",
+    DistritoFederal: "Distrito Federal",
+    EntreRios: "Entre Rios",
+    "EntreRíos": "Entre Rios",
+    EspiritoSanto: "Espirito Santo",
+    "EspíritoSanto": "Espirito Santo",
+    Formosa: "Formosa",
     Fujairah: "Fujairah",
     GambelaPeoples: "Gambela Peoples",
+    Goias: "Goias",
+    "Goiás": "Goias",
     HarariPeople: "Harari People",
     HimachalPradesh: "Himachal Pradesh",
     IslasBaleares: "Balearic Islands",
     IslasCanarias: "Canary Islands",
     JammuandKashmir: "Jammu and Kashmir",
     JervisBayTerritory: "Jervis Bay Territory",
+    Jujuy: "Jujuy",
+    LaPampa: "La Pampa",
+    LaRioja: "La Rioja",
     Lakshadweep: "Lakshadweep",
     MadhyaPradesh: "Madhya Pradesh",
+    Maranhao: "Maranhao",
+    "Maranhão": "Maranhao",
+    MatoGrosso: "Mato Grosso",
+    MatoGrossodoSul: "Mato Grosso do Sul",
     Maharashtra: "Maharashtra",
     MecklenburgVorpommern: "Mecklenburg-Western Pomerania",
     "Mecklenburg-Vorpommern": "Mecklenburg-Western Pomerania",
+    Mendoza: "Mendoza",
+    MinasGerais: "Minas Gerais",
+    Misiones: "Misiones",
     Naoasaki: "Nagasaki",
     NCTofDelhi: "NCT of Delhi",
+    Neuquen: "Neuquen",
+    "Neuquén": "Neuquen",
     NewSouthWales: "New South Wales",
     Niedersachsen: "Lower Saxony",
     NordrheinWestfalen: "North Rhine-Westphalia",
@@ -1765,6 +1937,12 @@ function subdivisionName(feature: GadmSubdivisionFeature) {
     Odisha: "Odisha",
     PaisVasco: "Basque Country",
     "PaísVasco": "Basque Country",
+    Para: "Para",
+    "Pará": "Para",
+    Paraiba: "Paraiba",
+    "Paraíba": "Paraiba",
+    Parana: "Parana",
+    "Paraná": "Parana",
     PrincipadodeAsturias: "Asturias",
     RasAlKhaimah: "Ras Al Khaimah",
     "RasAl-Khaimah": "Ras Al Khaimah",
@@ -1772,10 +1950,32 @@ function subdivisionName(feature: GadmSubdivisionFeature) {
     "Rheinland-Pfalz": "Rhineland-Palatinate",
     RegiondeMurcia: "Region of Murcia",
     "RegióndeMurcia": "Region of Murcia",
+    RiodeJaneiro: "Rio de Janeiro",
+    RioGrandedoNorte: "Rio Grande do Norte",
+    RioGrandedoSul: "Rio Grande do Sul",
+    RioNegro: "Rio Negro",
+    "RíoNegro": "Rio Negro",
+    Rondonia: "Rondonia",
+    "Rondônia": "Rondonia",
+    Roraima: "Roraima",
+    Salta: "Salta",
+    SanJuan: "San Juan",
+    SanLuis: "San Luis",
+    SantaCatarina: "Santa Catarina",
+    SantaCruz: "Santa Cruz",
+    SantaFe: "Santa Fe",
+    Sergipe: "Sergipe",
     SouthAustralia: "South Australia",
     SouthernNationsNationalities: "Southern Nations, Nationalities",
     "SouthernNations,Nationalities": "Southern Nations, Nationalities",
+    SantiagodelEstero: "Santiago del Estero",
+    SaoPaulo: "Sao Paulo",
+    "SãoPaulo": "Sao Paulo",
     TamilNadu: "Tamil Nadu",
+    TierradelFuego: "Tierra del Fuego",
+    Tocantins: "Tocantins",
+    Tucuman: "Tucuman",
+    "Tucumán": "Tucuman",
     UttarPradesh: "Uttar Pradesh",
     Thuringen: "Thuringia",
     "Thüringen": "Thuringia",
@@ -2373,6 +2573,7 @@ function resetProfile() {
       <header className="topbar">
         <div className="brand-lockup">
           <img className="brand-logo-image" src="/images/brand/geontransit-logo.svg" alt="GEONTRANSIT" />
+          <p className="brand-subtitle">Maps, flags, trains, planes, boats, roads, and places to see.</p>
         </div>
         <div className="status-grid" aria-label="Profile status">
           <Metric label="Operator" value={`${profile.emoji ?? "🚇"} ${profile.name || (profile.isGuest ? "Guest user" : "Create username")}`} />
@@ -3177,22 +3378,20 @@ function AboutPanel({ onClose }: { onClose: () => void }) {
 }
 
 function buildQuestionHint(question: Question) {
-  const regionNames = question.relatedRegionIds
-    ?.map((id) => regions.find((region) => region.id === id)?.name)
-    .filter(Boolean)
-    .join(", ");
   const typeHint = question.category === "airports" || question.category === "airport-codes"
-    ? "Think airport code, gateway city, or terminal geography."
+    ? "Think airport code, gateway city, airline route geography, or terminal position."
     : question.category === "highways"
       ? "Think roads, bridges, tunnels, and regional traffic corridors."
       : question.category === "metro" || question.category === "rail"
-        ? "Think stations, lines, interchanges, and passenger corridors."
-        : question.category === "maritime"
+        ? "Think line colors, transfer stations, termini, and whether the system is local metro or national rail."
+    : question.category === "maritime"
         ? "Think ports, canals, straits, ferries, and river access."
-        : question.category === "capitals" || question.category === "flags"
-          ? "Use the capital, flag, and country profile clues."
-          : "Use the named place, country panel, and map location clues.";
-  return `${typeHint}${regionNames ? ` Country focus: ${regionNames}.` : ""}`;
+    : question.category === "capitals" || question.category === "flags"
+          ? "Use flag structure, capital-city role, language, and nearby-country clues."
+          : question.inputType === "map-click"
+            ? "Start by continent, then use coastlines, neighbors, islands, and inland position."
+            : "Use the visual place clue, landscape, transport mode, and nearby-region context.";
+  return typeHint;
 }
 
 function PlayTab({
@@ -3695,6 +3894,88 @@ function MapTab({
               </div>
             ) : null}
           </label>
+          <details className="advanced-map-options">
+            <summary>
+              <span>Advanced options</span>
+              <em>attractions, regions, transit</em>
+            </summary>
+            <div className="advanced-option-grid">
+              <label>
+                Tourist attraction
+                <select
+                  defaultValue=""
+                  onChange={(event) => {
+                    const attraction = projectedTouristAttractions.find((item) => item.id === event.target.value);
+                    if (attraction) selectAttractionSearchResult(attraction);
+                    event.currentTarget.value = "";
+                  }}
+                >
+                  <option value="">Jump to attraction...</option>
+                  {projectedTouristAttractions
+                    .slice()
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map((attraction) => (
+                      <option key={attraction.id} value={attraction.id}>{attraction.name} · {attraction.country}</option>
+                    ))}
+                </select>
+              </label>
+              <label>
+                Region layer
+                <select
+                  defaultValue=""
+                  onChange={(event) => {
+                    if (event.target.value) {
+                      onRegionalBoundaryLayerChange(true);
+                      selectRegionAndZoom(event.target.value);
+                    }
+                    event.currentTarget.value = "";
+                  }}
+                >
+                  <option value="">Choose country with regions...</option>
+                  {Object.keys(gadmLevelOneFiles)
+                    .map((regionId) => regions.find((region) => region.id === regionId))
+                    .filter((region): region is Region => Boolean(region))
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map((region) => (
+                      <option key={region.id} value={region.id}>{region.name}</option>
+                    ))}
+                </select>
+              </label>
+              <label>
+                Transit network
+                <select
+                  defaultValue=""
+                  onChange={(event) => {
+                    const system = projectedTransitSystems.find((item) => item.id === event.target.value);
+                    if (system) selectTransitSearchResult(system);
+                    event.currentTarget.value = "";
+                  }}
+                >
+                  <option value="">Jump to transit network...</option>
+                  {projectedTransitSystems
+                    .slice()
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map((system) => (
+                      <option key={system.id} value={system.id}>{system.name} · {system.city}</option>
+                    ))}
+                </select>
+              </label>
+            </div>
+            <div className="advanced-layer-row">
+              <label>
+                <input type="checkbox" checked={touristAttractionsLayer} onChange={(event) => onTouristAttractionsLayerChange(event.target.checked)} />
+                Tourist pins
+              </label>
+              <label>
+                <input type="checkbox" checked={regionalBoundaryLayer} onChange={(event) => onRegionalBoundaryLayerChange(event.target.checked)} />
+                Region borders
+              </label>
+              <label>
+                <input type="checkbox" checked={transitSystemsLayer} onChange={(event) => onTransitSystemsLayerChange(event.target.checked)} />
+                Transit pins
+              </label>
+            </div>
+          </details>
           <button type="button" onClick={() => onSelectRegion(null)} disabled={!selectedRegion}>
             Deselect Region
           </button>

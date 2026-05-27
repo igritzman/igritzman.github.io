@@ -75,6 +75,16 @@ input {
   font: inherit;
 }
 
+select {
+  width: 100%;
+  border: 1px solid rgba(141, 179, 185, 0.24);
+  background: rgba(5, 13, 18, 0.84);
+  color: #fff;
+  border-radius: 8px;
+  min-height: 42px;
+  padding: 0 0.7rem;
+}
+
 button {
   border: 1px solid rgba(141, 179, 185, 0.22);
   background: rgba(20, 36, 43, 0.88);
@@ -123,9 +133,10 @@ input {
 
 .brand-lockup {
   display: flex;
+  flex-direction: column;
   min-width: 0;
-  align-items: center;
-  gap: 0.7rem;
+  align-items: flex-start;
+  gap: 0.34rem;
 }
 
 .brand-logo-image {
@@ -141,6 +152,15 @@ input {
 
 .brand-lockup .eyebrow {
   display: none;
+}
+
+.brand-subtitle {
+  max-width: min(520px, 100%);
+  margin: 0 0 0 0.1rem;
+  color: #a9c1c6;
+  font-size: clamp(0.76rem, 1vw, 0.92rem);
+  font-weight: 750;
+  line-height: 1.25;
 }
 
 .brand-lockup h1 {
@@ -1194,6 +1214,68 @@ h3 {
 .map-toolbar > div:first-child span {
   display: block;
   margin-top: 0.25rem;
+}
+
+.advanced-map-options {
+  grid-column: 1 / -1;
+  border: 1px solid rgba(141, 179, 185, 0.18);
+  border-radius: 8px;
+  background: rgba(7, 18, 24, 0.58);
+  padding: 0.55rem 0.65rem;
+}
+
+.advanced-map-options summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-weight: 850;
+}
+
+.advanced-map-options summary em {
+  color: #8fb2b8;
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 750;
+}
+
+.advanced-option-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin-top: 0.65rem;
+}
+
+.advanced-option-grid label,
+.advanced-layer-row label {
+  display: grid;
+  gap: 0.35rem;
+  color: #b8cfd4;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.advanced-layer-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.65rem;
+}
+
+.advanced-layer-row label {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  min-height: 34px;
+  padding: 0.32rem 0.55rem;
+  border: 1px solid rgba(141, 179, 185, 0.18);
+  border-radius: 8px;
+  background: rgba(12, 26, 33, 0.7);
+}
+
+.advanced-layer-row input {
+  width: 16px;
+  min-height: 16px;
+  padding: 0;
 }
 
 .compact-tool-panel {
@@ -4378,6 +4460,10 @@ h3 {
 
   .map-toolbar {
     align-items: stretch;
+  }
+
+  .advanced-option-grid {
+    grid-template-columns: 1fr;
   }
 
   .map-toolbar > div:first-child,
