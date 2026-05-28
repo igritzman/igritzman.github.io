@@ -80,6 +80,7 @@ const metroImageByPrompt: Record<string, string> = {
   "Washington DC Metro transfer": "/images/metro-images/WMATA.png",
   "WMATA regional map": "/images/metro-images/WMATA.png",
   "MARTA rail map": "/images/metro-images/MARTA.png",
+  "Shanghai Metro airport clue": "/images/metro-images/Shanghai_Metro_Network_en.png",
   "TTC subway reference": "/images/metro-images/TTC%20Toronto%20Subway.png",
   "Bangkok rapid transit map": "/images/metro-images/bangkok-map.png",
   "Mumbai rail map": "/images/metro-images/Mumbai_Rail_Map_-_English.jpg",
@@ -101,6 +102,14 @@ const transitSystemImageById: Record<string, string> = {
   shinkansen: "/images/metro-images/Shinkansen_map_202405_en.png",
   "bangkok-bts-mrt": "/images/metro-images/bangkok-map.png",
   marta: "/images/metro-images/MARTA.png",
+  "warsaw-metro": "/images/metro-images/warszawa-metro-map.png",
+  "bogota-transmilenio": "/images/metro-images/TransMilenio_Bogota_Map.png",
+  "medellin-metro": "/images/metro-images/Medellin%20Metro.jpg",
+  bart: "/images/metro-images/BART.png",
+  "chicago-l": "/images/metro-images/Chicago_L_diagram_sb.svg.png",
+  "manila-lrt-mrt": "/images/metro-images/Manila%20Metro.png",
+  "jakarta-mrt": "/images/metro-images/MRTjakarta_plan.png",
+  "baku-metro": "/images/metro-images/Metro_baku.png",
   "chongqing-rail-transit": "/images/metro-images/Chongqing%20Rail%20Plan.png",
   "mumbai-suburban": "/images/metro-images/Mumbai_Rail_Map_-_English.jpg",
   "toronto-ttc": "/images/metro-images/TTC%20Toronto%20Subway.png",
@@ -373,17 +382,25 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "FR.AR": { capital: "Lyon", transit: "Lyon Metro, trams, TGV and TER regional rail" },
   "auvergne-rhone-alpes": { capital: "Lyon", transit: "Lyon Metro, Grenoble trams, TER Auvergne-Rhone-Alpes, TGV links" },
   "bourgogne-franche-comte": { capital: "Dijon", transit: "TER Bourgogne-Franche-Comte, Dijon tramway, TGV links" },
-  brittany: { capital: "Rennes", transit: "Rennes Metro, TER Bretagne, regional coach and ferry links" },
-  "centre-val-de-loire": { capital: "Orleans", transit: "Tours and Orleans tramways, TER Centre-Val de Loire" },
+  "FR-BRE": { capital: "Rennes", population: "3,429,882 (2023 INSEE legal population)", transit: "Rennes Metro, TER Bretagne, regional coach and ferry links" },
+  "FR.BT": { capital: "Rennes", population: "3,429,882 (2023 INSEE legal population)", transit: "Rennes Metro, TER Bretagne, regional coach and ferry links" },
+  brittany: { capital: "Rennes", population: "3,429,882 (2023 INSEE legal population)", transit: "Rennes Metro, TER Bretagne, regional coach and ferry links" },
+  "FR-CVL": { capital: "Orleans", population: "2,587,031 (2023 INSEE legal population)", transit: "Tours and Orleans tramways, TER Centre-Val de Loire" },
+  "FR.CN": { capital: "Orleans", population: "2,587,031 (2023 INSEE legal population)", transit: "Tours and Orleans tramways, TER Centre-Val de Loire" },
+  "centre-val-de-loire": { capital: "Orleans", population: "2,587,031 (2023 INSEE legal population)", transit: "Tours and Orleans tramways, TER Centre-Val de Loire" },
   corsica: { capital: "Ajaccio", transit: "Corsican Railways, ferries, Ajaccio and Bastia airports" },
   "grand-est": { capital: "Strasbourg", transit: "Strasbourg tramway, TER Grand Est, TGV Est" },
   "hauts-de-france": { capital: "Lille", transit: "Lille Metro, TER Hauts-de-France, TGV and Eurostar links" },
   "ile-de-france": { capital: "Paris", transit: "Paris Metro, RER, Transilien, tramways, CDG and Orly airport links" },
-  normandy: { capital: "Rouen", transit: "TER Normandie, Rouen tramway, Caen tramway, ferry links" },
+  "FR-NOR": { capital: "Rouen", population: "3,327,477 (2023 INSEE legal population)", transit: "TER Normandie, Rouen tramway, Caen tramway, ferry links" },
+  "FR.ND": { capital: "Rouen", population: "3,327,477 (2023 INSEE legal population)", transit: "TER Normandie, Rouen tramway, Caen tramway, ferry links" },
+  normandy: { capital: "Rouen", population: "3,327,477 (2023 INSEE legal population)", transit: "TER Normandie, Rouen tramway, Caen tramway, ferry links" },
   "nouvelle-aquitaine": { capital: "Bordeaux", transit: "Bordeaux tramway, TER Nouvelle-Aquitaine, TGV Atlantique" },
   occitanie: { capital: "Toulouse", transit: "Toulouse Metro, Montpellier trams, TER Occitanie" },
-  "pays-de-la-loire": { capital: "Nantes", transit: "Nantes tramway, TER Pays de la Loire, Atlantic rail corridors" },
-  "provence-alpes-cote-d-azur": { capital: "Marseille", transit: "Marseille Metro, Nice tramway, TER Zou!, TGV Mediterranee" },
+  "FR.PL": { capital: "Nantes", population: "3,907,156 (2023 INSEE legal population)", transit: "Nantes tramway, TER Pays de la Loire, Atlantic rail corridors" },
+  "pays-de-la-loire": { capital: "Nantes", population: "3,907,156 (2023 INSEE legal population)", transit: "Nantes tramway, TER Pays de la Loire, Atlantic rail corridors" },
+  "FR.PR": { capital: "Marseille", population: "5,218,960 (2023 INSEE legal population)", transit: "Marseille Metro, Nice tramway, TER Zou!, TGV Mediterranean corridor" },
+  "provence-alpes-cote-d-azur": { capital: "Marseille", population: "5,218,960 (2023 INSEE legal population)", transit: "Marseille Metro, Nice tramway, TER Zou!, TGV Mediterranean corridor" },
   guadeloupe: { capital: "Basse-Terre", transit: "Regional buses, ferry links, Pointe-a-Pitre airport" },
   martinique: { capital: "Fort-de-France", transit: "TCSP Martinique BRT, ferries, airport links" },
   guyane: { capital: "Cayenne", transit: "Regional road links, Cayenne-Felix Eboue airport" },
@@ -664,6 +681,14 @@ const regionalPopulationByCode: Record<string, string> = {
   "BR.SE": "2,210,004 (2022 census)",
   "BR-TO": "1,511,460 (2022 census)",
   "BR.TO": "1,511,460 (2022 census)",
+  "FR-BRE": "3,429,882 (2023 INSEE legal population)",
+  "FR.BT": "3,429,882 (2023 INSEE legal population)",
+  "FR-CVL": "2,587,031 (2023 INSEE legal population)",
+  "FR.CN": "2,587,031 (2023 INSEE legal population)",
+  "FR-NOR": "3,327,477 (2023 INSEE legal population)",
+  "FR.ND": "3,327,477 (2023 INSEE legal population)",
+  "FR.PL": "3,907,156 (2023 INSEE legal population)",
+  "FR.PR": "5,218,960 (2023 INSEE legal population)",
   "DE.BW": "11,245,898 (Dec. 31, 2024 estimate)",
   "DE-BY": "13,248,928 (Dec. 31, 2024 estimate)",
   "DE.BY": "13,248,928 (Dec. 31, 2024 estimate)",
@@ -1425,6 +1450,9 @@ type TransitSystemRecord = {
   mapUrl: string;
   keyNodes: string[];
   quizFocus: string;
+  opened?: string;
+  systemLength?: string;
+  stations?: string;
 };
 
 const transitSystemsRepository = [
@@ -1559,7 +1587,36 @@ const transitSystemsRepository = [
   { id: "cleveland-rta-rapid", countryId: "united-states", name: "Cleveland RTA Rapid Transit", city: "Cleveland", region: "Ohio", type: "Metro/light rail", kind: "metro", coordinate: [-81.6944, 41.4993], sourceUrl: "https://en.wikipedia.org/wiki/RTA_Rapid_Transit", mapUrl: "https://www.transit.land/map#11/41.4993/-81.6944", keyNodes: ["Tower City", "Airport", "Shaker Square", "Little Italy"], quizFocus: "Great Lakes rapid transit and airport rail clues" },
   { id: "minneapolis-metro", countryId: "united-states", name: "Metro Transit light rail", city: "Minneapolis-Saint Paul", region: "Minnesota", type: "Light rail", kind: "light-rail", coordinate: [-93.265, 44.9778], sourceUrl: "https://en.wikipedia.org/wiki/Metro_Transit_(Minnesota)", mapUrl: "https://www.transit.land/map#11/44.9778/-93.2650", keyNodes: ["Target Field", "US Bank Stadium", "Mall of America", "MSP Airport"], quizFocus: "Twin Cities light rail, airport, and downtown transfer geography" },
   { id: "lima-metro", countryId: "peru", name: "Lima Metro", city: "Lima", region: "Peru", type: "Metro", kind: "metro", coordinate: [-77.0428, -12.0464], sourceUrl: "https://en.wikipedia.org/wiki/Lima_Metro", mapUrl: "https://www.transit.land/map#11/-12.0464/-77.0428", keyNodes: ["Gamarra", "Miguel Grau", "Villa El Salvador", "Bayovar"], quizFocus: "Peruvian capital metro and coastal-city corridor geography" },
+  { id: "guadalajara-siteur", countryId: "mexico", name: "SITEUR light rail", city: "Guadalajara", region: "Jalisco", type: "Light rail", kind: "light-rail", coordinate: [-103.3496, 20.6597], sourceUrl: "https://en.wikipedia.org/wiki/Guadalajara_light_rail_system", mapUrl: "https://www.transit.land/map#11/20.6597/-103.3496", keyNodes: ["Juarez", "Guadalajara Centro", "Periferico Norte", "Central de Autobuses"], quizFocus: "Jalisco light rail, central transfer, and bus terminal geography" },
+  { id: "indygo-red-line", countryId: "united-states", name: "IndyGo Red Line", city: "Indianapolis", region: "Indiana", type: "BRT", kind: "light-rail", coordinate: [-86.1581, 39.7684], sourceUrl: "https://en.wikipedia.org/wiki/Red_Line_(IndyGo)", mapUrl: "https://www.transit.land/map#12/39.7684/-86.1581", keyNodes: ["Broad Ripple", "Downtown Indianapolis", "University of Indianapolis", "Transit Center"], quizFocus: "BRT corridor through Indianapolis neighborhoods and downtown" },
+  { id: "st-louis-metrolink", countryId: "united-states", name: "MetroLink", city: "St. Louis", region: "Missouri and Illinois", type: "Light rail", kind: "light-rail", coordinate: [-90.1994, 38.627], sourceUrl: "https://en.wikipedia.org/wiki/MetroLink_(St._Louis)", mapUrl: "https://www.transit.land/map#11/38.6270/-90.1994", keyNodes: ["Civic Center", "Forest Park-DeBaliviere", "Lambert Airport", "Shiloh-Scott"], quizFocus: "Mississippi River metro region and airport light rail clues" },
+  { id: "anchorage-people-mover", countryId: "united-states", name: "People Mover", city: "Anchorage", region: "Alaska", type: "Bus network", kind: "regional-rail", coordinate: [-149.9003, 61.2181], sourceUrl: "https://en.wikipedia.org/wiki/People_Mover_(Anchorage)", mapUrl: "https://www.transit.land/map#11/61.2181/-149.9003", keyNodes: ["Downtown Transit Center", "Ted Stevens Anchorage Airport", "Dimond Center", "University-Medical District"], quizFocus: "Alaska city bus geography, airport access, and mountain-city orientation" },
+  { id: "karachi-brt", countryId: "pakistan", name: "Karachi Breeze BRT", city: "Karachi", region: "Sindh", type: "BRT", kind: "light-rail", coordinate: [67.0011, 24.8607], sourceUrl: "https://en.wikipedia.org/wiki/Karachi_Breeze", mapUrl: "https://www.transit.land/map#11/24.8607/67.0011", keyNodes: ["Numaish", "Merewether Tower", "Malir Halt", "Surjani Town"], quizFocus: "large port-city BRT corridors and terminal geography" },
+  { id: "st-petersburg-metro", countryId: "russia", name: "Saint Petersburg Metro", city: "Saint Petersburg", region: "Northwest Russia", type: "Metro", kind: "metro", coordinate: [30.3351, 59.9343], sourceUrl: "https://en.wikipedia.org/wiki/Saint_Petersburg_Metro", mapUrl: "https://www.transit.land/map#11/59.9343/30.3351", keyNodes: ["Nevsky Prospekt", "Tekhnologichesky Institut", "Admiralteyskaya", "Moskovskaya"], quizFocus: "deep metro stations, Neva geography, and northwestern Russia clues" },
+  { id: "baku-metro", countryId: "azerbaijan", name: "Baku Metro", city: "Baku", region: "Absheron", type: "Metro", kind: "metro", coordinate: [49.8671, 40.4093], sourceUrl: "https://en.wikipedia.org/wiki/Baku_Metro", mapUrl: "https://www.transit.land/map#11/40.4093/49.8671", keyNodes: ["28 May", "Icherisheher", "Sahil", "Koroglu"], quizFocus: "Caspian capital metro, old city, and oil-city corridor clues" },
+  { id: "tbilisi-metro", countryId: "georgia", name: "Tbilisi Metro", city: "Tbilisi", region: "Georgia", type: "Metro", kind: "metro", coordinate: [44.8271, 41.7151], sourceUrl: "https://en.wikipedia.org/wiki/Tbilisi_Metro", mapUrl: "https://www.transit.land/map#11/41.7151/44.8271", keyNodes: ["Station Square", "Rustaveli", "Liberty Square", "Varketili"], quizFocus: "Caucasus capital metro, main station, and east-west city valley clues" },
 ] satisfies TransitSystemRecord[];
+
+const transitSystemMetaById: Record<string, Pick<TransitSystemRecord, "opened" | "systemLength" | "stations">> = {
+  wmata: { opened: "1976", systemLength: "129 mi", stations: "98" },
+  "warsaw-metro": { opened: "1995", systemLength: "26 mi", stations: "39" },
+  "bogota-transmilenio": { opened: "2000", systemLength: "70+ mi", stations: "140+" },
+  "medellin-metro": { opened: "1995", systemLength: "20+ mi", stations: "25+" },
+  "guadalajara-siteur": { opened: "1989", systemLength: "30+ mi", stations: "48" },
+  bart: { opened: "1972", systemLength: "130+ mi", stations: "50" },
+  "chicago-l": { opened: "1892", systemLength: "100+ mi", stations: "140+" },
+  "indygo-red-line": { opened: "2019", systemLength: "13 mi", stations: "28" },
+  "st-louis-metrolink": { opened: "1993", systemLength: "46 mi", stations: "38" },
+  "anchorage-people-mover": { opened: "1974", systemLength: "bus network", stations: "transit centers" },
+  "manila-lrt-mrt": { opened: "1984", systemLength: "50+ mi", stations: "70+" },
+  "jakarta-mrt": { opened: "2019", systemLength: "10 mi", stations: "13" },
+  "karachi-brt": { opened: "2021", systemLength: "15+ mi", stations: "80+" },
+  "st-petersburg-metro": { opened: "1955", systemLength: "75+ mi", stations: "70+" },
+  "baku-metro": { opened: "1967", systemLength: "25+ mi", stations: "27" },
+  "tbilisi-metro": { opened: "1966", systemLength: "17 mi", stations: "23" },
+  "shanghai-metro": { opened: "1993", systemLength: "500+ mi", stations: "500+" },
+  "beijing-subway": { opened: "1971", systemLength: "500+ mi", stations: "490+" },
+};
 
 const projectedTransitSystems = transitSystemsRepository.flatMap((system) => {
   const projected = worldProjection(system.coordinate);
@@ -1871,6 +1928,7 @@ function subdivisionName(feature: GadmSubdivisionFeature) {
     Bahia: "Bahia",
     Bayern: "Bavaria",
     BenshangulGumaz: "Benshangul-Gumaz",
+    Bretagne: "Brittany",
     BuenosAires: "Buenos Aires Province",
     Catamarca: "Catamarca",
     CastillaLaMancha: "Castilla-La Mancha",
@@ -1879,6 +1937,7 @@ function subdivisionName(feature: GadmSubdivisionFeature) {
     "CastillayLeón": "Castile and Leon",
     Cataluna: "Catalonia",
     "Cataluña": "Catalonia",
+    CentreValdeLoire: "Centre-Val de Loire",
     Chaco: "Chaco",
     Chubut: "Chubut",
     Chhattisgarh: "Chhattisgarh",
@@ -1943,7 +2002,9 @@ function subdivisionName(feature: GadmSubdivisionFeature) {
     "Paraíba": "Paraiba",
     Parana: "Parana",
     "Paraná": "Parana",
+    PaysdelaLoire: "Pays de la Loire",
     PrincipadodeAsturias: "Asturias",
+    "Provence-Alpes-Côted'Azur": "Provence-Alpes-Cote d'Azur",
     RasAlKhaimah: "Ras Al Khaimah",
     "RasAl-Khaimah": "Ras Al Khaimah",
     RheinlandPfalz: "Rhineland-Palatinate",
@@ -3378,19 +3439,31 @@ function AboutPanel({ onClose }: { onClose: () => void }) {
 }
 
 function buildQuestionHint(question: Question) {
+  const regionId = question.relatedRegionIds?.[0] ?? "";
+  const targetedHints: Record<string, string> = {
+    syria: "Look for Pan-Arab flag colors and an eastern Mediterranean country whose capital is Damascus.",
+    china: "For Shanghai clues, think Yangtze River Delta, Pudong, Hongqiao, and the huge coastal metro network.",
+    "united-states": "Use the city or corridor clue first: airport codes often point to a specific metro area, not just the country.",
+    australia: "Think southern hemisphere, island-continent scale, and wildlife or coastal city clues before choosing.",
+    france: "Use the language, TGV/RER clues, Mediterranean or Atlantic setting, and regional symbols together.",
+    colombia: "Look for Andean city geography, BRT portals, and hillside cable-car clues.",
+    brazil: "Think Portuguese language, Amazon or Atlantic clues, and state flags rather than Spanish-speaking neighbors.",
+    argentina: "Use Patagonia, Pampas, Andes, or Buenos Aires transit clues to separate it from nearby countries.",
+  };
+  if (targetedHints[regionId]) return targetedHints[regionId];
   const typeHint = question.category === "airports" || question.category === "airport-codes"
-    ? "Think airport code, gateway city, airline route geography, or terminal position."
+    ? "Match the code to the city: coastal hub, capital gateway, secondary airport, or airport-rail connection."
     : question.category === "highways"
-      ? "Think roads, bridges, tunnels, and regional traffic corridors."
+      ? "Use the road name with its landscape: bridge, tunnel, ring road, desert route, coast, or border corridor."
       : question.category === "metro" || question.category === "rail"
-        ? "Think line colors, transfer stations, termini, and whether the system is local metro or national rail."
+        ? "Use line colors, transfer stations, termini, airport branches, and whether the clue is city metro or national rail."
     : question.category === "maritime"
-        ? "Think ports, canals, straits, ferries, and river access."
+        ? "Look for ports, canals, straits, ferries, river mouths, and whether the country is coastal or landlocked."
     : question.category === "capitals" || question.category === "flags"
-          ? "Use flag structure, capital-city role, language, and nearby-country clues."
+          ? "Use flag colors or symbols plus language, capital region, neighbors, and coastline shape."
           : question.inputType === "map-click"
-            ? "Start by continent, then use coastlines, neighbors, islands, and inland position."
-            : "Use the visual place clue, landscape, transport mode, and nearby-region context.";
+            ? "Start by continent, then narrow by coastline, neighbors, inland position, islands, and mountain belts."
+            : "Use the visual clue with landscape, architecture, transport mode, language, and nearby-region context.";
   return typeHint;
 }
 
@@ -3895,10 +3968,7 @@ function MapTab({
             ) : null}
           </label>
           <details className="advanced-map-options">
-            <summary>
-              <span>Advanced options</span>
-              <em>attractions, regions, transit</em>
-            </summary>
+            <summary aria-label="Open advanced map options"><span aria-hidden="true">⌄</span></summary>
             <div className="advanced-option-grid">
               <label>
                 Tourist attraction
@@ -5090,6 +5160,7 @@ function RegionPanel({
           )}
           {regionTransitSystems.map((system) => {
             const imageSrc = transitSystemImageById[system.id];
+            const meta = transitSystemMetaById[system.id];
             return (
               <article key={system.id} className={selectedTransitSystemId === system.id ? "selected" : ""}>
                 <button type="button" onClick={() => onTransitSystemSelect(system.id)}>
@@ -5107,6 +5178,13 @@ function RegionPanel({
                   </button>
                 )}
                 <span>{system.city} · {system.region} · {system.type}</span>
+                {meta && (
+                  <div className="transit-system-metadata" aria-label={`${system.name} quick facts`}>
+                    {meta.opened && <span>Opened {meta.opened}</span>}
+                    {meta.systemLength && <span>{meta.systemLength}</span>}
+                    {meta.stations && <span>{meta.stations} stations</span>}
+                  </div>
+                )}
                 <p>{system.quizFocus}</p>
                 <div className="transit-nodes">
                   {system.keyNodes.map((node) => <span key={node}>{node}</span>)}

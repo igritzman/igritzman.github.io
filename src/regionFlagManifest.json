@@ -16,7 +16,10 @@
     "grand-est": "france/grand-est.png",
     "normandy": "france/normandy.png",
     "hauts-de-france": "france/hauts-de-france.png",
-    "centre-val-de-loire": "france/centre-val-de-loire.png"
+    "centre-val-de-loire": "france/centre-val-de-loire.png",
+    "brittany": "france/brittany.png",
+    "pays-de-la-loire": "france/pays-de-la-loire.png",
+    "provence-alpes-cote-d-azur": "france/provence-alpes-cote-d-azur.svg"
   },
   "japan": {
     "aichi": "japan/aichi.png",

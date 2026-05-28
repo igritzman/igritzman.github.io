@@ -121,9 +121,23 @@ function isImageQuestion(question: Question) {
   return Boolean(question.visualType && question.visualType !== "flag" && question.image);
 }
 
-function airportPromptTarget(region: (typeof regions)[number]) {
-  const preferredCity = region.majorCities.find((city) => city !== region.capital) ?? region.majorCities[0] ?? region.capital ?? region.name;
-  return preferredCity && !preferredCity.includes("Largest commercial") && !preferredCity.includes("Primary airport") ? preferredCity : region.name;
+function airportPromptTarget(region: (typeof regions)[number], airport: string) {
+  const airportCityHints: Record<string, string> = {
+    PVG: "Shanghai",
+    SHA: "Shanghai",
+    PEK: "Beijing",
+    PKX: "Beijing",
+    JFK: "New York City",
+    LGA: "New York City",
+    EWR: "New York City",
+    LAX: "Los Angeles",
+    SFO: "San Francisco",
+    ORD: "Chicago",
+    ATL: "Atlanta",
+    IAD: "Washington, D.C.",
+    DCA: "Washington, D.C.",
+  };
+  return airportCityHints[airport] ?? region.name;
 }
 
 function allowedFlagCount(count: number, startDifficulty: DifficultyLevel) {
@@ -173,7 +187,7 @@ function buildMonthlyRotationQuestions(monthKey = currentMonthKey()) {
           inputType: primaryAirport.length === 3 && primaryAirport.toUpperCase() === primaryAirport ? "typed" : "multiple-choice",
           prompt: primaryAirport.startsWith("No ")
             ? `Day ${day + 1}: which airport note belongs to ${region.name}?`
-            : `Day ${day + 1}: identify a major airport clue for ${airportPromptTarget(region)}.`,
+            : `Day ${day + 1}: identify a major airport clue for ${airportPromptTarget(region, primaryAirport)}.`,
           answer: primaryAirport,
           aliases: primaryAirport.length === 3 ? [primaryAirport.toLowerCase()] : undefined,
           choices: primaryAirport.length === 3 ? undefined : choicesFor(primaryAirport, regions.flatMap((item) => item.airports.slice(0, 1)), seed),
