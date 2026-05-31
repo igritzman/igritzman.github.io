@@ -268,5 +268,52 @@
     "santiago-del-estero": "argentina/santiago-del-estero.png",
     "tierra-del-fuego": "argentina/tierra-del-fuego.png",
     "tucuman": "argentina/tucuman.png"
-  }
+  },
+  "vietnam": {
+    "hanoi": "imported/vietnam/hanoi.png",
+    "da-nang": "imported/vietnam/da-nang.png",
+    "can-tho": "imported/vietnam/can-tho.png",
+    "ho-chi-minh-city": "imported/vietnam/ho-chi-minh-city.png",
+    "bac-ninh": "imported/vietnam/bac-ninh.jpg",
+    "ca-mau": "imported/vietnam/ca-mau.jpg",
+    "cao-bang": "imported/vietnam/cao-bang.jpg",
+    "dak-lak": "imported/vietnam/dak-lak.jpg",
+    "dong-thap": "imported/vietnam/dong-thap.webp",
+    "hung-yen": "imported/vietnam/hung-yen.jpg",
+    "khanh-hoa": "imported/vietnam/khanh-hoa.jpg",
+    "lang-son": "imported/vietnam/lang-son.jpg",
+    "lao-cai": "imported/vietnam/lao-cai.jpg"
+  },
+  "south-korea": {
+    "gangwon": "imported/south-korea/gangwon.png",
+    "gyeonggi": "imported/south-korea/gyeonggi.png",
+    "jeju": "imported/south-korea/jeju.webp",
+    "north-chungcheong": "imported/south-korea/north-chungcheong.jpg",
+    "south-chungcheong": "imported/south-korea/south-chungcheong.png",
+    "north-jeolla": "imported/south-korea/north-jeolla.png",
+    "south-jeolla": "imported/south-korea/south-jeolla.jpg",
+    "north-gyeongsang": "imported/south-korea/north-gyeongsang.jpg",
+    "south-gyeongsang": "imported/south-korea/south-gyeongsang.jpg"
+  },
+  "morocco": {
+    "casablanca-settat": "imported/morocco/casablanca-settat.jpg",
+    "beni-mellal-khenifra": "imported/morocco/beni-mellal-khenifra.jpg",
+    "dakhla-oued-ed-dahab": "imported/morocco/dakhla-oued-ed-dahab.jpg",
+    "fes-meknes": "imported/morocco/fes-meknes.avif",
+    "guelmim-oued-noun": "imported/morocco/guelmim-oued-noun.jpg",
+    "laayoune-sakia-el-hamra": "imported/morocco/laayoune-sakia-el-hamra.jpg",
+    "marrakesh-safi": "imported/morocco/marrakesh-safi.png",
+    "oriental": "imported/morocco/oriental.png",
+    "rabat-sale-kenitra": "imported/morocco/rabat-sale-kenitra.jpg",
+    "souss-massa": "imported/morocco/souss-massa.jpg",
+    "tanger-tetouan-al-hoceima": "imported/morocco/tanger-tetouan-al-hoceima.jpg"
+  },
+  "ghana": {
+    "ashanti": "imported/ghana/ashanti.png",
+    "greater-accra": "imported/ghana/greater-accra.png",
+    "eastern": "imported/ghana/eastern.png",
+    "volta": "imported/ghana/volta.png",
+    "western": "imported/ghana/western.gif"
+  },
+  "china": {}
 }

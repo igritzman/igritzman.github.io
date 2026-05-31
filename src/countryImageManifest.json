@@ -59,7 +59,7 @@
   "georgia": "Georgia.png",
   "germany": "Germany.jpg",
   "greece": "Greece.jpg",
-  "greenland": "Greenland.svg",
+  "greenland": "Greenland-uploaded.avif",
   "grenada": "Grenada.png",
   "guatemala": "Guatemala.jpg",
   "guinea": "Guinea.png",
@@ -176,5 +176,8 @@
   "yemen": "Yemen.png",
   "zambia": "Zambia.png",
   "zimbabwe": "Zimbabwe.png",
-  "saintpierreandmiquelon": "St Pierre and Miquelon.webp"
+  "saintpierreandmiquelon": "St Pierre and Miquelon.webp",
+  "aruba": "Aruba.jpg",
+  "bonaire": "Bonaire.jpg",
+  "curacao": "Curacao.jpg"
 }

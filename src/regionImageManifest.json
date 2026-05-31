@@ -284,5 +284,62 @@
     "santiago-del-estero": "argentina/santiago-del-estero.jpg",
     "tierra-del-fuego": "argentina/tierra-del-fuego.jpg",
     "tucuman": "argentina/tucuman.avif"
+  },
+  "vietnam": {
+    "hanoi": "imported/vietnam/hanoi.jpg",
+    "da-nang": "imported/vietnam/da-nang.webp",
+    "can-tho": "imported/vietnam/can-tho.jpg",
+    "ho-chi-minh-city": "imported/vietnam/ho-chi-minh-city.png",
+    "bac-ninh": "imported/vietnam/bac-ninh.jpg",
+    "ca-mau": "imported/vietnam/ca-mau.jpg",
+    "cao-bang": "imported/vietnam/cao-bang.jpg",
+    "dak-lak": "imported/vietnam/dak-lak.jpg",
+    "dong-thap": "imported/vietnam/dong-thap.webp",
+    "dong-nai": "imported/vietnam/dong-nai.jpg",
+    "hung-yen": "imported/vietnam/hung-yen.jpg",
+    "khanh-hoa": "imported/vietnam/khanh-hoa.jpg",
+    "lang-son": "imported/vietnam/lang-son.jpg",
+    "lao-cai": "imported/vietnam/lao-cai.jpg"
+  },
+  "south-korea": {
+    "gangwon": "imported/south-korea/gangwon.jpg",
+    "gyeonggi": "imported/south-korea/gyeonggi.jpg",
+    "jeju": "imported/south-korea/jeju.jpg",
+    "north-chungcheong": "imported/south-korea/north-chungcheong.jpg",
+    "south-chungcheong": "imported/south-korea/south-chungcheong.jpg",
+    "north-jeolla": "imported/south-korea/north-jeolla.jpg",
+    "south-jeolla": "imported/south-korea/south-jeolla.jpg",
+    "north-gyeongsang": "imported/south-korea/north-gyeongsang.jpg",
+    "south-gyeongsang": "imported/south-korea/south-gyeongsang.jpg"
+  },
+  "morocco": {
+    "casablanca-settat": "imported/morocco/casablanca-settat.jpg",
+    "beni-mellal-khenifra": "imported/morocco/beni-mellal-khenifra.jpg",
+    "dakhla-oued-ed-dahab": "imported/morocco/dakhla-oued-ed-dahab.jpg",
+    "fes-meknes": "imported/morocco/fes-meknes.avif",
+    "guelmim-oued-noun": "imported/morocco/guelmim-oued-noun.jpg",
+    "laayoune-sakia-el-hamra": "imported/morocco/laayoune-sakia-el-hamra.jpg",
+    "marrakesh-safi": "imported/morocco/marrakesh-safi.jpg",
+    "oriental": "imported/morocco/oriental.jpg",
+    "rabat-sale-kenitra": "imported/morocco/rabat-sale-kenitra.jpg",
+    "souss-massa": "imported/morocco/souss-massa.jpg",
+    "tanger-tetouan-al-hoceima": "imported/morocco/tanger-tetouan-al-hoceima.jpg"
+  },
+  "ghana": {},
+  "china": {
+    "anhui": "imported/china/anhui.webp",
+    "guangdong": "imported/china/guangdong.avif",
+    "guizhou": "imported/china/guizhou.jpg",
+    "hainan": "imported/china/hainan.jpg",
+    "hebei": "imported/china/hebei.jpg",
+    "heilongjiang": "imported/china/heilongjiang.jpg",
+    "henan": "imported/china/henan.jpg",
+    "hubei": "imported/china/hubei.jpeg",
+    "hunan": "imported/china/hunan.avif",
+    "jiangsu": "imported/china/jiangsu.jpg",
+    "jiangxi": "imported/china/jiangxi.jpg",
+    "jilin": "imported/china/jilin.jpeg",
+    "liaoning": "imported/china/liaoning.jpeg",
+    "qinghai": "imported/china/qinghai.jpg"
   }
 }

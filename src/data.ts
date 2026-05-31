@@ -2491,6 +2491,48 @@ export const questions: Question[] = [
     visualCaption: "Regional flag prompt: Oromia regional flag.",
     relatedRegionIds: ["ethiopia"],
   },
+  {
+    id: "london-underground-central-transfer",
+    category: "metro",
+    difficulty: "interchange",
+    inputType: "multiple-choice",
+    prompt: "On the London Underground, which station is a major interchange for the Northern, Piccadilly, Victoria, Circle, Hammersmith & City, and Metropolitan lines?",
+    answer: "King's Cross St Pancras",
+    choices: ["King's Cross St Pancras", "Heathrow Terminal 5", "Wimbledon", "Brixton"],
+    explanation: "King's Cross St Pancras is one of London's major Tube and National Rail interchange clusters.",
+    image: "London Underground map",
+    visualType: "transit-photo",
+    visualCaption: "Reference image: London Underground map.",
+    relatedRegionIds: ["united-kingdom"],
+  },
+  {
+    id: "paris-metro-line-one-geography",
+    category: "metro",
+    difficulty: "interchange",
+    inputType: "multiple-choice",
+    prompt: "On the Paris Metro, Line 1 is strongly associated with which east-west tourist corridor?",
+    answer: "La Defense to Nation via the Louvre and Chatelet",
+    choices: ["La Defense to Nation via the Louvre and Chatelet", "Montmartre to Orly Airport", "Versailles to Gare du Nord", "Saint-Denis to Fontainebleau"],
+    explanation: "Paris Metro Line 1 crosses the central city from La Defense through the Louvre/Chatelet corridor toward Nation.",
+    image: "Paris Metro map",
+    visualType: "transit-photo",
+    visualCaption: "Reference image: Paris Metro map.",
+    relatedRegionIds: ["france"],
+  },
+  {
+    id: "tokyo-metro-ginza-line",
+    category: "metro",
+    difficulty: "interchange",
+    inputType: "multiple-choice",
+    prompt: "On Tokyo Metro, the Ginza Line is best remembered as which kind of clue?",
+    answer: "An older east-west subway linking Shibuya, Ginza, Ueno, and Asakusa",
+    choices: ["An older east-west subway linking Shibuya, Ginza, Ueno, and Asakusa", "A Shinkansen line to Osaka", "An airport-only monorail", "A rural Hokkaido commuter rail line"],
+    explanation: "The Ginza Line is a classic Tokyo urban subway corridor, not a national bullet-train route.",
+    image: "Tokyo Metro map",
+    visualType: "transit-photo",
+    visualCaption: "Reference image: Tokyo Metro map.",
+    relatedRegionIds: ["japan"],
+  },
 ];
 
 const capitals: Record<string, string> = {
@@ -2881,6 +2923,9 @@ function countryProfile(
 }
 
 Object.assign(generatedProfileOverrides, {
+  aruba: countryProfile("Aruba", "Oranjestad", ["San Nicolas", "Noord", "Santa Cruz", "Paradera"], ["AUA", "Queen Beatrix International Airport", "regional Caribbean flights", "cruise passenger transfers", "airport taxi stands"], ["no railway network", "Arubus main corridors", "tour coach routes", "cruise-port road links", "airport shuttle routes"], ["Arubus", "Oranjestad trolley", "hotel-zone buses", "airport taxis", "cruise shuttles"], ["L.G. Smith Boulevard", "Route 1", "airport road", "hotel-zone coastal road", "San Nicolas corridor"], ["Port of Oranjestad", "Caribbean cruise port", "container harbor", "marina routes", "inter-island shipping"], ["Eagle Beach", "California Lighthouse", "Arikok National Park", "Oranjestad waterfront", "Baby Beach"], ["Caribbean Sea", "Arikok hills", "Hooiberg", "Boca Prins", "Palm Beach coast"], ["Oranjestad tram", "Eagle Beach", "San Nicolas murals", "Palm Beach hotels", "Arikok National Park"]),
+  bonaire: countryProfile("Bonaire", "Kralendijk", ["Rincon", "Antriol", "Nikiboko", "Tera Kora"], ["BON", "Flamingo International Airport", "regional Dutch Caribbean flights", "dive tourism arrivals", "airport taxi stands"], ["no railway network", "island road transfers", "tour vans", "port freight roads", "airport shuttles"], ["local buses and taxis", "dive resort shuttles", "airport taxis", "cruise pier transfers", "water-taxi links"], ["EEG Boulevard", "Kaya Grandi", "Kralendijk airport road", "Rincon road", "coastal dive-site roads"], ["Port of Kralendijk", "cruise pier", "Caribbean shipping", "Klein Bonaire water taxis", "marina routes"], ["Bonaire National Marine Park", "Klein Bonaire", "Washington Slagbaai National Park", "Salt Pans", "Rincon"], ["Caribbean Sea", "Klein Bonaire", "Gotomeer", "salt flats", "dry coastal hills"], ["Kralendijk waterfront", "Klein Bonaire ferry", "Salt Pier", "Rincon", "Lac Bay"]),
+  curacao: countryProfile("Curacao", "Willemstad", ["Otrobanda", "Punda", "Westpunt", "Jan Thiel"], ["CUR", "Curacao International Airport", "regional Caribbean flights", "airport bus/taxi transfers", "cargo apron"], ["no railway network", "ABC Busbedrijf corridors", "tour coach routes", "port road freight", "airport shuttles"], ["ABC buses", "Willemstad taxis", "airport transfer vans", "cruise terminal shuttles", "hotel-zone buses"], ["Schottegatweg", "Weg Naar Westpunt", "Juliana Bridge access", "airport road", "coastal roads"], ["Port of Willemstad", "Schottegat harbor", "Caribbean cruise port", "oil terminal routes", "Spanish Water marina"], ["Willemstad waterfront", "Queen Emma Bridge", "Christoffel National Park", "Playa Kenepa", "Mikve Israel-Emanuel Synagogue"], ["Caribbean Sea", "Christoffelberg", "Schottegat lagoon", "Spanish Water", "coral coast"], ["Punda", "Otrobanda", "Mambo Beach", "Westpunt", "Curacao airport"]),
   greenland: countryProfile("Greenland", "Nuuk", ["Sisimiut", "Ilulissat", "Qaqortoq", "Kangerlussuaq"], ["GOH", "Nuuk Airport", "SFJ", "JAV", "JEG"], ["no national railway", "Air Greenland domestic links", "Arctic coastal supply routes", "harbor freight corridors", "winter trail and helicopter links"], ["Nuup Bussii buses", "local settlement buses", "airport taxis", "harbor shuttles", "inter-settlement air and boat links"], ["Nuuk city roads", "Kangerlussuaq airport road", "Ilulissat local roads", "Qaqortoq harbor roads", "settlement tracks"], ["Port of Nuuk", "Arctic Umiaq Line coastal ferry", "Disko Bay boat routes", "Ilulissat harbor", "North Atlantic shipping"], ["Nuuk colorful houses", "Ilulissat Icefjord", "Greenland National Museum", "Disko Bay", "Kangerlussuaq gateway"], ["Greenland Ice Sheet", "Davis Strait", "Disko Bay", "Arctic Circle", "fjords and coastal mountains"], ["Nuuk harbor", "Ilulissat Icefjord", "Kangerlussuaq airport", "Qaqortoq center", "Sisimiut waterfront"]),
   algeria: countryProfile("Algeria", "Algiers", ["Oran", "Constantine", "Annaba", "Tamanrasset"], ["ALG", "ORN", "CZL", "AAE", "TMR"], ["SNTF rail network", "Algiers-Oran rail corridor", "Algiers suburban rail", "high plateau rail projects", "freight links to ports"], ["Algiers Metro", "Algiers tramway", "Oran tramway", "Constantine tramway", "airport bus/taxi corridors"], ["A1 East-West Highway", "N1 Trans-Sahara Highway", "Algiers ring roads", "N11 coastal road", "Tamanrasset desert corridor"], ["Port of Algiers", "Port of Oran", "Port of Annaba", "Mediterranean shipping", "Skikda energy port"], ["Casbah of Algiers", "Maqam Echahid", "Timgad", "Djémila", "M'Zab Valley"], ["Sahara Desert", "Atlas Mountains", "Mediterranean coast", "Hoggar Mountains", "Chott Melrhir"], ["Algiers central station", "Casbah of Algiers", "Oran waterfront", "Constantine bridges", "Tassili n'Ajjer"]),
   kenya: countryProfile("Kenya", "Nairobi", ["Mombasa", "Kisumu", "Nakuru", "Eldoret"], ["NBO", "MBA", "KIS", "EDL", "WIL"], ["Standard Gauge Railway", "Nairobi-Mombasa SGR", "Nairobi commuter rail", "Madaraka Express", "Rift Valley rail freight"], ["Nairobi matatu corridors", "Nairobi commuter rail", "BRT corridor plans", "airport bus/taxi links", "Mombasa local buses"], ["A104 Northern Corridor", "A2 Thika Road", "Mombasa Road", "Nairobi Expressway", "A109 to Mombasa"], ["Port of Mombasa", "Lamu Port", "Lake Victoria ferries", "Indian Ocean shipping", "Northern Corridor freight"], ["Maasai Mara", "Nairobi National Park", "Fort Jesus", "Mount Kenya", "Lamu Old Town"], ["Great Rift Valley", "Mount Kenya", "Lake Victoria", "Tana River", "Indian Ocean coast"], ["Nairobi SGR Terminus", "Mombasa Old Town", "Maasai Mara", "Kisumu lakefront", "Lamu waterfront"]),
@@ -3127,6 +3172,9 @@ const extraCountryLikeRegions = [
   "Saint Pierre and Miquelon",
   "Hong Kong",
   "Greenland",
+  "Aruba",
+  "Bonaire",
+  "Curacao",
 ] as const;
 
 function slugify(name: string) {
@@ -3144,6 +3192,7 @@ const slugOverrides: Record<string, string> = {
   "U.S. Virgin Islands": "us-virgin-islands",
   "Hong Kong": "hong-kong",
   "Greenland": "greenland",
+  "Curacao": "curacao",
 };
 
 function generatedPosition(index: number) {
@@ -3380,6 +3429,44 @@ const generatedPositionOverrides: Record<string, { x: number; y: number }> = {
   "vatican-city": { x: 52, y: 45 },
   liechtenstein: { x: 50.8, y: 40.5 },
 };
+
+Object.assign(generatedProfileOverrides, {
+  brazil: {
+    ...(generatedProfileOverrides.brazil ?? {}),
+    majorCities: ["Brasilia", "Sao Paulo", "Rio de Janeiro", "Salvador", "Belo Horizonte", "Manaus"],
+    airports: ["GRU", "GIG", "BSB", "SSA", "REC", "FOR", "CNF", "MAO", "POA", "BEL"],
+    rail: ["Sao Paulo commuter rail", "Rio SuperVia", "North-South Railway", "Carajas Railway", "Curitiba BRT corridor"],
+    metro: ["Sao Paulo Metro", "Rio Metro", "Brasilia Metro", "Salvador Metro", "Belo Horizonte Metro", "Curitiba BRT"],
+    placesOfInterest: ["Sao Paulo Se station", "Rio Central do Brasil", "Brasilia Pilot Plan", "Manaus river port", "Salvador historic center"],
+  },
+  indonesia: {
+    ...(generatedProfileOverrides.indonesia ?? {}),
+    majorCities: ["Jakarta", "Surabaya", "Bandung", "Medan", "Denpasar", "Makassar"],
+    airports: ["CGK", "DPS", "SUB", "KNO", "UPG", "YIA", "BPN", "PLM"],
+    rail: ["Jakarta-Bandung HSR Whoosh", "KAI intercity rail", "Jakarta commuter line", "Trans-Java rail", "airport rail link"],
+    metro: ["Jakarta MRT", "Jakarta LRT", "TransJakarta BRT", "Palembang LRT", "KRL Commuterline"],
+  },
+  russia: {
+    ...(generatedProfileOverrides.russia ?? {}),
+    majorCities: ["Moscow", "Saint Petersburg", "Novosibirsk", "Yekaterinburg", "Kazan", "Sochi", "Vladivostok"],
+    airports: ["SVO", "DME", "VKO", "LED", "AER", "VVO", "OVB", "SVX", "KZN", "KHV"],
+    rail: ["Trans-Siberian Railway", "Sapsan", "Moscow Central Circle", "Sochi-Adler-Olympic Park rail", "Vladivostok airport rail"],
+    metro: ["Moscow Metro", "Saint Petersburg Metro", "Novosibirsk Metro", "Kazan Metro", "Moscow Central Circle"],
+    placesOfInterest: ["Moscow railway terminals", "Nevsky Prospect", "Kazan Kremlin", "Vladivostok station", "Sochi coast"],
+  },
+  china: {
+    ...(generatedProfileOverrides.china ?? {}),
+    airports: ["PEK", "PKX", "PVG", "SHA", "CAN", "SZX", "CTU", "TFU", "XIY", "CKG", "HGH", "KMG"],
+    rail: ["China HSR", "Beijing-Shanghai HSR", "Shanghai Hongqiao rail hub", "Chongqing monorail", "Guangzhou-Shenzhen-Hong Kong corridor"],
+    metro: ["Shanghai Metro", "Beijing Subway", "Guangzhou Metro", "Shenzhen Metro", "Chongqing Rail Transit", "Chengdu Metro"],
+  },
+  india: {
+    ...(generatedProfileOverrides.india ?? {}),
+    airports: ["DEL", "BOM", "BLR", "HYD", "MAA", "CCU", "AMD", "COK", "GOI"],
+    rail: ["Indian Railways", "Vande Bharat Express", "Delhi-Mumbai corridor", "Kolkata suburban rail", "Dedicated Freight Corridors"],
+    metro: ["Delhi Metro", "Mumbai Metro", "Bengaluru Namma Metro", "Kolkata Metro", "Hyderabad Metro", "Chennai Metro"],
+  },
+});
 
 const generatedRegions: Region[] = [...unMemberCountries, ...extraCountryLikeRegions]
   .map((name, index) => {
