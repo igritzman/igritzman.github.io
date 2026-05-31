@@ -687,8 +687,86 @@ const regionalPopulationByCode: Record<string, string> = {
   "FR.CN": "2,587,031 (2023 INSEE legal population)",
   "FR-NOR": "3,327,477 (2023 INSEE legal population)",
   "FR.ND": "3,327,477 (2023 INSEE legal population)",
+  "FRA.1_1": "8,226,987 (2023 INSEE legal population)",
+  "FR.AR": "8,226,987 (2023 INSEE legal population)",
+  "FRA.2_1": "2,805,580 (2023 INSEE legal population)",
+  "FR.BF": "2,805,580 (2023 INSEE legal population)",
+  "FR-20R": "355,528 (2023 INSEE legal population)",
+  "FR.CE": "355,528 (2023 INSEE legal population)",
+  "FRA.6_1": "5,566,420 (2023 INSEE legal population)",
+  "FR.AO": "5,566,420 (2023 INSEE legal population)",
+  "FR-HDF": "6,005,076 (2023 INSEE legal population)",
+  "FR.NC": "6,005,076 (2023 INSEE legal population)",
+  "FRA.8_1": "12,419,961 (2023 INSEE legal population)",
+  "FR.IF": "12,419,961 (2023 INSEE legal population)",
+  "FR-NAQ": "6,086,382 (2023 INSEE legal population)",
+  "FR.AC": "6,086,382 (2023 INSEE legal population)",
+  "FR-OCC": "6,154,729 (2023 INSEE legal population)",
+  "FR.LP": "6,154,729 (2023 INSEE legal population)",
   "FR.PL": "3,907,156 (2023 INSEE legal population)",
   "FR.PR": "5,218,960 (2023 INSEE legal population)",
+  "CN-AH": "61,210,000 (2023 Statista/NBS estimate)",
+  "CN.AH": "61,210,000 (2023 Statista/NBS estimate)",
+  "CN-BJ": "21,860,000 (2023 Statista/NBS estimate)",
+  "CN.BJ": "21,860,000 (2023 Statista/NBS estimate)",
+  "CN-CQ": "31,910,000 (2023 Statista/NBS estimate)",
+  "CN.CQ": "31,910,000 (2023 Statista/NBS estimate)",
+  "CN-FJ": "41,830,000 (2023 Statista/NBS estimate)",
+  "CN.FJ": "41,830,000 (2023 Statista/NBS estimate)",
+  "CN-GS": "24,650,000 (2023 Statista/NBS estimate)",
+  "CN.GS": "24,650,000 (2023 Statista/NBS estimate)",
+  "CN-GD": "127,060,000 (2023 Statista/NBS estimate)",
+  "CN.GD": "127,060,000 (2023 Statista/NBS estimate)",
+  "CN.GX": "50,270,000 (2023 Statista/NBS estimate)",
+  "CN-GZ": "38,650,000 (2023 Statista/NBS estimate)",
+  "CN.GZ": "38,650,000 (2023 Statista/NBS estimate)",
+  "CN-HI": "10,430,000 (2023 Statista/NBS estimate)",
+  "CN.HA": "10,430,000 (2023 Statista/NBS estimate)",
+  "CN-HE": "73,930,000 (2023 Statista/NBS estimate)",
+  "CN.HB": "73,930,000 (2023 Statista/NBS estimate)",
+  "CN-HL": "30,620,000 (2023 Statista/NBS estimate)",
+  "CN.HL": "30,620,000 (2023 Statista/NBS estimate)",
+  "CN-HA": "98,150,000 (2023 Statista/NBS estimate)",
+  "CN.HE": "98,150,000 (2023 Statista/NBS estimate)",
+  "CN-HB": "58,380,000 (2023 Statista/NBS estimate)",
+  "CN.HU": "58,380,000 (2023 Statista/NBS estimate)",
+  "CN-HN": "65,680,000 (2023 Statista/NBS estimate)",
+  "CN.HN": "65,680,000 (2023 Statista/NBS estimate)",
+  "CN-JS": "85,260,000 (2023 Statista/NBS estimate)",
+  "CN.JS": "85,260,000 (2023 Statista/NBS estimate)",
+  "CN-JX": "45,150,000 (2023 Statista/NBS estimate)",
+  "CN.JX": "45,150,000 (2023 Statista/NBS estimate)",
+  "CN-JL": "23,390,000 (2023 Statista/NBS estimate)",
+  "CN.JL": "23,390,000 (2023 Statista/NBS estimate)",
+  "CN-LN": "41,820,000 (2023 Statista/NBS estimate)",
+  "CN.LN": "41,820,000 (2023 Statista/NBS estimate)",
+  "CN-NM": "24,010,000 (2023 Statista/NBS estimate)",
+  "CN.NM": "24,010,000 (2023 Statista/NBS estimate)",
+  "CN.NX": "7,290,000 (2023 Statista/NBS estimate)",
+  "CN-QH": "5,940,000 (2023 Statista/NBS estimate)",
+  "CN.QH": "5,940,000 (2023 Statista/NBS estimate)",
+  "CN-SN": "39,520,000 (2023 Statista/NBS estimate)",
+  "CN.SA": "39,520,000 (2023 Statista/NBS estimate)",
+  "CN-SD": "101,220,000 (2023 Statista/NBS estimate)",
+  "CN.SD": "101,220,000 (2023 Statista/NBS estimate)",
+  "CN-SH": "24,870,000 (2023 Statista/NBS estimate)",
+  "CN.SH": "24,870,000 (2023 Statista/NBS estimate)",
+  "CN-SX": "34,660,000 (2023 Statista/NBS estimate)",
+  "CN.SX": "34,660,000 (2023 Statista/NBS estimate)",
+  "CN-SC": "83,680,000 (2023 Statista/NBS estimate)",
+  "CN.SC": "83,680,000 (2023 Statista/NBS estimate)",
+  "CN-TJ": "13,640,000 (2023 Statista/NBS estimate)",
+  "CN.TJ": "13,640,000 (2023 Statista/NBS estimate)",
+  "CN-XJ": "25,980,000 (2023 Statista/NBS estimate)",
+  "CN.XJ": "25,980,000 (2023 Statista/NBS estimate)",
+  "CN-XZ": "3,650,000 (2023 Statista/NBS estimate)",
+  "CN.XZ": "3,650,000 (2023 Statista/NBS estimate)",
+  "CN-YN": "46,730,000 (2023 Statista/NBS estimate)",
+  "CN.YN": "46,730,000 (2023 Statista/NBS estimate)",
+  "CN-ZJ": "66,270,000 (2023 Statista/NBS estimate)",
+  "CN.ZJ": "66,270,000 (2023 Statista/NBS estimate)",
+  HK: "7,536,100 (2023 estimate)",
+  MO: "684,000 (2023 estimate)",
   "DE.BW": "11,245,898 (Dec. 31, 2024 estimate)",
   "DE-BY": "13,248,928 (Dec. 31, 2024 estimate)",
   "DE.BY": "13,248,928 (Dec. 31, 2024 estimate)",
@@ -1938,6 +2016,7 @@ function subdivisionName(feature: GadmSubdivisionFeature) {
     Cataluna: "Catalonia",
     "Cataluña": "Catalonia",
     CentreValdeLoire: "Centre-Val de Loire",
+    "Centre-ValdeLoire": "Centre-Val de Loire",
     Chaco: "Chaco",
     Chubut: "Chubut",
     Chhattisgarh: "Chhattisgarh",
@@ -1961,6 +2040,7 @@ function subdivisionName(feature: GadmSubdivisionFeature) {
     Formosa: "Formosa",
     Fujairah: "Fujairah",
     GambelaPeoples: "Gambela Peoples",
+    GrandEst: "Grand Est",
     Goias: "Goias",
     "Goiás": "Goias",
     HarariPeople: "Harari People",
@@ -1986,9 +2066,12 @@ function subdivisionName(feature: GadmSubdivisionFeature) {
     Misiones: "Misiones",
     Naoasaki: "Nagasaki",
     NCTofDelhi: "NCT of Delhi",
+    NeiMongol: "Inner Mongolia",
     Neuquen: "Neuquen",
     "Neuquén": "Neuquen",
     NewSouthWales: "New South Wales",
+    NingxiaHui: "Ningxia",
+    Normandie: "Normandy",
     Niedersachsen: "Lower Saxony",
     NordrheinWestfalen: "North Rhine-Westphalia",
     "Nordrhein-Westfalen": "North Rhine-Westphalia",
@@ -2045,6 +2128,8 @@ function subdivisionName(feature: GadmSubdivisionFeature) {
     ValledAosta: "Valle d'Aosta",
     "Valled'Aosta": "Valle d'Aosta",
     WesternAustralia: "Western Australia",
+    XinjiangUygur: "Xinjiang",
+    Xizang: "Tibet",
   };
   return displayNames[name] ?? name.replace(/([a-z])([A-Z])/g, "$1 $2");
 }
@@ -2089,13 +2174,13 @@ function subdivisionPopulation(feature: GadmSubdivisionFeature) {
   return regionalPopulationByCode[code]
     ?? (feature.properties?.HASC_1 ? regionalPopulationByCode[feature.properties.HASC_1] : undefined)
     ?? regionalPopulationByName[compactName]
-    ?? regionalPopulationByName[parentName]
     ?? countryRows?.[plainName]
     ?? countryRows?.[plainName.replace(/\s+/g, "")]
     ?? countryRows?.[plainName.replace(/\s+/g, "") + "Parish"]
     ?? countryRows?.[compactName]
     ?? countryRows?.[compactName.replace(/\s+/g, "")]
     ?? countryRows?.[compactName.replace(/\s+/g, "") + "Parish"]
+    ?? regionalPopulationByName[parentName]
     ?? countryRows?.[parentName]
     ?? countryRows?.[parentName.replace(/\s+/g, "")];
 }
@@ -5098,6 +5183,33 @@ function RegionPanel({
   const regionAttractions = attractionsForRegion(region.id);
   const regionTransitSystems = transitSystemsForRegion(region.id);
   const placeImage = usePlaceImage(region);
+  const regionHeroAsset = region.imagePath
+    ? {
+        name: `${region.name} region image`,
+        type: "region",
+        region: region.name,
+        imagePath: region.imagePath,
+        attribution: {
+          title: `${region.name} featured asset`,
+          author: "GeoTransit image library",
+          license: "Local app asset",
+          sourceUrl: "#",
+        },
+      } satisfies PlaceImage
+    : region.flagPath
+      ? {
+          name: `${region.name} region emblem`,
+          type: "region",
+          region: region.name,
+          imagePath: region.flagPath,
+          attribution: {
+            title: `${region.name} featured emblem`,
+            author: "GeoTransit image library",
+            license: "Local app asset",
+            sourceUrl: "#",
+          },
+        } satisfies PlaceImage
+      : null;
   const countryImageFileName = countryImageFileNameForName(region.name);
   const countryImage = countryImageFileName
     ? {
@@ -5113,7 +5225,7 @@ function RegionPanel({
         },
       } satisfies PlaceImage
     : null;
-  const profileImage = placeImage ?? countryImage;
+  const profileImage = regionHeroAsset ?? placeImage ?? countryImage;
   const practiceTopicOptions = practiceTopicOptionsForRegion(region, regionTransitSystems.length, regionAttractions.length);
   const [practiceTopics, setPracticeTopics] = useState<PracticeTopic[]>(practiceTopicOptions.map((topic) => topic.id));
   useEffect(() => {
@@ -5141,6 +5253,7 @@ function RegionPanel({
         <p><strong>Population:</strong> {region.population}</p>
       </div>
       {profileImage && <PlaceImageCard image={profileImage} />}
+      <RegionAssetGallery region={region} />
       <InfoGroup title="Major Cities" items={region.majorCities} regionName={region.name} />
       <InfoGroup title="Airports" items={region.airports} regionName={region.name} badge />
       <InfoGroup title="Rail" items={region.rail} regionName={region.name} />
@@ -5182,7 +5295,7 @@ function RegionPanel({
                   <div className="transit-system-metadata" aria-label={`${system.name} quick facts`}>
                     {meta.opened && <span>Opened {meta.opened}</span>}
                     {meta.systemLength && <span>{meta.systemLength}</span>}
-                    {meta.stations && <span>{meta.stations} stations</span>}
+                    {meta.stations && <span>{/\d/.test(meta.stations) ? `${meta.stations} stations` : meta.stations}</span>}
                   </div>
                 )}
                 <p>{system.quizFocus}</p>
@@ -5267,6 +5380,32 @@ function EmptyRegionPanel() {
         <p>You can deselect a region any time to return to the full-world map view.</p>
       </div>
     </aside>
+  );
+}
+
+function RegionAssetGallery({ region }: { region: Region }) {
+  const assetEntries = [
+    region.flagPath ? { key: "flagPath", label: "Region emblem", src: region.flagPath } : null,
+    region.imagePath ? { key: "imagePath", label: "Region image", src: region.imagePath } : null,
+    ...(region.galleryImages ?? []).map((src, index) => ({ key: `gallery-${index}`, label: `Region image ${index + 1}`, src })),
+  ].filter(Boolean) as { key: string; label: string; src: string }[];
+
+  const uniqueAssets = assetEntries.filter((asset, index, self) => self.findIndex((item) => item.src === asset.src) === index);
+
+  if (uniqueAssets.length === 0) return null;
+
+  return (
+    <div className="reference-docs region-asset-gallery">
+      <h3>Region Images</h3>
+      <div className="asset-card-grid">
+        {uniqueAssets.map((asset) => (
+          <figure key={asset.key} className="place-image-card">
+            <img src={asset.src} alt={asset.label} loading="lazy" />
+            <figcaption>{asset.label}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
   );
 }
 

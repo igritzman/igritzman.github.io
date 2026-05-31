@@ -1907,6 +1907,67 @@ export const questions: Question[] = [
     relatedRegionIds: ["france"],
   },
   {
+    id: "cap-vietnam",
+    category: "capitals",
+    difficulty: "gateway",
+    inputType: "multiple-choice",
+    prompt: "What is the capital of Vietnam?",
+    answer: "Hanoi",
+    choices: ["Hanoi", "Ho Chi Minh City", "Da Nang", "Phnom Penh"],
+    explanation: "Hanoi is the capital of Vietnam and a key rail, airport, and river transport hub.",
+    relatedRegionIds: ["vietnam"],
+  },
+  {
+    id: "code-han",
+    category: "airport-codes",
+    difficulty: "connector",
+    inputType: "typed",
+    prompt: "Type the IATA code for Noi Bai International Airport.",
+    answer: "HAN",
+    aliases: ["han"],
+    explanation: "HAN is the code for Hanoi's main international airport.",
+    relatedRegionIds: ["vietnam"],
+  },
+  {
+    id: "visual-halong-bay-clue",
+    category: "landmarks",
+    difficulty: "connector",
+    inputType: "multiple-choice",
+    prompt: "Which country is home to Ha Long Bay?",
+    answer: "Vietnam",
+    choices: ["Vietnam", "Thailand", "Malaysia", "Philippines"],
+    explanation: "Ha Long Bay is one of Vietnam's most famous coastal landmarks.",
+    image: "Ha Long Bay",
+    visualType: "landmark-photo",
+    visualCaption: "Landmark clue: Ha Long Bay.",
+    relatedRegionIds: ["vietnam"],
+  },
+  {
+    id: "visual-saigon-cathedral",
+    category: "landmarks",
+    difficulty: "connector",
+    inputType: "multiple-choice",
+    prompt: "This cathedral is a landmark in which city?",
+    answer: "Ho Chi Minh City",
+    choices: ["Hanoi", "Ho Chi Minh City", "Hue", "Da Nang"],
+    explanation: "The Notre-Dame Cathedral Basilica of Saigon is located in Ho Chi Minh City.",
+    image: "Notre-Dame Cathedral Basilica of Saigon",
+    visualType: "landmark-photo",
+    visualCaption: "Landmark clue: Saigon cathedral.",
+    relatedRegionIds: ["vietnam"],
+  },
+  {
+    id: "visual-hanoi-railway",
+    category: "rail",
+    difficulty: "hub",
+    inputType: "multiple-choice",
+    prompt: "This North-South rail corridor is most closely associated with which country?",
+    answer: "Vietnam",
+    choices: ["Vietnam", "Thailand", "Cambodia", "Laos"],
+    explanation: "Vietnam's North-South Railway connects Hanoi and Ho Chi Minh City along the coast.",
+    relatedRegionIds: ["vietnam"],
+  },
+  {
     id: "tourism-western-wall",
     category: "landmarks",
     difficulty: "hub",
@@ -2710,7 +2771,7 @@ function flagCodeForRegion(id: string, name: string) {
   return flagCodeOverrides[id] ?? flagCodeByRegionId[id] ?? flagCodeByCountryName[flagLookupSlug(name)] ?? "";
 }
 
-const generatedProfileOverrides: Record<string, Partial<Pick<Region, "majorCities" | "airports" | "rail" | "metro" | "highways" | "maritime" | "landmarks" | "riversMountains" | "placesOfInterest" | "funFacts">>> = {
+const generatedProfileOverrides: Record<string, Partial<Pick<Region, "majorCities" | "airports" | "rail" | "metro" | "highways" | "maritime" | "landmarks" | "riversMountains" | "placesOfInterest" | "funFacts" | "flagPath" | "imagePath" | "galleryImages">>> = {
   "united-states": {
     majorCities: ["Washington, D.C.", "New York", "Los Angeles", "Chicago", "Houston", "Miami", "Denver", "Seattle", "Honolulu", "Anchorage"],
     airports: ["ATL", "LAX", "ORD", "DFW", "DEN", "JFK", "SFO", "SEA", "MIA", "LAS", "EWR", "BOS", "IAD", "DCA", "ANC"],
@@ -2834,7 +2895,20 @@ Object.assign(generatedProfileOverrides, {
   "cabo-verde": countryProfile("Cabo Verde", "Praia", ["Mindelo", "Santa Maria", "Assomada", "Espargos"], ["RAI", "SID", "VXE", "BVC", "MMO"], ["no national railway", "inter-island air network", "Praia bus terminals", "port freight roads", "airport transfer routes"], ["Praia buses and aluguer routes", "Mindelo minibuses", "airport taxis", "island shared taxis", "ferry terminal transfers"], ["EN1-ST01 Santiago road", "Praia airport road", "Mindelo port road", "Sal island roads", "Santo Antao mountain roads"], ["Porto Grande Mindelo", "Port of Praia", "inter-island ferries", "Atlantic shipping", "Sal/Rei ferry routes"], ["Cidade Velha", "Pico do Fogo", "Mindelo waterfront", "Santa Maria beach", "Serra Malagueta"], ["Atlantic Ocean", "Pico do Fogo", "Santiago Island", "Santo Antao mountains", "Sal island beaches"], ["Praia Plateau", "Cidade Velha", "Mindelo harbor", "Fogo volcano", "Santa Maria pier"]),
   eritrea: countryProfile("Eritrea", "Asmara", ["Massawa", "Keren", "Assab", "Mendefera"], ["ASM", "Massawa International Airport", "Assab International Airport", "Keren airstrip", "regional airfields"], ["Eritrean Railway heritage line", "Asmara-Massawa rail corridor", "Massawa port freight roads", "intercity coach routes", "mountain rail heritage"], ["Asmara buses and minibuses", "shared taxi corridors", "Massawa local buses", "airport transfer taxis", "intercity bus stations"], ["P-1 Asmara-Massawa road", "Asmara-Keren road", "Assab coastal road", "airport road", "Red Sea port corridors"], ["Port of Massawa", "Port of Assab", "Red Sea shipping", "Dahlak Archipelago boat routes", "coastal fishing ports"], ["Asmara modernist architecture", "Massawa old town", "Dahlak Archipelago", "Fiat Tagliero Building", "Keren battlefield sites"], ["Red Sea coast", "Eritrean Highlands", "Dahlak Archipelago", "Gash River", "Danakil Depression"], ["Asmara central district", "Massawa harbor", "Keren market", "Dahlak islands", "Assab port"]),
   "burkina-faso": countryProfile("Burkina Faso", "Ouagadougou", ["Bobo-Dioulasso", "Koudougou", "Banfora", "Ouahigouya"], ["OUA", "BOY", "Ouagadougou Airport", "Bobo-Dioulasso Airport", "regional airstrips"], ["Sitarail to Abidjan", "Ouagadougou rail station", "Bobo-Dioulasso rail", "freight corridor to Cote d'Ivoire", "intercity coach network"], ["Ouagadougou bus network", "shared taxi corridors", "Bobo urban buses", "central market interchange", "airport road shuttles"], ["N1", "N4", "N5", "Ouagadougou ring road", "Bobo-Dioulasso corridor"], ["landlocked; Abidjan and Tema port corridors", "Volta basin", "inland dry ports", "regional truck routes", "Black Volta crossings"], ["Laongo Sculpture Symposium", "Grand Mosque of Bobo-Dioulasso", "Place des Cineastes", "Ruins of Loropeni", "Bangr-Weoogo Park"], ["Black Volta", "White Volta", "Red Volta", "Cascades region", "Sahel belt"], ["Ouagadougou rail station", "Bobo-Dioulasso old quarter", "Sindou Peaks", "Arli National Park", "National Museum"]),
-  vietnam: countryProfile("Vietnam", "Hanoi", ["Ho Chi Minh City", "Da Nang", "Hai Phong", "Can Tho"], ["HAN", "SGN", "DAD", "CXR", "PQC"], ["North-South Railway", "Hanoi station", "Saigon station", "planned high-speed rail", "Hai Phong freight corridor"], ["Ho Chi Minh City Metro", "Hanoi Metro", "BRT Hanoi", "airport bus corridors", "urban ferry links"], ["AH1", "QL1A", "Noi Bai-Lao Cai Expressway", "Ho Chi Minh City-Long Thanh Expressway", "Hai Van Pass"], ["Saigon River port", "Hai Phong port", "Mekong Delta waterways", "Da Nang port", "Ha Long Bay cruises"], ["Ha Long Bay", "Hoi An", "Imperial City of Hue", "Cu Chi Tunnels", "Notre-Dame Cathedral Basilica of Saigon"], ["Mekong River", "Red River", "Annamite Range", "Fansipan", "Mekong Delta"], ["Hanoi Old Quarter", "Ben Thanh Market", "Golden Bridge", "My Son Sanctuary", "Trang An"]),
+  vietnam: {
+    ...countryProfile("Vietnam", "Hanoi", ["Ho Chi Minh City", "Da Nang", "Hai Phong", "Can Tho"], ["HAN", "SGN", "DAD", "CXR", "PQC"], ["North-South Railway", "Hanoi station", "Saigon station", "planned high-speed rail", "Hai Phong freight corridor"], ["Ho Chi Minh City Metro", "Hanoi Metro", "BRT Hanoi", "airport bus corridors", "urban ferry links"], ["AH1", "QL1A", "Noi Bai-Lao Cai Expressway", "Ho Chi Minh City-Long Thanh Expressway", "Hai Van Pass"], ["Saigon River port", "Hai Phong port", "Mekong Delta waterways", "Da Nang port", "Ha Long Bay cruises"], ["Ha Long Bay", "Hoi An", "Imperial City of Hue", "Cu Chi Tunnels", "Notre-Dame Cathedral Basilica of Saigon"], ["Mekong River", "Red River", "Annamite Range", "Fansipan", "Mekong Delta"], ["Hanoi Old Quarter", "Ben Thanh Market", "Golden Bridge", "My Son Sanctuary", "Trang An"]),
+    flagPath: "/region-flags/vietnam/Vietnam Flags amd Images/Emblem_of_Hanoi.svg.png",
+    imagePath: "/region-flags/vietnam/Vietnam Flags amd Images/Emblem_of_Saigon.svg.png",
+    galleryImages: [
+      "/region-flags/vietnam/Vietnam Flags amd Images/Emblem_of_Hanoi.svg.png",
+      "/region-flags/vietnam/Vietnam Flags amd Images/Emblem_of_Saigon.svg.png",
+      "/region-flags/vietnam/Vietnam Flags amd Images/Emblem_of_Danang_City.svg.png",
+      "/region-flags/vietnam/Vietnam Flags amd Images/Seal_of_Haiphong.png",
+      "/region-flags/vietnam/Vietnam Flags amd Images/Emblem_of_Cantho_City.svg.png",
+      "/region-flags/vietnam/Vietnam Flags amd Images/Emblem_of_Khanhhoa_Province.svg.png",
+      "/region-flags/vietnam/Vietnam Flags amd Images/Logo_thành_phố_Huế.svg.png",
+    ],
+  },
   qatar: countryProfile("Qatar", "Doha", ["Al Rayyan", "Al Wakrah", "Lusail", "Al Khor"], ["DOH", "Hamad International Airport", "Doha old airport area", "Al Udeid air base", "cargo terminal"], ["Doha Metro Red Line", "Doha Metro Green Line", "Doha Metro Gold Line", "Lusail Tram", "freight/port access corridors"], ["Doha Metro", "Lusail Tram", "Msheireb interchange", "Education City station", "airport metro link"], ["Al Shamal Road", "Salwa Road", "Doha Expressway", "Orbital Highway", "Corniche corridor"], ["Hamad Port", "Doha Port", "Persian Gulf shipping", "Al Wakrah harbor", "Lusail marina"], ["Museum of Islamic Art", "Souq Waqif", "The Pearl-Qatar", "Katara Cultural Village", "Lusail Boulevard"], ["Persian Gulf coast", "Khor Al Adaid", "Dukhan area", "desert plateau", "mangrove coast"], ["Msheireb Downtown", "Education City", "National Museum of Qatar", "Aspire Zone", "Doha Corniche"]),
   "sri-lanka": countryProfile("Sri Lanka", "Sri Jayawardenepura Kotte", ["Colombo", "Kandy", "Galle", "Jaffna"], ["CMB", "HRI", "JAF", "Colombo Ratmalana Airport", "Mattala Rajapaksa Airport"], ["Sri Lanka Railways", "Colombo Fort station", "Main Line to Kandy", "Coastal Line", "Northern Line"], ["Colombo bus corridors", "planned LRT/BRT corridors", "suburban rail", "airport bus links", "Fort station interchange"], ["A1", "E01 Southern Expressway", "E03 Colombo-Katunayake Expressway", "A9", "Central Expressway"], ["Port of Colombo", "Port of Hambantota", "Galle Harbour", "Indian Ocean shipping", "ferry proposals"], ["Sigiriya", "Temple of the Tooth", "Galle Fort", "Lotus Tower", "Adam's Peak"], ["Mahaweli River", "Central Highlands", "Pidurutalagala", "Indian Ocean coast", "Knuckles Range"], ["Colombo Fort", "Pettah Market", "Ella rail bridge", "Yala National Park", "Jaffna Fort"]),
   indonesia: countryProfile("Indonesia", "Jakarta", ["Surabaya", "Bandung", "Medan", "Denpasar"], ["CGK", "DPS", "SUB", "KNO", "UPG"], ["Jakarta-Bandung HSR Whoosh", "KAI intercity rail", "Jakarta commuter line", "Trans-Java rail", "airport rail link"], ["Jakarta MRT", "Jakarta LRT", "TransJakarta BRT", "Palembang LRT", "KRL Commuterline"], ["Trans-Java Toll Road", "Jagorawi Toll Road", "Trans-Sumatra Toll Road", "Bali Mandara Toll Road", "Jakarta Inner Ring Road"], ["Port of Tanjung Priok", "Sunda Strait", "Makassar port", "Surabaya port", "inter-island ferries"], ["Borobudur", "Prambanan", "Monas", "Tanah Lot", "Komodo National Park"], ["Java Sea", "Sunda Strait", "Krakatoa", "Borneo rainforests", "Lake Toba"], ["Jakarta Kota", "Ubud", "Malioboro Street", "Raja Ampat", "Bandung station"]),
@@ -3167,6 +3241,15 @@ const transitReferenceLibrary: Record<string, TransitReference[]> = {
       keyNodes: ["Gare du Nord", "Gare de Lyon", "CDG", "RER B", "TGV"],
     },
   ],
+  vietnam: [
+    {
+      id: "vietnam-rail-waterway",
+      title: "Vietnam Rail & Waterway Reference",
+      kind: "corridor-map",
+      summary: "Core reference for Vietnam's North-South Railway, Mekong Delta waterways, Hanoi/Ho Chi Minh airport links, and coastal geography.",
+      keyNodes: ["Hanoi", "Ho Chi Minh City", "North-South Railway", "Mekong Delta", "Ha Long Bay"],
+    },
+  ],
   switzerland: [
     {
       id: "gotthard-alpine-rail",
@@ -3201,6 +3284,9 @@ const curatedRegions: Region[] = baseRegions.map(([id, name, flag, x, y, majorCi
     `${highways[0]} is a key road or traffic corridor to recognize.`,
     `${landmarks[0]} and ${riversMountains[0]} anchor the landmark and physical geography clues.`,
   ],
+  flagPath: generatedProfileOverrides[id]?.flagPath,
+  imagePath: generatedProfileOverrides[id]?.imagePath,
+  galleryImages: generatedProfileOverrides[id]?.galleryImages,
   transitReferences: transitReferenceLibrary[id] ?? [
     {
       id: `${id}-country-brief`,
@@ -3234,12 +3320,30 @@ const curatedRegions: Region[] = baseRegions.map(([id, name, flag, x, y, majorCi
         "us-sunrail-orlando",
         "us-boston-t",
       ]
-    : questions
-      .filter((question) => question.relatedRegionIds?.includes(id))
-      .sort((a, b) => Number(Boolean(b.visualType)) - Number(Boolean(a.visualType)))
-      .slice(0, 6)
-      .map((question) => question.id),
-}));
+    : id === "france"
+      ? [
+          "cap-france",
+          "code-cdg",
+          "visual-eiffel-country",
+          "landmark-nice-country",
+          "tourism-eiffel-tower",
+        ]
+      : id === "vietnam"
+        ? [
+            "cap-vietnam",
+            "code-han",
+            "visual-halong-bay-clue",
+            "visual-saigon-cathedral",
+            "visual-hanoi-railway",
+            "river-mekong",
+            "mekong-not-country",
+          ]
+        : questions
+          .filter((question) => question.relatedRegionIds?.includes(id))
+          .sort((a, b) => Number(Boolean(b.visualType)) - Number(Boolean(a.visualType)))
+          .slice(0, 6)
+          .map((question) => question.id),
+  }));
 
 const curatedIds = new Set(curatedRegions.map((region) => region.id));
 
@@ -3329,6 +3433,9 @@ const generatedRegions: Region[] = [...unMemberCountries, ...extraCountryLikeReg
         .sort((a, b) => Number(Boolean(b.visualType)) - Number(Boolean(a.visualType)))
         .slice(0, 6)
         .map((question) => question.id),
+      flagPath: overrides.flagPath,
+      imagePath: overrides.imagePath,
+      galleryImages: overrides.galleryImages,
     } satisfies Region;
   })
   .filter((region) => !curatedIds.has(region.id));

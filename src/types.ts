@@ -98,6 +98,9 @@ export type Region = {
   placesOfInterest: string[];
   funFacts: string[];
   transitReferences: TransitReference[];
+  flagPath?: string;
+  imagePath?: string;
+  galleryImages?: string[];
   facts: string[];
   sampleQuestionIds: string[];
 };
