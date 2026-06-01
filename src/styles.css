@@ -1220,9 +1220,13 @@ h3 {
   align-items: center;
   gap: 0.4rem;
   padding: 0 0.62rem;
+  border: 1px solid rgba(141, 179, 185, 0.16);
+  border-radius: 7px;
+  background: rgba(10, 28, 36, 0.82);
   cursor: pointer;
   list-style: none;
   font-weight: 950;
+  transition: border-color 160ms ease, background 160ms ease;
 }
 
 .advanced-map-options summary::-webkit-details-marker {
@@ -1237,6 +1241,11 @@ h3 {
 
 .advanced-map-options[open] summary span {
   transform: rotate(90deg);
+}
+
+.advanced-map-options[open] summary {
+  border-color: rgba(102, 217, 198, 0.42);
+  background: rgba(13, 45, 51, 0.92);
 }
 
 .advanced-map-options summary strong {
@@ -4711,6 +4720,16 @@ h3 {
     min-height: min(540px, 72vh);
   }
 
+  .map-focus-toggle {
+    top: 0.45rem;
+    right: 0.45rem;
+    min-height: 32px;
+    padding: 0.28rem 0.48rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    opacity: 0.82;
+  }
+
   .chip-list a,
   .badge-list a,
   .chip-list span,
@@ -4796,18 +4815,39 @@ h3 {
     bottom: 0.7rem;
   }
 
+  .start-here-launch {
+    grid-template-columns: minmax(0, 1fr) 32px;
+    min-width: 124px;
+    min-height: 42px;
+    gap: 0.3rem;
+    padding: 0.2rem 0.28rem 0.2rem 0.6rem;
+    font-size: 0.82rem;
+    box-shadow: 0 0 0 2px rgba(102, 217, 198, 0.1), 0 8px 20px rgba(0, 0, 0, 0.24);
+  }
+
+  .start-here-launch strong {
+    width: 30px;
+    border-radius: 7px;
+  }
+
+  .start-here-popover {
+    bottom: calc(100% + 0.4rem);
+    width: min(300px, calc(100vw - 1.4rem));
+    padding: 0.45rem;
+  }
+
   .settings-panel {
     right: 0.7rem;
-    bottom: 4.45rem;
+    bottom: 3.75rem;
     width: calc(100vw - 1.4rem);
-    max-height: calc(100vh - 5.5rem);
+    max-height: calc(100vh - 4.8rem);
   }
 
   .daily-lesson-panel {
     left: 0.7rem;
-    bottom: 4.45rem;
+    bottom: 3.75rem;
     width: calc(100vw - 1.4rem);
-    max-height: calc(100vh - 5.5rem);
+    max-height: calc(100vh - 4.8rem);
     overflow: auto;
   }
 

@@ -3212,10 +3212,10 @@ function DailyLessonPanel({ onClose }: { onClose: () => void }) {
   );
 }
 
-const dailyLessons = [
+const featuredDailyLessons: DailyLesson[] = [
   {
     title: "United States",
-    summary: "A huge federal country where state geography and transit clues matter as much as national geography.",
+    summary: "The United States is best learned as a network of metro areas, state regions, and long intercity corridors. New York, Washington, Chicago, Atlanta, Boston, Los Angeles, San Francisco, Miami, and Seattle each have distinct rail or airport clues, while Amtrak, Brightline, commuter rail, and major interstate highways help connect the national map.",
     facts: ["50 states plus D.C.", "Grand Canyon and Yosemite are major landmark anchors", "New York's MTA subway is one of the world's busiest urban rail systems", "Brightline is a modern intercity rail clue in Florida", "Chicago, Washington, Atlanta, Boston, and Los Angeles all have strong metro map clues"],
     prompt: "Today, click the U.S., zoom into regions, and compare Florida, New York, California, Georgia, and D.C.",
   },
@@ -3233,13 +3233,13 @@ const dailyLessons = [
   },
   {
     title: "France",
-    summary: "France is a classic rail geography lesson: Paris, regions, the TGV, and dense urban transit clues.",
+    summary: "France is a classic rail geography lesson: Paris anchors the national rail web, the TGV links major regions at high speed, and the Paris Metro/RER gives the capital a dense urban-transit identity. Regional clues such as Provence-Alpes-Cote d'Azur, Brittany, Normandy, and Centre-Val de Loire add flags, capitals, and population context beyond Paris.",
     facts: ["Paris is the capital", "The Paris Metro and RER are key map clues", "TGV corridors link Paris with Lyon, Marseille, and beyond", "Ile-de-France is the core capital region", "CDG and Orly are major airport clues"],
     prompt: "Use Paris, TGV, RER, and Ile-de-France as today's anchors.",
   },
   {
     title: "Japan",
-    summary: "Japan is perfect for station-order thinking: Shinkansen corridors, dense metros, and island regions.",
+    summary: "Japan is perfect for station-order thinking. The Shinkansen bullet-train network lets you remember city-to-city movement from Tokyo through Nagoya, Kyoto, Osaka, Hiroshima, and beyond, while Tokyo Metro, Osaka Metro, JR commuter rail, and regional systems make each island and prefecture feel connected rather than isolated.",
     facts: ["Tokyo is the capital", "Shinkansen means bullet train network", "Honshu carries the busiest high-speed rail spine", "Tokyo and Osaka have major metro systems", "Hokkaido, Kyushu, and Shikoku add island-region clues"],
     prompt: "Read the rail corridor order before answering the map question.",
   },
@@ -3280,6 +3280,48 @@ const dailyLessons = [
     prompt: "Compare Sydney/New South Wales, Melbourne/Victoria, and Perth/Western Australia.",
   },
   {
+    title: "Canada",
+    summary: "Canada is a regional transit lesson built around large distances and a few very strong urban systems. Toronto's TTC, GO Transit, and UP Express form the densest clue set, Montreal adds the Metro and REM, Vancouver uses SkyTrain, and Calgary connects CTrain city rail with mountain-region travel toward Banff and the Rockies.",
+    facts: ["Ottawa is the capital", "Toronto's TTC is Canada's largest urban transit system", "GO Transit and UP Express connect the Toronto region and airport", "Calgary CTrain is a major Alberta light rail clue", "Banff and the Rockies help anchor western Canada geography"],
+    prompt: "Compare TTC Toronto, Montreal Metro, Vancouver SkyTrain, Calgary CTrain, and Banff/Rockies geography.",
+  },
+  {
+    title: "Switzerland",
+    summary: "Switzerland is a precision rail lesson: Zurich, Geneva, Basel, Bern, and mountain resort routes are linked by frequent national trains. Zurich is especially useful for remembering airport rail, trams, S-Bahn services, and the way Swiss transit connects dense cities with Alpine geography.",
+    facts: ["Bern is the capital", "Zurich is the largest rail and air hub", "SBB intercity trains are central to Swiss mobility", "Trams and S-Bahn systems shape Zurich and Basel", "Alpine rail routes help connect tourism and mountain geography"],
+    prompt: "Use Zurich rail, SBB intercity service, and Alpine route clues.",
+  },
+  {
+    title: "Spain",
+    summary: "Spain is a high-speed rail and regional-identity lesson. Madrid anchors AVE corridors to Barcelona, Seville, Valencia, and other cities, while regional layers such as Catalonia, Andalusia, the Basque Country, Galicia, and Castilla y Leon carry their own capitals, flags, and population clues.",
+    facts: ["Madrid is the capital", "AVE high-speed rail is the main national rail clue", "Madrid and Barcelona both have major metro systems", "Valencia adds Metrovalencia and Mediterranean geography", "Regional flags are useful for autonomous community questions"],
+    prompt: "Pair AVE route order with Madrid, Barcelona, Valencia, Seville, and regional flag clues.",
+  },
+  {
+    title: "Italy",
+    summary: "Italy is a north-south rail corridor lesson. High-speed trains link Turin, Milan, Bologna, Florence, Rome, Naples, and Salerno, while Milan Metro, Rome Metro, Naples, Florence tramways, and regional rail help separate city transit clues from national train geography.",
+    facts: ["Rome is the capital", "Milan is a major rail and metro hub", "Frecciarossa high-speed trains link the main spine", "Florence adds tramway and Tuscany clues", "Venice, Naples, and Sicily add strong regional geography"],
+    prompt: "Trace the high-speed rail spine from Milan through Florence and Rome to Naples.",
+  },
+  {
+    title: "Israel",
+    summary: "Israel combines intercity rail, dense bus corridors, and newer light rail. Jerusalem and Tel Aviv are the main transit anchors: Jerusalem Light Rail is a clear urban clue, Tel Aviv has light rail and heavy rail connections, and Israel Railways links the airport, coast, and major cities.",
+    facts: ["Jerusalem is the capital", "Tel Aviv is a major rail and coastal mobility hub", "Jerusalem Light Rail is a signature clue", "Ben Gurion Airport connects directly to rail", "Israel Railways links coastal and inland city corridors"],
+    prompt: "Use Jerusalem Light Rail, Tel Aviv rail, and Ben Gurion airport-rail clues.",
+  },
+  {
+    title: "Morocco",
+    summary: "Morocco is one of the strongest transit lessons in Africa. Al Boraq is the high-speed rail clue on the Tangier-Kenitra-Rabat-Casablanca corridor, while Casablanca and Rabat-Sale tramways, regional images, and 2024 region populations make the country useful for both map study and urban transit questions.",
+    facts: ["Rabat is the capital", "Al Boraq is Morocco's high-speed rail clue", "Casablanca and Rabat-Sale both have tramway systems", "Tangier, Casablanca, Marrakesh, and Fes are major city anchors", "The Atlas Mountains and Atlantic/Mediterranean coasts shape the map"],
+    prompt: "Remember Al Boraq first, then add Casablanca/Rabat tramways and regional population clues.",
+  },
+  {
+    title: "Uzbekistan",
+    summary: "Uzbekistan is a Central Asian rail lesson built around Tashkent, Samarkand, Bukhara, and the Afrosiyob high-speed train. The Tashkent Metro adds a distinctive urban-transit clue, while Silk Road city geography helps make the country memorable.",
+    facts: ["Tashkent is the capital", "Afrosiyob is the high-speed rail clue", "Tashkent Metro is a major Central Asian metro system", "Samarkand and Bukhara are key Silk Road anchors", "Rail corridors help connect oasis cities across the map"],
+    prompt: "Pair Tashkent Metro with Afrosiyob and Silk Road city order.",
+  },
+  {
     title: "Singapore",
     summary: "Singapore is compact, but its transit geography is exceptionally rich.",
     facts: ["Singapore is both city and country", "The MRT is the main rapid transit clue", "Changi Airport is a global aviation hub", "Jurong East, City Hall, and Dhoby Ghaut are useful interchange clues", "Its island shape makes map identification quick"],
@@ -3291,6 +3333,33 @@ const dailyLessons = [
     facts: ["Bangkok is the capital", "BTS and MRT are the main rapid transit clues", "Siam and Asok are useful interchange clues", "Phuket and Krabi are strong coastal tourism anchors", "Long-distance rail links Bangkok with northern and southern corridors"],
     prompt: "Read the Bangkok rail map by interchange first, then airport and river clues.",
   },
+];
+
+const featuredDailyLessonNames = new Set(featuredDailyLessons.map((lesson) => lesson.title));
+
+function dailyLessonFromRegion(region: Region): DailyLesson {
+  const airports = region.airports.slice(0, 3).join(", ");
+  const cities = [region.capital, ...region.majorCities].filter((item, index, array) => item && !item.includes("queued") && array.indexOf(item) === index).slice(0, 4).join(", ");
+  const transportLead = [region.rail[0], region.metro[0]].filter(Boolean).join(" and ");
+  return {
+    title: region.name,
+    summary: `${region.name} is today's map-and-mobility profile. Start with ${region.capital.includes("queued") ? "its capital clue" : region.capital}, then connect the country shape to ${transportLead || "its main transport corridors"}, airport clues such as ${airports || "the primary gateway"}, and region or landmark anchors so the profile feels like a place rather than a memorized list.`,
+    facts: [
+      `${region.capital.includes("queued") ? "Capital profile" : `Capital: ${region.capital}`}.`,
+      cities ? `City anchors: ${cities}.` : `${region.name} uses local city and regional clues in the map deck.`,
+      airports ? `Airport clues: ${airports}.` : "Airport clues are lighter for this profile.",
+      transportLead ? `Transport clue: ${transportLead}.` : "Transport clues emphasize road, ferry, or local mobility context.",
+      `${region.landmarks[0] ?? region.riversMountains[0] ?? region.name} is the main place-memory hook.`,
+    ],
+    prompt: `Open ${region.name}, read the image and transit cards, then answer one airport, one capital, and one map clue.`,
+  };
+}
+
+const dailyLessons: DailyLesson[] = [
+  ...featuredDailyLessons,
+  ...regions
+    .filter((region) => !featuredDailyLessonNames.has(region.name))
+    .map(dailyLessonFromRegion),
 ];
 
 function GuideOverlay({ onClose }: { onClose: () => void }) {
