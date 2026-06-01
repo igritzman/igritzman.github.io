@@ -2794,7 +2794,7 @@ function resetProfile() {
       <header className="topbar">
         <div className="brand-lockup">
           <img className="brand-logo-image" src="/images/brand/geontransit-logo.svg" alt="GEONTRANSIT" />
-          <p className="brand-subtitle">Maps, flags, trains, planes, boats, roads, and places to see.</p>
+          <p className="brand-subtitle">Explore the world's transit systems, airports, regions, and geography.</p>
         </div>
         <div className="status-grid" aria-label="Profile status">
           <Metric label="Operator" value={`${profile.emoji ?? "🚇"} ${profile.name || (profile.isGuest ? "Guest user" : "Create username")}`} />
@@ -3225,8 +3225,8 @@ const featuredDailyLessons: DailyLesson[] = [
   },
   {
     title: "Brazil",
-    summary: "Brazil combines Amazon geography, Atlantic megacities, and major metro systems in Sao Paulo and Rio de Janeiro.",
-    facts: ["Brasilia is the capital", "The Amazon is the dominant geography clue", "Sao Paulo has a major metro network", "Rio de Janeiro pairs coastal geography with urban rail", "Large airports and ports make Brazil a strong multimodal country"],
+    summary: "Brazil is the largest country in South America, featuring diverse geography that ranges from the vast Amazon Rainforest in the north to extensive coastlines, wetlands, mountains, and agricultural regions. Its transportation network relies heavily on highways and aviation due to the country's immense size, connecting major cities such as Sao Paulo, Rio de Janeiro, Brasilia, and Salvador. Urban rail systems, metro networks, and bus rapid transit corridors serve many metropolitan areas, while major airports such as Sao Paulo/Guarulhos International Airport and Rio de Janeiro/Galeao International Airport provide critical domestic and international connections. Brazil's extensive river systems, including the Amazon River, also play an important role in freight and passenger transportation in remote regions.",
+    facts: ["Brasilia is the capital", "The Amazon is the dominant geography clue", "Sao Paulo has a major metro network", "Rio de Janeiro pairs coastal geography with urban rail", "GRU and GIG are major aviation anchors", "Highways carry much of the intercity travel burden", "Amazon river transport matters in remote northern regions"],
     prompt: "Look for Amazon, Atlantic coast, Sao Paulo, Rio, and Brasilia clues.",
   },
   {
@@ -3243,8 +3243,8 @@ const featuredDailyLessons: DailyLesson[] = [
   },
   {
     title: "Japan",
-    summary: "Japan is perfect for station-order thinking. The Shinkansen bullet-train network lets you remember city-to-city movement from Tokyo through Nagoya, Kyoto, Osaka, Hiroshima, and beyond, while Tokyo Metro, Osaka Metro, JR commuter rail, and regional systems make each island and prefecture feel connected rather than isolated.",
-    facts: ["Tokyo is the capital", "Shinkansen means bullet train network", "Honshu carries the busiest high-speed rail spine", "Tokyo and Osaka have major metro systems", "Hokkaido, Kyushu, and Shikoku add island-region clues"],
+    summary: "Japan is a highly urbanized island nation in East Asia known for its extensive and efficient transportation network. The country is connected by the world-renowned Shinkansen, which links major cities such as Tokyo, Osaka, Kyoto, Hiroshima, and Hakata. Japan's geography consists of four main islands: Honshu, Hokkaido, Kyushu, and Shikoku, with mountainous terrain concentrating population and development along coastal plains. Major metropolitan areas are served by dense rail, subway, and bus networks, while international gateways such as Tokyo Haneda Airport and Narita International Airport connect Japan to destinations worldwide.",
+    facts: ["Tokyo is the capital", "Shinkansen means bullet train network", "Honshu carries the busiest high-speed rail spine", "Tokyo and Osaka have major metro systems", "Hokkaido, Kyushu, and Shikoku add island-region clues", "Haneda and Narita split the Tokyo aviation clue", "Mountainous terrain concentrates rail and cities along coastal corridors"],
     prompt: "Read the rail corridor order before answering the map question.",
   },
   {
@@ -3321,8 +3321,8 @@ const featuredDailyLessons: DailyLesson[] = [
   },
   {
     title: "Uzbekistan",
-    summary: "Uzbekistan is a Central Asian rail lesson built around Tashkent, Samarkand, Bukhara, and the Afrosiyob high-speed train. The Tashkent Metro adds a distinctive urban-transit clue, while Silk Road city geography helps make the country memorable.",
-    facts: ["Tashkent is the capital", "Afrosiyob is the high-speed rail clue", "Tashkent Metro is a major Central Asian metro system", "Samarkand and Bukhara are key Silk Road anchors", "Rail corridors help connect oasis cities across the map"],
+    summary: "Uzbekistan is a landlocked country in Central Asia characterized by vast deserts, fertile river valleys, and historic Silk Road cities. The nation's transportation network is centered on railways and highways that connect major cities such as Tashkent, Samarkand, Bukhara, and Nukus. High-speed rail services, including the Afrosiyob, provide modern connections between the country's largest urban centers. Much of Uzbekistan's landscape is dominated by the Kyzylkum Desert, while agriculture and population are concentrated in fertile river valleys and the Fergana Valley. Tashkent International Airport acts as the primary international gateway.",
+    facts: ["Tashkent is the capital", "Afrosiyob is the high-speed rail clue", "Tashkent Metro is a major Central Asian metro system", "Samarkand and Bukhara are key Silk Road anchors", "The Kyzylkum Desert is a major geography clue", "The Fergana Valley concentrates population and transport", "Tashkent International Airport is the main air gateway"],
     prompt: "Pair Tashkent Metro with Afrosiyob and Silk Road city order.",
   },
   {
@@ -3356,6 +3356,8 @@ function dailyLessonFromRegion(region: Region): DailyLesson {
       airports ? `Airport clues: ${airports}.` : "Airport clues are lighter for this profile.",
       transportLead ? `Transport clue: ${transportLead}.` : "Transport clues emphasize road, ferry, or local mobility context.",
       waterOrRoad ? `Road or water clue: ${waterOrRoad}.` : `${placeHook} is the main place-memory hook.`,
+      region.landmarks[0] ? `Landmark hook: ${region.landmarks[0]}.` : `${placeHook} is the main visual hook.`,
+      region.population ? `Population note: ${region.population}.` : "Population context appears in the country profile.",
     ],
     prompt: `Open ${region.name}, read the image and transit cards, then answer one airport, one capital, and one map clue.`,
   };
@@ -3403,7 +3405,7 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
     },
     {
       title: "Daily Lesson",
-      text: "Open Start Here for one daily country or region lesson with a profile image, five facts, and downloads.",
+      text: "Open Start Here for one daily country or region lesson with a profile image, a short transport paragraph, facts, and downloads.",
       visual: "lesson",
     },
     {
@@ -3713,6 +3715,44 @@ function buildQuestionHint(question: Question) {
   return typeHint;
 }
 
+function GameProgressPanel({ profile }: { profile: PlayerProfile }) {
+  const xp = profile.totalCorrect * 40 + profile.highScore;
+  const accuracy = profile.totalAnswered ? Math.round((profile.totalCorrect / profile.totalAnswered) * 100) : 0;
+  const completedCategories = Object.values(profile.categoryStats).filter((stat) => stat.answered >= 5 && stat.correct / Math.max(1, stat.answered) >= 0.7).length;
+  const badgeCount = [
+    profile.highScore >= 500,
+    profile.totalCorrect >= 25,
+    accuracy >= 80 && profile.totalAnswered >= 20,
+    completedCategories >= 4,
+  ].filter(Boolean).length;
+  const regionCompletion = Math.min(100, Math.round((new Set(profile.answeredQuestionIds).size / Math.max(1, questions.length)) * 100));
+  const masteryRank = accuracy >= 88 && profile.totalAnswered >= 40 ? "Transit Master" : accuracy >= 75 ? "Network Builder" : "Route Learner";
+  return (
+    <div className="game-progress-panel" aria-label="Daily challenge progress">
+      <article>
+        <span>Daily Challenge</span>
+        <strong>10 fresh clues</strong>
+      </article>
+      <article>
+        <span>XP</span>
+        <strong>{xp}</strong>
+      </article>
+      <article>
+        <span>Badges</span>
+        <strong>{badgeCount}/4</strong>
+      </article>
+      <article>
+        <span>Regions</span>
+        <strong>{regionCompletion}%</strong>
+      </article>
+      <article>
+        <span>Mastery</span>
+        <strong>{masteryRank}</strong>
+      </article>
+    </div>
+  );
+}
+
 function PlayTab({
   run,
   profile,
@@ -3772,6 +3812,7 @@ function PlayTab({
             Start at {difficultyLabels[selectedStartLevel]}. Level ladder mode is split into 10-question blocks by difficulty,
             so Gateway stays approachable and each conquered level unlocks the next step toward the nearly impossible Outer Limits.
           </p>
+          <GameProgressPanel profile={profile} />
           <div className="run-length-picker" aria-label="Question count">
             {[10, 15, 20, 150].map((count) => (
               <button
@@ -4164,12 +4205,12 @@ function MapTab({
             <span>Click a country, then scroll the sidebar for facts, links, images, and sample questions.</span>
           </div>
           <label className="country-select country-combobox" htmlFor="country-search">
-            Country
+            Search
             <input
               id="country-search"
               type="search"
               value={countrySearch}
-              placeholder="Search countries: ca, cam, au..."
+              placeholder="Search countries, cities, airports, transit, landmarks..."
               autoComplete="off"
               role="combobox"
               aria-expanded={countrySearchFocused && searchResultCount > 0}
@@ -4529,6 +4570,8 @@ function MapTab({
               const system = projectedTransitSystems.find((item) => item.id === systemId);
               if (system) onTransitSystemSelect(system);
             }}
+            onClearAttraction={onClearLayerSelection}
+            onCloseRegion={() => onSelectRegion(null)}
             onPracticeRegion={onPracticeRegion}
             onReplay={onReplay}
           />
@@ -5359,6 +5402,8 @@ function RegionPanel({
   onAttractionSelect,
   selectedTransitSystemId,
   onTransitSystemSelect,
+  onClearAttraction,
+  onCloseRegion,
   onPracticeRegion,
   onReplay,
 }: {
@@ -5367,6 +5412,8 @@ function RegionPanel({
   onAttractionSelect: (attractionId: string) => void;
   selectedTransitSystemId: string | null;
   onTransitSystemSelect: (systemId: string) => void;
+  onClearAttraction: () => void;
+  onCloseRegion: () => void;
   onPracticeRegion: (region: Region, question?: Question, topics?: PracticeTopic[]) => void;
   onReplay: (question?: Question) => void;
 }) {
@@ -5422,8 +5469,10 @@ function RegionPanel({
   const profileImage = regionHeroAsset ?? placeImage ?? countryImage;
   const practiceTopicOptions = practiceTopicOptionsForRegion(region, regionTransitSystems.length, regionAttractions.length);
   const [practiceTopics, setPracticeTopics] = useState<PracticeTopic[]>(practiceTopicOptions.map((topic) => topic.id));
+  const [activeProfileView, setActiveProfileView] = useState<"overview" | "transit" | "landmarks" | "images">("overview");
   useEffect(() => {
     setPracticeTopics(practiceTopicOptions.map((topic) => topic.id));
+    setActiveProfileView("overview");
   }, [region.id]);
   const togglePracticeTopic = (topic: PracticeTopic) => {
     setPracticeTopics((topics) => topics.includes(topic)
@@ -5442,98 +5491,128 @@ function RegionPanel({
           <h2>{region.name}</h2>
           <span>{region.capital}</span>
         </div>
+        <button type="button" className="region-close-button" onClick={onCloseRegion} aria-label={`Close ${region.name} profile`}>×</button>
       </div>
       <div className="fact-box compact-facts">
         <p><strong>Population:</strong> {region.population}</p>
       </div>
       {profileImage && <PlaceImageCard image={profileImage} />}
       <RegionAssetGallery region={region} transitSystems={regionTransitSystems} profileImage={profileImage} />
-      <InfoGroup title="Major Cities" items={region.majorCities} regionName={region.name} />
-      <InfoGroup title="Airports" items={region.airports} regionName={region.name} badge />
-      <InfoGroup title="Rail" items={region.rail} regionName={region.name} />
-      <InfoGroup title="Metro" items={region.metro} regionName={region.name} />
-      {regionTransitSystems.length > 0 && (
-        <details className="transit-repository-panel">
-          <summary>
-            <span>Transit Systems</span>
-            <em>{regionTransitSystems.length} mapped reference{regionTransitSystems.length === 1 ? "" : "s"}</em>
-          </summary>
-          <p>Curated metro and major rail systems for this country. Use these in-app notes first; Transitland and Wikipedia links are optional references when you want route context or system history.</p>
-          {region.id === "united-states" && (
-            <div className="transit-example-card">
-              <strong>Example reference: Brightline Florida</strong>
-              <span>The in-app brief gives the quiz focus; Transitland and Wikipedia are optional references for route context, stations, and service notes.</span>
+      <GeoTransitAssistant region={region} transitSystems={regionTransitSystems} />
+      <div className="profile-view-toggle" aria-label={`${region.name} profile sections`}>
+        {([
+          ["overview", "Overview"],
+          ["transit", "Transit"],
+          ["landmarks", "Landmarks"],
+          ["images", "Images"],
+        ] as const).map(([view, label]) => (
+          <button key={view} type="button" className={activeProfileView === view ? "selected" : ""} onClick={() => setActiveProfileView(view)}>
+            {label}
+          </button>
+        ))}
+      </div>
+      {activeProfileView === "overview" && (
+        <>
+          <InfoGroup title="Major Cities" items={region.majorCities} regionName={region.name} />
+          <InfoGroup title="Airports" items={region.airports} regionName={region.name} badge />
+          {subregions.length > 0 && <InfoGroup title="States, Provinces & Regions" items={subregions} regionName={region.name} />}
+          <InfoGroup title="Fun Facts" items={region.funFacts} regionName={region.name} />
+        </>
+      )}
+      {activeProfileView === "transit" && (
+        <>
+          <InfoGroup title="Rail" items={region.rail} regionName={region.name} />
+          <InfoGroup title="Metro" items={region.metro} regionName={region.name} />
+          {regionTransitSystems.length > 0 && (
+            <details className="transit-repository-panel" open>
+              <summary>
+                <span>Transit Systems</span>
+                <em>{regionTransitSystems.length} mapped reference{regionTransitSystems.length === 1 ? "" : "s"}</em>
+              </summary>
+              <p>Curated metro and major rail systems for this country. Use these in-app notes first; Transitland and Wikipedia links are optional references when you want route context or system history.</p>
+              {region.id === "united-states" && (
+                <div className="transit-example-card">
+                  <strong>Example reference: Brightline Florida</strong>
+                  <span>The in-app brief gives the quiz focus; Transitland and Wikipedia are optional references for route context, stations, and service notes.</span>
+                </div>
+              )}
+              {regionTransitSystems.map((system) => {
+                const imageSrc = transitSystemImageById[system.id];
+                const meta = transitSystemMetaById[system.id];
+                return (
+                  <article key={system.id} className={selectedTransitSystemId === system.id ? "selected" : ""}>
+                    <button type="button" onClick={() => onTransitSystemSelect(system.id)}>
+                      <span>{transitIcon(system.kind)}</span>
+                      <strong>{system.name}</strong>
+                    </button>
+                    {imageSrc && (
+                      <button
+                        type="button"
+                        className="transit-system-image-button"
+                        onClick={() => onTransitSystemSelect(system.id)}
+                        aria-label={`Focus ${system.name} on the map`}
+                      >
+                        <img src={imageSrc} alt={`${system.name} reference map`} loading="lazy" />
+                      </button>
+                    )}
+                    <span>{system.city} · {system.region} · {system.type}</span>
+                    {meta && (
+                      <div className="transit-system-metadata" aria-label={`${system.name} quick facts`}>
+                        {meta.opened && <span>Opened {meta.opened}</span>}
+                        {meta.systemLength && <span>{meta.systemLength}</span>}
+                        {meta.stations && <span>{/\d/.test(meta.stations) ? `${meta.stations} stations` : meta.stations}</span>}
+                      </div>
+                    )}
+                    <p>{system.quizFocus}</p>
+                    <div className="transit-nodes">
+                      {system.keyNodes.map((node) => <span key={node}>{node}</span>)}
+                    </div>
+                    <div>
+                      <a href={system.mapUrl} target="_blank" rel="noreferrer">Transitland map</a>
+                      <a href={system.sourceUrl} target="_blank" rel="noreferrer">Reference</a>
+                    </div>
+                  </article>
+                );
+              })}
+            </details>
+          )}
+          <InfoGroup title="Highways" items={region.highways} regionName={region.name} badge />
+          <InfoGroup title="Maritime" items={region.maritime} regionName={region.name} />
+        </>
+      )}
+      {activeProfileView === "landmarks" && (
+        <>
+          <InfoGroup title="Landmarks" items={region.landmarks} regionName={region.name} />
+          <InfoGroup title="Rivers & Mountains" items={region.riversMountains} regionName={region.name} />
+          <InfoGroup title="Places of Interest" items={region.placesOfInterest} regionName={region.name} />
+          {regionAttractions.length > 0 && (
+            <div className="attractions-panel">
+              <div className="panel-title-row">
+                <h3>Tourist Attractions Layer</h3>
+                {selectedAttractionId && <button type="button" onClick={onClearAttraction} aria-label="Clear selected attraction">×</button>}
+              </div>
+              <p>These points also appear on the map when the Tourist attractions layer is switched on.</p>
+              {regionAttractions.map((attraction) => (
+                <a
+                  key={attraction.id}
+                  className={selectedAttractionId === attraction.id ? "selected" : ""}
+                  href={attraction.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => onAttractionSelect(attraction.id)}
+                >
+                  <span>{attractionIcon(attraction.kind)}</span>
+                  <strong>{attraction.name}</strong>
+                  <em>Wikipedia</em>
+                </a>
+              ))}
             </div>
           )}
-          {regionTransitSystems.map((system) => {
-            const imageSrc = transitSystemImageById[system.id];
-            const meta = transitSystemMetaById[system.id];
-            return (
-              <article key={system.id} className={selectedTransitSystemId === system.id ? "selected" : ""}>
-                <button type="button" onClick={() => onTransitSystemSelect(system.id)}>
-                  <span>{transitIcon(system.kind)}</span>
-                  <strong>{system.name}</strong>
-                </button>
-                {imageSrc && (
-                  <button
-                    type="button"
-                    className="transit-system-image-button"
-                    onClick={() => onTransitSystemSelect(system.id)}
-                    aria-label={`Focus ${system.name} on the map`}
-                  >
-                    <img src={imageSrc} alt={`${system.name} reference map`} loading="lazy" />
-                  </button>
-                )}
-                <span>{system.city} · {system.region} · {system.type}</span>
-                {meta && (
-                  <div className="transit-system-metadata" aria-label={`${system.name} quick facts`}>
-                    {meta.opened && <span>Opened {meta.opened}</span>}
-                    {meta.systemLength && <span>{meta.systemLength}</span>}
-                    {meta.stations && <span>{/\d/.test(meta.stations) ? `${meta.stations} stations` : meta.stations}</span>}
-                  </div>
-                )}
-                <p>{system.quizFocus}</p>
-                <div className="transit-nodes">
-                  {system.keyNodes.map((node) => <span key={node}>{node}</span>)}
-                </div>
-                <div>
-                  <a href={system.mapUrl} target="_blank" rel="noreferrer">Transitland map</a>
-                  <a href={system.sourceUrl} target="_blank" rel="noreferrer">Reference</a>
-                </div>
-              </article>
-            );
-          })}
-        </details>
+        </>
       )}
-      <InfoGroup title="Highways" items={region.highways} regionName={region.name} badge />
-      <InfoGroup title="Maritime" items={region.maritime} regionName={region.name} />
-      <InfoGroup title="Landmarks" items={region.landmarks} regionName={region.name} />
-      <InfoGroup title="Rivers & Mountains" items={region.riversMountains} regionName={region.name} />
-      <InfoGroup title="Places of Interest" items={region.placesOfInterest} regionName={region.name} />
-      {regionAttractions.length > 0 && (
-        <div className="attractions-panel">
-          <h3>Tourist Attractions Layer</h3>
-          <p>These points also appear on the map when the Tourist attractions layer is switched on.</p>
-          {regionAttractions.map((attraction) => (
-            <a
-              key={attraction.id}
-              className={selectedAttractionId === attraction.id ? "selected" : ""}
-              href={attraction.url}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => onAttractionSelect(attraction.id)}
-            >
-              <span>{attractionIcon(attraction.kind)}</span>
-              <strong>{attraction.name}</strong>
-              <em>Wikipedia</em>
-            </a>
-          ))}
-        </div>
+      {activeProfileView === "images" && (
+        <VisualReferenceGallery region={region} transitSystems={regionTransitSystems} profileImage={profileImage} />
       )}
-      {subregions.length > 0 && <InfoGroup title="States, Provinces & Regions" items={subregions} regionName={region.name} />}
-      <InfoGroup title="Fun Facts" items={region.funFacts} regionName={region.name} />
-      <VisualReferenceGallery region={region} transitSystems={regionTransitSystems} profileImage={profileImage} />
-      <GeoTransitAssistant region={region} transitSystems={regionTransitSystems} />
       <div className="fact-box">
         {region.facts.map((fact) => <p key={fact}>{fact}</p>)}
       </div>
@@ -5616,16 +5695,44 @@ function ImageGalleryStrip({
   compact?: boolean;
 }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const galleryAssets = assets.slice(0, 5);
+  const [hiddenAssetKeys, setHiddenAssetKeys] = useState<string[]>([]);
+  useEffect(() => {
+    setHiddenAssetKeys([]);
+    setSelectedIndex(null);
+  }, [assets.map((asset) => asset.key).join("|")]);
+  const galleryAssets = assets.slice(0, 5).filter((asset) => !hiddenAssetKeys.includes(asset.key));
   const selectedAsset = selectedIndex === null ? null : galleryAssets[selectedIndex] ?? null;
   const showPrevious = () => setSelectedIndex((index) => index === null ? null : (index + galleryAssets.length - 1) % galleryAssets.length);
   const showNext = () => setSelectedIndex((index) => index === null ? null : (index + 1) % galleryAssets.length);
+  const hideAsset = (key: string) => {
+    setHiddenAssetKeys((keys) => [...keys, key]);
+    setSelectedIndex(null);
+  };
   return (
     <div className={`reference-docs visual-gallery ${compact ? "compact-gallery" : ""}`}>
       <h3>{title}</h3>
       <div className="image-carousel" aria-label={title}>
         {galleryAssets.length > 0 ? galleryAssets.map((asset, index) => (
           <button key={asset.key} type="button" className="gallery-image-card" onClick={() => setSelectedIndex(index)}>
+            <span
+              role="button"
+              tabIndex={0}
+              className="gallery-card-close"
+              aria-label={`Hide ${asset.label}`}
+              onClick={(event) => {
+                event.stopPropagation();
+                hideAsset(asset.key);
+              }}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  hideAsset(asset.key);
+                }
+              }}
+            >
+              ×
+            </span>
             <img src={asset.src} alt={asset.label} loading="lazy" />
             <span>{asset.kind}</span>
             <strong>{asset.label}</strong>
@@ -5876,8 +5983,8 @@ function GeoTransitAssistant({
   return (
     <section className="assistant-panel" aria-label="GeoTransit assistant">
       <div>
-        <p className="eyebrow">GeoTransit Assistant</p>
-        <h3>Ask about {region.name}</h3>
+        <p className="eyebrow">Ask GeoTransit</p>
+        <h3>Transit and geography helper</h3>
       </div>
       <p>{answer}</p>
       <div className="assistant-chip-row">
@@ -5894,7 +6001,7 @@ function GeoTransitAssistant({
         event.preventDefault();
         ask();
       }}>
-        <input value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Ask a transit or geography question" />
+        <input value={question} onChange={(event) => setQuestion(event.target.value)} placeholder={`Ask about ${region.name} transit, airports, or geography`} />
         <button type="submit">Ask</button>
       </form>
     </section>

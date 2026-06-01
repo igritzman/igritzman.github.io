@@ -269,7 +269,7 @@ function buildMonthlyRotationQuestions(monthKey = currentMonthKey()) {
           category: "rail",
           difficulty,
           inputType: "multiple-choice",
-          prompt: `Which country profile pairs ${primaryRail} with ${primaryMetro}?`,
+          prompt: `Which country profile combines a national rail clue with the urban transit clue "${primaryMetro}"?`,
           answer: region.name,
           choices: choicesFor(region.name, countryPool, seed),
           explanation: `${primaryRail} and ${primaryMetro} are both transportation clues from the ${region.name} country panel.`,
