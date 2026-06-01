@@ -285,22 +285,7 @@
     "tierra-del-fuego": "argentina/tierra-del-fuego.jpg",
     "tucuman": "argentina/tucuman.avif"
   },
-  "vietnam": {
-    "hanoi": "imported/vietnam/hanoi.jpg",
-    "da-nang": "imported/vietnam/da-nang.webp",
-    "can-tho": "imported/vietnam/can-tho.jpg",
-    "ho-chi-minh-city": "imported/vietnam/ho-chi-minh-city.png",
-    "bac-ninh": "imported/vietnam/bac-ninh.jpg",
-    "ca-mau": "imported/vietnam/ca-mau.jpg",
-    "cao-bang": "imported/vietnam/cao-bang.jpg",
-    "dak-lak": "imported/vietnam/dak-lak.jpg",
-    "dong-thap": "imported/vietnam/dong-thap.webp",
-    "dong-nai": "imported/vietnam/dong-nai.jpg",
-    "hung-yen": "imported/vietnam/hung-yen.jpg",
-    "khanh-hoa": "imported/vietnam/khanh-hoa.jpg",
-    "lang-son": "imported/vietnam/lang-son.jpg",
-    "lao-cai": "imported/vietnam/lao-cai.jpg"
-  },
+  "vietnam": {},
   "south-korea": {
     "gangwon": "imported/south-korea/gangwon.jpg",
     "gyeonggi": "imported/south-korea/gyeonggi.jpg",
@@ -341,5 +326,10 @@
     "jilin": "imported/china/jilin.jpeg",
     "liaoning": "imported/china/liaoning.jpeg",
     "qinghai": "imported/china/qinghai.jpg"
+  },
+  "indonesia": {
+    "central-java": "imported/indonesia/central-java.jpg",
+    "east-java": "imported/indonesia/east-java.jpg",
+    "bali": "imported/indonesia/bali.jpg"
   }
 }

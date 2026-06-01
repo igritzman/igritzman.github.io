@@ -315,5 +315,14 @@
     "volta": "imported/ghana/volta.png",
     "western": "imported/ghana/western.gif"
   },
-  "china": {}
+  "china": {},
+  "indonesia": {
+    "jakarta": "imported/indonesia/jakarta.png",
+    "west-java": "imported/indonesia/west-java.png",
+    "central-java": "imported/indonesia/central-java.png",
+    "east-java": "imported/indonesia/east-java.png",
+    "north-sumatra": "imported/indonesia/north-sumatra.png",
+    "south-sulawesi": "imported/indonesia/south-sulawesi.png",
+    "papua": "imported/indonesia/papua.png"
+  }
 }

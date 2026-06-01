@@ -2903,7 +2903,7 @@ function countryProfile(
   placesOfInterest: string[],
 ) {
   return {
-    majorCities: [capital, ...majorCities].filter((item, index, array) => array.indexOf(item) === index).slice(0, 6),
+    majorCities: [capital, ...majorCities].filter((item, index, array) => array.indexOf(item) === index).slice(0, 8),
     airports,
     rail,
     metro,
@@ -2941,18 +2941,9 @@ Object.assign(generatedProfileOverrides, {
   eritrea: countryProfile("Eritrea", "Asmara", ["Massawa", "Keren", "Assab", "Mendefera"], ["ASM", "Massawa International Airport", "Assab International Airport", "Keren airstrip", "regional airfields"], ["Eritrean Railway heritage line", "Asmara-Massawa rail corridor", "Massawa port freight roads", "intercity coach routes", "mountain rail heritage"], ["Asmara buses and minibuses", "shared taxi corridors", "Massawa local buses", "airport transfer taxis", "intercity bus stations"], ["P-1 Asmara-Massawa road", "Asmara-Keren road", "Assab coastal road", "airport road", "Red Sea port corridors"], ["Port of Massawa", "Port of Assab", "Red Sea shipping", "Dahlak Archipelago boat routes", "coastal fishing ports"], ["Asmara modernist architecture", "Massawa old town", "Dahlak Archipelago", "Fiat Tagliero Building", "Keren battlefield sites"], ["Red Sea coast", "Eritrean Highlands", "Dahlak Archipelago", "Gash River", "Danakil Depression"], ["Asmara central district", "Massawa harbor", "Keren market", "Dahlak islands", "Assab port"]),
   "burkina-faso": countryProfile("Burkina Faso", "Ouagadougou", ["Bobo-Dioulasso", "Koudougou", "Banfora", "Ouahigouya"], ["OUA", "BOY", "Ouagadougou Airport", "Bobo-Dioulasso Airport", "regional airstrips"], ["Sitarail to Abidjan", "Ouagadougou rail station", "Bobo-Dioulasso rail", "freight corridor to Cote d'Ivoire", "intercity coach network"], ["Ouagadougou bus network", "shared taxi corridors", "Bobo urban buses", "central market interchange", "airport road shuttles"], ["N1", "N4", "N5", "Ouagadougou ring road", "Bobo-Dioulasso corridor"], ["landlocked; Abidjan and Tema port corridors", "Volta basin", "inland dry ports", "regional truck routes", "Black Volta crossings"], ["Laongo Sculpture Symposium", "Grand Mosque of Bobo-Dioulasso", "Place des Cineastes", "Ruins of Loropeni", "Bangr-Weoogo Park"], ["Black Volta", "White Volta", "Red Volta", "Cascades region", "Sahel belt"], ["Ouagadougou rail station", "Bobo-Dioulasso old quarter", "Sindou Peaks", "Arli National Park", "National Museum"]),
   vietnam: {
-    ...countryProfile("Vietnam", "Hanoi", ["Ho Chi Minh City", "Da Nang", "Hai Phong", "Can Tho"], ["HAN", "SGN", "DAD", "CXR", "PQC"], ["North-South Railway", "Hanoi station", "Saigon station", "planned high-speed rail", "Hai Phong freight corridor"], ["Ho Chi Minh City Metro", "Hanoi Metro", "BRT Hanoi", "airport bus corridors", "urban ferry links"], ["AH1", "QL1A", "Noi Bai-Lao Cai Expressway", "Ho Chi Minh City-Long Thanh Expressway", "Hai Van Pass"], ["Saigon River port", "Hai Phong port", "Mekong Delta waterways", "Da Nang port", "Ha Long Bay cruises"], ["Ha Long Bay", "Hoi An", "Imperial City of Hue", "Cu Chi Tunnels", "Notre-Dame Cathedral Basilica of Saigon"], ["Mekong River", "Red River", "Annamite Range", "Fansipan", "Mekong Delta"], ["Hanoi Old Quarter", "Ben Thanh Market", "Golden Bridge", "My Son Sanctuary", "Trang An"]),
-    flagPath: "/region-flags/vietnam/Vietnam Flags amd Images/Emblem_of_Hanoi.svg.png",
-    imagePath: "/region-flags/vietnam/Vietnam Flags amd Images/Emblem_of_Saigon.svg.png",
-    galleryImages: [
-      "/region-flags/vietnam/Vietnam Flags amd Images/Emblem_of_Hanoi.svg.png",
-      "/region-flags/vietnam/Vietnam Flags amd Images/Emblem_of_Saigon.svg.png",
-      "/region-flags/vietnam/Vietnam Flags amd Images/Emblem_of_Danang_City.svg.png",
-      "/region-flags/vietnam/Vietnam Flags amd Images/Seal_of_Haiphong.png",
-      "/region-flags/vietnam/Vietnam Flags amd Images/Emblem_of_Cantho_City.svg.png",
-      "/region-flags/vietnam/Vietnam Flags amd Images/Emblem_of_Khanhhoa_Province.svg.png",
-      "/region-flags/vietnam/Vietnam Flags amd Images/Logo_thành_phố_Huế.svg.png",
-    ],
+    ...countryProfile("Vietnam", "Hanoi", ["Ho Chi Minh City", "Da Nang", "Hai Phong", "Can Tho", "Hue", "Nha Trang", "Ha Long"], ["HAN", "SGN", "DAD", "CXR", "PQC", "HPH", "VCA", "UIH"], ["North-South Railway", "Hanoi station", "Saigon station", "planned high-speed rail", "Hai Phong freight corridor"], ["Ho Chi Minh City Metro", "Hanoi Metro", "BRT Hanoi", "airport bus corridors", "urban ferry links"], ["AH1", "QL1A", "Noi Bai-Lao Cai Expressway", "Ho Chi Minh City-Long Thanh Expressway", "Hai Van Pass"], ["Saigon River port", "Hai Phong port", "Mekong Delta waterways", "Da Nang port", "Ha Long Bay cruises"], ["Ha Long Bay", "Hoi An", "Imperial City of Hue", "Cu Chi Tunnels", "Notre-Dame Cathedral Basilica of Saigon"], ["Mekong River", "Red River", "Annamite Range", "Fansipan", "Mekong Delta"], ["Ha Long Bay", "Hanoi Old Quarter", "Ben Thanh Market", "Golden Bridge", "My Son Sanctuary", "Trang An"]),
+    imagePath: "/images/country-images/Vietnam.jpg",
+    galleryImages: ["/images/country-images/Vietnam.jpg"],
   },
   qatar: countryProfile("Qatar", "Doha", ["Al Rayyan", "Al Wakrah", "Lusail", "Al Khor"], ["DOH", "Hamad International Airport", "Doha old airport area", "Al Udeid air base", "cargo terminal"], ["Doha Metro Red Line", "Doha Metro Green Line", "Doha Metro Gold Line", "Lusail Tram", "freight/port access corridors"], ["Doha Metro", "Lusail Tram", "Msheireb interchange", "Education City station", "airport metro link"], ["Al Shamal Road", "Salwa Road", "Doha Expressway", "Orbital Highway", "Corniche corridor"], ["Hamad Port", "Doha Port", "Persian Gulf shipping", "Al Wakrah harbor", "Lusail marina"], ["Museum of Islamic Art", "Souq Waqif", "The Pearl-Qatar", "Katara Cultural Village", "Lusail Boulevard"], ["Persian Gulf coast", "Khor Al Adaid", "Dukhan area", "desert plateau", "mangrove coast"], ["Msheireb Downtown", "Education City", "National Museum of Qatar", "Aspire Zone", "Doha Corniche"]),
   "sri-lanka": countryProfile("Sri Lanka", "Sri Jayawardenepura Kotte", ["Colombo", "Kandy", "Galle", "Jaffna"], ["CMB", "HRI", "JAF", "Colombo Ratmalana Airport", "Mattala Rajapaksa Airport"], ["Sri Lanka Railways", "Colombo Fort station", "Main Line to Kandy", "Coastal Line", "Northern Line"], ["Colombo bus corridors", "planned LRT/BRT corridors", "suburban rail", "airport bus links", "Fort station interchange"], ["A1", "E01 Southern Expressway", "E03 Colombo-Katunayake Expressway", "A9", "Central Expressway"], ["Port of Colombo", "Port of Hambantota", "Galle Harbour", "Indian Ocean shipping", "ferry proposals"], ["Sigiriya", "Temple of the Tooth", "Galle Fort", "Lotus Tower", "Adam's Peak"], ["Mahaweli River", "Central Highlands", "Pidurutalagala", "Indian Ocean coast", "Knuckles Range"], ["Colombo Fort", "Pettah Market", "Ella rail bridge", "Yala National Park", "Jaffna Fort"]),
@@ -3433,7 +3424,7 @@ const generatedPositionOverrides: Record<string, { x: number; y: number }> = {
 Object.assign(generatedProfileOverrides, {
   brazil: {
     ...(generatedProfileOverrides.brazil ?? {}),
-    majorCities: ["Brasilia", "Sao Paulo", "Rio de Janeiro", "Salvador", "Belo Horizonte", "Manaus"],
+    majorCities: ["Brasilia", "Sao Paulo", "Rio de Janeiro", "Salvador", "Belo Horizonte", "Manaus", "Recife", "Porto Alegre"],
     airports: ["GRU", "GIG", "BSB", "SSA", "REC", "FOR", "CNF", "MAO", "POA", "BEL"],
     rail: ["Sao Paulo commuter rail", "Rio SuperVia", "North-South Railway", "Carajas Railway", "Curitiba BRT corridor"],
     metro: ["Sao Paulo Metro", "Rio Metro", "Brasilia Metro", "Salvador Metro", "Belo Horizonte Metro", "Curitiba BRT"],
@@ -3441,7 +3432,7 @@ Object.assign(generatedProfileOverrides, {
   },
   indonesia: {
     ...(generatedProfileOverrides.indonesia ?? {}),
-    majorCities: ["Jakarta", "Surabaya", "Bandung", "Medan", "Denpasar", "Makassar"],
+    majorCities: ["Jakarta", "Surabaya", "Bandung", "Medan", "Denpasar", "Makassar", "Yogyakarta", "Palembang"],
     airports: ["CGK", "DPS", "SUB", "KNO", "UPG", "YIA", "BPN", "PLM"],
     rail: ["Jakarta-Bandung HSR Whoosh", "KAI intercity rail", "Jakarta commuter line", "Trans-Java rail", "airport rail link"],
     metro: ["Jakarta MRT", "Jakarta LRT", "TransJakarta BRT", "Palembang LRT", "KRL Commuterline"],
@@ -3456,15 +3447,24 @@ Object.assign(generatedProfileOverrides, {
   },
   china: {
     ...(generatedProfileOverrides.china ?? {}),
+    majorCities: ["Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Chengdu", "Chongqing", "Xi'an", "Hangzhou"],
     airports: ["PEK", "PKX", "PVG", "SHA", "CAN", "SZX", "CTU", "TFU", "XIY", "CKG", "HGH", "KMG"],
     rail: ["China HSR", "Beijing-Shanghai HSR", "Shanghai Hongqiao rail hub", "Chongqing monorail", "Guangzhou-Shenzhen-Hong Kong corridor"],
     metro: ["Shanghai Metro", "Beijing Subway", "Guangzhou Metro", "Shenzhen Metro", "Chongqing Rail Transit", "Chengdu Metro"],
   },
   india: {
     ...(generatedProfileOverrides.india ?? {}),
+    majorCities: ["New Delhi", "Mumbai", "Bengaluru", "Hyderabad", "Chennai", "Kolkata", "Ahmedabad", "Kochi"],
     airports: ["DEL", "BOM", "BLR", "HYD", "MAA", "CCU", "AMD", "COK", "GOI"],
     rail: ["Indian Railways", "Vande Bharat Express", "Delhi-Mumbai corridor", "Kolkata suburban rail", "Dedicated Freight Corridors"],
     metro: ["Delhi Metro", "Mumbai Metro", "Bengaluru Namma Metro", "Kolkata Metro", "Hyderabad Metro", "Chennai Metro"],
+  },
+  japan: {
+    ...(generatedProfileOverrides.japan ?? {}),
+    majorCities: ["Tokyo", "Osaka", "Nagoya", "Kyoto", "Yokohama", "Sapporo", "Fukuoka", "Hiroshima"],
+    airports: ["HND", "NRT", "KIX", "ITM", "NGO", "CTS", "FUK", "OKA"],
+    rail: ["Shinkansen", "Tokaido Shinkansen", "Sanyo Shinkansen", "JR commuter rail", "limited express intercity rail"],
+    metro: ["Tokyo Metro", "Toei Subway", "Osaka Metro", "Nagoya Subway", "Fukuoka City Subway"],
   },
 });
 

@@ -110,6 +110,10 @@ const transitSystemImageById: Record<string, string> = {
   "medellin-metro": "/images/metro-images/Medellin%20Metro.jpg",
   bart: "/images/metro-images/BART.png",
   "chicago-l": "/images/metro-images/Chicago_L_diagram_sb.svg.png",
+  "la-metro": "/images/metro-images/LAMETRO.png",
+  "miami-metrorail": "/images/metro-images/Metrorail_(Miami-Dade_County)_system_map.svg.png",
+  brightline: "/images/metro-images/brightline-1-jpg-1676661357.jpg",
+  "amtrak-nec": "/images/metro-images/NEC_map.svg.png",
   "manila-lrt-mrt": "/images/metro-images/Manila%20Metro.png",
   "jakarta-mrt": "/images/metro-images/MRTjakarta_plan.png",
   "baku-metro": "/images/metro-images/Metro_baku.png",
@@ -3341,15 +3345,17 @@ function dailyLessonFromRegion(region: Region): DailyLesson {
   const airports = region.airports.slice(0, 3).join(", ");
   const cities = [region.capital, ...region.majorCities].filter((item, index, array) => item && !item.includes("queued") && array.indexOf(item) === index).slice(0, 4).join(", ");
   const transportLead = [region.rail[0], region.metro[0]].filter(Boolean).join(" and ");
+  const waterOrRoad = [region.highways[0], region.maritime[0]].filter(Boolean).join("; ");
+  const placeHook = region.placesOfInterest[0] ?? region.landmarks[0] ?? region.riversMountains[0] ?? region.name;
   return {
     title: region.name,
-    summary: `${region.name} is today's map-and-mobility profile. Start with ${region.capital.includes("queued") ? "its capital clue" : region.capital}, then connect the country shape to ${transportLead || "its main transport corridors"}, airport clues such as ${airports || "the primary gateway"}, and region or landmark anchors so the profile feels like a place rather than a memorized list.`,
+    summary: `${region.name} is today's map-and-mobility profile. Start with ${region.capital.includes("queued") ? "its capital clue" : region.capital}, then connect the country shape to ${transportLead || "its main transport corridors"}. Use ${cities || "the main city anchors"} for orientation, ${airports || "the primary airport gateway"} for aviation memory, and ${placeHook} as the visual place hook. The goal is to learn how people actually move through the country, not just memorize a capital.`,
     facts: [
       `${region.capital.includes("queued") ? "Capital profile" : `Capital: ${region.capital}`}.`,
       cities ? `City anchors: ${cities}.` : `${region.name} uses local city and regional clues in the map deck.`,
       airports ? `Airport clues: ${airports}.` : "Airport clues are lighter for this profile.",
       transportLead ? `Transport clue: ${transportLead}.` : "Transport clues emphasize road, ferry, or local mobility context.",
-      `${region.landmarks[0] ?? region.riversMountains[0] ?? region.name} is the main place-memory hook.`,
+      waterOrRoad ? `Road or water clue: ${waterOrRoad}.` : `${placeHook} is the main place-memory hook.`,
     ],
     prompt: `Open ${region.name}, read the image and transit cards, then answer one airport, one capital, and one map clue.`,
   };
@@ -5527,6 +5533,7 @@ function RegionPanel({
       {subregions.length > 0 && <InfoGroup title="States, Provinces & Regions" items={subregions} regionName={region.name} />}
       <InfoGroup title="Fun Facts" items={region.funFacts} regionName={region.name} />
       <VisualReferenceGallery region={region} transitSystems={regionTransitSystems} profileImage={profileImage} />
+      <GeoTransitAssistant region={region} transitSystems={regionTransitSystems} />
       <div className="fact-box">
         {region.facts.map((fact) => <p key={fact}>{fact}</p>)}
       </div>
@@ -5608,14 +5615,17 @@ function ImageGalleryStrip({
   placeholder: string;
   compact?: boolean;
 }) {
-  const [selectedAsset, setSelectedAsset] = useState<GalleryAsset | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const galleryAssets = assets.slice(0, 5);
+  const selectedAsset = selectedIndex === null ? null : galleryAssets[selectedIndex] ?? null;
+  const showPrevious = () => setSelectedIndex((index) => index === null ? null : (index + galleryAssets.length - 1) % galleryAssets.length);
+  const showNext = () => setSelectedIndex((index) => index === null ? null : (index + 1) % galleryAssets.length);
   return (
     <div className={`reference-docs visual-gallery ${compact ? "compact-gallery" : ""}`}>
       <h3>{title}</h3>
       <div className="image-carousel" aria-label={title}>
-        {galleryAssets.length > 0 ? galleryAssets.map((asset) => (
-          <button key={asset.key} type="button" className="gallery-image-card" onClick={() => setSelectedAsset(asset)}>
+        {galleryAssets.length > 0 ? galleryAssets.map((asset, index) => (
+          <button key={asset.key} type="button" className="gallery-image-card" onClick={() => setSelectedIndex(index)}>
             <img src={asset.src} alt={asset.label} loading="lazy" />
             <span>{asset.kind}</span>
             <strong>{asset.label}</strong>
@@ -5628,9 +5638,13 @@ function ImageGalleryStrip({
         )}
       </div>
       {selectedAsset && (
-        <div className="image-modal-backdrop" role="dialog" aria-modal="true" aria-label={selectedAsset.label} onClick={() => setSelectedAsset(null)}>
+        <div className="image-modal-backdrop" role="dialog" aria-modal="true" aria-label={selectedAsset.label} onClick={() => setSelectedIndex(null)}>
           <figure className="image-modal-card" onClick={(event) => event.stopPropagation()}>
-            <button type="button" onClick={() => setSelectedAsset(null)} aria-label="Close image preview">×</button>
+            <div className="image-modal-actions">
+              <button type="button" onClick={showPrevious} aria-label="Previous image">‹</button>
+              <button type="button" onClick={showNext} aria-label="Next image">›</button>
+              <button type="button" onClick={() => setSelectedIndex(null)} aria-label="Close image preview">×</button>
+            </div>
             <img src={selectedAsset.src} alt={selectedAsset.label} />
             <figcaption>
               <span>{selectedAsset.kind}</span>
@@ -5707,8 +5721,9 @@ function subregionsFor(regionId: string) {
     russia: ["Moscow", "Saint Petersburg", "Siberia", "Far East", "Tatarstan", "Krasnodar Krai"],
     france: ["Ile-de-France", "Provence-Alpes-Cote d'Azur", "Occitanie", "Nouvelle-Aquitaine", "Brittany", "Corsica"],
     spain: ["Madrid", "Catalonia", "Andalusia", "Valencian Community", "Basque Country", "Galicia"],
+    ghana: ["Ahafo", "Ashanti", "Bono", "Bono East", "Central", "Eastern", "Greater Accra", "North East", "Northern", "Oti", "Savannah", "Upper East", "Upper West", "Volta", "Western", "Western North"],
     morocco: ["Casablanca-Settat", "Rabat-Sale-Kenitra", "Marrakesh-Safi", "Fes-Meknes", "Tangier-Tetouan-Al Hoceima", "Souss-Massa", "Dakhla-Oued Ed-Dahab"],
-    "south-korea": ["Seoul", "Busan", "Incheon", "Daegu", "Gyeonggi", "Jeju", "South Gyeongsang", "North Jeolla"],
+    "south-korea": ["Seoul", "Busan", "Incheon", "Daegu", "Gyeonggi", "Gangwon", "North Gyeongsang", "South Gyeongsang", "North Jeolla", "Jeju"],
     uae: ["Abu Dhabi", "Dubai", "Sharjah", "Ajman", "Ras Al Khaimah", "Fujairah"],
     denmark: ["Zealand", "Jutland", "Funen", "Capital Region", "Aarhus Region"],
     thailand: ["Bangkok", "Chiang Mai", "Phuket", "Chonburi", "Nakhon Ratchasima", "Khon Kaen", "Songkhla", "Krabi"],
@@ -5719,7 +5734,71 @@ function subregionsFor(regionId: string) {
     sweden: ["Stockholm County", "Vastra Gotaland", "Skane", "Norrbotten", "Uppsala County"],
     "new-zealand": ["North Island", "South Island", "Auckland Region", "Wellington Region", "Canterbury", "Otago"],
   };
-  return subregions[regionId] ?? [];
+  const regionalDetails: Record<string, Record<string, string>> = {
+    ghana: {
+      Ahafo: "Capital: Goaso · Population: 564,668 (2021 census)",
+      Ashanti: "Capital: Kumasi · Population: 5,440,463 (2021 census)",
+      Bono: "Capital: Sunyani · Population: 1,208,649 (2021 census)",
+      "Bono East": "Capital: Techiman · Population: 1,203,400 (2021 census)",
+      Central: "Capital: Cape Coast · Population: 2,859,821 (2021 census)",
+      Eastern: "Capital: Koforidua · Population: 2,925,653 (2021 census)",
+      "Greater Accra": "Capital: Accra · Population: 5,455,692 (2021 census)",
+      "North East": "Capital: Nalerigu · Population: 658,946 (2021 census)",
+      Northern: "Capital: Tamale · Population: 2,310,939 (2021 census)",
+      Oti: "Capital: Dambai · Population: 747,248 (2021 census)",
+      Savannah: "Capital: Damongo · Population: 653,266 (2021 census)",
+      "Upper East": "Capital: Bolgatanga · Population: 1,301,226 (2021 census)",
+      "Upper West": "Capital: Wa · Population: 901,502 (2021 census)",
+      Volta: "Capital: Ho · Population: 1,659,040 (2021 census)",
+      Western: "Capital: Sekondi-Takoradi · Population: 2,060,585 (2021 census)",
+      "Western North": "Capital: Sefwi Wiawso · Population: 880,921 (2021 census)",
+    },
+    morocco: {
+      "Casablanca-Settat": "Capital: Casablanca · Population: 7,688,967 (2024 census)",
+      "Rabat-Sale-Kenitra": "Capital: Rabat · Population: 5,132,639 (2024 census)",
+      "Marrakesh-Safi": "Capital: Marrakesh · Population: 4,892,393 (2024 census)",
+      "Fes-Meknes": "Capital: Fes · Population: 4,467,911 (2024 census)",
+      "Tangier-Tetouan-Al Hoceima": "Capital: Tangier · Population: 4,030,222 (2024 census)",
+      "Souss-Massa": "Capital: Agadir · Population: 3,020,431 (2024 census)",
+      "Dakhla-Oued Ed-Dahab": "Capital: Dakhla · Population: 219,965 (2024 census)",
+    },
+    "south-korea": {
+      Seoul: "Capital city · Population: 9,586,195 (2020 census)",
+      Busan: "Metropolitan city · Population: 3,349,016 (2020 census)",
+      Incheon: "Metropolitan city · Population: 2,945,454 (2020 census)",
+      Daegu: "Metropolitan city · Population: 2,410,700 (2020 census)",
+      Gyeonggi: "Capital: Suwon · Population: 13,511,676 (2020 census)",
+      Jeju: "Capital: Jeju City · Population: 670,858 (2020 census)",
+      "South Gyeongsang": "Capital: Changwon · Population: 3,340,216 (2020 census)",
+      "North Jeolla": "Capital: Jeonju · Population: 1,804,104 (2020 census)",
+      "North Gyeongsang": "Capital: Andong · Population: 2,644,757 (2020 census)",
+      Gangwon: "Capital: Chuncheon · Population: 1,521,763 (2020 census)",
+    },
+    indonesia: {
+      Jakarta: "Capital: Jakarta · Population: 10.68 million (mid-2025 estimate)",
+      "West Java": "Capital: Bandung · Population: 50,759,003 (mid-2025 estimate)",
+      "Central Java": "Capital: Semarang · Population: 37.89 million (mid-2025 estimate)",
+      "East Java": "Capital: Surabaya · Population: 42.03 million (mid-2025 estimate)",
+      Bali: "Capital: Denpasar · Population: 4.43 million (mid-2025 estimate)",
+      "North Sumatra": "Capital: Medan · Population: 15.60 million (mid-2025 estimate)",
+      "South Sulawesi": "Capital: Makassar · Population: 9.55 million (mid-2025 estimate)",
+      Papua: "Capital: Jayapura · Population: 1.09 million (mid-2025 estimate)",
+    },
+    vietnam: {
+      Hanoi: "Capital city · Population: about 8.7 million",
+      "Ho Chi Minh City": "Largest city · Population: about 9.5 million",
+      "Da Nang": "Central coast city · Population: about 1.3 million",
+      "Hai Phong": "Port city · Population: about 2.1 million",
+      "Can Tho": "Mekong Delta hub · Population: about 1.3 million",
+      "Quang Ninh": "Capital: Ha Long · Ha Long Bay anchor",
+      "Thua Thien Hue": "Capital: Hue · imperial city anchor",
+      "Khanh Hoa": "Capital: Nha Trang · coastal tourism anchor",
+    },
+  };
+  return (subregions[regionId] ?? []).map((name) => {
+    const detail = regionalDetails[regionId]?.[name];
+    return detail ? `${name} — ${detail}` : name;
+  });
 }
 
 function CountryDiagram({ region }: { region: Region }) {
@@ -5777,6 +5856,66 @@ function VisualReferenceGallery({
   return (
     <ImageGalleryStrip assets={assets} title="Visual Reference Gallery" placeholder={`No local images are attached to ${region.name} yet.`} />
   );
+}
+
+function GeoTransitAssistant({
+  region,
+  transitSystems,
+}: {
+  region: Region;
+  transitSystems: Array<(typeof projectedTransitSystems)[number]>;
+}) {
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState(() => assistantAnswerForRegion(region, ""));
+  useEffect(() => {
+    setQuestion("");
+    setAnswer(assistantAnswerForRegion(region, ""));
+  }, [region.id]);
+  const ask = () => setAnswer(assistantAnswerForRegion(region, question, transitSystems));
+  const examples = ["How do people get around?", "What airports should I remember?", "Explain the train systems."];
+  return (
+    <section className="assistant-panel" aria-label="GeoTransit assistant">
+      <div>
+        <p className="eyebrow">GeoTransit Assistant</p>
+        <h3>Ask about {region.name}</h3>
+      </div>
+      <p>{answer}</p>
+      <div className="assistant-chip-row">
+        {examples.map((example) => (
+          <button key={example} type="button" onClick={() => {
+            setQuestion(example);
+            setAnswer(assistantAnswerForRegion(region, example, transitSystems));
+          }}>
+            {example}
+          </button>
+        ))}
+      </div>
+      <form className="assistant-form" onSubmit={(event) => {
+        event.preventDefault();
+        ask();
+      }}>
+        <input value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Ask a transit or geography question" />
+        <button type="submit">Ask</button>
+      </form>
+    </section>
+  );
+}
+
+function assistantAnswerForRegion(region: Region, prompt: string, transitSystems: Array<(typeof projectedTransitSystems)[number]> = []) {
+  const text = prompt.toLowerCase();
+  const cities = [region.capital, ...region.majorCities].filter((item, index, array) => item && !item.includes("queued") && array.indexOf(item) === index).slice(0, 6).join(", ");
+  const airports = region.airports.slice(0, 6).join(", ");
+  const mappedSystems = transitSystems.slice(0, 4).map((system) => `${system.name} in ${system.city}`).join("; ");
+  if (text.includes("airport") || text.includes("iata") || text.includes("flight")) {
+    return `For ${region.name}, remember these aviation anchors first: ${airports || "the main international gateway listed in the profile"}. Pair each code with a city instead of memorizing the country alone, then connect it back to ${region.capital.includes("queued") ? "the capital area" : region.capital}.`;
+  }
+  if (text.includes("train") || text.includes("rail") || text.includes("metro") || text.includes("transit")) {
+    return `${region.name}'s transport story starts with ${region.rail[0] ?? "its intercity corridor"} and ${region.metro[0] ?? "its main urban mobility network"}. ${mappedSystems ? `Mapped systems here include ${mappedSystems}. ` : ""}Use the named corridor, the largest city, and the airport link as your three memory hooks.`;
+  }
+  if (text.includes("city") || text.includes("capital") || text.includes("region")) {
+    return `Use this city order for ${region.name}: ${cities || region.name}. The capital gives you the political anchor, while the largest commercial or port cities usually explain the rail, metro, road, and airport clues.`;
+  }
+  return `${region.name} is easiest to learn by connecting four things: capital and city anchors (${cities || region.capital}), airports (${airports || "the primary gateway"}), rail or metro (${region.rail[0] ?? "main rail"} / ${region.metro[0] ?? "main urban transit"}), and one visual landmark such as ${region.landmarks[0] ?? region.placesOfInterest[0] ?? region.name}.`;
 }
 
 function InfoGroup({ title, items, regionName, badge = false }: { title: string; items: string[]; regionName: string; badge?: boolean }) {
