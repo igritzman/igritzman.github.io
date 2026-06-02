@@ -250,6 +250,34 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "CL.LL": { capital: "Puerto Montt", transit: "Puerto Montt buses, ferry corridors, airport links" },
   "CL.AI": { capital: "Coyhaique", transit: "Carretera Austral corridors, regional buses, Balmaceda airport links" },
   "CL.MA": { capital: "Punta Arenas", transit: "Punta Arenas buses, ferry and airport links, Strait of Magellan access" },
+  "VN.HI": { capital: "Hanoi", transit: "Hanoi Metro, Hanoi station, Noi Bai airport links" },
+  "VN.HC": { capital: "Ho Chi Minh City", transit: "Ho Chi Minh City Metro, Saigon station, Tan Son Nhat airport links" },
+  "VN.DA": { capital: "Da Nang", transit: "Da Nang buses, airport links, coastal rail corridor" },
+  "VN.HP": { capital: "Hai Phong", transit: "Hai Phong port, rail and bus links, Cat Bi airport access" },
+  "VN.CN": { capital: "Can Tho", transit: "Mekong Delta bus and waterway links, Can Tho airport access" },
+  "VN.QN": { capital: "Ha Long", transit: "Ha Long Bay road, cruise, bus, and Van Don airport links" },
+  "VN.TT": { capital: "Hue", transit: "Hue station, central coast rail, airport and bus links" },
+  "VN.KH": { capital: "Nha Trang ward", transit: "Nha Trang rail, coastal bus, Cam Ranh airport links" },
+  "VN.QT": { capital: "Dong Hoi ward", transit: "North-South rail, National Route 1, central coast bus links" },
+  "VN.DN": { capital: "Tran Bien ward", transit: "Ho Chi Minh City region roads, rail freight corridors, Long Thanh airport access" },
+  "VN.AG": { capital: "Long Xuyen", transit: "Mekong Delta road, river, and bus links" },
+  "VN.GL": { capital: "Pleiku", transit: "Central Highlands road corridors, Pleiku airport links" },
+  "VN.LD": { capital: "Da Lat", transit: "Highland road corridors, Lien Khuong airport links" },
+  "TH.BM": { capital: "Bangkok", transit: "BTS Skytrain, MRT, Airport Rail Link, Chao Phraya boats" },
+  "TH.CM": { capital: "Chiang Mai", transit: "Chiang Mai buses, airport links, northern rail corridor" },
+  "TH.CB": { capital: "Chon Buri", transit: "Eastern Economic Corridor roads, Pattaya links, port access" },
+  "TH.NR": { capital: "Nakhon Ratchasima", transit: "Northeastern rail and highway gateway, Bangkok corridor links" },
+  "TH.KK": { capital: "Khon Kaen", transit: "Northeast rail, bus hub, airport links" },
+  "TH.PU": { capital: "Phuket", transit: "Island buses, airport links, ferry and road corridors" },
+  "TH.SG": { capital: "Songkhla", transit: "Hat Yai rail and airport links, southern corridor roads" },
+  "TH.KR": { capital: "Krabi", transit: "Airport, ferry, and Andaman coast road links" },
+  "TR.IB": { capital: "Istanbul", transit: "Istanbul Metro, Marmaray, ferries, Bosporus bridges and airport rail" },
+  "TR.AN": { capital: "Ankara", transit: "Ankara Metro, YHT high-speed rail, Esenboga airport links" },
+  "TR.IZ": { capital: "Izmir", transit: "Izmir Metro, IZBAN commuter rail, ferry and airport links" },
+  "TR.AL": { capital: "Antalya", transit: "Antalya tram, airport links, Mediterranean road corridors" },
+  "TR.BU": { capital: "Bursa", transit: "Bursaray, bus and road links, Marmara corridor access" },
+  "TR.KO": { capital: "Konya", transit: "Konya tram, YHT rail, central Anatolia road links" },
+  "TR.GA": { capital: "Gaziantep", transit: "Gaziantep tram, airport links, southeast road corridors" },
   "AU-NSW": { capital: "Sydney", transit: "Sydney Trains, Sydney Metro, light rail, ferries" },
   "AU-WA": { capital: "Perth", transit: "Transperth trains, buses, ferries, Airport Line" },
   "AU-VIC": { capital: "Melbourne", transit: "Melbourne trams, trains, V/Line, airport bus links" },
@@ -715,6 +743,31 @@ const regionalPopulationByCode: Record<string, string> = {
   "AyséndelGeneralIbáñezdelCampo": "108,538 (2024 census, INE)",
   "MagallanesyAntárticaChilena": "183,233 (2024 census, INE)",
   "SantiagoMetropolitan": "8,420,729 (2024 census, INE)",
+  "VN.HI": "about 8.7 million (current estimate)",
+  "VN.HC": "about 9.5 million (current estimate)",
+  "VN.DA": "about 1.3 million (current estimate)",
+  "VN.HP": "about 2.1 million (current estimate)",
+  "VN.CN": "about 1.3 million (current estimate)",
+  "VN.QN": "about 1.4 million (current estimate)",
+  "VN.TT": "about 1.1 million (current estimate)",
+  "VN.KH": "about 1.5 million (current estimate)",
+  "VN.QT": "about 1.8 million after 2025 administrative merger",
+  "VN.DN": "about 4.5 million after 2025 administrative merger",
+  "TH.BM": "5,455,020 (2024 register, NSO)",
+  "TH.CM": "1,804,694 (2024 register, NSO)",
+  "TH.CB": "1,594,758 (2024 register, NSO)",
+  "TH.NR": "2,630,058 (2024 register, NSO)",
+  "TH.KK": "1,779,373 (2024 register, NSO)",
+  "TH.PU": "431,411 (2024 register, NSO)",
+  "TH.SG": "1,441,774 (2024 register, NSO)",
+  "TH.KR": "483,033 (2024 register, NSO)",
+  "TR.IB": "15,701,602 (2024 estimate, TurkStat)",
+  "TR.AN": "5,864,049 (2024 estimate, TurkStat)",
+  "TR.IZ": "4,493,242 (2024 estimate, TurkStat)",
+  "TR.AL": "2,722,103 (2024 estimate, TurkStat)",
+  "TR.BU": "3,238,618 (2024 estimate, TurkStat)",
+  "TR.KO": "2,330,024 (2024 estimate, TurkStat)",
+  "TR.GA": "2,193,363 (2024 estimate, TurkStat)",
   "AR-B": "17,523,996 (2022 census)",
   "AR.BA": "17,523,996 (2022 census)",
   "AR-K": "429,562 (2022 census)",
@@ -1138,6 +1191,49 @@ const regionalPopulationByCode: Record<string, string> = {
   "ZA-NW": "4,804,000 (2022 census)",
   "ZA.NW": "4,804,000 (2022 census)",
   "ZA-WC": "7,433,000 (2022 census)",
+};
+
+const didYouKnowByRegionId: Record<string, string> = {
+  china: "China operates the world's largest high-speed rail network, with more track than the rest of the world combined.",
+  india: "India has one of the world's busiest rail systems, carrying over 20 million passengers on a typical day.",
+  indonesia: "Indonesia is made up of more than 17,000 islands, making ferries a critical part of everyday transportation.",
+  brazil: "Brazil contains the world's largest rainforest, yet much of the Amazon region remains inaccessible by road and is reached primarily by river.",
+  pakistan: "Pakistan's Karakoram Highway connects the country with China through some of the highest mountains on Earth.",
+  nigeria: "Lagos is one of Africa's largest metropolitan areas and relies heavily on ferries, buses, and informal transit.",
+  bangladesh: "Bangladesh sits on one of the world's largest river deltas, making water transport essential throughout the country.",
+  russia: "Russia spans 11 time zones, the most of any country in the world.",
+  mexico: "Mexico City has one of the largest metro systems in the Americas, carrying millions of passengers daily.",
+  "united-states": "The United States has the world's largest network of airports, with thousands serving communities of all sizes.",
+  japan: "Japan's Shinkansen trains have transported billions of passengers with an extraordinary safety record.",
+  philippines: "The Philippines consists of more than 7,000 islands, making domestic air travel one of the fastest ways to move around the country.",
+  vietnam: "Vietnam's north-south geography stretches over 1,000 miles, helping make its rail corridor a national transportation backbone.",
+  turkey: "Turkey uniquely spans both Europe and Asia, with bridges and tunnels crossing the strategic Bosporus Strait.",
+  germany: "Germany's Autobahn network is famous for sections without a general speed limit.",
+  france: "France's TGV trains were among the pioneers of modern high-speed rail and helped inspire systems worldwide.",
+  egypt: "Egypt's population is concentrated along the Nile River, with most of the country covered by desert.",
+  thailand: "Bangkok is famous for its extensive canal system, which historically functioned as a transportation network.",
+  "south-africa": "South Africa is home to one of Africa's busiest container ports at Durban, linking global shipping routes.",
+  "saudi-arabia": "Saudi Arabia's Haramain High-Speed Railway connects Mecca and Medina at speeds exceeding 300 km/h.",
+  canada: "Canada has the world's longest coastline.",
+  australia: "Australia's Indian Pacific train travels across an entire continent.",
+  argentina: "Argentina possesses one of South America's largest commuter rail networks.",
+  "south-korea": "Seoul Metro is among the world's most extensive subway systems.",
+  italy: "Italy's rail network connects cities that have existed for over 2,000 years.",
+  spain: "Spain has Europe's longest high-speed rail network.",
+  iran: "Iran sits at the crossroads of historic Silk Road trade routes.",
+  ethiopia: "Ethiopia operates Africa's first modern electrified cross-border railway.",
+  kenya: "Kenya's Standard Gauge Railway links the port of Mombasa with Nairobi.",
+  colombia: "Colombia's mountainous terrain has historically made road construction challenging.",
+  ukraine: "Ukraine operates one of Europe's largest rail systems by track length.",
+  poland: "Poland sits at a major transportation crossroads between Western and Eastern Europe.",
+  morocco: "Morocco became Africa's first country with true high-speed rail service.",
+  uzbekistan: "Uzbekistan's high-speed trains connect major Silk Road cities.",
+  peru: "Peru's Andes Mountains contain some of the world's highest railways.",
+  chile: "Chile's geography stretches over 2,600 miles north to south.",
+  malaysia: "Malaysia's Penang Bridge is one of Southeast Asia's longest bridges.",
+  nepal: "Nepal's mountainous terrain makes aviation critical for many remote communities.",
+  "united-kingdom": "London Underground is the world's oldest metro system.",
+  netherlands: "The Netherlands moves millions of people by bicycle each day through one of the world's most advanced cycling networks.",
 };
 
 const regionalPopulationByName: Record<string, string> = {
@@ -2490,6 +2586,7 @@ function buildRegionPracticeQuestions(region: Region, count: number, startDiffic
   const placePool = regions.flatMap((item) => item.placesOfInterest.slice(0, 3));
   const capitalPool = regions.map((item) => item.capital);
   const primaryAirport = region.airports[0] ?? `No major commercial airport listed for ${region.name}`;
+  const didYouKnow = didYouKnowByRegionId[region.id] ?? region.funFacts.find((fact) => !fact.includes("included in the full")) ?? region.facts[0];
   const practiceTemplates: Question[] = [
     {
       id: `practice-${region.id}-capital`,
@@ -2588,6 +2685,17 @@ function buildRegionPracticeQuestions(region: Region, count: number, startDiffic
       answer: region.placesOfInterest[0],
       choices: choicesFrom(region.placesOfInterest[0], placePool),
       explanation: `${region.placesOfInterest[0]} is listed in ${region.name}'s places of interest.`,
+      relatedRegionIds: [region.id],
+    },
+    {
+      id: `practice-${region.id}-did-you-know`,
+      category: "rivers-mountains",
+      difficulty: startDifficulty,
+      inputType: "multiple-choice",
+      prompt: `Which country does this geography and transit fact describe: "${didYouKnow}"?`,
+      answer: region.name,
+      choices: choicesFrom(region.name, countryPool),
+      explanation: didYouKnow,
       relatedRegionIds: [region.id],
     },
     {
@@ -3466,10 +3574,12 @@ function dailyLessonFromRegion(region: Region): DailyLesson {
   const transportLead = [region.rail[0], region.metro[0]].filter(Boolean).join(" and ");
   const waterOrRoad = [region.highways[0], region.maritime[0]].filter(Boolean).join("; ");
   const placeHook = region.placesOfInterest[0] ?? region.landmarks[0] ?? region.riversMountains[0] ?? region.name;
+  const didYouKnow = didYouKnowByRegionId[region.id] ?? region.funFacts.find((fact) => !fact.includes("included in the full"));
   return {
     title: region.name,
-    summary: `${region.name} is today's map-and-mobility profile. Start with ${region.capital.includes("queued") ? "its capital clue" : region.capital}, then connect the country shape to ${transportLead || "its main transport corridors"}. Use ${cities || "the main city anchors"} for orientation, ${airports || "the primary airport gateway"} for aviation memory, and ${placeHook} as the visual place hook. The goal is to learn how people actually move through the country, not just memorize a capital.`,
+    summary: `${region.name} is today's map-and-mobility profile. ${didYouKnow ? `${didYouKnow} ` : ""}Start with ${region.capital.includes("queued") ? "its capital clue" : region.capital}, then connect the country shape to ${transportLead || "its main transport corridors"}. Use ${cities || "the main city anchors"} for orientation, ${airports || "the primary airport gateway"} for aviation memory, and ${placeHook} as the visual place hook. The goal is to learn how people actually move through the country, not just memorize a capital.`,
     facts: [
+      ...(didYouKnow ? [didYouKnow] : []),
       `${region.capital.includes("queued") ? "Capital profile" : `Capital: ${region.capital}`}.`,
       cities ? `City anchors: ${cities}.` : `${region.name} uses local city and regional clues in the map deck.`,
       airports ? `Airport clues: ${airports}.` : "Airport clues are lighter for this profile.",
@@ -4931,6 +5041,7 @@ function OperationsMap({
   const [pinchStart, setPinchStart] = useState<{ distance: number; zoom: number } | null>(null);
   const [gadmSubdivisions, setGadmSubdivisions] = useState<GadmSubdivisionFeature[]>([]);
   const [selectedSubdivision, setSelectedSubdivision] = useState<GadmSubdivisionFeature | null>(null);
+  const [selectedMapImage, setSelectedMapImage] = useState<GalleryAsset | null>(null);
   const selectedRegion = selectedId ? regions.find((region) => region.id === selectedId) : undefined;
   const selectedPosition = selectedRegion ? mapPositionForRegion(selectedRegion) : { x: 50, y: 50 };
   const originX = selectedPosition.x;
@@ -5178,7 +5289,12 @@ function OperationsMap({
                 href={attraction.url}
                 target="_blank"
                 rel="noreferrer"
-                onClick={() => onAttractionSelect?.(attraction)}
+                onClick={(event) => {
+                  event.preventDefault();
+                  onAttractionSelect?.(attraction);
+                  const regionImage = countryImagePathForName(attraction.country);
+                  setSelectedMapImage({ key: `attraction-${attraction.id}`, label: `${attraction.name} landmark view`, src: regionImage, kind: "Landmark" });
+                }}
                 style={{
                   left: `${attraction.x}%`,
                   top: `${attraction.y}%`,
@@ -5218,7 +5334,12 @@ function OperationsMap({
                 href={system.mapUrl}
                 target="_blank"
                 rel="noreferrer"
-                onClick={() => onTransitSystemSelect?.(system)}
+                onClick={(event) => {
+                  event.preventDefault();
+                  onTransitSystemSelect?.(system);
+                  const imageSrc = transitSystemImageById[system.id];
+                  if (imageSrc) setSelectedMapImage({ key: `transit-${system.id}`, label: `${system.name} reference image`, src: imageSrc, kind: "Transit" });
+                }}
                 style={{
                   left: `${system.x}%`,
                   top: `${system.y}%`,
@@ -5246,7 +5367,16 @@ function OperationsMap({
       {selectedTransitSystem ? (
         <aside className="map-selection-card transit-selection-card" aria-live="polite">
           <button type="button" className="selection-close-button" onClick={onClearLayerSelection} aria-label={`Close ${selectedTransitSystem.name}`}>×</button>
-          {selectedTransitImage ? <img src={selectedTransitImage} alt={`${selectedTransitSystem.name} reference map`} loading="lazy" /> : null}
+          {selectedTransitImage ? (
+            <button
+              type="button"
+              className="selection-image-button"
+              onClick={() => setSelectedMapImage({ key: `transit-card-${selectedTransitSystem.id}`, label: `${selectedTransitSystem.name} reference image`, src: selectedTransitImage, kind: "Transit" })}
+              aria-label={`Open ${selectedTransitSystem.name} image preview`}
+            >
+              <img src={selectedTransitImage} alt={`${selectedTransitSystem.name} reference map`} loading="lazy" />
+            </button>
+          ) : null}
           <span>{transitIcon(selectedTransitSystem.kind)} Transit</span>
           <strong>{selectedTransitSystem.name}</strong>
           <em>{selectedTransitSystem.city}</em>
@@ -5257,6 +5387,9 @@ function OperationsMap({
           </div>
         </aside>
       ) : null}
+      {selectedMapImage && (
+        <CenteredImageModal asset={selectedMapImage} onClose={() => setSelectedMapImage(null)} />
+      )}
       {selectedSubdivision ? (() => {
         const note = subdivisionStudyNote(selectedSubdivision);
         const population = subdivisionPopulation(selectedSubdivision) ?? note?.population;
@@ -5614,12 +5747,15 @@ function RegionPanel({
       } satisfies PlaceImage
     : null;
   const profileImage = regionHeroAsset ?? placeImage ?? countryImage;
+  const didYouKnow = didYouKnowByRegionId[region.id] ?? region.funFacts.find((fact) => !fact.includes("included in the full")) ?? region.facts[0];
   const practiceTopicOptions = practiceTopicOptionsForRegion(region, regionTransitSystems.length, regionAttractions.length);
   const [practiceTopics, setPracticeTopics] = useState<PracticeTopic[]>(practiceTopicOptions.map((topic) => topic.id));
   const [activeProfileView, setActiveProfileView] = useState<"overview" | "transit" | "landmarks" | "images">("overview");
+  const [selectedPanelImage, setSelectedPanelImage] = useState<GalleryAsset | null>(null);
   useEffect(() => {
     setPracticeTopics(practiceTopicOptions.map((topic) => topic.id));
     setActiveProfileView("overview");
+    setSelectedPanelImage(null);
   }, [region.id]);
   const togglePracticeTopic = (topic: PracticeTopic) => {
     setPracticeTopics((topics) => topics.includes(topic)
@@ -5644,6 +5780,12 @@ function RegionPanel({
         <p><strong>Population:</strong> {region.population}</p>
       </div>
       {profileImage && <PlaceImageCard image={profileImage} />}
+      {didYouKnow && (
+        <div className="did-you-know-card">
+          <span>Did you know?</span>
+          <p>{didYouKnow}</p>
+        </div>
+      )}
       <RegionAssetGallery region={region} transitSystems={regionTransitSystems} profileImage={profileImage} />
       <GeoTransitAssistant region={region} transitSystems={regionTransitSystems} />
       <div className="profile-view-toggle" aria-label={`${region.name} profile sections`}>
@@ -5663,7 +5805,6 @@ function RegionPanel({
           <InfoGroup title="Major Cities" items={region.majorCities} regionName={region.name} />
           <InfoGroup title="Airports" items={region.airports} regionName={region.name} badge />
           {subregions.length > 0 && <InfoGroup title="States, Provinces & Regions" items={subregions} regionName={region.name} />}
-          <InfoGroup title="Fun Facts" items={region.funFacts} regionName={region.name} />
         </>
       )}
       {activeProfileView === "transit" && (
@@ -5696,8 +5837,11 @@ function RegionPanel({
                       <button
                         type="button"
                         className="transit-system-image-button"
-                        onClick={() => onTransitSystemSelect(system.id)}
-                        aria-label={`Focus ${system.name} on the map`}
+                        onClick={() => {
+                          onTransitSystemSelect(system.id);
+                          setSelectedPanelImage({ key: `panel-transit-${system.id}`, label: `${system.name} reference image`, src: imageSrc, kind: "Transit" });
+                        }}
+                        aria-label={`Open ${system.name} reference image`}
                       >
                         <img src={imageSrc} alt={`${system.name} reference map`} loading="lazy" />
                       </button>
@@ -5763,6 +5907,7 @@ function RegionPanel({
       <div className="fact-box">
         {region.facts.map((fact) => <p key={fact}>{fact}</p>)}
       </div>
+      {selectedPanelImage && <CenteredImageModal asset={selectedPanelImage} onClose={() => setSelectedPanelImage(null)} />}
       <div className="sample-questions">
         <h3>Practice Decks</h3>
         <p>Choose the topics you want, then practice only this country. Bigger countries include more transit-network questions; smaller countries keep the deck lighter.</p>
@@ -5813,6 +5958,35 @@ type GalleryAsset = {
 
 function uniqueGalleryAssets(assets: GalleryAsset[]) {
   return assets.filter((asset, index, self) => self.findIndex((item) => item.src === asset.src) === index);
+}
+
+function CenteredImageModal({
+  asset,
+  onClose,
+  onPrevious,
+  onNext,
+}: {
+  asset: GalleryAsset;
+  onClose: () => void;
+  onPrevious?: () => void;
+  onNext?: () => void;
+}) {
+  return (
+    <div className="image-modal-backdrop" role="dialog" aria-modal="true" aria-label={asset.label} onClick={onClose}>
+      <figure className="image-modal-card" onClick={(event) => event.stopPropagation()}>
+        <div className="image-modal-actions">
+          {onPrevious && <button type="button" onClick={onPrevious} aria-label="Previous image">‹</button>}
+          {onNext && <button type="button" onClick={onNext} aria-label="Next image">›</button>}
+          <button type="button" onClick={onClose} aria-label="Close image preview">×</button>
+        </div>
+        <img src={asset.src} alt={asset.label} />
+        <figcaption>
+          <span>{asset.kind}</span>
+          <strong>{asset.label}</strong>
+        </figcaption>
+      </figure>
+    </div>
+  );
 }
 
 function regionGalleryAssets(region: Region, transitSystems: Array<(typeof projectedTransitSystems)[number]>, profileImage?: PlaceImage | null) {
@@ -5892,20 +6066,7 @@ function ImageGalleryStrip({
         )}
       </div>
       {selectedAsset && (
-        <div className="image-modal-backdrop" role="dialog" aria-modal="true" aria-label={selectedAsset.label} onClick={() => setSelectedIndex(null)}>
-          <figure className="image-modal-card" onClick={(event) => event.stopPropagation()}>
-            <div className="image-modal-actions">
-              <button type="button" onClick={showPrevious} aria-label="Previous image">‹</button>
-              <button type="button" onClick={showNext} aria-label="Next image">›</button>
-              <button type="button" onClick={() => setSelectedIndex(null)} aria-label="Close image preview">×</button>
-            </div>
-            <img src={selectedAsset.src} alt={selectedAsset.label} />
-            <figcaption>
-              <span>{selectedAsset.kind}</span>
-              <strong>{selectedAsset.label}</strong>
-            </figcaption>
-          </figure>
-        </div>
+        <CenteredImageModal asset={selectedAsset} onClose={() => setSelectedIndex(null)} onPrevious={showPrevious} onNext={showNext} />
       )}
     </div>
   );
@@ -5935,25 +6096,33 @@ function RegionAssetGallery({
 
 function PlaceImageCard({ image }: { image: PlaceImage }) {
   const [hidden, setHidden] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
   useEffect(() => {
     setHidden(false);
+    setPreviewOpen(false);
   }, [image.imagePath]);
   if (hidden) return null;
+  const previewAsset = { key: image.imagePath, label: `${image.name} image`, src: image.imagePath, kind: image.type || "Image" };
   return (
-    <figure className="place-image-card">
-      <button type="button" onClick={() => setHidden(true)} aria-label={`Close ${image.name} image`}>
-        ×
-      </button>
-      <img
-        src={image.imagePath}
-        alt={`${image.name} place reference`}
-        loading="lazy"
-        onError={() => setHidden(true)}
-      />
-      <figcaption>
-        <strong>{image.name}</strong>
-      </figcaption>
-    </figure>
+    <>
+      <figure className="place-image-card">
+        <button type="button" onClick={() => setHidden(true)} aria-label={`Close ${image.name} image`}>
+          ×
+        </button>
+        <button type="button" className="place-image-preview-button" onClick={() => setPreviewOpen(true)} aria-label={`Open ${image.name} image preview`}>
+          <img
+            src={image.imagePath}
+            alt={`${image.name} place reference`}
+            loading="lazy"
+            onError={() => setHidden(true)}
+          />
+        </button>
+        <figcaption>
+          <strong>{image.name}</strong>
+        </figcaption>
+      </figure>
+      {previewOpen && <CenteredImageModal asset={previewAsset} onClose={() => setPreviewOpen(false)} />}
+    </>
   );
 }
 
@@ -6163,6 +6332,13 @@ function assistantAnswerForRegion(region: Region, prompt: string, transitSystems
   const cities = [region.capital, ...region.majorCities].filter((item, index, array) => item && !item.includes("queued") && array.indexOf(item) === index).slice(0, 6).join(", ");
   const airports = region.airports.slice(0, 6).join(", ");
   const mappedSystems = transitSystems.slice(0, 4).map((system) => `${system.name} in ${system.city}`).join("; ");
+  const didYouKnow = didYouKnowByRegionId[region.id] ?? region.funFacts[0] ?? region.facts[0];
+  if (!text.trim()) {
+    return `${region.name}: ${didYouKnow} Start with ${region.capital.includes("queued") ? "the capital" : region.capital}, then connect the airport, rail, and landmark clues in this panel.`;
+  }
+  if (text.includes("fun") || text.includes("fact") || text.includes("remember") || text.includes("daily")) {
+    return `${region.name} memory hook: ${didYouKnow} Use that as the story, then attach these anchors: ${cities || region.capital}; ${airports || "primary gateway"}; ${region.rail[0] ?? "main rail corridor"}.`;
+  }
   if (text.includes("airport") || text.includes("iata") || text.includes("flight")) {
     return `For ${region.name}, remember these aviation anchors first: ${airports || "the main international gateway listed in the profile"}. Pair each code with a city instead of memorizing the country alone, then connect it back to ${region.capital.includes("queued") ? "the capital area" : region.capital}.`;
   }
@@ -6172,7 +6348,7 @@ function assistantAnswerForRegion(region: Region, prompt: string, transitSystems
   if (text.includes("city") || text.includes("capital") || text.includes("region")) {
     return `Use this city order for ${region.name}: ${cities || region.name}. The capital gives you the political anchor, while the largest commercial or port cities usually explain the rail, metro, road, and airport clues.`;
   }
-  return `${region.name} is easiest to learn by connecting four things: capital and city anchors (${cities || region.capital}), airports (${airports || "the primary gateway"}), rail or metro (${region.rail[0] ?? "main rail"} / ${region.metro[0] ?? "main urban transit"}), and one visual landmark such as ${region.landmarks[0] ?? region.placesOfInterest[0] ?? region.name}.`;
+  return `${region.name}: ${didYouKnow} To study it cleanly, connect four things: city anchors (${cities || region.capital}), airports (${airports || "the primary gateway"}), rail or metro (${region.rail[0] ?? "main rail"} / ${region.metro[0] ?? "main urban transit"}), and one visual landmark such as ${region.landmarks[0] ?? region.placesOfInterest[0] ?? region.name}.`;
 }
 
 function InfoGroup({ title, items, regionName, badge = false }: { title: string; items: string[]; regionName: string; badge?: boolean }) {
