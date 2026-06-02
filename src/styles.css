@@ -2378,7 +2378,7 @@ h3 {
 
 .subdivision-popover {
   right: 0.85rem;
-  top: 0.85rem;
+  top: 4.25rem;
   display: grid;
   gap: 0.35rem;
   width: min(330px, calc(100% - 1.7rem));
@@ -2389,6 +2389,7 @@ h3 {
   position: absolute;
   top: 0.45rem;
   right: 0.45rem;
+  z-index: 3;
   width: 32px;
   min-height: 32px;
   padding: 0;
@@ -2507,6 +2508,7 @@ h3 {
 }
 
 .attraction-marker span {
+  position: relative;
   display: grid;
   width: 18px;
   height: 18px;
@@ -2525,6 +2527,23 @@ h3 {
   width: 18px;
   height: 18px;
   box-shadow: none;
+}
+
+.attraction-marker.selected span::after,
+.transit-marker.selected span::after {
+  content: "×";
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 13px;
+  height: 13px;
+  transform: translate(10px, -10px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(5, 14, 20, 0.9);
+  color: #ffffff;
+  font-size: 0.62rem;
+  line-height: 1;
 }
 
 .attractions-solo .attraction-marker span {
@@ -2626,6 +2645,7 @@ h3 {
 }
 
 .transit-marker span {
+  position: relative;
   display: grid;
   width: 19px;
   height: 19px;
@@ -2656,6 +2676,111 @@ h3 {
 .transit-labels-on .transit-marker.selected strong {
   opacity: 1;
   max-width: 220px;
+}
+
+.map-selection-card {
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  z-index: 11;
+  display: grid;
+  gap: 0.28rem;
+  width: min(360px, calc(100% - 2rem));
+  max-height: min(48vh, 360px);
+  overflow: auto;
+  transform: translateX(-50%);
+  border: 1px solid rgba(141, 179, 185, 0.28);
+  border-radius: 8px;
+  background: rgba(6, 18, 24, 0.92);
+  color: #e9f3f5;
+  padding: 0.75rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.36);
+}
+
+.map-selection-card > button:first-child,
+.selection-close-button {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  width: 30px;
+  min-height: 30px;
+  padding: 0;
+  border-radius: 999px;
+  background: rgba(5, 14, 20, 0.84);
+}
+
+.map-selection-card img {
+  width: 100%;
+  max-height: 155px;
+  object-fit: contain;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.map-selection-card span {
+  justify-self: start;
+  border-radius: 999px;
+  background: rgba(102, 217, 198, 0.12);
+  color: #8fe8dc;
+  padding: 0.16rem 0.48rem;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.map-selection-card strong {
+  padding-right: 2.1rem;
+  font-size: 1.05rem;
+  line-height: 1.18;
+}
+
+.map-selection-card em {
+  color: #c8d8db;
+  font-style: normal;
+}
+
+.map-selection-card a {
+  color: #ffe2a0;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.place-image-card {
+  position: relative;
+}
+
+.place-image-card > button {
+  position: absolute;
+  right: 0.55rem;
+  top: 0.55rem;
+  z-index: 3;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 1px solid rgba(220, 245, 246, 0.5);
+  border-radius: 999px;
+  background: rgba(5, 15, 20, 0.76);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.05rem;
+  font-weight: 950;
+}
+
+.selection-card-actions {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) 38px;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.selection-card-actions button,
+.selection-card-actions a {
+  display: grid;
+  min-height: 36px;
+  place-items: center;
+  border: 1px solid rgba(141, 179, 185, 0.24);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .attractions-panel {
@@ -4136,6 +4261,8 @@ h3 {
   display: grid;
   place-items: center;
   padding: 1rem;
+  max-width: 100vw;
+  overflow: hidden;
   background: rgba(2, 10, 14, 0.78);
   backdrop-filter: blur(10px);
 }
@@ -4144,7 +4271,7 @@ h3 {
   position: relative;
   display: grid;
   gap: 0.7rem;
-  width: min(920px, 94vw);
+  width: min(760px, calc(100vw - 2rem));
   max-height: 90vh;
   margin: 0;
   padding: 0.8rem;
@@ -4173,10 +4300,18 @@ h3 {
 
 .image-modal-card img {
   width: 100%;
-  max-height: 72vh;
+  max-height: 68vh;
   object-fit: contain;
   border-radius: 7px;
   background: rgba(255, 255, 255, 0.04);
+}
+
+.wmata-reference-image {
+  width: 100%;
+  height: min(56vh, 520px);
+  object-fit: contain;
+  border-radius: 8px;
+  background: #ffffff;
 }
 
 .image-modal-card figcaption {

@@ -167,6 +167,17 @@ function airportPromptTarget(region: (typeof regions)[number], airport: string) 
     ESB: "Ankara",
     CAI: "Cairo",
     CPT: "Cape Town",
+    AKL: "Auckland",
+    WLG: "Wellington",
+    CHC: "Christchurch",
+    MAN: "Manchester",
+    STN: "London Stansted",
+    LTN: "London Luton",
+    EDI: "Edinburgh",
+    CWL: "Cardiff",
+    SWS: "Swansea",
+    GLA: "Glasgow",
+    BFS: "Belfast",
   };
   return airportCityHints[airport] ?? (region.capital && !region.capital.includes("queued") ? region.capital : region.name);
 }

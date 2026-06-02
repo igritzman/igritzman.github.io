@@ -20,21 +20,21 @@ export const difficultyLevels: DifficultyLevel[] = [
 ];
 
 export const difficultyLabels: Record<DifficultyLevel, string> = {
-  gateway: "Gateway",
-  connector: "Connector",
-  hub: "Hub",
-  interchange: "Interchange",
-  express: "Express",
-  signal: "Signal",
-  control: "Control",
-  dispatch: "Dispatch",
-  crosswind: "Crosswind",
-  "night-ops": "Night Ops",
-  "deep-route": "Deep Route",
-  polar: "Polar",
-  microstate: "Microstate",
-  edgecase: "Edgecase",
-  "outer-limits": "Outer Limits",
+  gateway: "Level 1 · Gateway",
+  connector: "Level 2 · Connector",
+  hub: "Level 3 · Hub",
+  interchange: "Level 4 · Interchange",
+  express: "Level 5 · Express",
+  signal: "Level 6 · Signal",
+  control: "Level 7 · Control",
+  dispatch: "Level 8 · Dispatch",
+  crosswind: "Level 9 · Crosswind",
+  "night-ops": "Level 10 · Night Ops",
+  "deep-route": "Level 11 · Deep Route",
+  polar: "Level 12 · Polar",
+  microstate: "Level 13 · Microstate",
+  edgecase: "Level 14 · Edgecase",
+  "outer-limits": "Level 15 · Outer Limits",
 };
 
 export const categoryLabels: Record<QuestionCategory, string> = {
@@ -2923,6 +2923,15 @@ function countryProfile(
 }
 
 Object.assign(generatedProfileOverrides, {
+  "united-kingdom": countryProfile("United Kingdom", "London", ["Manchester", "Birmingham", "Glasgow", "Edinburgh", "Cardiff", "Belfast", "Liverpool"], ["LHR", "LGW", "MAN", "STN", "LTN", "EDI", "CWL", "SWS", "GLA", "BFS"], ["National Rail", "Elizabeth line", "West Coast Main Line", "East Coast Main Line", "Eurostar", "ScotRail", "Transport for Wales rail"], ["London Underground", "Docklands Light Railway", "Manchester Metrolink", "Glasgow Subway", "Tyne and Wear Metro", "Edinburgh Trams", "Belfast Glider"], ["M1", "M6", "M25", "A1(M)", "M4", "A55", "M8"], ["Port of Felixstowe", "Port of Dover", "Port of Southampton", "Belfast ferry port", "Holyhead ferry", "North Sea ferry routes"], ["Big Ben", "Tower Bridge", "Edinburgh Castle", "Giant's Causeway", "Snowdonia", "Stonehenge"], ["River Thames", "Scottish Highlands", "Severn Estuary", "Pennines", "Irish Sea"], ["London King's Cross", "Manchester Piccadilly", "Cardiff Central", "Glasgow Queen Street", "Belfast City Hall"]),
+  england: countryProfile("England", "London", ["Manchester", "Birmingham", "Liverpool", "Leeds", "Bristol"], ["LHR", "LGW", "MAN", "STN", "LTN"], ["National Rail", "Elizabeth line", "West Coast Main Line", "East Coast Main Line", "Great Western Main Line"], ["London Underground", "DLR", "Manchester Metrolink", "Tyne and Wear Metro", "West Midlands Metro"], ["M1", "M6", "M25", "A1(M)", "M4"], ["Port of Felixstowe", "Port of Dover", "Port of Southampton", "River Thames shipping", "Liverpool docks"], ["Tower Bridge", "Stonehenge", "Lake District", "York Minster", "Windsor Castle"], ["River Thames", "Pennines", "English Channel", "Lake District", "Severn Estuary"], ["London King's Cross", "Manchester Piccadilly", "Birmingham New Street", "Liverpool Lime Street", "Bristol Temple Meads"]),
+  scotland: countryProfile("Scotland", "Edinburgh", ["Glasgow", "Aberdeen", "Dundee", "Inverness"], ["EDI", "GLA", "ABZ", "INV", "PIK"], ["ScotRail", "Caledonian Sleeper", "West Highland Line", "East Coast Main Line", "Highland Main Line"], ["Glasgow Subway", "Edinburgh Trams", "airport tram link", "city bus networks", "ferry-linked bus routes"], ["M8", "M9", "A9", "A90", "A82"], ["Clydeport", "Aberdeen Harbour", "CalMac ferries", "Orkney and Shetland ferries", "North Sea shipping"], ["Edinburgh Castle", "Loch Ness", "Isle of Skye", "Forth Bridge", "Royal Mile"], ["Scottish Highlands", "River Clyde", "Firth of Forth", "Loch Ness", "North Sea"], ["Edinburgh Waverley", "Glasgow Central", "Inverness station", "Fort William", "Aberdeen waterfront"]),
+  wales: countryProfile("Wales", "Cardiff", ["Swansea", "Newport", "Wrexham", "Bangor"], ["CWL", "SWS", "BRS access", "MAN rail access", "Liverpool rail access"], ["Transport for Wales rail", "South Wales Main Line", "Valley Lines", "North Wales Coast Line", "Heart of Wales Line"], ["Cardiff Bus", "Swansea buses", "South Wales Metro", "rail-bus interchanges", "airport coach links"], ["M4", "A55", "A470", "A483", "A40"], ["Port of Cardiff", "Port Talbot", "Holyhead ferry", "Milford Haven", "Irish Sea ferry routes"], ["Cardiff Castle", "Snowdonia", "Conwy Castle", "Brecon Beacons", "Pembrokeshire Coast"], ["Snowdon", "River Severn", "Menai Strait", "Bristol Channel", "Cambrian Mountains"], ["Cardiff Central", "Swansea station", "Holyhead port", "Bangor", "Newport station"]),
+  "northern-ireland": countryProfile("Northern Ireland", "Belfast", ["Derry/Londonderry", "Lisburn", "Newry", "Bangor"], ["BFS", "BHD", "LDY", "DUB access", "Belfast freight air links"], ["NI Railways", "Belfast-Dublin Enterprise", "Larne line", "Derry-Londonderry line", "Bangor line"], ["Belfast Glider", "Metro Belfast buses", "Ulsterbus", "rail-bus interchanges", "airport buses"], ["M1", "M2", "A1", "A6", "A2 coast road"], ["Belfast Harbour", "Larne ferry", "Warrenpoint port", "Irish Sea ferries", "Port of Londonderry"], ["Giant's Causeway", "Titanic Belfast", "Carrick-a-Rede", "Mourne Mountains", "Belfast City Hall"], ["Lough Neagh", "River Lagan", "Mourne Mountains", "North Channel", "Antrim Coast"], ["Belfast Great Victoria Street", "Titanic Quarter", "Derry walls", "Larne Harbour", "Newry rail corridor"]),
+  "faroe-islands": countryProfile("Faroe Islands", "Torshavn", ["Klaksvik", "Runavik", "Tvøroyri", "Vagur"], ["FAE", "Vagar Airport", "helicopter island links", "Atlantic Airways hub", "airport bus route"], ["no railway network", "subsea road tunnels", "inter-island ferry routes", "helicopter network", "coach corridors"], ["Torshavn buses", "Bygdaleiðir regional buses", "airport buses", "ferry shuttles", "helicopter transfers"], ["Eysturoyartunnilin", "Vagatunnilin", "Norðoyatunnilin", "Torshavn ring roads", "coastal village roads"], ["Port of Torshavn", "Smyril ferry", "Klaksvik harbor", "North Atlantic shipping", "inter-island ferries"], ["Mulafossur Waterfall", "Tinganes", "Saksun", "Kalsoy", "Mykines"], ["North Atlantic", "Streymoy", "Eysturoy", "sea cliffs", "fjord valleys"], ["Torshavn harbor", "Vagar Airport", "Klaksvik", "Gjogv", "Saksun"]),
+  "isle-of-man": countryProfile("Isle of Man", "Douglas", ["Peel", "Ramsey", "Castletown", "Port Erin"], ["IOM", "Isle of Man Airport", "Ronaldsway", "UK regional flights", "airport bus links"], ["Isle of Man Railway", "Manx Electric Railway", "Snaefell Mountain Railway", "Douglas horse tramway", "heritage rail corridors"], ["Bus Vannin", "Douglas horse tramway", "airport buses", "heritage tram links", "ferry terminal buses"], ["A1", "A3", "A5 airport road", "TT Mountain Course", "Douglas promenade"], ["Douglas Sea Terminal", "ferries to Liverpool/Heysham", "Irish Sea shipping", "Peel harbor", "Ramsey harbor"], ["Snaefell", "Laxey Wheel", "Castle Rushen", "Douglas promenade", "Peel Castle"], ["Irish Sea", "Snaefell", "Douglas Bay", "Calf of Man", "central hills"], ["Douglas Sea Terminal", "Laxey station", "Port Erin", "Peel waterfront", "Ronaldsway airport"]),
+  "christmas-island": countryProfile("Christmas Island", "Flying Fish Cove", ["Settlement", "Poon Saan", "Silver City", "Drumsite"], ["XCH", "Christmas Island Airport", "Perth flights", "Cocos links", "airport road"], ["no railway network", "mine road corridors", "airport road transfers", "port freight roads", "island road loops"], ["local taxis", "community buses", "airport transfers", "port access vehicles", "tour shuttles"], ["Gaze Road", "Lily Beach Road", "airport road", "North West Point Road", "coastal access roads"], ["Flying Fish Cove port", "Indian Ocean shipping", "phosphate loading facilities", "small boat landings", "coastal anchorage"], ["Red crab migration", "Flying Fish Cove", "Dales Walking Track", "Hugh's Dale Waterfall", "Christmas Island National Park"], ["Indian Ocean", "coastal cliffs", "rainforest plateau", "coral reef", "The Dales"], ["Flying Fish Cove", "Settlement", "Lily Beach", "Ethel Beach", "airport lookout"]),
+  "cook-islands": countryProfile("Cook Islands", "Avarua", ["Arorangi", "Muri", "Aitutaki", "Arutanga"], ["RAR", "AIT", "Rarotonga International Airport", "Aitutaki Airport", "inter-island air links"], ["no railway network", "Rarotonga ring road buses", "inter-island flights", "lagoon boat routes", "airport shuttle roads"], ["Rarotonga clockwise/anti-clockwise buses", "airport transfers", "scooter routes", "lagoon tours", "Aitutaki local transport"], ["Ara Tapu ring road", "airport road", "Muri Beach road", "Aitutaki village roads", "coastal roads"], ["Avatiu Harbour", "Aitutaki lagoon boats", "Pacific shipping", "cruise tender calls", "inter-island boats"], ["Aitutaki Lagoon", "Muri Beach", "Te Rua Manga", "Avarua market", "One Foot Island"], ["South Pacific Ocean", "Rarotonga", "Aitutaki Lagoon", "volcanic peaks", "coral atolls"], ["Avarua waterfront", "Rarotonga airport", "Muri Lagoon", "Aitutaki lagoon", "Te Rua Manga trail"]),
   aruba: countryProfile("Aruba", "Oranjestad", ["San Nicolas", "Noord", "Santa Cruz", "Paradera"], ["AUA", "Queen Beatrix International Airport", "regional Caribbean flights", "cruise passenger transfers", "airport taxi stands"], ["no railway network", "Arubus main corridors", "tour coach routes", "cruise-port road links", "airport shuttle routes"], ["Arubus", "Oranjestad trolley", "hotel-zone buses", "airport taxis", "cruise shuttles"], ["L.G. Smith Boulevard", "Route 1", "airport road", "hotel-zone coastal road", "San Nicolas corridor"], ["Port of Oranjestad", "Caribbean cruise port", "container harbor", "marina routes", "inter-island shipping"], ["Eagle Beach", "California Lighthouse", "Arikok National Park", "Oranjestad waterfront", "Baby Beach"], ["Caribbean Sea", "Arikok hills", "Hooiberg", "Boca Prins", "Palm Beach coast"], ["Oranjestad tram", "Eagle Beach", "San Nicolas murals", "Palm Beach hotels", "Arikok National Park"]),
   bonaire: countryProfile("Bonaire", "Kralendijk", ["Rincon", "Antriol", "Nikiboko", "Tera Kora"], ["BON", "Flamingo International Airport", "regional Dutch Caribbean flights", "dive tourism arrivals", "airport taxi stands"], ["no railway network", "island road transfers", "tour vans", "port freight roads", "airport shuttles"], ["local buses and taxis", "dive resort shuttles", "airport taxis", "cruise pier transfers", "water-taxi links"], ["EEG Boulevard", "Kaya Grandi", "Kralendijk airport road", "Rincon road", "coastal dive-site roads"], ["Port of Kralendijk", "cruise pier", "Caribbean shipping", "Klein Bonaire water taxis", "marina routes"], ["Bonaire National Marine Park", "Klein Bonaire", "Washington Slagbaai National Park", "Salt Pans", "Rincon"], ["Caribbean Sea", "Klein Bonaire", "Gotomeer", "salt flats", "dry coastal hills"], ["Kralendijk waterfront", "Klein Bonaire ferry", "Salt Pier", "Rincon", "Lac Bay"]),
   curacao: countryProfile("Curacao", "Willemstad", ["Otrobanda", "Punda", "Westpunt", "Jan Thiel"], ["CUR", "Curacao International Airport", "regional Caribbean flights", "airport bus/taxi transfers", "cargo apron"], ["no railway network", "ABC Busbedrijf corridors", "tour coach routes", "port road freight", "airport shuttles"], ["ABC buses", "Willemstad taxis", "airport transfer vans", "cruise terminal shuttles", "hotel-zone buses"], ["Schottegatweg", "Weg Naar Westpunt", "Juliana Bridge access", "airport road", "coastal roads"], ["Port of Willemstad", "Schottegat harbor", "Caribbean cruise port", "oil terminal routes", "Spanish Water marina"], ["Willemstad waterfront", "Queen Emma Bridge", "Christoffel National Park", "Playa Kenepa", "Mikve Israel-Emanuel Synagogue"], ["Caribbean Sea", "Christoffelberg", "Schottegat lagoon", "Spanish Water", "coral coast"], ["Punda", "Otrobanda", "Mambo Beach", "Westpunt", "Curacao airport"]),
@@ -3166,6 +3175,14 @@ const extraCountryLikeRegions = [
   "Aruba",
   "Bonaire",
   "Curacao",
+  "England",
+  "Scotland",
+  "Wales",
+  "Northern Ireland",
+  "Faroe Islands",
+  "Isle of Man",
+  "Christmas Island",
+  "Cook Islands",
 ] as const;
 
 function slugify(name: string) {
@@ -3184,6 +3201,11 @@ const slugOverrides: Record<string, string> = {
   "Hong Kong": "hong-kong",
   "Greenland": "greenland",
   "Curacao": "curacao",
+  "Northern Ireland": "northern-ireland",
+  "Faroe Islands": "faroe-islands",
+  "Isle of Man": "isle-of-man",
+  "Christmas Island": "christmas-island",
+  "Cook Islands": "cook-islands",
 };
 
 function generatedPosition(index: number) {

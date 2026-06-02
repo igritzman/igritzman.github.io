@@ -202,6 +202,54 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "JP-34": { capital: "Hiroshima", transit: "Hiroshima Electric Railway, JR West, Sanyo Shinkansen" },
   "MX-JAL": { capital: "Guadalajara", transit: "SITEUR light rail, Mi Macro BRT, Guadalajara airport access" },
   "MX-CMX": { capital: "Mexico City", transit: "Mexico City Metro, Metrobús, suburban rail" },
+  "MX.AG": { capital: "Aguascalientes", transit: "Aguascalientes buses, Bajío road corridors, airport access" },
+  "MX.BN": { capital: "Mexicali", transit: "Mexicali buses, Tijuana cross-border transit, airports at TIJ and MXL" },
+  "MX.BS": { capital: "La Paz", transit: "La Paz buses, Baja California Sur ferry and airport links" },
+  "MX.CM": { capital: "San Francisco de Campeche", transit: "Campeche buses, Tren Maya corridor, Gulf road links" },
+  "MX.CP": { capital: "Tuxtla Gutiérrez", transit: "Tuxtla buses, San Cristóbal road corridors, Ángel Albino Corzo airport links" },
+  "MX.CH": { capital: "Chihuahua", transit: "Chihuahua buses, Chepe rail corridor, airport links" },
+  "MX.CA": { capital: "Saltillo", transit: "Saltillo buses, Monterrey road and rail corridors, airport links" },
+  "MX.CL": { capital: "Colima", transit: "Colima buses, Manzanillo port roads, airport links" },
+  "MX.DF": { capital: "Mexico City", transit: "Mexico City Metro, Metrobús, suburban rail, AICM and AIFA airport links" },
+  "MX.DU": { capital: "Victoria de Durango", transit: "Durango buses, Sierra Madre road corridors, airport links" },
+  "MX.GJ": { capital: "Guanajuato", transit: "León and Guanajuato buses, Bajío airport links, intercity coach corridors" },
+  "MX.GR": { capital: "Chilpancingo", transit: "Acapulco and Chilpancingo buses, coastal road corridors, airport links" },
+  "MX.HI": { capital: "Pachuca", transit: "Pachuca buses, Mexico City commuter corridor, road links" },
+  "MX.JA": { capital: "Guadalajara", transit: "SITEUR light rail, Mi Macro BRT, Guadalajara airport access" },
+  "MX.MX": { capital: "Toluca", transit: "Mexibús, Tren Interurbano México-Toluca, Toluca airport links" },
+  "MX.MC": { capital: "Morelia", transit: "Morelia buses, regional road corridors, airport links" },
+  "MX.MR": { capital: "Cuernavaca", transit: "Cuernavaca buses, Mexico City road corridors, airport access via nearby gateways" },
+  "MX.NA": { capital: "Tepic", transit: "Tepic buses, Pacific coast road corridors, airport links" },
+  "MX.NL": { capital: "Monterrey", transit: "Metrorrey, Ecovía BRT, Monterrey airport links" },
+  "MX.OA": { capital: "Oaxaca", transit: "Oaxaca buses, mountain road corridors, airport links" },
+  "MX.PU": { capital: "Puebla", transit: "RUTA BRT, Puebla airport links, Mexico City road corridor" },
+  "MX.QE": { capital: "Santiago de Querétaro", transit: "Querétaro buses, Bajío corridor, airport links" },
+  "MX.QR": { capital: "Chetumal", transit: "Cancún and Chetumal buses, Tren Maya corridor, airport links" },
+  "MX.SL": { capital: "San Luis Potosí", transit: "San Luis Potosí buses, Bajío and northern road corridors, airport links" },
+  "MX.SI": { capital: "Culiacán", transit: "Culiacán buses, Pacific rail and road corridors, airport links" },
+  "MX.SO": { capital: "Hermosillo", transit: "Hermosillo buses, Sonora highway corridors, airport links" },
+  "MX.TB": { capital: "Villahermosa", transit: "Villahermosa buses, Gulf road corridors, airport links" },
+  "MX.TM": { capital: "Ciudad Victoria", transit: "Ciudad Victoria buses, Tampico and Reynosa gateway corridors, airport links" },
+  "MX.TL": { capital: "Tlaxcala", transit: "Tlaxcala buses, Puebla and Mexico City corridor links" },
+  "MX.VE": { capital: "Xalapa", transit: "Xalapa buses, Veracruz port corridors, airport links" },
+  "MX.YU": { capital: "Mérida", transit: "Mérida buses, Tren Maya corridor, airport links" },
+  "MX.ZA": { capital: "Zacatecas", transit: "Zacatecas buses, central plateau road corridors, airport links" },
+  "CL.AP": { capital: "Arica", transit: "Arica buses, airport links, Pan-American Highway access" },
+  "CL.TA": { capital: "Iquique", transit: "Iquique buses, port and airport links, desert highway corridors" },
+  "CL.AN": { capital: "Antofagasta", transit: "Antofagasta buses, mining rail corridors, port and airport links" },
+  "CL.AT": { capital: "Copiapó", transit: "Copiapó buses, Atacama road corridors, airport links" },
+  "CL.CO": { capital: "La Serena", transit: "La Serena and Coquimbo buses, port roads, airport links" },
+  "CL.VS": { capital: "Valparaíso", transit: "Valparaíso Metro, port corridors, Santiago road and rail links" },
+  "CL.RM": { capital: "Santiago", transit: "Santiago Metro, EFE rail corridors, airport bus and road links" },
+  "CL.LI": { capital: "Rancagua", transit: "Rancagua commuter rail, central valley buses, Route 5 corridor" },
+  "CL.ML": { capital: "Talca", transit: "Talca buses, central rail corridor, Route 5 links" },
+  "CL.NB": { capital: "Chillán", transit: "Chillán rail and bus links, Route 5 corridor" },
+  "CL.BI": { capital: "Concepción", transit: "Biotrén, Concepción buses, port and airport links" },
+  "CL.AR": { capital: "Temuco", transit: "Temuco buses, southern rail corridor, airport links" },
+  "CL.LR": { capital: "Valdivia", transit: "Valdivia buses, riverfront road corridors, airport links" },
+  "CL.LL": { capital: "Puerto Montt", transit: "Puerto Montt buses, ferry corridors, airport links" },
+  "CL.AI": { capital: "Coyhaique", transit: "Carretera Austral corridors, regional buses, Balmaceda airport links" },
+  "CL.MA": { capital: "Punta Arenas", transit: "Punta Arenas buses, ferry and airport links, Strait of Magellan access" },
   "AU-NSW": { capital: "Sydney", transit: "Sydney Trains, Sydney Metro, light rail, ferries" },
   "AU-WA": { capital: "Perth", transit: "Transperth trains, buses, ferries, Airport Line" },
   "AU-VIC": { capital: "Melbourne", transit: "Melbourne trams, trains, V/Line, airport bus links" },
@@ -603,6 +651,70 @@ const regionalPopulationByCode: Record<string, string> = {
   "CA-QC": "9,033,887 (Q1 2026 estimate)",
   "CA-SK": "1,265,936 (Q1 2026 estimate)",
   "CA-YT": "48,218 (Q1 2026 estimate)",
+  "MX.AG": "1,425,607 (2020 census, INEGI)",
+  "MX.BN": "3,769,020 (2020 census, INEGI)",
+  "MX.BS": "798,447 (2020 census, INEGI)",
+  "MX.CM": "928,363 (2020 census, INEGI)",
+  "MX.CP": "5,543,828 (2020 census, INEGI)",
+  "MX.CH": "3,741,869 (2020 census, INEGI)",
+  "MX.CA": "3,146,771 (2020 census, INEGI)",
+  "MX.CL": "731,391 (2020 census, INEGI)",
+  "MX.DF": "9,209,944 (2020 census, INEGI)",
+  "MX.DU": "1,832,650 (2020 census, INEGI)",
+  "MX.GJ": "6,166,934 (2020 census, INEGI)",
+  "MX.GR": "3,540,685 (2020 census, INEGI)",
+  "MX.HI": "3,082,841 (2020 census, INEGI)",
+  "MX.JA": "8,348,151 (2020 census, INEGI)",
+  "MX.MX": "16,992,418 (2020 census, INEGI)",
+  "MX.MC": "4,748,846 (2020 census, INEGI)",
+  "MX.MR": "1,971,520 (2020 census, INEGI)",
+  "MX.NA": "1,235,456 (2020 census, INEGI)",
+  "MX.NL": "5,784,442 (2020 census, INEGI)",
+  "MX.OA": "4,132,148 (2020 census, INEGI)",
+  "MX.PU": "6,583,278 (2020 census, INEGI)",
+  "MX.QE": "2,368,467 (2020 census, INEGI)",
+  "MX.QR": "1,857,985 (2020 census, INEGI)",
+  "MX.SL": "2,822,255 (2020 census, INEGI)",
+  "MX.SI": "3,026,943 (2020 census, INEGI)",
+  "MX.SO": "2,944,840 (2020 census, INEGI)",
+  "MX.TB": "2,402,598 (2020 census, INEGI)",
+  "MX.TM": "3,527,735 (2020 census, INEGI)",
+  "MX.TL": "1,342,977 (2020 census, INEGI)",
+  "MX.VE": "8,062,579 (2020 census, INEGI)",
+  "MX.YU": "2,320,898 (2020 census, INEGI)",
+  "MX.ZA": "1,622,138 (2020 census, INEGI)",
+  "CL.AP": "226,068 (2024 census, INE)",
+  "CL.TA": "406,287 (2024 census, INE)",
+  "CL.AN": "717,820 (2024 census, INE)",
+  "CL.AT": "319,992 (2024 census, INE)",
+  "CL.CO": "879,267 (2024 census, INE)",
+  "CL.VS": "2,025,693 (2024 census, INE)",
+  "CL.RM": "8,420,729 (2024 census, INE)",
+  "CL.LI": "1,036,897 (2024 census, INE)",
+  "CL.ML": "1,194,316 (2024 census, INE)",
+  "CL.NB": "511,551 (2024 census, INE)",
+  "CL.BI": "1,758,722 (2024 census, INE)",
+  "CL.AR": "1,028,201 (2024 census, INE)",
+  "CL.LR": "405,835 (2024 census, INE)",
+  "CL.LL": "912,171 (2024 census, INE)",
+  "CL.AI": "108,538 (2024 census, INE)",
+  "CL.MA": "183,233 (2024 census, INE)",
+  "AricayParinacota": "226,068 (2024 census, INE)",
+  "Tarapacá": "406,287 (2024 census, INE)",
+  "Antofagasta": "717,820 (2024 census, INE)",
+  "Atacama": "319,992 (2024 census, INE)",
+  "Coquimbo": "879,267 (2024 census, INE)",
+  "Valparaíso": "2,025,693 (2024 census, INE)",
+  "LibertadorGeneralBernardoOHiggins": "1,036,897 (2024 census, INE)",
+  "Maule": "1,194,316 (2024 census, INE)",
+  "Ñuble": "511,551 (2024 census, INE)",
+  "Bío-Bío": "1,758,722 (2024 census, INE)",
+  "Araucanía": "1,028,201 (2024 census, INE)",
+  "LosRíos": "405,835 (2024 census, INE)",
+  "LosLagos": "912,171 (2024 census, INE)",
+  "AyséndelGeneralIbáñezdelCampo": "108,538 (2024 census, INE)",
+  "MagallanesyAntárticaChilena": "183,233 (2024 census, INE)",
+  "SantiagoMetropolitan": "8,420,729 (2024 census, INE)",
   "AR-B": "17,523,996 (2022 census)",
   "AR.BA": "17,523,996 (2022 census)",
   "AR-K": "429,562 (2022 census)",
@@ -1238,6 +1350,13 @@ const capitalCoordinatesByRegionId: Record<string, [number, number]> = {
   finland: [24.9384, 60.1699],
   iceland: [-21.9426, 64.1466],
   greenland: [-51.7216, 64.1835],
+  aruba: [-70.0358, 12.5211],
+  bonaire: [-68.2624, 12.1784],
+  curacao: [-68.99, 12.1696],
+  "faroe-islands": [-6.9118, 61.8926],
+  "isle-of-man": [-4.5481, 54.2361],
+  "christmas-island": [105.6904, -10.4475],
+  "cook-islands": [-159.7777, -21.2367],
   italy: [12.4964, 41.9028],
   spain: [-3.7038, 40.4168],
   portugal: [-9.1393, 38.7223],
@@ -3410,7 +3529,7 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
     },
     {
       title: "Review and Export",
-      text: "Review misses, print flashcards, then export CSVs. Use Current, Selected, or All Countries; deselect the map when you do not want one-country context.",
+      text: "Review misses, ask the GeoTransit assistant for transit or geography context, print flashcards, then export CSVs. Use Current, Selected, or All Countries; deselect the map when you do not want one-country context.",
       visual: "export",
     },
   ];
@@ -3662,10 +3781,10 @@ function AboutPanel({ onClose }: { onClose: () => void }) {
       </div>
       <h2>GEONTRANSIT</h2>
       <p>
-        GEONTRANSIT is a map-first transit geography trainer. Explore countries, metro systems, airports, landmarks, regional boundaries, and study images, then jump into questions that connect what you see on the map with how places actually move.
+        GEONTRANSIT is an interactive, map-first platform that helps users explore the world through the combined lenses of geography and transportation. Users can discover countries, regions, cities, metro systems, airports, landmarks, and transportation networks while visually interacting with a global map. By connecting real-world locations with transit infrastructure, GEONTRANSIT transforms geographic exploration into an engaging learning experience, allowing users to better understand how people, places, and transportation systems are connected across the globe.
       </p>
       <p>
-        Country profiles bring together flags, local images, transport links, Google Maps, Wikipedia, Transitland, practice decks, review cards, and CSV exports so you can study one country, compare several, or build your own reference sheet.
+        The platform combines rich geographic content with practical transportation knowledge in a user-friendly environment designed for both casual exploration and structured learning. Country profiles bring together maps, flags, regional boundaries, local imagery, transportation data, study cards, practice questions, reference materials, and exportable resources, enabling users to build a deeper understanding of countries and regions worldwide. Whether studying a single city, comparing transit systems across continents, preparing for travel, or simply exploring global geography, GEONTRANSIT serves as a comprehensive educational tool that makes learning about the world's places and transportation networks intuitive, visual, and accessible.
       </p>
     </aside>
   );
@@ -4447,6 +4566,7 @@ function MapTab({
             transitSystemsLayer={transitSystemsLayer}
             selectedTransitSystemId={selectedTransitSystemId}
             onTransitSystemSelect={onTransitSystemSelect}
+            onClearLayerSelection={onClearLayerSelection}
             zoom={mapZoom}
             pan={mapPan}
             onPanChange={onMapPanChange}
@@ -4779,6 +4899,7 @@ function OperationsMap({
   transitSystemsLayer = false,
   selectedTransitSystemId = null,
   onTransitSystemSelect,
+  onClearLayerSelection,
   onBackgroundSelect,
   zoom = 1,
   pan = { x: 0, y: 0 },
@@ -4798,6 +4919,7 @@ function OperationsMap({
   transitSystemsLayer?: boolean;
   selectedTransitSystemId?: string | null;
   onTransitSystemSelect?: (system: (typeof projectedTransitSystems)[number]) => void;
+  onClearLayerSelection?: () => void;
   onBackgroundSelect?: () => void;
   zoom?: number;
   pan?: { x: number; y: number };
@@ -4819,6 +4941,24 @@ function OperationsMap({
     ? gadmSubdivisions.find((feature) => subdivisionCode(feature) === "US-DC")
     : undefined;
   const dcProjected = worldProjection([-77.0369, 38.9072]);
+  const selectedAttraction = selectedAttractionId
+    ? projectedTouristAttractions.find((attraction) => attraction.id === selectedAttractionId)
+    : undefined;
+  const selectedTransitSystem = selectedTransitSystemId
+    ? projectedTransitSystems.find((system) => system.id === selectedTransitSystemId)
+    : undefined;
+  const selectedTransitSystemsForCountry = selectedTransitSystem
+    ? projectedTransitSystems.filter((system) => system.countryId === selectedTransitSystem.countryId)
+    : [];
+  const selectedTransitIndex = selectedTransitSystem
+    ? selectedTransitSystemsForCountry.findIndex((system) => system.id === selectedTransitSystem.id)
+    : -1;
+  const selectedTransitImage = selectedTransitSystem ? transitSystemImageById[selectedTransitSystem.id] : "";
+  const showAdjacentTransit = (direction: -1 | 1) => {
+    if (!selectedTransitSystemsForCountry.length || selectedTransitIndex < 0) return;
+    const next = selectedTransitSystemsForCountry[(selectedTransitIndex + direction + selectedTransitSystemsForCountry.length) % selectedTransitSystemsForCountry.length];
+    onTransitSystemSelect?.(next);
+  };
 
   useEffect(() => {
     setSelectedSubdivision(null);
@@ -5094,6 +5234,29 @@ function OperationsMap({
           </div>
         )}
       </div>
+      {selectedAttraction ? (
+        <aside className="map-selection-card landmark-selection-card" aria-live="polite">
+          <button type="button" onClick={onClearLayerSelection} aria-label={`Close ${selectedAttraction.name}`}>×</button>
+          <span>{attractionIcon(selectedAttraction.kind)} Landmark</span>
+          <strong>{selectedAttraction.name}</strong>
+          <em>{selectedAttraction.country}</em>
+          <a href={selectedAttraction.url} target="_blank" rel="noreferrer">Open reference</a>
+        </aside>
+      ) : null}
+      {selectedTransitSystem ? (
+        <aside className="map-selection-card transit-selection-card" aria-live="polite">
+          <button type="button" className="selection-close-button" onClick={onClearLayerSelection} aria-label={`Close ${selectedTransitSystem.name}`}>×</button>
+          {selectedTransitImage ? <img src={selectedTransitImage} alt={`${selectedTransitSystem.name} reference map`} loading="lazy" /> : null}
+          <span>{transitIcon(selectedTransitSystem.kind)} Transit</span>
+          <strong>{selectedTransitSystem.name}</strong>
+          <em>{selectedTransitSystem.city}</em>
+          <div className="selection-card-actions">
+            <button type="button" onClick={() => showAdjacentTransit(-1)} aria-label="Previous transit reference">‹</button>
+            <a href={selectedTransitSystem.mapUrl} target="_blank" rel="noreferrer">Transitland</a>
+            <button type="button" onClick={() => showAdjacentTransit(1)} aria-label="Next transit reference">›</button>
+          </div>
+        </aside>
+      ) : null}
       {selectedSubdivision ? (() => {
         const note = subdivisionStudyNote(selectedSubdivision);
         const population = subdivisionPopulation(selectedSubdivision) ?? note?.population;
@@ -5289,35 +5452,19 @@ function QuestionVisual({ question, onAnswer }: { question: Question; onAnswer?:
 function WmataStationMap({ question, onAnswer }: { question: Question; onAnswer?: (answer: string) => void }) {
   const stations = [
     ["Ashburn", "9%", "52%"],
-    ["Rosslyn", "31%", "58%"],
-    ["Metro Center", "45%", "55%"],
-    ["L'Enfant Plaza", "50%", "66%"],
-    ["Fort Totten", "63%", "38%"],
-    ["College Park", "76%", "27%"],
-    ["Union Station", "58%", "49%"],
-    ["Reagan National Airport", "48%", "82%"],
-    ["New Carrollton", "89%", "55%"],
+    ["Rosslyn", "39%", "45%"],
+    ["Metro Center", "49%", "45%"],
+    ["L'Enfant Plaza", "51%", "55%"],
+    ["Fort Totten", "58%", "29%"],
+    ["College Park", "66%", "20%"],
+    ["Union Station", "56%", "39%"],
+    ["Reagan National Airport", "46%", "73%"],
+    ["New Carrollton", "81%", "40%"],
   ] as const;
 
   return (
     <div className="visual-card wmata-visual" aria-label={question.visualCaption}>
-      <svg className="wmata-lines" viewBox="0 0 100 76" aria-hidden="true">
-        <path className="wmata-water potomac" d="M24 64 C34 60, 38 66, 44 61 C51 56, 56 62, 62 57 C68 52, 75 55, 82 50" />
-        <path className="wmata-county" d="M22 18 L40 12 L54 19 L59 33 L75 29 L91 41 L83 69 L58 70 L45 62 L30 70 L16 57 Z" />
-        <path className="wmata-line silver" d="M8 37 L20 46 L31 46 L45 43 L58 43 L72 40 L92 36" />
-        <path className="wmata-line orange" d="M16 55 L31 46 L45 43 L58 47 L75 52 L92 52" />
-        <path className="wmata-line blue" d="M18 66 L31 58 L45 55 L50 64 L63 62 L90 58" />
-        <path className="wmata-line red" d="M24 12 L34 25 L43 42 L45 55 L58 49 L63 38 L68 15" />
-        <path className="wmata-line green" d="M78 18 L70 28 L63 38 L56 51 L50 66 L48 73" />
-        <path className="wmata-line yellow" d="M76 18 L68 29 L63 38 L55 50 L50 66 L42 72" />
-        <g className="wmata-transfer-rings">
-          <circle cx="31" cy="46" r="2.2" />
-          <circle cx="45" cy="55" r="2.6" />
-          <circle cx="50" cy="66" r="2.6" />
-          <circle cx="58" cy="49" r="2.2" />
-          <circle cx="63" cy="38" r="2.6" />
-        </g>
-      </svg>
+      <img className="wmata-reference-image" src="/images/metro-images/WMATA.png" alt="Unlabeled Washington Metro reference map" />
       {stations.map(([station, left, top]) => (
         <button
           key={station}
@@ -5794,6 +5941,9 @@ function PlaceImageCard({ image }: { image: PlaceImage }) {
   if (hidden) return null;
   return (
     <figure className="place-image-card">
+      <button type="button" onClick={() => setHidden(true)} aria-label={`Close ${image.name} image`}>
+        ×
+      </button>
       <img
         src={image.imagePath}
         alt={`${image.name} place reference`}
@@ -6109,6 +6259,8 @@ function ReviewTab({
   onReplay: (question?: Question) => void;
   onClear: () => void;
 }) {
+  const reviewAssistantRegion = regions.find((region) => region.id === "united-states") ?? regions[0];
+  const reviewAssistantTransit = transitSystemsForRegion(reviewAssistantRegion.id);
   return (
     <section className="review-panel">
       <div className="section-heading">
@@ -6123,6 +6275,7 @@ function ReviewTab({
         </div>
       </div>
       <LearningTricks />
+      <GeoTransitAssistant region={reviewAssistantRegion} transitSystems={reviewAssistantTransit} />
       <div className="review-list">
         {profile.incorrectAnswers.length === 0 && <div className="empty-state">No misses saved yet. Clean route board.</div>}
         {profile.incorrectAnswers.map((item) => (
