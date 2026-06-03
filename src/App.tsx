@@ -101,7 +101,7 @@ const metroImageByPrompt: Record<string, string> = {
 };
 
 const transitSystemImageById: Record<string, string> = {
-  wmata: "/images/metro-images/WMATA.png",
+  wmata: "/images/uploaded/metro-images-2/Metro%20Images/WMATA.png",
   shinkansen: "/images/metro-images/Shinkansen_map_202405_en.png",
   "bangkok-bts-mrt": "/images/metro-images/bangkok-map.png",
   marta: "/images/metro-images/MARTA.png",
@@ -121,6 +121,18 @@ const transitSystemImageById: Record<string, string> = {
   "mumbai-suburban": "/images/metro-images/Mumbai_Rail_Map_-_English.jpg",
   "toronto-ttc": "/images/metro-images/TTC%20Toronto%20Subway.png",
   "hyderabad-metro": "/images/metro-images/Hyderabad%20Metro.png",
+  "seoul-metro": "/images/uploaded/metro-images-2/Metro%20Images/Seoul.jpg",
+  "moscow-metro": "/images/uploaded/metro-images-2/Metro%20Images/Moscow.jpg",
+  "chengdu-metro": "/images/uploaded/metro-images-2/Metro%20Images/Chengdu%20Metro%20Map.jpg",
+  "wuhan-metro": "/images/uploaded/metro-images-2/Metro%20Images/Wuhan_Metro_bilingual_map.png",
+  "nanjing-metro": "/images/uploaded/metro-images-2/Metro%20Images/Nanjing%20Metro.jpg",
+  "kobe-subway": "/images/uploaded/metro-images-2/Metro%20Images/KobeSubway.svg.png",
+  "boston-mbta": "/images/uploaded/metro-images-2/Metro%20Images/MBTA_Boston_subway_map.png",
+  "philadelphia-septa": "/images/uploaded/metro-images-2/Metro%20Images/Philadelphia%20SEPTA.webp",
+  "brussels-metro": "/images/uploaded/metro-images-2/Metro%20Images/Metro_map_of_Brussels.svg",
+  "copenhagen-metro": "/images/uploaded/metro-images-2/Metro%20Images/Copenhagen.png",
+  "dubai-metro": "/images/uploaded/metro-images-2/Metro%20Images/Dubai_Metro_Phase_2_and_3_Future_Map.jpg",
+  "algiers-metro": "/images/uploaded/metro-images-2/Metro%20Images/Algiers%20Metro%20Stations.jpg",
 };
 
 let placeImagesCache: Record<string, PlaceImage> | null = null;
@@ -271,13 +283,38 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "TH.PU": { capital: "Phuket", transit: "Island buses, airport links, ferry and road corridors" },
   "TH.SG": { capital: "Songkhla", transit: "Hat Yai rail and airport links, southern corridor roads" },
   "TH.KR": { capital: "Krabi", transit: "Airport, ferry, and Andaman coast road links" },
+  "TR.AA": { capital: "Adana", transit: "Adana Metro, rail station, airport and Cukurova regional road links" },
+  "TR.AD": { capital: "Adiyaman", transit: "Adiyaman airport, intercity coach links and southeast road corridors" },
+  "TR.AF": { capital: "Afyonkarahisar", transit: "Rail junction, intercity coach links and western Anatolia road corridors" },
+  "TR.AG": { capital: "Agri", transit: "Agri airport, eastern Anatolia road links and mountain pass corridors" },
+  "TR.AK": { capital: "Aksaray", transit: "Central Anatolia coach links and Ankara-Konya road corridors" },
+  "TR.AM": { capital: "Amasya", transit: "Regional rail, coach links and Black Sea interior road corridors" },
   "TR.IB": { capital: "Istanbul", transit: "Istanbul Metro, Marmaray, ferries, Bosporus bridges and airport rail" },
   "TR.AN": { capital: "Ankara", transit: "Ankara Metro, YHT high-speed rail, Esenboga airport links" },
   "TR.IZ": { capital: "Izmir", transit: "Izmir Metro, IZBAN commuter rail, ferry and airport links" },
   "TR.AL": { capital: "Antalya", transit: "Antalya tram, airport links, Mediterranean road corridors" },
+  "TR.AR": { capital: "Ardahan", transit: "Eastern Anatolia road links and Kars regional access" },
+  "TR.AV": { capital: "Artvin", transit: "Black Sea road corridors, mountain roads and Batumi regional access" },
+  "TR.AY": { capital: "Aydin", transit: "Izmir rail access, Aydin-Denizli road corridor and coastal bus links" },
+  "TR.BK": { capital: "Balikesir", transit: "Marmara and Aegean road links, rail access and ferry corridors" },
+  "TR.BM": { capital: "Batman", transit: "Batman airport, regional rail and southeast road corridors" },
+  "TR.BL": { capital: "Bolu", transit: "Istanbul-Ankara highway corridor and intercity coach links" },
   "TR.BU": { capital: "Bursa", transit: "Bursaray, bus and road links, Marmara corridor access" },
+  "TR.DN": { capital: "Denizli", transit: "Rail station, intercity coaches and Pamukkale tourism road links" },
+  "TR.DY": { capital: "Diyarbakir", transit: "Diyarbakir airport, rail station and southeast road corridors" },
+  "TR.ES": { capital: "Eskisehir", transit: "YHT high-speed rail, tram network and Ankara-Istanbul corridor" },
   "TR.KO": { capital: "Konya", transit: "Konya tram, YHT rail, central Anatolia road links" },
   "TR.GA": { capital: "Gaziantep", transit: "Gaziantep tram, airport links, southeast road corridors" },
+  "TR.KA": { capital: "Kars", transit: "Kars rail station, eastern rail corridors and airport links" },
+  "TR.KY": { capital: "Kayseri", transit: "Kayseri tram, airport and central Anatolia road links" },
+  "TR.ML": { capital: "Malatya", transit: "Rail station, airport and eastern Anatolia road corridors" },
+  "TR.MR": { capital: "Mardin", transit: "Mardin airport, old-city road access and Mesopotamia tourism corridors" },
+  "TR.MG": { capital: "Mugla", transit: "Bodrum and Dalaman airport links, coastal roads and ferry access" },
+  "TR.NV": { capital: "Nevsehir", transit: "Cappadocia airport links, coach routes and central Anatolia roads" },
+  "TR.SM": { capital: "Samsun", transit: "Samsun tram, Black Sea port, airport and coastal road links" },
+  "TR.SV": { capital: "Sivas", transit: "YHT rail, regional rail junction and central Anatolia road corridors" },
+  "TR.TB": { capital: "Trabzon", transit: "Trabzon airport, Black Sea coastal road and port links" },
+  "TR.VA": { capital: "Van", transit: "Van airport, Lake Van ferry, rail and eastern road corridors" },
   "AU-NSW": { capital: "Sydney", transit: "Sydney Trains, Sydney Metro, light rail, ferries" },
   "AU-WA": { capital: "Perth", transit: "Transperth trains, buses, ferries, Airport Line" },
   "AU-VIC": { capital: "Melbourne", transit: "Melbourne trams, trains, V/Line, airport bus links" },
@@ -761,13 +798,38 @@ const regionalPopulationByCode: Record<string, string> = {
   "TH.PU": "431,411 (2024 register, NSO)",
   "TH.SG": "1,441,774 (2024 register, NSO)",
   "TH.KR": "483,033 (2024 register, NSO)",
+  "TR.AA": "2,280,484 (2024 estimate, TurkStat)",
+  "TR.AD": "604,978 (2024 estimate, TurkStat)",
+  "TR.AF": "756,702 (2024 estimate, TurkStat)",
+  "TR.AG": "511,238 (2024 estimate, TurkStat)",
+  "TR.AK": "444,914 (2024 estimate, TurkStat)",
+  "TR.AM": "339,529 (2024 estimate, TurkStat)",
   "TR.IB": "15,701,602 (2024 estimate, TurkStat)",
   "TR.AN": "5,864,049 (2024 estimate, TurkStat)",
   "TR.IZ": "4,493,242 (2024 estimate, TurkStat)",
   "TR.AL": "2,722,103 (2024 estimate, TurkStat)",
+  "TR.AR": "92,481 (2024 estimate, TurkStat)",
+  "TR.AV": "169,403 (2024 estimate, TurkStat)",
+  "TR.AY": "1,165,943 (2024 estimate, TurkStat)",
+  "TR.BK": "1,273,519 (2024 estimate, TurkStat)",
+  "TR.BM": "654,528 (2024 estimate, TurkStat)",
+  "TR.BL": "324,789 (2024 estimate, TurkStat)",
   "TR.BU": "3,238,618 (2024 estimate, TurkStat)",
+  "TR.DN": "1,061,027 (2024 estimate, TurkStat)",
+  "TR.DY": "1,818,133 (2024 estimate, TurkStat)",
+  "TR.ES": "921,630 (2024 estimate, TurkStat)",
   "TR.KO": "2,330,024 (2024 estimate, TurkStat)",
   "TR.GA": "2,193,363 (2024 estimate, TurkStat)",
+  "TR.KA": "278,335 (2024 estimate, TurkStat)",
+  "TR.KY": "1,466,307 (2024 estimate, TurkStat)",
+  "TR.ML": "750,491 (2024 estimate, TurkStat)",
+  "TR.MR": "888,874 (2024 estimate, TurkStat)",
+  "TR.MG": "1,077,508 (2024 estimate, TurkStat)",
+  "TR.NV": "315,994 (2024 estimate, TurkStat)",
+  "TR.SM": "1,377,546 (2024 estimate, TurkStat)",
+  "TR.SV": "637,007 (2024 estimate, TurkStat)",
+  "TR.TB": "824,352 (2024 estimate, TurkStat)",
+  "TR.VA": "1,127,612 (2024 estimate, TurkStat)",
   "AR-B": "17,523,996 (2022 census)",
   "AR.BA": "17,523,996 (2022 census)",
   "AR-K": "429,562 (2022 census)",
@@ -1234,6 +1296,16 @@ const didYouKnowByRegionId: Record<string, string> = {
   nepal: "Nepal's mountainous terrain makes aviation critical for many remote communities.",
   "united-kingdom": "London Underground is the world's oldest metro system.",
   netherlands: "The Netherlands moves millions of people by bicycle each day through one of the world's most advanced cycling networks.",
+};
+
+const transportTimelineByRegionId: Record<string, string[]> = {
+  japan: ["1964 — the Tokaido Shinkansen opens between Tokyo and Osaka."],
+  "south-korea": ["1974 — Seoul Subway Line 1 begins service, launching the modern Seoul Metro era.", "1987 — Seoul's network expansion accelerates across the capital region."],
+  morocco: ["2018 — Al Boraq begins service, making Morocco Africa's first true high-speed rail country."],
+  "united-states": ["2022 — the Washington Metro Silver Line reaches Dulles Airport, Herndon, and Ashburn.", "2023 — Brightline begins Miami-Orlando intercity rail service."],
+  france: ["1981 — the first TGV line opens between Paris and Lyon."],
+  china: ["2008 — China's modern high-speed rail boom begins with Beijing-Tianjin intercity service."],
+  mexico: ["1969 — Mexico City Metro opens, eventually becoming one of the largest metro systems in the Americas."],
 };
 
 const regionalPopulationByName: Record<string, string> = {
@@ -1920,6 +1992,17 @@ const transitSystemsRepository = [
   { id: "kolkata-metro", countryId: "india", name: "Kolkata Metro", city: "Kolkata", region: "West Bengal", type: "Metro", kind: "metro", coordinate: [88.3639, 22.5726], sourceUrl: "https://en.wikipedia.org/wiki/Kolkata_Metro", mapUrl: "https://www.transit.land/map#11/22.5726/88.3639", keyNodes: ["Esplanade", "Howrah Maidan", "Dum Dum", "Kavi Subhash"], quizFocus: "India's oldest metro network, Hooghly River crossings, and eastern hub clues" },
   { id: "dhaka-metro", countryId: "bangladesh", name: "Dhaka Metro Rail", city: "Dhaka", region: "Bangladesh", type: "Metro", kind: "metro", coordinate: [90.4125, 23.8103], sourceUrl: "https://en.wikipedia.org/wiki/Dhaka_Metro_Rail", mapUrl: "https://www.transit.land/map#11/23.8103/90.4125", keyNodes: ["Uttara", "Agargaon", "Motijheel", "Farmgate"], quizFocus: "dense capital metro corridor and north-south urban spine clues" },
   { id: "brisbane-rail", countryId: "australia", name: "Queensland Rail City network", city: "Brisbane", region: "Queensland", type: "Suburban rail", kind: "regional-rail", coordinate: [153.026, -27.4705], sourceUrl: "https://en.wikipedia.org/wiki/Queensland_Rail_City_network", mapUrl: "https://www.transit.land/map#11/-27.4705/153.0260", keyNodes: ["Roma Street", "Central", "Fortitude Valley", "Airport line"], quizFocus: "Queensland suburban rail, river city geography, and airport line clues" },
+  { id: "algiers-metro", countryId: "algeria", name: "Algiers Metro", city: "Algiers", region: "Algiers Province", type: "Metro", kind: "metro", coordinate: [3.0588, 36.7538], sourceUrl: "https://en.wikipedia.org/wiki/Algiers_Metro", mapUrl: "https://www.transit.land/map#11/36.7538/3.0588", keyNodes: ["Tafourah-Grande Poste", "El Harrach Centre", "Ain Naadja", "Place des Martyrs"], quizFocus: "North African capital metro and Mediterranean-city corridor clues" },
+  { id: "chengdu-metro", countryId: "china", name: "Chengdu Metro", city: "Chengdu", region: "Sichuan", type: "Metro", kind: "metro", coordinate: [104.0668, 30.5728], sourceUrl: "https://en.wikipedia.org/wiki/Chengdu_Metro", mapUrl: "https://www.transit.land/map#11/30.5728/104.0668", keyNodes: ["Tianfu Square", "Chengdu East", "Shuangliu Airport", "Tianfu International Airport"], quizFocus: "Sichuan mega-city metro and airport-rail orientation" },
+  { id: "wuhan-metro", countryId: "china", name: "Wuhan Metro", city: "Wuhan", region: "Hubei", type: "Metro", kind: "metro", coordinate: [114.3055, 30.5928], sourceUrl: "https://en.wikipedia.org/wiki/Wuhan_Metro", mapUrl: "https://www.transit.land/map#11/30.5928/114.3055", keyNodes: ["Hankou Railway Station", "Wuchang Railway Station", "Optics Valley", "Tianhe Airport"], quizFocus: "Yangtze-Han river city metro and three-town geography" },
+  { id: "nanjing-metro", countryId: "china", name: "Nanjing Metro", city: "Nanjing", region: "Jiangsu", type: "Metro", kind: "metro", coordinate: [118.7969, 32.0603], sourceUrl: "https://en.wikipedia.org/wiki/Nanjing_Metro", mapUrl: "https://www.transit.land/map#11/32.0603/118.7969", keyNodes: ["Xinjiekou", "Nanjing South", "Nanjing Railway Station", "Lukou Airport"], quizFocus: "Yangtze Delta metro with airport and high-speed rail station clues" },
+  { id: "hangzhou-metro", countryId: "china", name: "Hangzhou Metro", city: "Hangzhou", region: "Zhejiang", type: "Metro", kind: "metro", coordinate: [120.1551, 30.2741], sourceUrl: "https://en.wikipedia.org/wiki/Hangzhou_Metro", mapUrl: "https://www.transit.land/map#11/30.2741/120.1551", keyNodes: ["Wulin Square", "Hangzhou East", "Xiaoshan Airport", "West Lake area"], quizFocus: "Zhejiang metro, West Lake geography, and airport rail clues" },
+  { id: "kobe-subway", countryId: "japan", name: "Kobe Municipal Subway", city: "Kobe", region: "Hyogo", type: "Subway", kind: "subway", coordinate: [135.1955, 34.6901], sourceUrl: "https://en.wikipedia.org/wiki/Kobe_Municipal_Subway", mapUrl: "https://www.transit.land/map#12/34.6901/135.1955", keyNodes: ["Sannomiya", "Shin-Kobe", "Seishin-chuo", "Kobe Airport access"], quizFocus: "Kansai port-city subway and Shinkansen connection clues" },
+  { id: "boston-mbta", countryId: "united-states", name: "Boston MBTA Subway", city: "Boston", region: "Massachusetts", type: "Subway/light rail", kind: "subway", coordinate: [-71.0589, 42.3601], sourceUrl: "https://en.wikipedia.org/wiki/MBTA_subway", mapUrl: "https://www.transit.land/map#11/42.3601/-71.0589", keyNodes: ["Park Street", "Downtown Crossing", "South Station", "North Station"], quizFocus: "old American subway, color-line transfers, and Boston rail hub clues" },
+  { id: "philadelphia-septa", countryId: "united-states", name: "SEPTA Metro and Regional Rail", city: "Philadelphia", region: "Pennsylvania", type: "Metro/regional rail", kind: "metro", coordinate: [-75.1652, 39.9526], sourceUrl: "https://en.wikipedia.org/wiki/SEPTA", mapUrl: "https://www.transit.land/map#11/39.9526/-75.1652", keyNodes: ["30th Street", "City Hall", "Suburban Station", "Frankford Transportation Center"], quizFocus: "Philadelphia subway, trolley, and regional rail transfer clues" },
+  { id: "brussels-metro", countryId: "belgium", name: "Brussels Metro", city: "Brussels", region: "Brussels-Capital Region", type: "Metro", kind: "metro", coordinate: [4.3517, 50.8503], sourceUrl: "https://en.wikipedia.org/wiki/Brussels_Metro", mapUrl: "https://www.transit.land/map#11/50.8503/4.3517", keyNodes: ["Arts-Loi", "Gare Centrale", "Schuman", "Gare du Midi"], quizFocus: "European capital metro, EU district, and railway-station interchange clues" },
+  { id: "monterrey-metrorrey", countryId: "mexico", name: "Metrorrey", city: "Monterrey", region: "Nuevo Leon", type: "Metro/light rail", kind: "metro", coordinate: [-100.3161, 25.6866], sourceUrl: "https://en.wikipedia.org/wiki/Metrorrey", mapUrl: "https://www.transit.land/map#11/25.6866/-100.3161", keyNodes: ["Cuauhtemoc", "General Anaya", "Sendero", "Talleres"], quizFocus: "northern Mexico metro and mountain-ringed city orientation" },
+  { id: "santo-domingo-metro", countryId: "dominican-republic", name: "Santo Domingo Metro", city: "Santo Domingo", region: "Distrito Nacional", type: "Metro", kind: "metro", coordinate: [-69.9312, 18.4861], sourceUrl: "https://en.wikipedia.org/wiki/Santo_Domingo_Metro", mapUrl: "https://www.transit.land/map#11/18.4861/-69.9312", keyNodes: ["Juan Pablo Duarte", "Centro de los Heroes", "Mamá Tingó", "Concepción Bona"], quizFocus: "Caribbean metro, north-south/east-west lines, and capital-city clues" },
   { id: "moscow-metro", countryId: "russia", name: "Moscow Metro", city: "Moscow", region: "Central Russia", type: "Metro", kind: "metro", coordinate: [37.6173, 55.7558], sourceUrl: "https://en.wikipedia.org/wiki/Moscow_Metro", mapUrl: "https://www.transit.land/map#11/55.7558/37.6173", keyNodes: ["Komsomolskaya", "Kievskaya", "Park Kultury", "Koltsevaya Line"], quizFocus: "ring-line geography, ornate stations, and Russian capital interchange clues" },
   { id: "sochi-rail", countryId: "russia", name: "Sochi suburban rail", city: "Sochi", region: "Krasnodar Krai", type: "Regional rail", kind: "regional-rail", coordinate: [39.7342, 43.6028], sourceUrl: "https://en.wikipedia.org/wiki/Sochi", mapUrl: "https://www.transit.land/map#11/43.6028/39.7342", keyNodes: ["Sochi", "Adler", "Olympic Park", "Rosa Khutor"], quizFocus: "Black Sea resort rail, Olympic Park, and mountain corridor clues" },
   { id: "vladivostok-rail", countryId: "russia", name: "Vladivostok commuter rail", city: "Vladivostok", region: "Russian Far East", type: "Commuter rail", kind: "regional-rail", coordinate: [131.8855, 43.1155], sourceUrl: "https://en.wikipedia.org/wiki/Vladivostok", mapUrl: "https://www.transit.land/map#11/43.1155/131.8855", keyNodes: ["Vladivostok", "Airport", "Ugolnaya", "Nakhodka"], quizFocus: "Pacific terminus, airport rail, and Russian Far East geography" },
@@ -1957,6 +2040,20 @@ const transitSystemMetaById: Record<string, Pick<TransitSystemRecord, "opened" |
   "vladivostok-rail": { opened: "1893", systemLength: "regional rail network", stations: "airport + commuter stations" },
   "shanghai-metro": { opened: "1993", systemLength: "500+ mi", stations: "500+" },
   "beijing-subway": { opened: "1971", systemLength: "500+ mi", stations: "490+" },
+  "seoul-metro": { opened: "1974", systemLength: "700+ mi", stations: "700+" },
+  "dubai-metro": { opened: "2009", systemLength: "55+ mi", stations: "50+" },
+  "copenhagen-metro": { opened: "2002", systemLength: "25+ mi", stations: "39" },
+  "algiers-metro": { opened: "2011", systemLength: "11+ mi", stations: "19" },
+  "chengdu-metro": { opened: "2010", systemLength: "350+ mi", stations: "370+" },
+  "wuhan-metro": { opened: "2004", systemLength: "300+ mi", stations: "300+" },
+  "nanjing-metro": { opened: "2005", systemLength: "280+ mi", stations: "220+" },
+  "hangzhou-metro": { opened: "2012", systemLength: "300+ mi", stations: "250+" },
+  "kobe-subway": { opened: "1977", systemLength: "19 mi", stations: "26" },
+  "boston-mbta": { opened: "1897", systemLength: "65+ mi", stations: "120+" },
+  "philadelphia-septa": { opened: "1907", systemLength: "metro + regional rail", stations: "250+" },
+  "brussels-metro": { opened: "1976", systemLength: "25 mi", stations: "59" },
+  "monterrey-metrorrey": { opened: "1991", systemLength: "25+ mi", stations: "40+" },
+  "santo-domingo-metro": { opened: "2009", systemLength: "18+ mi", stations: "34" },
 };
 
 const projectedTransitSystems = transitSystemsRepository.flatMap((system) => {
@@ -1975,7 +2072,29 @@ function transitIcon(kind: TransitSystemKind) {
   return "🚆";
 }
 
+const manualRegionCoordinates: Record<string, [number, number]> = {
+  england: [-1.5, 52.6],
+  scotland: [-4.2, 56.8],
+  wales: [-3.8, 52.3],
+  "northern-ireland": [-6.8, 54.7],
+  "isle-of-man": [-4.55, 54.23],
+  "faroe-islands": [-6.9, 62.0],
+  aruba: [-69.97, 12.52],
+  bonaire: [-68.27, 12.18],
+  curacao: [-68.99, 12.17],
+  "christmas-island": [105.63, -10.49],
+  "cook-islands": [-159.78, -21.23],
+};
+
 function mapPositionForRegion(region: Region) {
+  const manualCoordinate = manualRegionCoordinates[region.id];
+  if (manualCoordinate) {
+    const projected = worldProjection(manualCoordinate);
+    if (projected) {
+      const [x, y] = projected;
+      return { x, y };
+    }
+  }
   return projectedCapitalPositions[region.id] ?? projectedRegionPositions[region.id] ?? region.position;
 }
 
@@ -1990,6 +2109,192 @@ function flagEmoji(code: string) {
 function flagImageSrc(code: string) {
   if (!/^[A-Z]{2}$/.test(code)) return "";
   return `/flag-pack/country-flags-main/svg/${code.toLowerCase()}.svg`;
+}
+
+const uploadedTurkishUkBasePath = "/images/uploaded/turkish-uk/Turkish%2C%20UK%20Flags%20and%20Images";
+const uploadedVietnamBasePath = "/images/uploaded/vietnam/Vietnam%20Flags%20amd%20Images";
+const uploadedSouthKoreaBasePath = "/images/uploaded/south-korea/South%20Korea%20Regional%20Flags%20and%20Images";
+const uploadedSouthKoreaWikiPath = `${uploadedSouthKoreaBasePath}/Provinces%20of%20South%20Korea%20-%20Wikipedia_files`;
+
+const uploadedCountryFlagByName: Record<string, string> = {
+  england: `${uploadedTurkishUkBasePath}/England%20flag.png`,
+  scotland: `${uploadedTurkishUkBasePath}/Scotland%20Flag.png`,
+  wales: `${uploadedTurkishUkBasePath}/Wales%20Flag.jpg`,
+  "northern-ireland": `${uploadedTurkishUkBasePath}/Northern%20Ireland%20Flag.png`,
+};
+
+const uploadedCountryImageByName: Record<string, string> = {
+  england: `${uploadedTurkishUkBasePath}/England.jpg`,
+  scotland: `${uploadedTurkishUkBasePath}/Scotland.jpg`,
+  wales: `${uploadedTurkishUkBasePath}/Wales.jpg`,
+  "northern-ireland": `${uploadedTurkishUkBasePath}/Northern%20Ireland.jpg`,
+  "isle-of-man": `${uploadedTurkishUkBasePath}/Isle%20of%20Man.jpg`,
+};
+
+const uploadedSubdivisionFlagsByName: Record<string, string> = {
+  england: uploadedCountryFlagByName.england,
+  scotland: uploadedCountryFlagByName.scotland,
+  wales: uploadedCountryFlagByName.wales,
+  "northern-ireland": uploadedCountryFlagByName["northern-ireland"],
+  adana: `${uploadedTurkishUkBasePath}/Adana_city_emblem.png`,
+  adiyaman: `${uploadedTurkishUkBasePath}/Ad%C4%B1yaman_Belediyesi_logo.svg.png`,
+  afyonkarahisar: `${uploadedTurkishUkBasePath}/Afyon_City_Logo.png`,
+  agri: `${uploadedTurkishUkBasePath}/A%C4%9Fr%C4%B1_Belediyesi_logo.png`,
+  aksaray: `${uploadedTurkishUkBasePath}/Aksaray_Belediyesi_logo.png`,
+  amasya: `${uploadedTurkishUkBasePath}/Amasya_Belediyesi_logo.png`,
+  ankara: `${uploadedTurkishUkBasePath}/Flag_of_Ankara.svg.png`,
+  antalya: `${uploadedTurkishUkBasePath}/Falezlerden_Antalya_Konyaalt%C4%B1_Plaj%C4%B1na_do%C4%9Fru_bir_g%C3%B6r%C3%BCn%C3%BCm.jpg`,
+  ardahan: `${uploadedTurkishUkBasePath}/Ardahan_Belediyesi_logo.png`,
+  artvin: `${uploadedTurkishUkBasePath}/Artvin_Belediyesi_logo.png`,
+  aydin: `${uploadedTurkishUkBasePath}/Aydin_Emblem.png`,
+  balikesir: `${uploadedTurkishUkBasePath}/Bal%C4%B1kesir_B%C3%BCy%C3%BCk%C5%9Fehir_Belediyesi_logo.png`,
+  batman: `${uploadedTurkishUkBasePath}/Batman_Belediyesi_logo.png`,
+  bolu: `${uploadedTurkishUkBasePath}/Bolu_Belediyesi_logo.png`,
+  bursa: `${uploadedTurkishUkBasePath}/Bursa_B%C3%BCy%C3%BCk%C5%9Fehir_Belediyesi_logo.svg.png`,
+  denizli: `${uploadedTurkishUkBasePath}/Denizli_city_emblem.png`,
+  diyarbakir: `${uploadedTurkishUkBasePath}/Diyarbak%C4%B1r_City_logo.png`,
+  eskisehir: `${uploadedTurkishUkBasePath}/Eski%C5%9Fehir%20Province.jpg`,
+  gaziantep: `${uploadedTurkishUkBasePath}/Gaziantep_B%C3%BCy%C3%BCk%C5%9Fehir_Belediyesi_Logo.png`,
+  istanbul: `${uploadedTurkishUkBasePath}/%C4%B0stanbul_B%C3%BCy%C3%BCk%C5%9Fehir_Belediyesi.svg.png`,
+  izmir: `${uploadedTurkishUkBasePath}/Izmir_Metropolitan_Municipality.png`,
+  kars: `${uploadedTurkishUkBasePath}/Kars_Belediyesi_logo.png`,
+  kayseri: `${uploadedTurkishUkBasePath}/Kayseri_City_Logo.png`,
+  konya: `${uploadedTurkishUkBasePath}/Konya_city_emblem.png`,
+  malatya: `${uploadedTurkishUkBasePath}/Malatya_Belediyesi_logo.png`,
+  mardin: `${uploadedTurkishUkBasePath}/Mardin_Metropolitan_Municipality_Logo.png`,
+  mugla: `${uploadedTurkishUkBasePath}/Muglavalilik.jpg`,
+  nevsehir: `${uploadedTurkishUkBasePath}/Nev%C5%9Fehir_Belediyesi_logo.png`,
+  samsun: `${uploadedTurkishUkBasePath}/Samsun_City_Logo.png`,
+  sivas: `${uploadedTurkishUkBasePath}/Sivaslogo.png`,
+  trabzon: `${uploadedTurkishUkBasePath}/Trabzon_B%C3%BCy%C3%BCk%C5%9Fehir.png`,
+  van: `${uploadedTurkishUkBasePath}/Van_B%C3%BCy%C3%BCk%C5%9Fehir_Belediyesi_logo.svg.png`,
+  "arica-and-parinacota": `${uploadedTurkishUkBasePath}/arica%20y%20parinacota.jpg`,
+  "aysen-del-general-carlos-ibanez-del-campo": `${uploadedTurkishUkBasePath}/aysen-del-general-carlos-ibanez-del-campo-523894.webp`,
+  "magallanes-and-chilean-antarctica": `${uploadedTurkishUkBasePath}/magallanes%20y%20antartica%20chilena.jpg`,
+  hanoi: `${uploadedVietnamBasePath}/Emblem_of_Hanoi.svg.png`,
+  "ha-noi": `${uploadedVietnamBasePath}/Emblem_of_Hanoi.svg.png`,
+  "da-nang": `${uploadedVietnamBasePath}/Emblem_of_Danang_City.svg.png`,
+  danang: `${uploadedVietnamBasePath}/Emblem_of_Danang_City.svg.png`,
+  "can-tho": `${uploadedVietnamBasePath}/Emblem_of_Cantho_City.svg.png`,
+  "ho-chi-minh-city": `${uploadedVietnamBasePath}/Emblem_of_Saigon.svg.png`,
+  saigon: `${uploadedVietnamBasePath}/Emblem_of_Saigon.svg.png`,
+  "hai-phong": `${uploadedVietnamBasePath}/Seal_of_Haiphong.png`,
+  haiphong: `${uploadedVietnamBasePath}/Seal_of_Haiphong.png`,
+  "dong-nai": `${uploadedVietnamBasePath}/Logo_Dong_Nai.png`,
+  "khanh-hoa": `${uploadedVietnamBasePath}/Emblem_of_Khanhhoa_Province.svg.png`,
+  "quang-tri": `${uploadedVietnamBasePath}/Logo_t%E1%BB%89nh_Qu%E1%BA%A3ng_Tr%E1%BB%8B.svg.png`,
+  hue: `${uploadedVietnamBasePath}/Logo_th%C3%A0nh_ph%E1%BB%91_Hu%E1%BA%BF.svg.png`,
+  "thua-thien-hue": `${uploadedVietnamBasePath}/Logo_th%C3%A0nh_ph%E1%BB%91_Hu%E1%BA%BF.svg.png`,
+  "ca-mau": `${uploadedVietnamBasePath}/Bi%E1%BB%83u_tr%C6%B0ng_t%E1%BB%89nh_C%C3%A0_Mau.svg.png`,
+  "tay-ninh": `${uploadedVietnamBasePath}/Bi%E1%BB%83u_tr%C6%B0ng_t%E1%BB%89nh_T%C3%A2y_Ninh%2C_Vi%E1%BB%87t_Nam.svg.png`,
+  "dak-lak": `${uploadedVietnamBasePath}/Emblem_of_Daklak_Province.svg.png`,
+  "gyeonggi": `${uploadedSouthKoreaBasePath}/Flag_of_Gyeonggi_Province.svg.png`,
+  "gangwon": `${uploadedSouthKoreaBasePath}/Flag_of_Gangwon_State.svg.png`,
+  "jeju": `${uploadedSouthKoreaBasePath}/Flag_of_Jeju_Province.svg.webp`,
+  "north-chungcheong": `${uploadedSouthKoreaBasePath}/Flag_of_North_Chungcheong_Province.svg.png`,
+  "south-chungcheong": `${uploadedSouthKoreaBasePath}/Flag_of_South_Chungcheong_Province.svg.png`,
+  "north-jeolla": `${uploadedSouthKoreaBasePath}/Flag_of_Jeonbuk_State%2C_South_Korea.svg.png`,
+  "south-jeolla": `${uploadedSouthKoreaBasePath}/Flag_of_South_Jeolla_Province.svg.png`,
+  ashanti: `${uploadedSouthKoreaBasePath}/Flag_of_Ashanti.svg.png`,
+  "greater-accra": `${uploadedSouthKoreaBasePath}/Flag_of_Greater_Accra_Region.svg.png`,
+  eastern: `${uploadedSouthKoreaBasePath}/Flag_of_the_Eastern_Region%2C_Ghana.svg.png`,
+  volta: `${uploadedSouthKoreaBasePath}/Flag_of_Volta_Region.png`,
+  western: `${uploadedSouthKoreaBasePath}/Flag_of_Western_Region_(Ghana).gif`,
+  "casablanca-settat": `${uploadedSouthKoreaBasePath}/Casablanca.svg.png`,
+  "marrakesh-safi": `${uploadedSouthKoreaBasePath}/Flag_of_Marrakech-Safi_Region.svg.png`,
+  "draa-tafilalet": `${uploadedSouthKoreaBasePath}/Dr%C3%A2a-Tafilalet_logo.png`,
+  "fes-meknes": `${uploadedSouthKoreaBasePath}/Fez_Meknes_region_logo.png`,
+  "dakhla-oued-ed-dahab": `${uploadedSouthKoreaBasePath}/Logo-conseil-dakhla.jpg`,
+};
+
+const uploadedSubdivisionImagesByName: Record<string, string> = {
+  england: uploadedCountryImageByName.england,
+  scotland: uploadedCountryImageByName.scotland,
+  wales: uploadedCountryImageByName.wales,
+  "northern-ireland": uploadedCountryImageByName["northern-ireland"],
+  "isle-of-man": uploadedCountryImageByName["isle-of-man"],
+  adiyaman: `${uploadedTurkishUkBasePath}/Ad%C4%B1yaman%20Province.jpg`,
+  afyonkarahisar: `${uploadedTurkishUkBasePath}/Afyonkarahisar%20Province.jpg`,
+  agri: `${uploadedTurkishUkBasePath}/A%C4%9Fr%C4%B1_Mountain_from_I%C4%9Fd%C4%B1r_plain.jpg`,
+  ankara: `${uploadedTurkishUkBasePath}/Ankara.jpg`,
+  antalya: `${uploadedTurkishUkBasePath}/Antalya.jpg`,
+  ardahan: `${uploadedTurkishUkBasePath}/Aradahan.jpg`,
+  artvin: `${uploadedTurkishUkBasePath}/Artvin.jpg`,
+  aydin: `${uploadedTurkishUkBasePath}/Aydin.JPG`,
+  batman: `${uploadedTurkishUkBasePath}/Batman.jpg`,
+  bolu: `${uploadedTurkishUkBasePath}/Bolu.jpg`,
+  denizli: `${uploadedTurkishUkBasePath}/Denizili.jpg`,
+  eskisehir: `${uploadedTurkishUkBasePath}/Eski%C5%9Fehir%20Province.jpg`,
+  gaziantep: `${uploadedTurkishUkBasePath}/Gazientep.jpg`,
+  istanbul: `${uploadedTurkishUkBasePath}/Istanbul.jpg`,
+  izmir: `${uploadedTurkishUkBasePath}/Izmir.jpg`,
+  kars: `${uploadedTurkishUkBasePath}/Kars.jpg`,
+  kayseri: `${uploadedTurkishUkBasePath}/Kayseri.jpg`,
+  malatya: `${uploadedTurkishUkBasePath}/Malatya.jpg`,
+  mardin: `${uploadedTurkishUkBasePath}/Mardin.jpg`,
+  mugla: `${uploadedTurkishUkBasePath}/Mugla.jpg`,
+  nevsehir: `${uploadedTurkishUkBasePath}/Nev%C5%9Fehir%20Province.jpg`,
+  samsun: `${uploadedTurkishUkBasePath}/Sinop.jpg`,
+  sivas: `${uploadedTurkishUkBasePath}/Sivas.jpg`,
+  trabzon: `${uploadedTurkishUkBasePath}/Trabzon.JPG`,
+  van: `${uploadedTurkishUkBasePath}/Van.jpg`,
+  "arica-and-parinacota": `${uploadedTurkishUkBasePath}/arica%20y%20parinacota.jpg`,
+  "aysen-del-general-carlos-ibanez-del-campo": `${uploadedTurkishUkBasePath}/aysen-del-general-carlos-ibanez-del-campo-523894.webp`,
+  "magallanes-and-chilean-antarctica": `${uploadedTurkishUkBasePath}/magallanes%20y%20antartica%20chilena.jpg`,
+  "south-chungcheong": `${uploadedSouthKoreaBasePath}/South%20Chungcheong%20Province%20(Chungcheongnam-do).jpg`,
+  "casablanca-settat": `${uploadedSouthKoreaBasePath}/Casablanca-Settat.jpg`,
+  "dakhla-oued-ed-dahab": `${uploadedSouthKoreaBasePath}/Dakhla-Oued%20Ed-Dahab.jpg`,
+  "draa-tafilalet": `${uploadedSouthKoreaBasePath}/Dr%C3%A2a-Tafilalet.png`,
+  "fes-meknes": `${uploadedSouthKoreaBasePath}/Fes%20Meknes.avif`,
+  "guelmim-oued-noun": `${uploadedSouthKoreaBasePath}/Guelmim-Oued%20Noun.jpg`,
+  "laayoune-sakia-el-hamra": `${uploadedSouthKoreaBasePath}/La%C3%A2youne-Sakia%20El%20Hamra.jpg`,
+  "marrakesh-safi": `${uploadedSouthKoreaBasePath}/Marrakesh-Safi.jpg`,
+  oriental: `${uploadedSouthKoreaBasePath}/Oriental.jpg`,
+  "rabat-sale-kenitra": `${uploadedSouthKoreaBasePath}/Rabat-Sal%C3%A9-K%C3%A9nitra.jpg`,
+  "souss-massa": `${uploadedSouthKoreaBasePath}/Souss-Massa.jpg`,
+  "tanger-tetouan-al-hoceima": `${uploadedSouthKoreaBasePath}/Tanger-Tetouan-Al%20Hoceima.jpg`,
+};
+
+function uploadedProfileFlagPathForName(name: string) {
+  return uploadedCountryFlagByName[slugifyCountryName(name)] ?? "";
+}
+
+function uploadedCountryImagePathForName(name: string) {
+  return uploadedCountryImageByName[slugifyCountryName(name)] ?? "";
+}
+
+function uploadedSubdivisionAssetForName(name: string, type: "flag" | "image") {
+  const key = slugifyCountryName(name)
+    .replace("adiyaman", "adiyaman")
+    .replace("afyon", "afyonkarahisar")
+    .replace("agri", "agri")
+    .replace("diyarbakir", "diyarbakir")
+    .replace("eskisehir", "eskisehir")
+    .replace("mugla", "mugla")
+    .replace("nevsehir", "nevsehir")
+    .replace("izmir", "izmir")
+    .replace("istanbul", "istanbul")
+    .replace("arica-y-parinacota", "arica-and-parinacota")
+    .replace("aisen-del-general-carlos-ibanez-del-campo", "aysen-del-general-carlos-ibanez-del-campo")
+    .replace("aysen-del-general-carlos-ibanez-del-campo", "aysen-del-general-carlos-ibanez-del-campo")
+    .replace("magallanes-y-antartica-chilena", "magallanes-and-chilean-antarctica")
+    .replace("magallanes-and-chilean-antarctica", "magallanes-and-chilean-antarctica")
+    .replace("ha-noi", "hanoi")
+    .replace("ho-chi-minh", "ho-chi-minh-city")
+    .replace("ho-chi-minh-city", "ho-chi-minh-city")
+    .replace("thua-thien-hue", "thua-thien-hue")
+    .replace("gyeonggi-do", "gyeonggi")
+    .replace("gangwon-do", "gangwon")
+    .replace("jeju-do", "jeju")
+    .replace("chungcheongbuk-do", "north-chungcheong")
+    .replace("chungcheongnam-do", "south-chungcheong")
+    .replace("jeollabuk-do", "north-jeolla")
+    .replace("jeollanam-do", "south-jeolla")
+    .replace("gyeongsangbuk-do", "north-gyeongsang")
+    .replace("gyeongsangnam-do", "south-gyeongsang")
+    .replace("rabat-sale-kenitra", "rabat-sale-kenitra")
+    .replace("tangier-tetouan-al-hoceima", "tanger-tetouan-al-hoceima");
+  return type === "flag" ? uploadedSubdivisionFlagsByName[key] ?? "" : uploadedSubdivisionImagesByName[key] ?? "";
 }
 
 const regionalFlagByCode: Record<string, string> = {
@@ -2079,6 +2384,8 @@ function regionalFlagImageSrc(feature: GadmSubdivisionFeature) {
   const normalizedCode = code.replace(".", "-");
   if (code === "US-DC") return "/images/region-flags/us/dc.svg";
   if (/^US[-.][A-Z]{2}$/.test(code)) return `/images/region-flags/us/${code.slice(3).toLowerCase()}.png`;
+  const uploadedFlag = uploadedSubdivisionAssetForName(subdivisionName(feature), "flag");
+  if (uploadedFlag) return uploadedFlag;
   const direct = regionalFlagByCode[code]
     ?? regionalFlagByCode[normalizedCode]
     ?? (feature.properties?.HASC_1 ? regionalFlagByCode[feature.properties.HASC_1] ?? regionalFlagByCode[feature.properties.HASC_1.replace(".", "-")] : undefined);
@@ -2164,6 +2471,8 @@ function subdivisionCountryKey(feature: GadmSubdivisionFeature) {
 }
 
 function countryImagePathForName(name: string) {
+  const uploadedPath = uploadedCountryImagePathForName(name);
+  if (uploadedPath) return uploadedPath;
   const fileName = countryImageFileNameForName(name) ?? "GeoTransitPlaceholder.svg";
   return `/images/country-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}`;
 }
@@ -2172,6 +2481,10 @@ function countryImageFileNameForName(name: string) {
   const key = imageLookupKey(name);
   const alias = countryImageAliases[key] ?? key;
   return dailyLessonCountryImageFiles[name] ?? countryImageFiles[key] ?? countryImageFiles[alias] ?? countryImageFiles[slugifyCountryName(name).replace(/-/g, "")];
+}
+
+function hasCountryImageForName(name: string) {
+  return Boolean(uploadedCountryImagePathForName(name) || countryImageFileNameForName(name));
 }
 
 function usStateImagePathForName(name: string) {
@@ -2186,6 +2499,8 @@ function regionImagePathForName(countryId: string, name: string) {
 }
 
 function subdivisionImagePathForRegion(countryId: string, name: string) {
+  const uploadedPath = uploadedSubdivisionAssetForName(name, "image");
+  if (uploadedPath) return uploadedPath;
   return regionImagePathForName(countryId, name)
     || (countryId === "united-states" || countryId === "canada" ? usStateImagePathForName(name) : "");
 }
@@ -2750,10 +3065,21 @@ function nextUnansweredIndex(run: QuizRun, fromIndex: number) {
 
 function FlagAsset({ code, label = "Country flag" }: { code: string; label?: string }) {
   const [failed, setFailed] = useState(false);
-  useEffect(() => setFailed(false), [code]);
-  const src = flagImageSrc(code);
+  const uploadedLabelName = label.replace(/\s+flag$/i, "");
+  const uploadedSrc = uploadedProfileFlagPathForName(uploadedLabelName);
+  useEffect(() => setFailed(false), [code, uploadedLabelName]);
+  const src = uploadedSrc || flagImageSrc(code);
   if (!src || failed) return <span>{flagEmoji(code)}</span>;
   return <img src={src} alt={label} onError={() => setFailed(true)} />;
+}
+
+function completeProfileCoverageCount() {
+  return regions.filter((region) => (
+    Boolean(region.capital && !region.capital.toLowerCase().includes("queued"))
+    && Boolean(region.population && !region.population.toLowerCase().includes("queued"))
+    && Boolean(region.flag || uploadedProfileFlagPathForName(region.name))
+    && hasCountryImageForName(region.name)
+  )).length;
 }
 
 function hydrateSavedRun(savedRun: QuizRun | null) {
@@ -2809,6 +3135,7 @@ function App() {
 
   const selectedRegion = selectedRegionId ? regions.find((region) => region.id === selectedRegionId) ?? null : null;
   const accuracy = profile.totalAnswered ? Math.round((profile.totalCorrect / profile.totalAnswered) * 100) : 100;
+  const completedProfileCount = completeProfileCoverageCount();
 
   function startRun(seedQuestion?: Question) {
     const nextRun = createRun(profile, questionCount, selectedStartLevel);
@@ -3027,7 +3354,7 @@ function resetProfile() {
           <Metric label="Operator" value={`${profile.emoji ?? "🚇"} ${profile.name || (profile.isGuest ? "Guest user" : "Create username")}`} />
           <Metric label="Difficulty" value={difficultyLabels[profile.currentDifficulty]} />
           <Metric label="Accuracy" value={`${accuracy}%`} />
-          <Metric label="High Score" value={profile.highScore.toString()} />
+          <Metric label="Coverage" value={`${completedProfileCount}/${regions.length}`} />
         </div>
       </header>
 
@@ -3891,10 +4218,10 @@ function AboutPanel({ onClose }: { onClose: () => void }) {
       </div>
       <h2>GEONTRANSIT</h2>
       <p>
-        GEONTRANSIT is an interactive, map-first platform that helps users explore the world through the combined lenses of geography and transportation. Users can discover countries, regions, cities, metro systems, airports, landmarks, and transportation networks while visually interacting with a global map. By connecting real-world locations with transit infrastructure, GEONTRANSIT transforms geographic exploration into an engaging learning experience, allowing users to better understand how people, places, and transportation systems are connected across the globe.
+        GEONTRANSIT is a map-first geography and transportation explorer. Use it to discover countries, regions, cities, airports, landmarks, and transit systems through one interactive global map.
       </p>
       <p>
-        The platform combines rich geographic content with practical transportation knowledge in a user-friendly environment designed for both casual exploration and structured learning. Country profiles bring together maps, flags, regional boundaries, local imagery, transportation data, study cards, practice questions, reference materials, and exportable resources, enabling users to build a deeper understanding of countries and regions worldwide. Whether studying a single city, comparing transit systems across continents, preparing for travel, or simply exploring global geography, GEONTRANSIT serves as a comprehensive educational tool that makes learning about the world's places and transportation networks intuitive, visual, and accessible.
+        Country profiles combine flags, images, regional boundaries, transit references, quizzes, flashcards, and export tools so learning stays visual, practical, and easy to scan.
       </p>
     </aside>
   );
@@ -4280,6 +4607,8 @@ function MapTab({
   const [countrySearchFocused, setCountrySearchFocused] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mapChromeHidden, setMapChromeHidden] = useState(false);
+  const [requestedSubdivisionName, setRequestedSubdivisionName] = useState<string | null>(null);
+  const [compareRegionIds, setCompareRegionIds] = useState<[string, string]>(["japan", "south-korea"]);
   const selectedExportRegions = exportRegionIds
     .map((id) => regions.find((region) => region.id === id))
     .filter((region): region is Region => Boolean(region));
@@ -4302,6 +4631,14 @@ function MapTab({
     onSelectRegion(id);
     if (hasDetailedRegions) onRegionalBoundaryLayerChange(true);
     onMapZoomChange(nextZoom);
+    onMapPanChange({ x: 0, y: 0 });
+  };
+  const selectSubregionAndZoom = (subregionLabel: string) => {
+    if (!selectedRegion) return;
+    const subregionName = subregionLabel.split("—")[0].trim();
+    setRequestedSubdivisionName(subregionName);
+    onRegionalBoundaryLayerChange(true);
+    onMapZoomChange(Math.max(mapZoom, 6));
     onMapPanChange({ x: 0, y: 0 });
   };
   const selectedRegionId = selectedRegion?.id ?? "";
@@ -4339,6 +4676,15 @@ function MapTab({
       })
       .slice(0, 5)
     : [];
+  const matchingSubregions = countrySearchQuery
+    ? searchableSubregions()
+      .filter((item) => (
+        item.name.toLowerCase().includes(countrySearchQuery)
+        || item.parent.name.toLowerCase().includes(countrySearchQuery)
+        || `${item.parent.name} ${item.name}`.toLowerCase().includes(countrySearchQuery)
+      ))
+      .slice(0, 5)
+    : [];
   const matchingTransit = countrySearchQuery
     ? projectedTransitSystems
       .filter((system) => [system.name, system.city, system.region, system.type].some((value) => value.toLowerCase().includes(countrySearchQuery)))
@@ -4360,7 +4706,7 @@ function MapTab({
       .filter(({ airport, region }) => `${airport} ${region.name}`.toLowerCase().includes(countrySearchQuery))
       .slice(0, 4)
     : [];
-  const searchResultCount = matchingCountries.length + matchingTransit.length + matchingAttractions.length + matchingCities.length + matchingAirports.length;
+  const searchResultCount = matchingCountries.length + matchingSubregions.length + matchingTransit.length + matchingAttractions.length + matchingCities.length + matchingAirports.length;
   const selectedRegionFileSlug = selectedRegion?.id ?? "country";
 
   useEffect(() => {
@@ -4381,6 +4727,16 @@ function MapTab({
     onTransitSystemSelect(system);
     if (region) onSelectRegion(region.id);
     onMapZoomChange(Math.max(mapZoom, 5.4));
+    onMapPanChange({ x: 0, y: 0 });
+  };
+
+  const selectSubregionSearchResult = (item: ReturnType<typeof searchableSubregions>[number]) => {
+    setCountrySearch(`${item.name}, ${item.parent.name}`);
+    setCountrySearchFocused(false);
+    onSelectRegion(item.parent.id);
+    if (gadmLevelOneFiles[item.parent.id]) onRegionalBoundaryLayerChange(true);
+    setRequestedSubdivisionName(item.name);
+    onMapZoomChange(Math.max(mapZoom, 6.2));
     onMapPanChange({ x: 0, y: 0 });
   };
 
@@ -4405,6 +4761,15 @@ function MapTab({
     if (region) onSelectRegion(region.id);
     onMapZoomChange(Math.max(mapZoom, 5.6));
     onMapPanChange({ x: 0, y: 0 });
+  };
+
+  const selectFirstSearchResult = () => {
+    if (matchingCountries[0]) return selectCountrySearchResult(matchingCountries[0]);
+    if (matchingSubregions[0]) return selectSubregionSearchResult(matchingSubregions[0]);
+    if (matchingTransit[0]) return selectTransitSearchResult(matchingTransit[0]);
+    if (matchingAttractions[0]) return selectAttractionSearchResult(matchingAttractions[0]);
+    if (matchingCities[0]) return selectCitySearchResult(matchingCities[0]);
+    if (matchingAirports[0]) return selectCountrySearchResult(matchingAirports[0].region);
   };
 
   const updateCountrySearch = (value: string) => {
@@ -4439,7 +4804,7 @@ function MapTab({
               id="country-search"
               type="search"
               value={countrySearch}
-              placeholder="Search countries, cities, airports, transit, landmarks..."
+              placeholder="Search any place, region, airport, metro, or landmark"
               autoComplete="off"
               role="combobox"
               aria-expanded={countrySearchFocused && searchResultCount > 0}
@@ -4447,9 +4812,9 @@ function MapTab({
               onFocus={() => setCountrySearchFocused(true)}
               onChange={(event) => updateCountrySearch(event.target.value)}
               onKeyDown={(event) => {
-                if (event.key === "Enter" && matchingCountries[0]) {
+                if (event.key === "Enter" && searchResultCount > 0) {
                   event.preventDefault();
-                  selectCountrySearchResult(matchingCountries[0]);
+                  selectFirstSearchResult();
                 }
                 if (event.key === "Escape") setCountrySearchFocused(false);
               }}
@@ -4467,6 +4832,12 @@ function MapTab({
                   >
                     <FlagAsset code={region.flag} label={`${region.name} flag`} />
                     <span>{region.name}</span>
+                  </button>
+                ))}
+                {matchingSubregions.map((item) => (
+                  <button key={`${item.parent.id}-${item.name}`} type="button" role="option" onMouseDown={(event) => event.preventDefault()} onClick={() => selectSubregionSearchResult(item)}>
+                    <span className="search-result-icon">▦</span>
+                    <span>{item.name}<em>Region · {item.parent.name}</em></span>
                   </button>
                 ))}
                 {matchingTransit.map((system) => (
@@ -4496,6 +4867,12 @@ function MapTab({
               </div>
             ) : null}
           </label>
+          <ComparePlacesPanel
+            sortedRegions={sortedRegions}
+            compareRegionIds={compareRegionIds}
+            onCompareRegionIdsChange={setCompareRegionIds}
+          />
+          <RegionCompletionTracker />
           <details className="advanced-map-options">
             <summary aria-label="Open advanced map options">
               <span aria-hidden="true">▸</span>
@@ -4681,6 +5058,8 @@ function MapTab({
             pan={mapPan}
             onPanChange={onMapPanChange}
             onZoomChange={onMapZoomChange}
+            requestedSubdivisionName={requestedSubdivisionName}
+            onRequestedSubdivisionHandled={() => setRequestedSubdivisionName(null)}
           />
           {!mapChromeHidden && <div className="map-zoom-overlay" aria-label="Map zoom controls">
             <button onClick={zoomIn} aria-label="Zoom in">+</button>
@@ -4802,6 +5181,8 @@ function MapTab({
             }}
             onClearAttraction={onClearLayerSelection}
             onCloseRegion={() => onSelectRegion(null)}
+            onSubregionSelect={selectSubregionAndZoom}
+            onNearbySelect={selectRegionAndZoom}
             onPracticeRegion={onPracticeRegion}
             onReplay={onReplay}
           />
@@ -5015,6 +5396,8 @@ function OperationsMap({
   pan = { x: 0, y: 0 },
   onPanChange,
   onZoomChange,
+  requestedSubdivisionName = null,
+  onRequestedSubdivisionHandled,
 }: {
   selectedId: string;
   onSelect: (id: string) => void;
@@ -5035,6 +5418,8 @@ function OperationsMap({
   pan?: { x: number; y: number };
   onPanChange?: (pan: { x: number; y: number }) => void;
   onZoomChange?: (zoom: number) => void;
+  requestedSubdivisionName?: string | null;
+  onRequestedSubdivisionHandled?: () => void;
 }) {
   const [dragStart, setDragStart] = useState<{ pointerId: number; x: number; y: number; panX: number; panY: number } | null>(null);
   const [activePointers, setActivePointers] = useState<Array<{ id: number; x: number; y: number }>>([]);
@@ -5086,6 +5471,18 @@ function OperationsMap({
       cancelled = true;
     };
   }, [regionalBoundaryLayer, selectedId, supportsGadmRegions, zoom]);
+
+  useEffect(() => {
+    if (!requestedSubdivisionName || !gadmSubdivisions.length) return;
+    const requestedSlug = slugifyCountryName(requestedSubdivisionName);
+    const match = gadmSubdivisions.find((feature) => {
+      const candidateSlug = slugifyCountryName(subdivisionName(feature));
+      return candidateSlug === requestedSlug || candidateSlug.includes(requestedSlug) || requestedSlug.includes(candidateSlug);
+    });
+    if (!match) return;
+    setSelectedSubdivision(match);
+    onRequestedSubdivisionHandled?.();
+  }, [requestedSubdivisionName, gadmSubdivisions, onRequestedSubdivisionHandled]);
 
   return (
     <div
@@ -5374,7 +5771,14 @@ function OperationsMap({
               onClick={() => setSelectedMapImage({ key: `transit-card-${selectedTransitSystem.id}`, label: `${selectedTransitSystem.name} reference image`, src: selectedTransitImage, kind: "Transit" })}
               aria-label={`Open ${selectedTransitSystem.name} image preview`}
             >
-              <img src={selectedTransitImage} alt={`${selectedTransitSystem.name} reference map`} loading="lazy" />
+              <img
+                src={selectedTransitImage}
+                alt={`${selectedTransitSystem.name} reference map`}
+                loading="lazy"
+                onError={(event) => {
+                  event.currentTarget.style.display = "none";
+                }}
+              />
             </button>
           ) : null}
           <span>{transitIcon(selectedTransitSystem.kind)} Transit</span>
@@ -5676,6 +6080,165 @@ function PhotoPrompt({ question }: { question: Question }) {
   );
 }
 
+function RegionNavigator({
+  title,
+  items,
+  onSelect,
+}: {
+  title: string;
+  items: string[];
+  onSelect: (item: string) => void;
+}) {
+  return (
+    <div className="region-navigator">
+      <div className="panel-title-row">
+        <h3>{title}</h3>
+        <span>{items.length}</span>
+      </div>
+      <div className="region-navigator-grid">
+        {items.map((item) => {
+          const [name, detail] = item.split("—").map((part) => part.trim());
+          return (
+            <button key={item} type="button" onClick={() => onSelect(item)} aria-label={`Open ${name} on the map`}>
+              <strong>{name}</strong>
+              {detail && <em>{detail}</em>}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function searchableSubregions() {
+  return regions.flatMap((parent) => subregionsFor(parent.id).map((label) => {
+    const [name, detail] = label.split("—").map((part) => part.trim());
+    return { parent, label, name, detail };
+  }));
+}
+
+const regionCompletionTargets = [
+  { regionId: "turkey", label: "Turkey", complete: 65, total: 81 },
+  { regionId: "mexico", label: "Mexico", complete: 32, total: 32 },
+  { regionId: "indonesia", label: "Indonesia", complete: 28, total: 38 },
+  { regionId: "vietnam", label: "Vietnam", complete: 8, total: 34 },
+  { regionId: "chile", label: "Chile", complete: 16, total: 16 },
+];
+
+function RegionCompletionTracker() {
+  return (
+    <details className="completion-tracker">
+      <summary>
+        <span>Region completion</span>
+        <em>{regionCompletionTargets.length} tracked</em>
+      </summary>
+      <div className="completion-tracker-list">
+        {regionCompletionTargets.map((item) => {
+          const percent = Math.round((item.complete / item.total) * 100);
+          return (
+            <div key={item.regionId}>
+              <span><strong>{item.label}</strong><em>{item.complete}/{item.total}</em></span>
+              <progress value={item.complete} max={item.total} aria-label={`${item.label} completion ${percent} percent`} />
+            </div>
+          );
+        })}
+      </div>
+    </details>
+  );
+}
+
+function ComparePlacesPanel({
+  sortedRegions,
+  compareRegionIds,
+  onCompareRegionIdsChange,
+}: {
+  sortedRegions: Region[];
+  compareRegionIds: [string, string];
+  onCompareRegionIdsChange: (ids: [string, string]) => void;
+}) {
+  const left = regions.find((region) => region.id === compareRegionIds[0]) ?? regions.find((region) => region.id === "japan") ?? regions[0];
+  const right = regions.find((region) => region.id === compareRegionIds[1]) ?? regions.find((region) => region.id === "south-korea") ?? regions[1] ?? left;
+  const update = (side: 0 | 1, id: string) => {
+    const next: [string, string] = [...compareRegionIds] as [string, string];
+    next[side] = id;
+    onCompareRegionIdsChange(next);
+  };
+  return (
+    <details className="compare-places-panel">
+      <summary>
+        <span>Compare places</span>
+        <em>{left.name} vs {right.name}</em>
+      </summary>
+      <div className="compare-select-row">
+        <select value={left.id} onChange={(event) => update(0, event.target.value)} aria-label="First place to compare">
+          {sortedRegions.map((region) => <option key={region.id} value={region.id}>{region.name}</option>)}
+        </select>
+        <select value={right.id} onChange={(event) => update(1, event.target.value)} aria-label="Second place to compare">
+          {sortedRegions.map((region) => <option key={region.id} value={region.id}>{region.name}</option>)}
+        </select>
+      </div>
+      <div className="compare-card-grid">
+        {[left, right].map((region) => {
+          const transit = transitSystemsForRegion(region.id).slice(0, 3);
+          const image = countryImagePathForName(region.name);
+          return (
+            <article key={region.id}>
+              <div className="compare-card-heading">
+                <FlagAsset code={region.flag} label={`${region.name} flag`} />
+                <strong>{region.name}</strong>
+              </div>
+              <img src={image} alt={`${region.name} comparison`} loading="lazy" />
+              <p><b>Capital</b> {region.capital}</p>
+              <p><b>Population</b> {region.population}</p>
+              <p><b>Airports</b> {region.airports.slice(0, 4).join(", ")}</p>
+              <p><b>Transit</b> {(transit.length ? transit.map((system) => system.name) : region.metro).slice(0, 3).join(", ")}</p>
+              <p className="did-you-know-inline">{didYouKnowByRegionId[region.id] ?? region.funFacts[0] ?? region.facts[0]}</p>
+            </article>
+          );
+        })}
+      </div>
+    </details>
+  );
+}
+
+function nearbyRegionsFor(region: Region) {
+  const origin = mapPositionForRegion(region);
+  if (!origin) return [];
+  return regions
+    .filter((candidate) => candidate.id !== region.id)
+    .map((candidate) => {
+      const position = mapPositionForRegion(candidate);
+      if (!position) return null;
+      const distance = Math.hypot(position.x - origin.x, position.y - origin.y);
+      return { region: candidate, distance };
+    })
+    .filter((item): item is { region: Region; distance: number } => Boolean(item))
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 4)
+    .map((item) => item.region);
+}
+
+function ExploreNearbyPanel({ region, onSelect }: { region: Region; onSelect: (id: string) => void }) {
+  const nearby = nearbyRegionsFor(region);
+  if (nearby.length === 0) return null;
+  return (
+    <div className="explore-nearby-panel">
+      <div className="panel-title-row">
+        <h3>Explore Nearby</h3>
+        <span>{nearby.length}</span>
+      </div>
+      <div>
+        {nearby.map((item) => (
+          <button key={item.id} type="button" onClick={() => onSelect(item.id)}>
+            <FlagAsset code={item.flag} label={`${item.name} flag`} />
+            <span>{item.name}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function RegionPanel({
   region,
   selectedAttractionId,
@@ -5684,6 +6247,8 @@ function RegionPanel({
   onTransitSystemSelect,
   onClearAttraction,
   onCloseRegion,
+  onSubregionSelect,
+  onNearbySelect,
   onPracticeRegion,
   onReplay,
 }: {
@@ -5694,6 +6259,8 @@ function RegionPanel({
   onTransitSystemSelect: (systemId: string) => void;
   onClearAttraction: () => void;
   onCloseRegion: () => void;
+  onSubregionSelect: (subregionLabel: string) => void;
+  onNearbySelect: (regionId: string) => void;
   onPracticeRegion: (region: Region, question?: Question, topics?: PracticeTopic[]) => void;
   onReplay: (question?: Question) => void;
 }) {
@@ -5731,8 +6298,8 @@ function RegionPanel({
           },
         } satisfies PlaceImage
       : null;
-  const countryImageFileName = countryImageFileNameForName(region.name);
-  const countryImage = countryImageFileName
+  const hasCountryImage = hasCountryImageForName(region.name);
+  const countryImage = hasCountryImage
     ? {
         name: region.name,
         type: "country",
@@ -5746,7 +6313,7 @@ function RegionPanel({
         },
       } satisfies PlaceImage
     : null;
-  const profileImage = regionHeroAsset ?? placeImage ?? countryImage;
+  const profileImage = countryImage ?? regionHeroAsset ?? placeImage;
   const didYouKnow = didYouKnowByRegionId[region.id] ?? region.funFacts.find((fact) => !fact.includes("included in the full")) ?? region.facts[0];
   const practiceTopicOptions = practiceTopicOptionsForRegion(region, regionTransitSystems.length, regionAttractions.length);
   const [practiceTopics, setPracticeTopics] = useState<PracticeTopic[]>(practiceTopicOptions.map((topic) => topic.id));
@@ -5786,6 +6353,7 @@ function RegionPanel({
           <p>{didYouKnow}</p>
         </div>
       )}
+      <ExploreNearbyPanel region={region} onSelect={onNearbySelect} />
       <RegionAssetGallery region={region} transitSystems={regionTransitSystems} profileImage={profileImage} />
       <GeoTransitAssistant region={region} transitSystems={regionTransitSystems} />
       <div className="profile-view-toggle" aria-label={`${region.name} profile sections`}>
@@ -5804,7 +6372,13 @@ function RegionPanel({
         <>
           <InfoGroup title="Major Cities" items={region.majorCities} regionName={region.name} />
           <InfoGroup title="Airports" items={region.airports} regionName={region.name} badge />
-          {subregions.length > 0 && <InfoGroup title="States, Provinces & Regions" items={subregions} regionName={region.name} />}
+          {region.id === "united-kingdom" && (
+            <div className="jurisdiction-note">
+              <strong>United Kingdom hierarchy</strong>
+              <p>England, Scotland, Wales, and Northern Ireland stay grouped under the United Kingdom, with their own flags, images, and regional map markers.</p>
+            </div>
+          )}
+          {subregions.length > 0 && <RegionNavigator title="States, Provinces & Regions" items={subregions} onSelect={onSubregionSelect} />}
         </>
       )}
       {activeProfileView === "transit" && (
@@ -5971,6 +6545,8 @@ function CenteredImageModal({
   onPrevious?: () => void;
   onNext?: () => void;
 }) {
+  const [imageFailed, setImageFailed] = useState(false);
+  useEffect(() => setImageFailed(false), [asset.src]);
   return (
     <div className="image-modal-backdrop" role="dialog" aria-modal="true" aria-label={asset.label} onClick={onClose}>
       <figure className="image-modal-card" onClick={(event) => event.stopPropagation()}>
@@ -5979,7 +6555,14 @@ function CenteredImageModal({
           {onNext && <button type="button" onClick={onNext} aria-label="Next image">›</button>}
           <button type="button" onClick={onClose} aria-label="Close image preview">×</button>
         </div>
-        <img src={asset.src} alt={asset.label} />
+        {imageFailed ? (
+          <div className="image-modal-fallback">
+            <strong>Image preview unavailable</strong>
+            <span>{asset.label}</span>
+          </div>
+        ) : (
+          <img src={asset.src} alt={asset.label} onError={() => setImageFailed(true)} />
+        )}
         <figcaption>
           <span>{asset.kind}</span>
           <strong>{asset.label}</strong>
@@ -6233,13 +6816,24 @@ function CountryDiagram({ region }: { region: Region }) {
   const [activeImage, setActiveImage] = useState(0);
   const activeLandmark = landmarks[activeImage] ?? landmarks[0] ?? region.name;
   const countryImage = countryImagePathForName(region.name);
+  const [profileImageFailed, setProfileImageFailed] = useState(false);
+  useEffect(() => {
+    setProfileImageFailed(false);
+  }, [countryImage]);
   const previousImage = () => setActiveImage((index) => (index + landmarks.length - 1) % landmarks.length);
   const nextImage = () => setActiveImage((index) => (index + 1) % landmarks.length);
 
   return (
     <div className="country-diagram">
       <figure className="country-profile-photo">
-        <img src={countryImage} alt={`${region.name} profile view`} loading="lazy" />
+        {profileImageFailed ? (
+          <div className="country-profile-fallback">
+            <FlagAsset code={region.flag} label={`${region.name} flag`} />
+            <strong>{region.name}</strong>
+          </div>
+        ) : (
+          <img src={countryImage} alt={`${region.name} profile view`} loading="lazy" onError={() => setProfileImageFailed(true)} />
+        )}
         <figcaption>
           <strong>{region.name}</strong>
           <span>{region.capital.includes("queued") ? "Capital profile" : region.capital}</span>
@@ -6333,17 +6927,29 @@ function assistantAnswerForRegion(region: Region, prompt: string, transitSystems
   const airports = region.airports.slice(0, 6).join(", ");
   const mappedSystems = transitSystems.slice(0, 4).map((system) => `${system.name} in ${system.city}`).join("; ");
   const didYouKnow = didYouKnowByRegionId[region.id] ?? region.funFacts[0] ?? region.facts[0];
+  const timeline = transportTimelineByRegionId[region.id]?.join(" ");
   if (!text.trim()) {
-    return `${region.name}: ${didYouKnow} Start with ${region.capital.includes("queued") ? "the capital" : region.capital}, then connect the airport, rail, and landmark clues in this panel.`;
+    return `${region.name}: ${didYouKnow} Start with ${region.capital.includes("queued") ? "the capital" : region.capital}, then use the airport, rail, and landmark clues as your quick map anchors.`;
+  }
+  if (text.includes("compare") || text.includes("versus") || text.includes(" vs ")) {
+    return `Use Compare places above the map tools for a clean side-by-side view. For ${region.name}, the key anchors are population ${region.population}, capital ${region.capital}, airports ${airports || "listed in the profile"}, and transit ${mappedSystems || region.metro.slice(0, 3).join(", ")}.`;
+  }
+  if (text.includes("timeline") || text.includes("history") || text.includes("when") || text.includes("opened")) {
+    return timeline
+      ? `${region.name} timeline hook: ${timeline} This is useful for quiz clues because dates often connect a system to a city or corridor.`
+      : `${region.name} does not have a highlighted timeline card yet. Use the mapped transit systems and airport list as the best current study anchors.`;
+  }
+  if (text.includes("search") || text.includes("find") || text.includes("where is") || text.includes("zoom")) {
+    return `Use the main search bar for countries, regions, cities, airports, metro systems, and landmarks. Typing a place like Kyoto, Jalisco, or an airport code jumps the map, opens the right profile, and highlights the feature when available.`;
   }
   if (text.includes("fun") || text.includes("fact") || text.includes("remember") || text.includes("daily")) {
     return `${region.name} memory hook: ${didYouKnow} Use that as the story, then attach these anchors: ${cities || region.capital}; ${airports || "primary gateway"}; ${region.rail[0] ?? "main rail corridor"}.`;
   }
   if (text.includes("airport") || text.includes("iata") || text.includes("flight")) {
-    return `For ${region.name}, remember these aviation anchors first: ${airports || "the main international gateway listed in the profile"}. Pair each code with a city instead of memorizing the country alone, then connect it back to ${region.capital.includes("queued") ? "the capital area" : region.capital}.`;
+    return `For ${region.name}, learn airport codes by city first: ${airports || "the main international gateway listed in the profile"}. That avoids mistakes like pairing a code with the wrong city.`;
   }
   if (text.includes("train") || text.includes("rail") || text.includes("metro") || text.includes("transit")) {
-    return `${region.name}'s transport story starts with ${region.rail[0] ?? "its intercity corridor"} and ${region.metro[0] ?? "its main urban mobility network"}. ${mappedSystems ? `Mapped systems here include ${mappedSystems}. ` : ""}Use the named corridor, the largest city, and the airport link as your three memory hooks.`;
+    return `${region.name}'s transport story starts with ${region.rail[0] ?? "its intercity corridor"} and ${region.metro[0] ?? "its main urban mobility network"}. ${mappedSystems ? `Mapped systems include ${mappedSystems}. ` : ""}${timeline ? `Timeline: ${timeline}` : "Use the largest city, the main rail corridor, and the airport link as memory hooks."}`;
   }
   if (text.includes("city") || text.includes("capital") || text.includes("region")) {
     return `Use this city order for ${region.name}: ${cities || region.name}. The capital gives you the political anchor, while the largest commercial or port cities usually explain the rail, metro, road, and airport clues.`;
@@ -6476,27 +7082,21 @@ function ReviewTab({
 
 function LearningTricks() {
   const quickTricks = [
-    "Airport codes often preserve older names: JFK was Idlewild, so New York aviation questions may hide history inside the code clue.",
-    "Metro systems usually follow anchors: airport branch, downtown transfer, university/medical stop, then outer terminal.",
-    "Canals and straits are chokepoints: Panama links Atlantic/Pacific, Suez links Mediterranean/Red Sea, Malacca sits by Singapore and Malaysia.",
-    "For capitals, pair one landmark with one transport node: Tokyo-Shinkansen, Paris-CDG/RER, London-Heathrow/Tube, Washington-Metro.",
-    "For flags, learn regions by color families first, then symbols: Nordic crosses, Pan-African colors, Gulf flags, and Pacific island flags.",
+    "Pair every place with one anchor: capital, airport, rail system, or landmark.",
+    "Airport questions should point to the city first, then the code pattern.",
+    "Transit clues usually follow a line, transfer station, airport branch, or outer terminal.",
   ];
   const deeperTricks = [
-    "West Africa memory hook: many coastal capitals double as port clues, while inland countries often point to dry-port or neighboring-seaport corridors.",
-    "Island flags are easier by ocean first: Caribbean flags cluster around ferry/cruise clues; Pacific flags often pair with atolls, lagoons, and small airport gateways.",
-    "For rail questions, learn the named corridor before the country: Shinkansen-Japan, TGV-France, ICE-Germany, Al Boraq-Morocco, Brightline-Florida.",
-    "For map-click questions, zoom by continent first, then coast/inland position: Estonia on the Baltic, Burundi inland by the Great Lakes, Kyrgyzstan in Central Asia.",
-    "For airports, avoid memorizing every code at once. Group them by metro: NYC has JFK/LGA/EWR, London has LHR/LGW/STN, Tokyo has HND/NRT.",
-    "For bridges and tunnels, attach one geography clue: Golden Gate-San Francisco Bay, Gotthard-Alps, Mont Blanc-France/Italy, Pontchartrain-Louisiana.",
-    "For flags that look similar, use one detail: Zambia has the eagle and vertical color block; Pakistan has the crescent/star; Bangladesh has the red disc on green.",
+    "Named corridors are strong hooks: Shinkansen-Japan, TGV-France, ICE-Germany, Al Boraq-Morocco, Brightline-Florida.",
+    "For map questions, solve continent first, then coast/inland position, then neighbors.",
+    "For similar flags, learn one standout symbol or layout detail instead of memorizing every stripe.",
   ];
   return (
     <div className="tricks-panel">
-      <h3>Quick Memory Tricks</h3>
+      <h3>Review Tips</h3>
       {quickTricks.map((trick) => <p key={trick}>{trick}</p>)}
       <details>
-        <summary>Expand to learn more tricks</summary>
+        <summary>More study hooks</summary>
         {deeperTricks.map((trick) => <p key={trick}>{trick}</p>)}
       </details>
     </div>
