@@ -694,6 +694,31 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "ET.SN": { capital: "Former SNNPR; current successor capitals include Hosaina, Hawassa, Wolaita Sodo, and Bonga", population: "Current successor regions total about 27.6 million (2024 estimates)", transit: "Southern corridor road network, Hawassa gateway, regional bus links" },
   "ET-TI": { capital: "Mekelle", population: "6,838,000 (2024 estimate)", transit: "Mekelle airport, northern road corridors, regional bus links" },
   "ET.TI": { capital: "Mekelle", population: "6,838,000 (2024 estimate)", transit: "Mekelle airport, northern road corridors, regional bus links" },
+  oslo: { capital: "Oslo", population: "700,000", transit: "Oslo Metro, trams, commuter rail, ferries, and Oslo Airport rail" },
+  akershus: { capital: "Oslo", population: "630,752", transit: "Oslo-region commuter rail, buses, and Gardermoen airport links" },
+  ostfold: { capital: "Sarpsborg", population: "299,647", transit: "Østfold Line rail, regional buses, and Sweden-facing road corridors" },
+  buskerud: { capital: "Drammen", population: "284,955", transit: "Drammen rail hub, Bergen Line access, and regional buses" },
+  innlandet: { capital: "Hamar", population: "375,000", transit: "Dovre Line, Røros Line, regional buses, and mountain road links" },
+  vestfold: { capital: "Tønsberg", population: "253,555", transit: "Vestfold Line rail, coastal buses, and ferry links" },
+  telemark: { capital: "Skien", population: "175,546", transit: "Bratsberg Line, Grenland buses, and Telemark Canal connections" },
+  agder: { capital: "Kristiansand", population: "299,000", transit: "Sørlandet Line, Kristiansand buses, ferries, and Kjevik Airport" },
+  rogaland: { capital: "Stavanger", population: "475,000", transit: "Jæren commuter rail, Stavanger buses, ferries, and airport links" },
+  vestland: { capital: "Bergen", population: "632,000", transit: "Bergen Light Rail, Bergen Line, ferries, and Flesland Airport" },
+  "more-og-romsdal": { capital: "Molde", population: "270,000", transit: "Coastal ferries, regional buses, and airports at Molde, Ålesund, and Kristiansund" },
+  trondelag: { capital: "Steinkjer", population: "465,000", transit: "Trøndelag commuter rail, Trondheim buses, and Værnes Airport links" },
+  nordland: { capital: "Bodø", population: "239,000", transit: "Nordland Line, coastal ferries, Hurtigruten, and regional aviation" },
+  troms: { capital: "Tromsø", population: "168,340", transit: "Tromsø buses, ferries, and regional aviation across Arctic Norway" },
+  finnmark: { capital: "Vadsø", population: "75,540", transit: "Regional aviation, coastal ferries, and long-distance Arctic road links" },
+  "harare-province": { capital: "Harare", population: "2,427,209 (2022 census)", transit: "Harare commuter buses, national rail hub, and Robert Gabriel Mugabe International Airport" },
+  bulawayo: { capital: "Bulawayo", population: "665,952 (2022 census)", transit: "National rail junction, city buses, and Joshua Mqabuko Nkomo International Airport" },
+  manicaland: { capital: "Mutare", population: "2,037,762 (2022 census)", transit: "Mutare rail and road gateway toward Mozambique and Beira" },
+  "mashonaland-central": { capital: "Bindura", population: "1,384,891 (2022 census)", transit: "Regional buses and road corridors north of Harare" },
+  "mashonaland-east": { capital: "Marondera", population: "1,731,836 (2022 census)", transit: "Harare-Mutare rail and highway corridor" },
+  "mashonaland-west": { capital: "Chinhoyi", population: "1,893,578 (2022 census)", transit: "Harare-Chirundu road corridor and regional buses" },
+  masvingo: { capital: "Masvingo", population: "1,638,528 (2022 census)", transit: "North-south highway links and regional buses near Great Zimbabwe" },
+  "matabeleland-north": { capital: "Lupane", population: "827,645 (2022 census)", transit: "Bulawayo-Victoria Falls rail and road corridor" },
+  "matabeleland-south": { capital: "Gwanda", population: "760,345 (2022 census)", transit: "Rail and road corridors toward Botswana and South Africa" },
+  midlands: { capital: "Gweru", population: "1,811,905 (2022 census)", transit: "Gweru rail junction and Zimbabwe's central north-south road corridor" },
 };
 
 const regionalPopulationByCode: Record<string, string> = {
@@ -1296,6 +1321,11 @@ const didYouKnowByRegionId: Record<string, string> = {
   nepal: "Nepal's mountainous terrain makes aviation critical for many remote communities.",
   "united-kingdom": "London Underground is the world's oldest metro system.",
   netherlands: "The Netherlands moves millions of people by bicycle each day through one of the world's most advanced cycling networks.",
+  norway: "Norway's rugged coastline is stitched together by ferries, tunnels, bridges, and short regional flights, while the railway reaches north to Bodø.",
+  zimbabwe: "Zimbabwe's rail network links Harare and Bulawayo with regional corridors toward South Africa, Botswana, Mozambique, and Zambia.",
+  georgia: "The Tbilisi Metro opened in 1966 and was the fourth metro system built in the former Soviet Union.",
+  liechtenstein: "Liechtenstein has no airport, but an international railway crosses the country between Austria and Switzerland.",
+  tuvalu: "Tuvalu's highest natural point is only a few metres above sea level, and most local trips are made on foot or by small vehicle.",
 };
 
 const transportTimelineByRegionId: Record<string, string[]> = {
@@ -2115,6 +2145,8 @@ const uploadedTurkishUkBasePath = "/images/uploaded/turkish-uk/Turkish%2C%20UK%2
 const uploadedVietnamBasePath = "/images/uploaded/vietnam/Vietnam%20Flags%20amd%20Images";
 const uploadedSouthKoreaBasePath = "/images/uploaded/south-korea/South%20Korea%20Regional%20Flags%20and%20Images";
 const uploadedSouthKoreaWikiPath = `${uploadedSouthKoreaBasePath}/Provinces%20of%20South%20Korea%20-%20Wikipedia_files`;
+const uploadedNorwayBasePath = "/images/uploaded/norway/Norway%20Flags%20and%20Images";
+const uploadedGlobalRegionsBasePath = "/images/uploaded/global-regions/Ukranian%20Oblast%20Flags%20and%20Images";
 
 const uploadedCountryFlagByName: Record<string, string> = {
   england: `${uploadedTurkishUkBasePath}/England%20flag.png`,
@@ -2205,6 +2237,35 @@ const uploadedSubdivisionFlagsByName: Record<string, string> = {
   "draa-tafilalet": `${uploadedSouthKoreaBasePath}/Dr%C3%A2a-Tafilalet_logo.png`,
   "fes-meknes": `${uploadedSouthKoreaBasePath}/Fez_Meknes_region_logo.png`,
   "dakhla-oued-ed-dahab": `${uploadedSouthKoreaBasePath}/Logo-conseil-dakhla.jpg`,
+  oslo: `${uploadedNorwayBasePath}/Flag_of_Oslo.svg.png`,
+  akershus: `${uploadedNorwayBasePath}/Flag_of_Akershus.svg.png`,
+  ostfold: `${uploadedNorwayBasePath}/Flag_of_%C3%98stfold.svg.png`,
+  buskerud: `${uploadedNorwayBasePath}/Flag_of_Buskerud.svg.png`,
+  innlandet: `${uploadedNorwayBasePath}/Flag_of_Innlandet.svg.png`,
+  vestfold: `${uploadedNorwayBasePath}/Flag_of_Vestfold_County_2024.svg.png`,
+  telemark: `${uploadedNorwayBasePath}/Flag_Telemark_fylke_(2023).svg.png`,
+  agder: `${uploadedNorwayBasePath}/Flag_of_Agder.svg.png`,
+  rogaland: `${uploadedNorwayBasePath}/Flag_of_Rogaland.svg.png`,
+  vestland: `${uploadedNorwayBasePath}/Flag_of_Vestland.svg.png`,
+  "more-og-romsdal": `${uploadedNorwayBasePath}/Flag_of_M%C3%B8re_og_Romsdal.svg.png`,
+  trondelag: `${uploadedNorwayBasePath}/Flag_of_Nord-Tr%C3%B8ndelag.svg.png`,
+  nordland: `${uploadedNorwayBasePath}/Flag_of_Nordland.svg.png`,
+  troms: `${uploadedNorwayBasePath}/Flag_of_Troms.svg.png`,
+  finnmark: `${uploadedNorwayBasePath}/Flag_of_Finnmark.svg.png`,
+  bangkok: `${uploadedGlobalRegionsBasePath}/Flag_of_Bangkok.svg.png`,
+  phuket: `${uploadedGlobalRegionsBasePath}/Flag_of_Phuket.svg.png`,
+  "nairobi-county": `${uploadedGlobalRegionsBasePath}/Flag_of_Nairobi_County.svg.png`,
+  "cherkasy-oblast": `${uploadedGlobalRegionsBasePath}/Flag_of_Cherkasy_Oblast.svg.png`,
+  "chernihiv-oblast": `${uploadedGlobalRegionsBasePath}/Flag_of_Chernihiv_Oblast.svg.png`,
+  "chernivtsi-oblast": `${uploadedGlobalRegionsBasePath}/Flag_of_Chernivtsi_Oblast.svg.png`,
+  "dnipropetrovsk-oblast": `${uploadedGlobalRegionsBasePath}/Flag_of_Dnipropetrovsk_Oblast.svg.png`,
+  "kharkiv-oblast": `${uploadedGlobalRegionsBasePath}/Flag_of_Kharkiv_Oblast.svg.png`,
+  "kyiv-oblast": `${uploadedGlobalRegionsBasePath}/Flag_of_Kyiv_Oblast.svg.png`,
+  "lviv-oblast": `${uploadedGlobalRegionsBasePath}/Flag_of_Lviv_Oblast.svg.png`,
+  "odesa-oblast": `${uploadedGlobalRegionsBasePath}/Flag_of_Odesa_Oblast.svg.png`,
+  "poltava-oblast": `${uploadedGlobalRegionsBasePath}/Flag_of_Poltava_Oblast.svg.png`,
+  "vinnytsia-oblast": `${uploadedGlobalRegionsBasePath}/Flag_of_Vinnytsia_Oblast.svg.png`,
+  "zakarpattia-oblast": `${uploadedGlobalRegionsBasePath}/Flag_of_Zakarpattia_Oblast.svg.png`,
 };
 
 const uploadedSubdivisionImagesByName: Record<string, string> = {
@@ -2253,6 +2314,49 @@ const uploadedSubdivisionImagesByName: Record<string, string> = {
   "rabat-sale-kenitra": `${uploadedSouthKoreaBasePath}/Rabat-Sal%C3%A9-K%C3%A9nitra.jpg`,
   "souss-massa": `${uploadedSouthKoreaBasePath}/Souss-Massa.jpg`,
   "tanger-tetouan-al-hoceima": `${uploadedSouthKoreaBasePath}/Tanger-Tetouan-Al%20Hoceima.jpg`,
+  oslo: `${uploadedNorwayBasePath}/Oslo.jpg`,
+  akershus: `${uploadedNorwayBasePath}/Akershus.jpg`,
+  ostfold: `${uploadedNorwayBasePath}/Osterfod.jpg`,
+  buskerud: `${uploadedNorwayBasePath}/Buskerud.jpg`,
+  innlandet: `${uploadedNorwayBasePath}/Innlandet.JPG`,
+  vestfold: `${uploadedNorwayBasePath}/Vestfold.jpg`,
+  telemark: `${uploadedNorwayBasePath}/Telemark.jpg`,
+  agder: `${uploadedNorwayBasePath}/Agder.jpg`,
+  rogaland: `${uploadedNorwayBasePath}/Rogaland.jpg`,
+  vestland: `${uploadedNorwayBasePath}/Vestland.jpg`,
+  "more-og-romsdal": `${uploadedNorwayBasePath}/M%C3%B8re%20og%20Romsdal.webp`,
+  trondelag: `${uploadedNorwayBasePath}/Trondelag.jpg`,
+  nordland: `${uploadedNorwayBasePath}/Nordland.jpg`,
+  troms: `${uploadedNorwayBasePath}/Troms.jpg`,
+  finnmark: `${uploadedNorwayBasePath}/Finnmark.jpg`,
+  bangkok: `${uploadedGlobalRegionsBasePath}/Bangkok.jpg`,
+  "chiang-mai": `${uploadedGlobalRegionsBasePath}/Chiang%20Mai.jpg`,
+  "chiang-rai": `${uploadedGlobalRegionsBasePath}/Chiang%20Rai.jpg`,
+  phuket: `${uploadedGlobalRegionsBasePath}/Phuket.jpg`,
+  "nairobi-county": `${uploadedGlobalRegionsBasePath}/Nairobi%20County%2C%20Kenya.jpg`,
+  "mombasa-county": `${uploadedGlobalRegionsBasePath}/Mombasa%20County%2C%20Kenya.jpg`,
+  "cherkasy-oblast": `${uploadedGlobalRegionsBasePath}/Cherkasy%20Oblast.jpg`,
+  "chernihiv-oblast": `${uploadedGlobalRegionsBasePath}/Chernihiv%20Oblast.jpg`,
+  "chernivtsi-oblast": `${uploadedGlobalRegionsBasePath}/Chernivtsi%20Oblast.jpg`,
+  "dnipropetrovsk-oblast": `${uploadedGlobalRegionsBasePath}/Dnipropetrovsk%20Oblast.jpg`,
+  "kharkiv-oblast": `${uploadedGlobalRegionsBasePath}/Kharkiv.jpg`,
+  "kherson-oblast": `${uploadedGlobalRegionsBasePath}/Kherson%20Oblast.jpg`,
+  "kyiv-oblast": `${uploadedGlobalRegionsBasePath}/Kyiv%20Oblast.jpg`,
+  "lviv-oblast": `${uploadedGlobalRegionsBasePath}/Lviv%20Oblast.jpg`,
+  "odesa-oblast": `${uploadedGlobalRegionsBasePath}/Odesa%20Oblast.jpg`,
+  "poltava-oblast": `${uploadedGlobalRegionsBasePath}/Poltava%20Oblast.jpg`,
+  "vinnytsia-oblast": `${uploadedGlobalRegionsBasePath}/Vinnytsia%20Oblast.jpg`,
+  "zakarpattia-oblast": `${uploadedGlobalRegionsBasePath}/Zakarpattia%20Oblast.jpg`,
+  "harare-province": `${uploadedGlobalRegionsBasePath}/Harare%20Province%2C%20Zimbabwe.jpg`,
+  bulawayo: `${uploadedGlobalRegionsBasePath}/Bulawayo%2C%20Zimbabwe.jpg`,
+  manicaland: `${uploadedGlobalRegionsBasePath}/Manicaland.jpg`,
+  "mashonaland-central": `${uploadedGlobalRegionsBasePath}/Mashonaland%20Central%20(Bindura).jpg`,
+  "mashonaland-east": `${uploadedGlobalRegionsBasePath}/Mashonaland%20East%20(Marondera).jpg`,
+  "mashonaland-west": `${uploadedGlobalRegionsBasePath}/Mashonaland%20West%20(Chinhoyi).jpg`,
+  masvingo: `${uploadedGlobalRegionsBasePath}/Masvingo%20Province%20(Masvingo).jpg`,
+  "matabeleland-north": `${uploadedGlobalRegionsBasePath}/Matabeleland%20North%2C%20Zimbabwe.jpg`,
+  "matabeleland-south": `${uploadedGlobalRegionsBasePath}/Matabeleland%20South%20(Gwanda).jpg`,
+  midlands: `${uploadedGlobalRegionsBasePath}/Midlands%20Province%20(Gweru).jpg`,
 };
 
 function uploadedProfileFlagPathForName(name: string) {
@@ -2294,7 +2398,9 @@ function uploadedSubdivisionAssetForName(name: string, type: "flag" | "image") {
     .replace("gyeongsangnam-do", "south-gyeongsang")
     .replace("rabat-sale-kenitra", "rabat-sale-kenitra")
     .replace("tangier-tetouan-al-hoceima", "tanger-tetouan-al-hoceima");
-  return type === "flag" ? uploadedSubdivisionFlagsByName[key] ?? "" : uploadedSubdivisionImagesByName[key] ?? "";
+  const assets = type === "flag" ? uploadedSubdivisionFlagsByName : uploadedSubdivisionImagesByName;
+  const candidates = [key, `${key}-oblast`, `${key}-county`, `${key}-province`, `${key}-region`];
+  return candidates.map((candidate) => assets[candidate]).find(Boolean) ?? "";
 }
 
 const regionalFlagByCode: Record<string, string> = {
@@ -2952,7 +3058,7 @@ function buildRegionPracticeQuestions(region: Region, count: number, startDiffic
       category: "highways",
       difficulty: startDifficulty,
       inputType: "multiple-choice",
-      prompt: `Which highway or road corridor is tied to ${region.name}?`,
+      prompt: `Which named road connection would be most useful to remember when traveling through ${region.name}?`,
       answer: region.highways[0],
       choices: choicesFrom(region.highways[0], highwayPool),
       explanation: `${region.highways[0]} is listed in ${region.name}'s road profile.`,
@@ -3044,12 +3150,12 @@ function practiceDepthForRegion(region: Region, transitCount: number, attraction
 function practiceTopicOptionsForRegion(region: Region, transitCount: number, attractionCount: number): Array<{ id: PracticeTopic; label: string }> {
   const depth = practiceDepthForRegion(region, transitCount, attractionCount);
   const options: Array<{ id: PracticeTopic; label: string }> = [
-    { id: "capitals", label: "Capital basics" },
-    { id: "geography", label: "Geography facts" },
+    { id: "capitals", label: "Cities & capitals" },
+    { id: "geography", label: "Geography" },
   ];
   if (depth !== "basic") options.push({ id: "landmarks", label: "Landmarks" });
-  if (attractionCount > 0) options.push({ id: "tourist", label: "Tourist attractions" });
-  if (depth === "deep" && transitCount > 0) options.unshift({ id: "transport", label: "Transit, rail, roads, ports" });
+  if (attractionCount > 0) options.push({ id: "tourist", label: "Places" });
+  if (depth === "deep" && transitCount > 0) options.unshift({ id: "transport", label: "Transportation" });
   return options;
 }
 
@@ -5851,7 +5957,11 @@ function QuestionVisual({ question, onAnswer }: { question: Question; onAnswer?:
   if (metroImageSrc) {
     return (
       <figure className="question-image-card">
-        <img src={metroImageSrc} alt={question.visualCaption ?? question.image ?? "Transit image prompt"} />
+        <img
+          className={question.image === "High-speed rail corridor map" ? "answer-masked-reference" : ""}
+          src={metroImageSrc}
+          alt={question.visualCaption ?? question.image ?? "Transit image prompt"}
+        />
         <figcaption>
           <strong>Reference image</strong>
           <span>Use the visual clues, not the caption, to answer.</span>
@@ -5989,7 +6099,7 @@ function QuestionVisual({ question, onAnswer }: { question: Question; onAnswer?:
 function WmataStationMap({ question, onAnswer }: { question: Question; onAnswer?: (answer: string) => void }) {
   const stations = [
     ["Ashburn", "9%", "52%"],
-    ["Rosslyn", "39%", "45%"],
+    ["Rosslyn", "44%", "48%"],
     ["Metro Center", "49%", "45%"],
     ["L'Enfant Plaza", "51%", "55%"],
     ["Fort Totten", "58%", "29%"],
@@ -6484,7 +6594,7 @@ function RegionPanel({
       {selectedPanelImage && <CenteredImageModal asset={selectedPanelImage} onClose={() => setSelectedPanelImage(null)} />}
       <div className="sample-questions">
         <h3>Practice Decks</h3>
-        <p>Choose the topics you want, then practice only this country. Bigger countries include more transit-network questions; smaller countries keep the deck lighter.</p>
+        <p>Choose a topic to practice this country.</p>
         <div className="practice-topic-grid">
           {practiceTopicOptions.map((topic) => (
             <button
@@ -6739,8 +6849,11 @@ function subregionsFor(regionId: string) {
     vietnam: ["Hanoi", "Ho Chi Minh City", "Da Nang", "Hai Phong", "Can Tho", "Quang Ninh", "Thua Thien Hue", "Khanh Hoa"],
     finland: ["Uusimaa", "Lapland", "Southwest Finland", "Pirkanmaa", "North Ostrobothnia"],
     iceland: ["Capital Region", "Southern Peninsula", "South Iceland", "Westfjords", "North Iceland"],
-    norway: ["Oslo", "Vestland", "Trondelag", "Troms", "Nordland", "Svalbard"],
+    norway: ["Oslo", "Akershus", "Østfold", "Buskerud", "Innlandet", "Vestfold", "Telemark", "Agder", "Rogaland", "Vestland", "Møre og Romsdal", "Trøndelag", "Nordland", "Troms", "Finnmark"],
     sweden: ["Stockholm County", "Vastra Gotaland", "Skane", "Norrbotten", "Uppsala County"],
+    ukraine: ["Cherkasy Oblast", "Chernihiv Oblast", "Chernivtsi Oblast", "Dnipropetrovsk Oblast", "Kharkiv Oblast", "Kherson Oblast", "Kyiv Oblast", "Lviv Oblast", "Odesa Oblast", "Poltava Oblast", "Vinnytsia Oblast", "Zakarpattia Oblast"],
+    kenya: ["Nairobi County", "Mombasa County", "Kisumu County", "Nakuru County", "Kilifi County", "Nyeri County", "Laikipia County", "Narok County"],
+    zimbabwe: ["Harare Province", "Bulawayo", "Manicaland", "Mashonaland Central", "Mashonaland East", "Mashonaland West", "Masvingo", "Matabeleland North", "Matabeleland South", "Midlands"],
     "new-zealand": ["North Island", "South Island", "Auckland Region", "Wellington Region", "Canterbury", "Otago"],
   };
   const regionalDetails: Record<string, Record<string, string>> = {
@@ -6802,6 +6915,35 @@ function subregionsFor(regionId: string) {
       "Quang Ninh": "Capital: Ha Long · Ha Long Bay anchor",
       "Thua Thien Hue": "Capital: Hue · imperial city anchor",
       "Khanh Hoa": "Capital: Nha Trang · coastal tourism anchor",
+    },
+    norway: {
+      Oslo: "Administrative center: Oslo · Population: 700,000",
+      Akershus: "Administrative center: Oslo · Population: 630,752",
+      "Østfold": "Administrative center: Sarpsborg · Population: 299,647",
+      Buskerud: "Administrative center: Drammen · Population: 284,955",
+      Innlandet: "Administrative center: Hamar · Population: 375,000",
+      Vestfold: "Administrative center: Tønsberg · Population: 253,555",
+      Telemark: "Administrative center: Skien · Population: 175,546",
+      Agder: "Administrative center: Kristiansand · Population: 299,000",
+      Rogaland: "Administrative center: Stavanger · Population: 475,000",
+      Vestland: "Administrative center: Bergen · Population: 632,000",
+      "Møre og Romsdal": "Administrative center: Molde · Population: 270,000",
+      "Trøndelag": "Administrative center: Steinkjer · Population: 465,000",
+      Nordland: "Administrative center: Bodø · Population: 239,000",
+      Troms: "Administrative center: Tromsø · Population: 168,340",
+      Finnmark: "Administrative center: Vadsø · Population: 75,540",
+    },
+    zimbabwe: {
+      "Harare Province": "Capital: Harare · Population: 2,427,209 (2022 census)",
+      Bulawayo: "Capital: Bulawayo · Population: 665,952 (2022 census)",
+      Manicaland: "Capital: Mutare · Population: 2,037,762 (2022 census)",
+      "Mashonaland Central": "Capital: Bindura · Population: 1,384,891 (2022 census)",
+      "Mashonaland East": "Capital: Marondera · Population: 1,731,836 (2022 census)",
+      "Mashonaland West": "Capital: Chinhoyi · Population: 1,893,578 (2022 census)",
+      Masvingo: "Capital: Masvingo · Population: 1,638,528 (2022 census)",
+      "Matabeleland North": "Capital: Lupane · Population: 827,645 (2022 census)",
+      "Matabeleland South": "Capital: Gwanda · Population: 760,345 (2022 census)",
+      Midlands: "Capital: Gweru · Population: 1,811,905 (2022 census)",
     },
   };
   return (subregions[regionId] ?? []).map((name) => {

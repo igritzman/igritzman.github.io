@@ -3436,6 +3436,11 @@ h3 {
   box-shadow: inset 0 -14px 0 rgba(52, 92, 180, 0.9), inset 0 -22px 0 rgba(255, 255, 255, 0.55);
 }
 
+.question-image-card .answer-masked-reference {
+  filter: blur(1.4px) saturate(0.92) contrast(1.04);
+  transform: scale(1.008);
+}
+
 .photo-canal {
   background:
     linear-gradient(90deg, #466e48 0 28%, #487f95 28% 39%, #9d8461 39% 43%, #497f95 43% 56%, #496e47 56% 100%);
@@ -4216,7 +4221,7 @@ h3 {
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.04);
   color: #eaf8f8;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 850;
 }
 
