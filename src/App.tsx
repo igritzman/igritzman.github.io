@@ -3206,7 +3206,11 @@ function buildRegionPracticeQuestions(region: Region, count: number, startDiffic
     },
   ];
   const topicFilteredTemplates = practiceTemplates.filter((question) => questionMatchesPracticeTopics(question, topics));
-  const templates = topicFilteredTemplates.length > 0 ? topicFilteredTemplates : practiceTemplates;
+  const easyMode = difficultyRank(startDifficulty) <= difficultyRank("hub");
+  const deEmphasizedAirports = easyMode
+    ? topicFilteredTemplates.filter((question) => question.category !== "airport-codes" && question.category !== "airports")
+    : topicFilteredTemplates;
+  const templates = deEmphasizedAirports.length > 0 ? deEmphasizedAirports : topicFilteredTemplates.length > 0 ? topicFilteredTemplates : practiceTemplates;
   return shuffleByClock(templates).slice(0, count);
 }
 
@@ -3295,7 +3299,7 @@ function App() {
   const [questionCount, setQuestionCount] = useState<10 | 15 | 20 | 150>(10);
   const [selectedStartLevel, setSelectedStartLevel] = useState<DifficultyLevel>("gateway");
   const [showReviewAnswers, setShowReviewAnswers] = useState(false);
-  const [showGuide, setShowGuide] = useState(() => localStorage.getItem("geontransit.guide.seen.v3") !== "yes");
+  const [showGuide, setShowGuide] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [showStartMenu, setShowStartMenu] = useState(false);
@@ -3528,13 +3532,8 @@ function resetProfile() {
       <header className="topbar">
         <div className="brand-lockup">
           <img className="brand-logo-image" src="/images/brand/geontransit-logo.svg" alt="GEONTRANSIT" />
+          <h1>Welcome to GEONTRANSIT</h1>
           <p className="brand-subtitle">Explore the world's transit systems, airports, regions, and geography.</p>
-        </div>
-        <div className="status-grid" aria-label="Profile status">
-          <Metric label="Operator" value={`${profile.emoji ?? "🚇"} ${profile.name || (profile.isGuest ? "Guest user" : "Create username")}`} />
-          <Metric label="Difficulty" value={difficultyLabels[profile.currentDifficulty]} />
-          <Metric label="Accuracy" value={`${accuracy}%`} />
-          <Metric label="Coverage" value={`${completedProfileCount}/${regions.length}`} />
         </div>
       </header>
 
@@ -3681,6 +3680,7 @@ function resetProfile() {
           profiles={profiles}
           friends={friends}
           accuracy={accuracy}
+          completedProfileCount={completedProfileCount}
           onNameChange={updateProfileName}
           onEmojiChange={(emoji) => setProfile({ ...profile, emoji })}
           onGuestChange={setGuestMode}
@@ -3821,8 +3821,8 @@ function StartHereMenu({
   return (
     <div className={`start-here-menu ${open ? "open" : ""}`}>
       <button className="start-here-launch" type="button" onClick={onToggle} aria-expanded={open} aria-label="Open start menu">
-        <span>Start Here</span>
-        <strong>◆</strong>
+        <span>Menu</span>
+        <strong>◎</strong>
       </button>
       {open && (
         <div className="start-here-popover" role="menu" aria-label="Start here options">
@@ -3840,7 +3840,7 @@ function StartHereMenu({
           </button>
           <button type="button" onClick={onSettings} role="menuitem">
             <strong>⚙️ Settings</strong>
-            <span>Settings, sound, profile, and practice options</span>
+            <span>Sound, map style, and profile options</span>
           </button>
         </div>
       )}
@@ -4980,10 +4980,10 @@ function MapTab({
   return (
     <section className={`map-layout ${sidebarCollapsed ? "sidebar-collapsed" : ""} ${mapChromeHidden ? "map-chrome-hidden" : ""}`}>
       <div className="map-column">
-        {!mapChromeHidden && <details className="map-toolbar compact-tool-panel" open>
+        {!mapChromeHidden && <details className="map-toolbar compact-tool-panel">
           <summary>
             <span>Map tools</span>
-            <em>region, zoom, layers</em>
+            <em>search, layers, style</em>
           </summary>
           <div>
             <p className="eyebrow">Map layer</p>
@@ -5276,12 +5276,12 @@ function MapTab({
         {!mapChromeHidden && <details className="export-panel compact-tool-panel">
           <summary>
             <span>Export data</span>
-            <em>country, transit, attractions</em>
+            <em>CSV downloads</em>
           </summary>
           <div>
-            <p className="eyebrow">Excel export</p>
-            <strong>Download clean CSV layers</strong>
-            <span>Use current country, selected countries, or all countries. Transit exports include Transitland/Wikipedia links; attraction exports include Wikipedia links.</span>
+            <p className="eyebrow">Export</p>
+            <strong>Download map data</strong>
+            <span>Save country, transit, or attraction layers as CSV files.</span>
           </div>
           <div className="export-actions">
             <button type="button" onClick={() => selectedRegion && exportRegionsCsv([selectedRegion], `${selectedRegionFileSlug}.csv`)} disabled={!selectedRegion}>
@@ -6678,9 +6678,11 @@ function RegionPanel({
         {region.facts.map((fact) => <p key={fact}>{fact}</p>)}
       </div>
       {selectedPanelImage && <CenteredImageModal asset={selectedPanelImage} onClose={() => setSelectedPanelImage(null)} />}
-      <div className="sample-questions">
-        <h3>Practice Decks</h3>
-        <p>Choose a topic to practice this country.</p>
+      <details className="sample-questions">
+        <summary>
+          <span>Practice Questions</span>
+          <em>flashcards and local quiz</em>
+        </summary>
         <div className="practice-topic-grid">
           {practiceTopicOptions.map((topic) => (
             <button
@@ -6700,7 +6702,7 @@ function RegionPanel({
         <button type="button" className="secondary-action" onClick={() => downloadPracticeFlashcards(region, practiceTopics, "gateway")}>
           Download Practice Flashcards
         </button>
-      </div>
+      </details>
       <button className="primary-action" onClick={() => onPracticeRegion(region, sampleQuestions[0], practiceTopics)}>Practice From This Deck</button>
     </aside>
   );
@@ -7416,6 +7418,7 @@ function ProfileTab({
   profiles,
   friends,
   accuracy,
+  completedProfileCount,
   onNameChange,
   onEmojiChange,
   onGuestChange,
@@ -7430,6 +7433,7 @@ function ProfileTab({
   profiles: PlayerProfile[];
   friends: LocalFriend[];
   accuracy: number;
+  completedProfileCount: number;
   onNameChange: (name: string) => void;
   onEmojiChange: (emoji: string) => void;
   onGuestChange: (isGuest: boolean) => void;
@@ -7578,10 +7582,12 @@ function ProfileTab({
         <button onClick={onReset}>Reset Local Profile</button>
       </div>
       <div className="profile-stats">
+        <Metric label="Operator" value={`${profile.emoji ?? "🚇"} ${profile.name || (profile.isGuest ? "Guest user" : "Create username")}`} />
         <Metric label="High Score" value={profile.highScore.toString()} />
         <Metric label="Answered" value={profile.totalAnswered.toString()} />
         <Metric label="Accuracy" value={`${accuracy}%`} />
         <Metric label="Current Level" value={difficultyLabels[profile.currentDifficulty]} />
+        <Metric label="Profile Coverage" value={`${completedProfileCount}/${regions.length}`} />
         <Metric label="Strongest" value={strongest ? categoryLabels[strongest.category as keyof typeof categoryLabels] : "Pending"} />
         <Metric label="Weakest" value={weakest ? categoryLabels[weakest.category as keyof typeof categoryLabels] : "Pending"} />
       </div>
