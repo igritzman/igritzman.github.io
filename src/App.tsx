@@ -6,6 +6,7 @@ import { catalogCoverage, categoryLabels, difficultyLabels, difficultyLevels, qu
 import { createRun, difficultyScore, isCorrect, nextDifficulty } from "./quiz";
 import regionalPopulationTable from "./regionalPopulations.json";
 import countryImageManifest from "./countryImageManifest.json";
+import uploadedCountryImageManifest from "./uploadedCountryImageManifest.json";
 import regionFlagManifest from "./regionFlagManifest.json";
 import regionImageManifest from "./regionImageManifest.json";
 import usStateImageManifest from "./usStateImageManifest.json";
@@ -79,6 +80,20 @@ const metroImageByPrompt: Record<string, string> = {
   "Washington DC Metro core": "/images/metro-images/WMATA.png",
   "Washington DC Metro transfer": "/images/metro-images/WMATA.png",
   "WMATA regional map": "/images/metro-images/WMATA.png",
+  "Shinkansen with Mount Fuji": "/images/uploaded/transit-photos/Transit%20Photos/Shinkansen%20Fuji.jpg",
+  "Fuxing high-speed rail": "/images/uploaded/transit-photos/Transit%20Photos/Fuxing%20High%20Speed%20Rail.jpg",
+  "Addis Ababa Light Rail": "/images/uploaded/transit-photos/Transit%20Photos/Addis%20Ababa%20Light%20Rail.jpg",
+  "Brightline Florida train": "/images/uploaded/transit-photos/Transit%20Photos/Brightline.jpg",
+  "Stockholm metro art": "/images/uploaded/transit-photos/Transit%20Photos/Stockholm%20Metro%20Art.jpg",
+  "Medellin cable car": "/images/uploaded/transit-photos/Transit%20Photos/Metrocable%20Medellin.jpg",
+  "Berlin transit scene": "/images/uploaded/transit-photos/Transit%20Photos/Berlin%20Germany%20Transit.jpeg",
+  "Mexico City transit scene": "/images/uploaded/transit-photos/Transit%20Photos/Mexico%20City%20Transit.jpg",
+  "Santiago cable car": "/images/uploaded/transit-photos/Transit%20Photos/Santiago%20Cable%20Car%20Chile.jpg",
+  "Rabat light rail": "/images/uploaded/transit-photos/Transit%20Photos/Rabat%20Morocco%20Light%20Rail.jpg",
+  "Casablanca light rail": "/images/uploaded/transit-photos/Transit%20Photos/Casablanca%20Morocco%20Light%20Rail.jpg",
+  "Kobe ropeway": "/images/uploaded/transit-photos/Transit%20Photos/Kobe%20Ropeway.jpg",
+  "Miyajima ropeway": "/images/uploaded/transit-photos/Transit%20Photos/Miyajima%20Ropeway.jpg",
+  "Dragon and Tiger Pagodas": "/images/uploaded/country-images-5/Country%20Images/Taiwan.jpg",
   "MARTA rail map": "/images/metro-images/MARTA.png",
   "Shanghai Metro airport clue": "/images/metro-images/Shanghai_Metro_Network_en.png",
   "TTC subway reference": "/images/metro-images/TTC%20Toronto%20Subway.png",
@@ -102,17 +117,17 @@ const metroImageByPrompt: Record<string, string> = {
 
 const transitSystemImageById: Record<string, string> = {
   wmata: "/images/uploaded/metro-images-2/Metro%20Images/WMATA.png",
-  shinkansen: "/images/metro-images/Shinkansen_map_202405_en.png",
+  shinkansen: "/images/uploaded/transit-photos/Transit%20Photos/Shinkansen%20Fuji.jpg",
   "bangkok-bts-mrt": "/images/metro-images/bangkok-map.png",
   marta: "/images/metro-images/MARTA.png",
   "warsaw-metro": "/images/metro-images/warszawa-metro-map.png",
   "bogota-transmilenio": "/images/metro-images/TransMilenio_Bogota_Map.png",
-  "medellin-metro": "/images/metro-images/Medellin%20Metro.jpg",
+  "medellin-metro": "/images/uploaded/transit-photos/Transit%20Photos/Metrocable%20Medellin.jpg",
   bart: "/images/metro-images/BART.png",
   "chicago-l": "/images/metro-images/Chicago_L_diagram_sb.svg.png",
   "la-metro": "/images/metro-images/LAMETRO.png",
   "miami-metrorail": "/images/metro-images/Metrorail_(Miami-Dade_County)_system_map.svg.png",
-  brightline: "/images/metro-images/brightline-1-jpg-1676661357.jpg",
+  brightline: "/images/uploaded/transit-photos/Transit%20Photos/Brightline.jpg",
   "amtrak-nec": "/images/metro-images/NEC_map.svg.png",
   "manila-lrt-mrt": "/images/metro-images/Manila%20Metro.png",
   "jakarta-mrt": "/images/metro-images/MRTjakarta_plan.png",
@@ -133,6 +148,8 @@ const transitSystemImageById: Record<string, string> = {
   "copenhagen-metro": "/images/uploaded/metro-images-2/Metro%20Images/Copenhagen.png",
   "dubai-metro": "/images/uploaded/metro-images-2/Metro%20Images/Dubai_Metro_Phase_2_and_3_Future_Map.jpg",
   "algiers-metro": "/images/uploaded/metro-images-2/Metro%20Images/Algiers%20Metro%20Stations.jpg",
+  "mexico-city-metro": "/images/uploaded/transit-photos/Transit%20Photos/Mexico%20City%20Transit.jpg",
+  "stockholm-metro": "/images/uploaded/transit-photos/Transit%20Photos/Stockholm%20Metro%20Art.jpg",
 };
 
 let placeImagesCache: Record<string, PlaceImage> | null = null;
@@ -174,11 +191,12 @@ const gadmLevelOneFiles: Record<string, string> = {
   italy: "/data/gadm/level1/gadm41_ITA_1.json",
   france: "/data/gadm/level1/gadm41_FRA_1.json",
   ireland: "/data/gadm/level1/gadm41_IRL_1.json",
+  norway: "/data/gadm/level1/gadm41_NOR_1.json",
   thailand: "/data/gadm/level1/gadm41_THA_1.json",
   turkey: "/data/gadm/level1/gadm41_TUR_1.json",
   uae: "/data/gadm/level1/gadm41_ARE_1.json",
   ukraine: "/data/gadm/level1/gadm41_UKR_1.json",
-  "united-kingdom": "/data/gadm/level1/gadm41_GBR_2.json",
+  "united-kingdom": "/data/gadm/level1/gadm41_GBR_1.generated.json",
   vietnam: "/data/gadm/level1/gadm41_VNM_1.json",
   zimbabwe: "/data/gadm/level1/gadm41_ZWE_1.json",
 };
@@ -212,6 +230,24 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "JP-26": { capital: "Kyoto", transit: "Kyoto Municipal Subway, JR West, private railways, Shinkansen" },
   "JP-27": { capital: "Osaka", transit: "Osaka Metro, JR West, Hankyu, Hanshin, Kintetsu" },
   "JP-34": { capital: "Hiroshima", transit: "Hiroshima Electric Railway, JR West, Sanyo Shinkansen" },
+  "KR-41": { capital: "Suwon", population: "13,511,676 (2020 census)", transit: "Seoul Metropolitan Subway, GTX corridors, Suwon rail hub" },
+  "KR-42": { capital: "Chuncheon", population: "1,521,763 (2020 census)", transit: "ITX-Cheongchun rail, regional buses, coastal and mountain corridors" },
+  "KR-43": { capital: "Cheongju", population: "1,632,088 (2020 census)", transit: "Cheongju airport, KTX access, regional buses" },
+  "KR-44": { capital: "Hongseong", population: "2,176,636 (2020 census)", transit: "KTX/SRT access via Cheonan-Asan, regional buses, west-coast corridors" },
+  "KR-45": { capital: "Jeonju", population: "1,802,766 (2020 census)", transit: "Jeonju rail and bus hubs, Honam corridor access" },
+  "KR-46": { capital: "Muan", population: "1,788,807 (2020 census)", transit: "Muan airport, Mokpo rail/ferry links, regional buses" },
+  "KR-47": { capital: "Andong", population: "2,644,757 (2020 census)", transit: "Andong rail/bus hub, Daegu-Gyeongbuk corridors" },
+  "KR-48": { capital: "Changwon", population: "3,333,056 (2020 census)", transit: "Busan-Gimhae light rail access, KTX at Changwon/Jinju, coastal ports" },
+  "KR-49": { capital: "Jeju", population: "670,858 (2020 census)", transit: "Jeju airport, island buses, ferry and tourism coach links" },
+  gyeonggi: { capital: "Suwon", population: "13,511,676 (2020 census)", transit: "Seoul Metropolitan Subway, GTX corridors, Suwon rail hub" },
+  gangwon: { capital: "Chuncheon", population: "1,521,763 (2020 census)", transit: "ITX-Cheongchun rail, regional buses, coastal and mountain corridors" },
+  "north-chungcheong": { capital: "Cheongju", population: "1,632,088 (2020 census)", transit: "Cheongju airport, KTX access, regional buses" },
+  "south-chungcheong": { capital: "Hongseong", population: "2,176,636 (2020 census)", transit: "KTX/SRT access via Cheonan-Asan, regional buses, west-coast corridors" },
+  "north-jeolla": { capital: "Jeonju", population: "1,802,766 (2020 census)", transit: "Jeonju rail and bus hubs, Honam corridor access" },
+  "south-jeolla": { capital: "Muan", population: "1,788,807 (2020 census)", transit: "Muan airport, Mokpo rail/ferry links, regional buses" },
+  "north-gyeongsang": { capital: "Andong", population: "2,644,757 (2020 census)", transit: "Andong rail/bus hub, Daegu-Gyeongbuk corridors" },
+  "south-gyeongsang": { capital: "Changwon", population: "3,333,056 (2020 census)", transit: "KTX at Changwon/Jinju, coastal ports, Busan-Gimhae access" },
+  jeju: { capital: "Jeju", population: "670,858 (2020 census)", transit: "Jeju airport, island buses, ferry and tourism coach links" },
   "MX-JAL": { capital: "Guadalajara", transit: "SITEUR light rail, Mi Macro BRT, Guadalajara airport access" },
   "MX-CMX": { capital: "Mexico City", transit: "Mexico City Metro, Metrobús, suburban rail" },
   "MX.AG": { capital: "Aguascalientes", transit: "Aguascalientes buses, Bajío road corridors, airport access" },
@@ -1321,6 +1357,13 @@ const didYouKnowByRegionId: Record<string, string> = {
   nepal: "Nepal's mountainous terrain makes aviation critical for many remote communities.",
   "united-kingdom": "London Underground is the world's oldest metro system.",
   netherlands: "The Netherlands moves millions of people by bicycle each day through one of the world's most advanced cycling networks.",
+  sweden: "Stockholm Metro is often called the world's longest art gallery because many stations are carved into bedrock and filled with murals, mosaics, and light installations.",
+  switzerland: "The Gotthard Base Tunnel is the world's longest railway tunnel, carrying trains beneath the Alps.",
+  denmark: "Denmark's islands are linked by major bridge and tunnel connections, including the Great Belt and Oresund fixed links.",
+  taiwan: "Taiwan's high-speed rail spine connects Taipei with western cities, while Kaohsiung's Dragon and Tiger Pagodas make a vivid southern landmark clue.",
+  singapore: "Singapore's MRT pairs one of Asia's most polished urban rail networks with Changi Airport, one of the world's signature aviation hubs.",
+  kuwait: "Kuwait has no passenger railway, so roads, buses, taxis, and Kuwait International Airport carry most long-distance movement.",
+  qatar: "Doha Metro opened ahead of the 2022 World Cup and connects Hamad International Airport with central Doha.",
   norway: "Norway's rugged coastline is stitched together by ferries, tunnels, bridges, and short regional flights, while the railway reaches north to Bodø.",
   zimbabwe: "Zimbabwe's rail network links Harare and Bulawayo with regional corridors toward South Africa, Botswana, Mozambique, and Zambia.",
   georgia: "The Tbilisi Metro opened in 1966 and was the fourth metro system built in the former Soviet Union.",
@@ -1391,6 +1434,30 @@ const regionalPopulationByName: Record<string, string> = {
   "Souss-Massa": "3,020,431 (2024 census)",
   "Tanger-Tetouan-Al Hoceima": "4,030,222 (2024 census)",
   "Tanger-Tétouan-Al Hoceïma": "4,030,222 (2024 census)",
+  Gangwon: "1,521,763 (2020 census)",
+  "Gangwon State": "1,521,763 (2020 census)",
+  Gyeonggi: "13,511,676 (2020 census)",
+  "Gyeonggi-do": "13,511,676 (2020 census)",
+  "North Chungcheong": "1,632,088 (2020 census)",
+  Chungcheongbukdo: "1,632,088 (2020 census)",
+  "Chungcheongbuk-do": "1,632,088 (2020 census)",
+  "South Chungcheong": "2,176,636 (2020 census)",
+  Chungcheongnamdo: "2,176,636 (2020 census)",
+  "Chungcheongnam-do": "2,176,636 (2020 census)",
+  "North Gyeongsang": "2,644,757 (2020 census)",
+  Gyeongsangbukdo: "2,644,757 (2020 census)",
+  "Gyeongsangbuk-do": "2,644,757 (2020 census)",
+  "South Gyeongsang": "3,333,056 (2020 census)",
+  Gyeongsangnamdo: "3,333,056 (2020 census)",
+  "Gyeongsangnam-do": "3,333,056 (2020 census)",
+  "North Jeolla": "1,802,766 (2020 census)",
+  Jeollabukdo: "1,802,766 (2020 census)",
+  "Jeollabuk-do": "1,802,766 (2020 census)",
+  "South Jeolla": "1,788,807 (2020 census)",
+  Jeollanamdo: "1,788,807 (2020 census)",
+  "Jeollanam-do": "1,788,807 (2020 census)",
+  Jeju: "670,858 (2020 census)",
+  "Jeju Special Self-Governing Province": "670,858 (2020 census)",
   Mie: "1,731,863 (Apr. 1, 2023 estimate)",
   Miyagi: "2,264,921 (Apr. 1, 2023 estimate)",
   Miyazaki: "1,043,524 (Apr. 1, 2023 estimate)",
@@ -2147,6 +2214,8 @@ const uploadedSouthKoreaBasePath = "/images/uploaded/south-korea/South%20Korea%2
 const uploadedSouthKoreaWikiPath = `${uploadedSouthKoreaBasePath}/Provinces%20of%20South%20Korea%20-%20Wikipedia_files`;
 const uploadedNorwayBasePath = "/images/uploaded/norway/Norway%20Flags%20and%20Images";
 const uploadedGlobalRegionsBasePath = "/images/uploaded/global-regions/Ukranian%20Oblast%20Flags%20and%20Images";
+const uploadedCountryImagesBasePath = "/images/uploaded/country-images-5/Country%20Images";
+const uploadedCountryImageFiles = uploadedCountryImageManifest as Record<string, string>;
 
 const uploadedCountryFlagByName: Record<string, string> = {
   england: `${uploadedTurkishUkBasePath}/England%20flag.png`,
@@ -2364,7 +2433,12 @@ function uploadedProfileFlagPathForName(name: string) {
 }
 
 function uploadedCountryImagePathForName(name: string) {
-  return uploadedCountryImageByName[slugifyCountryName(name)] ?? "";
+  const manualPath = uploadedCountryImageByName[slugifyCountryName(name)];
+  if (manualPath) return manualPath;
+  const key = imageLookupKey(name);
+  const alias = countryImageAliases[key] ?? key;
+  const fileName = uploadedCountryImageFiles[key] ?? uploadedCountryImageFiles[alias];
+  return fileName ? `${uploadedCountryImagesBasePath}/${encodeURIComponent(fileName).replace(/%2F/g, "/")}` : "";
 }
 
 function uploadedSubdivisionAssetForName(name: string, type: "flag" | "image") {
@@ -3990,6 +4064,18 @@ const featuredDailyLessons: DailyLesson[] = [
     summary: "Singapore is compact, but its transit geography is exceptionally rich.",
     facts: ["Singapore is both city and country", "The MRT is the main rapid transit clue", "Changi Airport is a global aviation hub", "Jurong East, City Hall, and Dhoby Ghaut are useful interchange clues", "Its island shape makes map identification quick"],
     prompt: "Use Changi Airport and MRT interchanges as your anchor points.",
+  },
+  {
+    title: "Sweden",
+    summary: "Sweden is a strong geography-and-transit lesson because it combines island geography, Baltic gateways, long-distance rail, and a very memorable metro identity. Stockholm's metro is often described as the world's longest art gallery, with many stations carved into bedrock and turned into colorful public art spaces. Outside the capital, Sweden's rail and ferry links connect cities such as Gothenburg, Malmo, Uppsala, and Kiruna across a long north-south country shape.",
+    facts: ["Stockholm Metro is the signature art-and-transit clue", "Sweden has thousands of islands and a long Baltic coastline", "Gothenburg and Malmo add port and rail clues", "Oresund links southern Sweden with Denmark", "Northern rail corridors help anchor Arctic Sweden"],
+    prompt: "Use the metro-art image first, then connect Stockholm, Gothenburg, Malmo, and the Oresund crossing.",
+  },
+  {
+    title: "Taiwan",
+    summary: "Taiwan is compact but full of strong visual and transportation clues. Taipei anchors the north with MRT and airport rail, while Taiwan High Speed Rail runs down the island's western corridor toward Taichung, Tainan, and Kaohsiung. The Dragon and Tiger Pagodas near Kaohsiung create a memorable southern landmark hook that pairs well with high-speed rail and island geography.",
+    facts: ["Taiwan High Speed Rail follows the western corridor", "Taipei has MRT and airport rail clues", "Kaohsiung is a major southern transit and port city", "Dragon and Tiger Pagodas are a strong landmark clue", "Mountain terrain pushes major transport toward the west coast"],
+    prompt: "Pair Taipei, high-speed rail, Kaohsiung, and the Dragon and Tiger Pagodas.",
   },
   {
     title: "Thailand",
@@ -6828,8 +6914,8 @@ function subregionsFor(regionId: string) {
     brazil: ["Sao Paulo", "Rio de Janeiro", "Bahia", "Minas Gerais", "Parana", "Rio Grande do Sul", "Amazonas", "Pernambuco", "Distrito Federal"],
     chile: ["Santiago Metropolitan Region", "Valparaiso Region", "Biobio Region", "Antofagasta Region", "Los Lagos Region", "Magallanes Region", "Araucania Region"],
     japan: ["Hokkaido", "Honshu", "Shikoku", "Kyushu", "Okinawa", "Kanto", "Kansai", "Chugoku"],
-    australia: ["New South Wales", "Victoria", "Queensland", "Western Australia", "South Australia", "Tasmania", "Northern Territory"],
-    "united-kingdom": ["England", "Scotland", "Wales", "Northern Ireland", "Greater London", "West Midlands"],
+    australia: ["New South Wales", "Victoria", "Queensland", "Western Australia", "South Australia", "Tasmania", "Australian Capital Territory", "Northern Territory"],
+    "united-kingdom": ["England", "Scotland", "Wales", "Northern Ireland", "North West England", "Yorkshire & Humber", "West Midlands", "South West England", "Greater London"],
     "south-africa": ["Gauteng", "Western Cape", "KwaZulu-Natal", "Eastern Cape", "Free State", "Mpumalanga", "Limpopo"],
     china: ["Beijing", "Shanghai", "Guangdong", "Sichuan", "Yunnan", "Xinjiang", "Tibet", "Hong Kong", "Macau"],
     egypt: ["Cairo", "Giza", "Alexandria", "Port Said", "Suez", "Luxor", "Aswan", "South Sinai"],
@@ -6839,10 +6925,13 @@ function subregionsFor(regionId: string) {
     nigeria: ["Lagos State", "Federal Capital Territory", "Kano State", "Rivers State", "Oyo State", "Kaduna State"],
     russia: ["Moscow", "Saint Petersburg", "Siberia", "Far East", "Tatarstan", "Krasnodar Krai"],
     france: ["Ile-de-France", "Provence-Alpes-Cote d'Azur", "Occitanie", "Nouvelle-Aquitaine", "Brittany", "Corsica"],
-    spain: ["Madrid", "Catalonia", "Andalusia", "Valencian Community", "Basque Country", "Galicia"],
+    italy: ["Lombardia", "Lazio", "Toscana", "Sicily", "Sardegna", "Veneto", "Calabria"],
+    portugal: ["Lisbon", "Porto", "Azores", "Madeira"],
+    poland: ["Greater Poland", "Kuyavia-Pomerania", "Lesser Poland", "Lodz", "Lower Silesia", "Lublin", "Lubusz", "Masovia", "Opole", "Podlaskie", "Pomerania", "Silesia", "Podkarpackie", "Swietokrzyskie", "Warmia-Masuria", "West Pomerania"],
+    spain: ["Madrid", "Catalonia", "Andalusia", "Valencian Community", "Basque Country", "Galicia", "Canary Islands", "Balearic Islands", "Ibiza", "Murcia"],
     ghana: ["Ahafo", "Ashanti", "Bono", "Bono East", "Central", "Eastern", "Greater Accra", "North East", "Northern", "Oti", "Savannah", "Upper East", "Upper West", "Volta", "Western", "Western North"],
     morocco: ["Casablanca-Settat", "Rabat-Sale-Kenitra", "Marrakesh-Safi", "Fes-Meknes", "Tangier-Tetouan-Al Hoceima", "Souss-Massa", "Dakhla-Oued Ed-Dahab"],
-    "south-korea": ["Seoul", "Busan", "Incheon", "Daegu", "Gyeonggi", "Gangwon", "North Gyeongsang", "South Gyeongsang", "North Jeolla", "Jeju"],
+    "south-korea": ["Seoul", "Busan", "Incheon", "Daegu", "Gyeonggi", "Gangwon", "North Chungcheong", "South Chungcheong", "North Gyeongsang", "South Gyeongsang", "North Jeolla", "South Jeolla", "Jeju"],
     uae: ["Abu Dhabi", "Dubai", "Sharjah", "Ajman", "Ras Al Khaimah", "Fujairah"],
     denmark: ["Zealand", "Jutland", "Funen", "Capital Region", "Aarhus Region"],
     thailand: ["Bangkok", "Chiang Mai", "Phuket", "Chonburi", "Nakhon Ratchasima", "Khon Kaen", "Songkhla", "Krabi"],
@@ -6857,6 +6946,80 @@ function subregionsFor(regionId: string) {
     "new-zealand": ["North Island", "South Island", "Auckland Region", "Wellington Region", "Canterbury", "Otago"],
   };
   const regionalDetails: Record<string, Record<string, string>> = {
+    australia: {
+      "New South Wales": "Capital: Sydney · Transit: Sydney Trains, Metro, light rail and ferries",
+      Victoria: "Capital: Melbourne · Transit: suburban rail, trams, regional V/Line",
+      Queensland: "Capital: Brisbane · Transit: Queensland Rail, Brisbane buses and ferries",
+      "Western Australia": "Capital: Perth · Transit: Transperth rail, buses and ferries",
+      "South Australia": "Capital: Adelaide · Transit: Adelaide Metro rail, tram and buses",
+      Tasmania: "Capital: Hobart · Transit: Metro Tasmania buses and ferry links",
+      "Australian Capital Territory": "Capital: Canberra · Transit: Canberra light rail and buses",
+      "Northern Territory": "Capital: Darwin · Transit: Darwin buses and remote air/road links",
+    },
+    france: {
+      "Ile-de-France": "Capital: Paris · Population: about 12.4 million · Transit: Paris Metro, RER, tram and TGV gateways",
+      "Provence-Alpes-Cote d'Azur": "Capital: Marseille · Population: 5,218,960 (2023) · Transit: Marseille and Nice urban rail/coastal corridors",
+      Occitanie: "Capital: Toulouse · Transit: Toulouse Metro, Montpellier tram and Mediterranean rail",
+      "Nouvelle-Aquitaine": "Capital: Bordeaux · Transit: Bordeaux tram, TGV and Atlantic rail corridors",
+      Brittany: "Capital: Rennes · Transit: Rennes Metro, TER Bretagne and ferry links",
+      Corsica: "Capital: Ajaccio · Transit: Corsican railway and ferry links",
+    },
+    italy: {
+      Lombardia: "Capital: Milan · Transit: Milan Metro, regional rail and high-speed rail",
+      Lazio: "Capital: Rome · Transit: Rome Metro, tram and national rail hub",
+      Toscana: "Capital: Florence · Transit: tramway, high-speed rail and regional rail",
+      Sicily: "Capital: Palermo · Transit: Palermo/Catania rail, ferries and island airports",
+      Sardegna: "Capital: Cagliari · Transit: regional rail, buses and ferry routes",
+      Veneto: "Capital: Venice · Transit: rail, vaporetti and airport boat links",
+      Calabria: "Capital: Catanzaro · Transit: regional rail and airport links",
+    },
+    poland: {
+      "Greater Poland": "Capital: Poznan",
+      "Kuyavia-Pomerania": "Capitals: Bydgoszcz and Torun",
+      "Lesser Poland": "Capital: Krakow",
+      Lodz: "Capital: Lodz",
+      "Lower Silesia": "Capital: Wroclaw",
+      Lublin: "Capital: Lublin",
+      Lubusz: "Capitals: Gorzow Wielkopolski and Zielona Gora",
+      Masovia: "Capital: Warsaw",
+      Opole: "Capital: Opole",
+      Podlaskie: "Capital: Bialystok",
+      Pomerania: "Capital: Gdansk",
+      Silesia: "Capital: Katowice",
+      Podkarpackie: "Capital: Rzeszow",
+      Swietokrzyskie: "Capital: Kielce",
+      "Warmia-Masuria": "Capital: Olsztyn",
+      "West Pomerania": "Capital: Szczecin",
+    },
+    portugal: {
+      Lisbon: "Capital: Lisbon · Transit: Lisbon Metro, trams, commuter rail and ferries",
+      Porto: "Capital: Porto · Transit: Porto Metro, suburban rail and Douro corridor",
+      Azores: "Capital: Ponta Delgada · Transit: inter-island flights, ferries and island road links",
+      Madeira: "Capital: Funchal · Transit: buses, cable cars and island road tunnels",
+    },
+    spain: {
+      Madrid: "Capital: Madrid · Transit: Metro de Madrid, Cercanias and AVE",
+      Catalonia: "Capital: Barcelona · Transit: Barcelona Metro, Rodalies and AVE",
+      Andalusia: "Capital: Seville · Transit: Seville Metro, Malaga Metro and AVE",
+      "Valencian Community": "Capital: Valencia · Transit: Metrovalencia, tram and Mediterranean rail",
+      "Basque Country": "Capital: Vitoria-Gasteiz · Transit: Bilbao Metro, Euskotren and tramways",
+      Galicia: "Capital: Santiago de Compostela · Transit: regional rail and Atlantic airports",
+      "Canary Islands": "Capital: Las Palmas de Gran Canaria · Transit: island buses, ferries and airports",
+      "Balearic Islands": "Capital: Palma · Transit: Palma Metro, buses, ferries and island airports",
+      Ibiza: "Capital: Ibiza Town · Transit: island buses, port ferries and airport links",
+      Murcia: "Capital: Murcia · Transit: Murcia tram, regional rail and Mediterranean road corridors",
+    },
+    "united-kingdom": {
+      England: "Capital: London · Transit: National Rail, London Underground, Elizabeth line and regional metros",
+      Scotland: "Capital: Edinburgh · Transit: ScotRail, Glasgow Subway, Edinburgh Trams and ferries",
+      Wales: "Capital: Cardiff · Transit: Transport for Wales rail, South Wales Metro and ferries",
+      "Northern Ireland": "Capital: Belfast · Transit: NI Railways, Belfast Glider and ferry links",
+      "North West England": "Administrative center: Manchester · Transit: Metrolink, heavy rail and airport links",
+      "Yorkshire & Humber": "Administrative center: Leeds · Transit: regional rail and urban bus corridors",
+      "West Midlands": "Administrative center: Birmingham · Transit: West Midlands Metro and rail hub",
+      "South West England": "Administrative center: Bristol · Transit: Great Western rail and ferry/airport links",
+      "Greater London": "Administrative center: London · Transit: Underground, Overground, Elizabeth line, DLR and buses",
+    },
     ghana: {
       Ahafo: "Capital: Goaso · Population: 564,668 (2021 census)",
       Ashanti: "Capital: Kumasi · Population: 5,440,463 (2021 census)",
@@ -6890,10 +7053,13 @@ function subregionsFor(regionId: string) {
       Incheon: "Metropolitan city · Population: 2,945,454 (2020 census)",
       Daegu: "Metropolitan city · Population: 2,410,700 (2020 census)",
       Gyeonggi: "Capital: Suwon · Population: 13,511,676 (2020 census)",
-      Jeju: "Capital: Jeju City · Population: 670,858 (2020 census)",
-      "South Gyeongsang": "Capital: Changwon · Population: 3,340,216 (2020 census)",
-      "North Jeolla": "Capital: Jeonju · Population: 1,804,104 (2020 census)",
+      "North Chungcheong": "Capital: Cheongju · Population: 1,632,088 (2020 census)",
+      "South Chungcheong": "Capital: Hongseong · Population: 2,176,636 (2020 census)",
       "North Gyeongsang": "Capital: Andong · Population: 2,644,757 (2020 census)",
+      "South Gyeongsang": "Capital: Changwon · Population: 3,333,056 (2020 census)",
+      "North Jeolla": "Capital: Jeonju · Population: 1,802,766 (2020 census)",
+      "South Jeolla": "Capital: Muan · Population: 1,788,807 (2020 census)",
+      Jeju: "Capital: Jeju · Population: 670,858 (2020 census)",
       Gangwon: "Capital: Chuncheon · Population: 1,521,763 (2020 census)",
     },
     indonesia: {
