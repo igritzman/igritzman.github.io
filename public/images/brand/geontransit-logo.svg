@@ -1,26 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 240" role="img" aria-label="GEO N TRANSIT">
-  <defs>
-    <style>
-      .word { font-family: Arial, Helvetica, sans-serif; font-weight: 900; font-style: italic; letter-spacing: 0; }
-    </style>
-  </defs>
-  <g class="word">
-    <text x="28" y="158" font-size="124" fill="#0b6828">GE</text>
-    <g transform="translate(206 40)">
-      <circle cx="72" cy="72" r="58" fill="#f8fbf7" stroke="#0b6828" stroke-width="12"/>
-      <path d="M72 17 L91 72 L72 127 L53 72 Z" fill="#0b6828"/>
-      <path d="M17 72 L72 53 L127 72 L72 91 Z" fill="#73b987"/>
-      <circle cx="72" cy="72" r="10" fill="#f8fbf7" stroke="#0b6828" stroke-width="6"/>
-    </g>
-    <text x="352" y="158" font-size="124" fill="#d4a017">N</text>
-    <text x="454" y="158" font-size="124" fill="#092653">TRANSIT</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 180" role="img" aria-label="GeoInTransit">
+  <rect width="980" height="180" fill="#ffffff"/>
+  <g transform="translate(34 36)">
+    <circle cx="54" cy="54" r="42" fill="#eef7f4" stroke="#0f6848" stroke-width="8"/>
+    <path d="M20 55 C35 33 72 25 92 37" fill="none" stroke="#0f6848" stroke-width="6" stroke-linecap="round"/>
+    <path d="M20 74 C42 62 65 60 91 68" fill="none" stroke="#0f6848" stroke-width="6" stroke-linecap="round"/>
+    <path d="M54 14 C42 35 42 73 54 94 C67 73 67 35 54 14Z" fill="none" stroke="#0f6848" stroke-width="5" stroke-linejoin="round"/>
   </g>
-  <g fill="none" stroke="#092653" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M480 190 H1080" stroke-width="8"/>
-    <path d="M560 210 H1010" stroke-width="5" opacity="0.65"/>
-    <circle cx="565" cy="190" r="12" fill="#092653" stroke="none"/>
-    <circle cx="725" cy="190" r="12" fill="#092653" stroke="none"/>
-    <circle cx="885" cy="190" r="12" fill="#092653" stroke="none"/>
-    <circle cx="1045" cy="190" r="12" fill="#092653" stroke="none"/>
+  <text x="126" y="104" font-family="Inter, Segoe UI, Arial, Helvetica, sans-serif" font-size="64" font-weight="800" letter-spacing="0">
+    <tspan fill="#0f6848">Geo</tspan><tspan fill="#24333a">InTransit</tspan>
+  </text>
+  <g transform="translate(132 132)" fill="none" stroke-linecap="round">
+    <path d="M0 0 H545" stroke="#24333a" stroke-width="5"/>
+    <path d="M0 0 H166" stroke="#0f6848" stroke-width="5"/>
+    <circle cx="166" cy="0" r="8" fill="#0f6848" stroke="#ffffff" stroke-width="3"/>
+    <circle cx="545" cy="0" r="8" fill="#24333a" stroke="#ffffff" stroke-width="3"/>
   </g>
 </svg>
