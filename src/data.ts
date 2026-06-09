@@ -3120,7 +3120,7 @@ const generatedRegions: Region[] = [...unMemberCountries, ...extraCountryLikeReg
       majorCities: overrides.majorCities ?? [capital, "Largest commercial city", "Primary airport city", "Major regional city", "Historic or port city"],
       airports: overrides.airports ?? (hasNoAirport
         ? [`No commercial airport in ${name}; travelers use nearby international airports in neighboring countries or regions`]
-        : [`${name} primary international airport`, `${name} secondary airport`, "Capital gateway airport", "Regional domestic airport", "Cargo or charter airport"]),
+        : ["Airport data needs completion"]),
       rail: overrides.rail ?? ["National rail or intercity coach corridor", "Capital-area commuter links", "Main freight corridor", "Cross-border rail/coach link", "Primary station district"],
       metro: overrides.metro ?? ["Capital transit network", "Bus, BRT, tram, or metro where available", "Airport bus/rail link where available", "Central station interchange", "Regional commuter corridor"],
       highways: overrides.highways ?? ["Primary national highway corridor", "Capital ring or airport road", "North-south trunk road", "East-west trunk road", "Main border or port access road"],
@@ -3131,7 +3131,7 @@ const generatedRegions: Region[] = [...unMemberCountries, ...extraCountryLikeReg
       funFacts: overrides.funFacts ?? [
         `${name} is included in the full 193 UN-country local catalog expansion.`,
         `${name}'s capital profile is available as a local quiz and map-study anchor.`,
-        `${name}'s transport profile tracks aviation, roads, rail or bus corridors, and maritime access where relevant.`,
+        `${name}'s transport profile tracks aviation, roads, rail or bus corridors, and maritime access where verified.`,
         `${name}'s geography profile includes rivers, mountains, coasts, islands, or regional landforms.`,
         `${name}'s landmarks and places of interest are available for visual-question expansion.`,
       ],
@@ -3146,7 +3146,7 @@ const generatedRegions: Region[] = [...unMemberCountries, ...extraCountryLikeReg
       ],
       facts: [
         `Population: ${populationEstimates[id] ?? "available in the country profile"}.`,
-        `${name} has a local transit profile covering airports or no-airport access, rail/coach, roads, maritime access, landmarks, and geography.`,
+        `${name} has a local transit profile covering verified airport/no-airport access, rail/coach, roads, maritime access, landmarks, and geography.`,
         `Harder quizzes can draw obscure airport names, former-country names, river facts, and busiest-airport prompts from this catalog.`,
       ],
       sampleQuestionIds: questions

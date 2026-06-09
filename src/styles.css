@@ -304,12 +304,21 @@ h3 {
   padding: 0.9rem;
 }
 
+.daily-lesson-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 42;
+  background: rgba(2, 8, 12, 0.28);
+}
+
 .daily-lesson-panel {
   position: fixed;
   left: 1rem;
   bottom: 5rem;
-  z-index: 42;
+  z-index: 43;
   width: min(430px, calc(100vw - 2rem));
+  max-height: min(760px, calc(100vh - 6rem));
+  overflow: auto;
   border: 1px solid rgba(102, 217, 198, 0.28);
   border-radius: 8px;
   background:
@@ -1506,6 +1515,59 @@ h3 {
   text-transform: uppercase;
 }
 
+.completeness-filter-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.completeness-filter-grid button {
+  min-height: 30px;
+  border-radius: 999px;
+  padding: 0.25rem 0.55rem;
+  color: #d7e8eb;
+  font-size: 0.72rem;
+}
+
+.completeness-filter-grid button.selected {
+  border-color: rgba(102, 217, 198, 0.72);
+  background: rgba(102, 217, 198, 0.14);
+  color: #efffff;
+}
+
+.country-completeness-list {
+  display: grid;
+  gap: 0.35rem;
+  max-height: 260px;
+  overflow: auto;
+}
+
+.country-completeness-list button {
+  display: grid;
+  grid-template-columns: minmax(110px, 0.7fr) minmax(0, 1fr);
+  gap: 0.55rem;
+  align-items: center;
+  min-height: 34px;
+  border-radius: 7px;
+  padding: 0.42rem 0.5rem;
+  text-align: left;
+}
+
+.country-completeness-list strong {
+  color: #eef9fb;
+  overflow-wrap: anywhere;
+}
+
+.country-completeness-list span {
+  color: #a9bec4;
+  font-size: 0.72rem;
+}
+
+.country-completeness-list span.complete {
+  color: #66d9c6;
+  font-weight: 900;
+}
+
 .regional-completion-tracker.loading {
   color: #a9bec4;
 }
@@ -1578,6 +1640,62 @@ h3 {
   justify-self: start;
   min-height: 30px;
   padding: 0.25rem 0.55rem;
+}
+
+.profile-region-picker {
+  display: grid;
+  gap: 0.55rem;
+  border: 1px solid rgba(141, 179, 185, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.65rem;
+}
+
+.profile-region-picker label {
+  display: grid;
+  gap: 0.32rem;
+  color: #d7e8eb;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.profile-region-picker select {
+  width: 100%;
+  border: 1px solid rgba(141, 179, 185, 0.26);
+  border-radius: 8px;
+  background: rgba(5, 16, 22, 0.78);
+  color: #eef9fb;
+  padding: 0.55rem 0.65rem;
+}
+
+.profile-region-preview {
+  display: grid;
+  grid-template-columns: repeat(2, 58px) minmax(0, 1fr);
+  gap: 0.55rem;
+  align-items: center;
+}
+
+.profile-region-preview img {
+  width: 58px;
+  height: 42px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.profile-region-preview div {
+  display: grid;
+  gap: 0.12rem;
+}
+
+.profile-region-preview strong {
+  color: #eef9fb;
+}
+
+.profile-region-preview span {
+  color: #a9bec4;
+  font-size: 0.74rem;
 }
 
 .subdivision-jump-control {

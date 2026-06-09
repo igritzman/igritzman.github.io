@@ -126,6 +126,7 @@ const gadmLevelOneFiles: Record<string, string> = {
   india: "/data/gadm/level1/gadm41_IND_1.json",
   australia: "/data/gadm/level1/gadm41_AUS_1.json",
   germany: "/data/gadm/level1/gadm41_DEU_1.json",
+  greece: "/data/gadm/level1/geoBoundaries_GRC_ADM1.json",
   mexico: "/data/gadm/level1/gadm41_MEX_1.json",
   nepal: "/data/gadm/level1/geoboundaries_NPL_ADM1.json",
   nigeria: "/data/gadm/level1/gadm41_NGA_1.json",
@@ -449,7 +450,7 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "CA-NS": { capital: "Halifax", population: "about 1.1 million", transit: "Halifax Transit buses and ferries, VIA Rail Ocean" },
   "CA-NT": { capital: "Yellowknife", population: "about 45,000", transit: "Yellowknife Transit and northern air links" },
   "CA-NU": { capital: "Iqaluit", population: "about 40,000", transit: "Air and sealift links; no intercity road or rail network" },
-  "CA-PE": { capital: "Charlottetown", population: "about 180,000", transit: "T3 Transit, ferry and Confederation Bridge road links" },
+  "CA-PE": { capital: "Charlottetown", population: "182,508 (Q4 2025 estimate)", transit: "T3 Transit, Charlottetown Airport (YYG), ferry links, and Confederation Bridge road access" },
   "CA-SK": { capital: "Regina", population: "about 1.3 million", transit: "Regina Transit, Saskatoon Transit, intercity highway and air links" },
   "CA-YT": { capital: "Whitehorse", population: "about 48,000", transit: "Whitehorse Transit and northern air links" },
   abruzzo: { capital: "L'Aquila", transit: "Regional rail and Adriatic corridor links through Pescara" },
@@ -482,6 +483,43 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "central-visayas": { capital: "Cebu City", transit: "Cebu BRT corridor, ferries, Mactan-Cebu airport" },
   "eastern-visayas": { capital: "Tacloban", transit: "Tacloban airport, ferry and highway links" },
   "zamboanga-peninsula": { capital: "Pagadian", transit: "Regional bus, ferry, Zamboanga and Pagadian airport links" },
+  Abia: { capital: "Umuahia", transit: "Umuahia road links, Aba commercial corridors, and regional coach service" },
+  Adamawa: { capital: "Yola", transit: "Yola airport, Benue River road corridors, and regional buses" },
+  "Akwa Ibom": { capital: "Uyo", transit: "Victor Attah International Airport and Uyo regional road links" },
+  Anambra: { capital: "Awka", transit: "Awka-Onitsha road corridors and regional bus links" },
+  Bauchi: { capital: "Bauchi", transit: "Bauchi rail/road corridors and regional coach service" },
+  Bayelsa: { capital: "Yenagoa", transit: "Delta waterways, Yenagoa road links, and regional buses" },
+  Benue: { capital: "Makurdi", transit: "Makurdi road bridges, Benue River corridors, and regional buses" },
+  Borno: { capital: "Maiduguri", transit: "Maiduguri airport and northeast road corridors" },
+  "Cross River": { capital: "Calabar", transit: "Calabar port, airport, and regional road links" },
+  Delta: { capital: "Asaba", transit: "Asaba airport, Warri port access, and Niger Delta roads" },
+  Ebonyi: { capital: "Abakaliki", transit: "Abakaliki road corridors and regional coach links" },
+  Edo: { capital: "Benin City", transit: "Benin airport and Lagos-Abuja road corridor links" },
+  Ekiti: { capital: "Ado Ekiti", transit: "Ado Ekiti road links and regional bus service" },
+  Enugu: { capital: "Enugu", transit: "Akanu Ibiam airport, Enugu rail links, and regional buses" },
+  "Federal Capital Territory": { capital: "Abuja", transit: "Abuja Metro, Nnamdi Azikiwe International Airport, and regional road corridors" },
+  Gombe: { capital: "Gombe", transit: "Gombe airport, rail/road corridors, and regional buses" },
+  Imo: { capital: "Owerri", transit: "Owerri airport and southeast road corridors" },
+  Jigawa: { capital: "Dutse", transit: "Dutse road links and northern regional buses" },
+  Kaduna: { capital: "Kaduna", transit: "Abuja-Kaduna rail, Kaduna airport, and northern road corridors" },
+  Kano: { capital: "Kano", transit: "Kano airport, rail hub, and northern road corridors" },
+  Katsina: { capital: "Katsina", transit: "Katsina airport and northern road links" },
+  Kebbi: { capital: "Birnin Kebbi", transit: "Birnin Kebbi road links and regional air access" },
+  Kogi: { capital: "Lokoja", transit: "Niger-Benue confluence road corridors and regional buses" },
+  Kwara: { capital: "Ilorin", transit: "Ilorin airport, rail links, and regional road corridors" },
+  Lagos: { capital: "Ikeja", transit: "Lagos Rail Mass Transit, BRT, ports, and Murtala Muhammed International Airport" },
+  Nasarawa: { capital: "Lafia", transit: "Lafia road links and Abuja regional access" },
+  Niger: { capital: "Minna", transit: "Minna rail/road corridors and Abuja regional access" },
+  Ogun: { capital: "Abeokuta", transit: "Lagos-Ibadan rail, Abeokuta roads, and regional buses" },
+  Ondo: { capital: "Akure", transit: "Akure airport and southwest road corridors" },
+  Osun: { capital: "Osogbo", transit: "Osogbo rail/road corridors and regional buses" },
+  Oyo: { capital: "Ibadan", transit: "Lagos-Ibadan rail, Ibadan road corridors, and regional buses" },
+  Plateau: { capital: "Jos", transit: "Jos road corridors and regional coach links" },
+  Rivers: { capital: "Port Harcourt", transit: "Port Harcourt airport, port, and Niger Delta road corridors" },
+  Sokoto: { capital: "Sokoto", transit: "Sokoto airport and northwest road corridors" },
+  Taraba: { capital: "Jalingo", transit: "Jalingo road links and regional coach service" },
+  Yobe: { capital: "Damaturu", transit: "Damaturu road links and Potiskum regional corridors" },
+  Zamfara: { capital: "Gusau", transit: "Gusau road links and northwest regional buses" },
   "northern-mindanao": { capital: "Cagayan de Oro", transit: "Laguindingan airport, port and regional bus links" },
   "davao-region": { capital: "Davao City", transit: "Davao bus corridors, port and airport links" },
   soccsksargen: { capital: "Koronadal", transit: "General Santos airport, regional bus and highway links" },
@@ -1534,7 +1572,10 @@ function prettifySubdivisionCountryName(name?: string) {
 
 function subdivisionCountryKey(feature: GadmSubdivisionFeature) {
   const pretty = prettifySubdivisionCountryName(feature.properties?.COUNTRY);
-  return regionIdForCountryName(pretty) || slugifyCountryName(pretty);
+  const shapeGroupCountries: Record<string, string> = {
+    GRC: "greece",
+  };
+  return regionIdForCountryName(pretty) || slugifyCountryName(pretty) || (feature.properties?.shapeGroup ? shapeGroupCountries[feature.properties.shapeGroup] : "");
 }
 
 function countryImagePathForName(name: string) {
@@ -1563,6 +1604,52 @@ function profileCompletionFor(region: Region) {
 }
 
 const completedProfileRegions = regions.filter((region) => profileCompletionFor(region).complete);
+
+const completenessFilters = [
+  ["all", "All"],
+  ["complete", "Complete"],
+  ["country-image", "Missing country image"],
+  ["flag", "Missing flag"],
+  ["region-images", "Missing region images"],
+  ["region-flags", "Missing region flags"],
+  ["capital", "Missing capital"],
+  ["population", "Missing population"],
+  ["airports", "Missing airports"],
+  ["transit", "Missing transit data"],
+] as const;
+
+type CompletenessFilter = (typeof completenessFilters)[number][0];
+type MissingItemKey = Exclude<CompletenessFilter, "all" | "complete">;
+
+const missingItemLabels: Record<MissingItemKey, string> = {
+  "country-image": "country image",
+  flag: "flag",
+  "region-images": "region images",
+  "region-flags": "region flags",
+  capital: "capital",
+  population: "population",
+  airports: "airports",
+  transit: "transit data",
+};
+
+function missingItemsForRegion(region: Region): MissingItemKey[] {
+  const completion = profileCompletionFor(region);
+  const hasRegionalLayer = Boolean(gadmLevelOneFiles[region.id]);
+  const regionImageCount = Object.keys(regionImageFiles[region.id] ?? {}).length;
+  const regionFlagCount = Object.keys(regionFlagFiles[region.id] ?? {}).length;
+  const airportNeedsCompletion = region.airports.length === 0 || region.airports.some((airport) => /primary international airport|secondary airport|capital gateway airport|regional domestic airport|cargo or charter airport/i.test(airport));
+  const transitNeedsCompletion = [...region.rail, ...region.metro].some((item) => /national rail or intercity coach|capital transit network|where available|primary station district/i.test(item));
+  return [
+    ...(!completion.hasImage ? ["country-image" as const] : []),
+    ...(!completion.hasFlag ? ["flag" as const] : []),
+    ...(hasRegionalLayer && regionImageCount === 0 ? ["region-images" as const] : []),
+    ...(hasRegionalLayer && regionFlagCount === 0 ? ["region-flags" as const] : []),
+    ...(!completion.hasCapital ? ["capital" as const] : []),
+    ...(!completion.hasPopulation ? ["population" as const] : []),
+    ...(airportNeedsCompletion ? ["airports" as const] : []),
+    ...(transitNeedsCompletion ? ["transit" as const] : []),
+  ];
+}
 
 type RegionCompletionRow = {
   code: string;
@@ -1614,6 +1701,17 @@ function regionImagePathForName(countryId: string, name: string) {
     ?? (slug.includes("magallanes") ? rows?.["magallanes-y-antartica-chilena"] : undefined)
     ?? fuzzyFileName;
   return fileName ? `/images/region-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}` : "";
+}
+
+function regionalFlagImagePathForName(countryId: string, name: string) {
+  const slug = slugifyCountryName(name);
+  const rows = regionFlagFiles[countryId];
+  const fuzzyFileName = rows
+    ? Object.entries(rows).find(([key]) => key === slug || key.startsWith(`${slug}-`) || slug.startsWith(`${key}-`))?.[1]
+    : undefined;
+  const fileName = rows?.[slug] ?? fuzzyFileName;
+  if (fileName) return `/images/region-flags/${encodeURIComponent(fileName).replace(/%2F/g, "/")}`;
+  return regionalFlagByName[slug] ?? "";
 }
 
 function subdivisionImagePathForRegion(countryId: string, name: string) {
@@ -1735,6 +1833,15 @@ function subdivisionName(feature: GadmSubdivisionFeature) {
     "Valled'Aosta": "Valle d'Aosta",
     WesternAustralia: "Western Australia",
     WestBengal: "West Bengal",
+    "Anatolikis Makedonias kai Thr*": "Eastern Macedonia and Thrace",
+    "Dytikis Elladas": "Western Greece",
+    "Dytikis Makedonias": "Western Macedonia",
+    "Ionia Nisia": "Ionian Islands",
+    "Kentrikis Makedonias": "Central Macedonia",
+    "Notio Aigaio": "South Aegean",
+    "Peloponnisos": "Peloponnese",
+    "Sterea Ellada": "Central Greece",
+    "Voreio Aigaio": "North Aegean",
   };
   return displayNames[name] ?? name.replace(/([a-z])([A-Z])/g, "$1 $2");
 }
@@ -1774,7 +1881,11 @@ function subdivisionPopulation(feature: GadmSubdivisionFeature) {
   const compactName = subdivisionName(feature);
   const plainName = compactName.replace(/\([^)]*\)/g, "").trim();
   const parentName = feature.properties?.NAME_1 ? feature.properties.NAME_1.replace(/([a-z])([A-Z])/g, "$1 $2") : "";
-  const countryName = feature.properties?.COUNTRY ?? (feature.properties?.shapeGroup === "NPL" ? "Nepal" : "");
+  const shapeGroupCountryNames: Record<string, string> = {
+    GRC: "Greece",
+    NPL: "Nepal",
+  };
+  const countryName = feature.properties?.COUNTRY ?? (feature.properties?.shapeGroup ? shapeGroupCountryNames[feature.properties.shapeGroup] : "");
   const countryRows = countryName ? importedRegionalPopulations[countryName] : undefined;
   return regionalPopulationByCode[code]
     ?? (feature.properties?.HASC_1 ? regionalPopulationByCode[feature.properties.HASC_1] : undefined)
@@ -2362,7 +2473,7 @@ function resetProfile() {
     <main className="app-shell">
       <header className="topbar">
         <div className="brand-lockup">
-          <img className="brand-logo-image" src="/images/brand/geontransit-logo.svg" alt="GeoInTransit" />
+          <img className="brand-logo-image" src="/images/brand/geontransit-logo.svg" alt="GEONTRANSIT" />
         </div>
         <div className="status-grid" aria-label="Profile status">
           <Metric label="Operator" value={`${profile.emoji ?? "🚇"} ${profile.name || (profile.isGuest ? "Guest user" : "Create username")}`} />
@@ -2662,7 +2773,7 @@ function StartHereMenu({
         <div className="start-here-popover" role="menu" aria-label="Start here options">
           <button type="button" onClick={onAbout} role="menuitem">
             <strong>ℹ️ About This App</strong>
-            <span>What GeoInTransit does and how profiles work</span>
+            <span>What GEONTRANSIT does and how profiles work</span>
           </button>
           <button type="button" onClick={onGuide} role="menuitem">
             <strong>❓ How to Use</strong>
@@ -2729,7 +2840,7 @@ function downloadDailyLessonCsv(lesson: DailyLesson) {
 
 function downloadDailyLessonReviewPage(lesson: DailyLesson) {
   const cards = dailyLessonQuestions(lesson);
-  const html = `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(lesson.title)} GeoInTransit Daily Lesson</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111}h1{margin-bottom:6px}.facts{display:grid;gap:8px;margin:18px 0}.facts div,.card{border:1px solid #999;border-radius:10px;padding:12px;break-inside:avoid}.label{font-size:12px;text-transform:uppercase;color:#555;font-weight:700}.prompt{font-size:17px;font-weight:700}.answer{margin-top:8px}</style></head><body><h1>${escapeHtml(lesson.title)} Daily Lesson</h1><p>${escapeHtml(lesson.summary)}</p><div class="facts">${lesson.facts.map((fact, index) => `<div><span class="label">Fact ${index + 1}</span><p>${escapeHtml(fact)}</p></div>`).join("")}</div><h2>Review Questions</h2>${cards.map((question) => `<section class="card"><div class="label">${escapeHtml(categoryLabels[question.category])}</div><div class="prompt">${escapeHtml(question.prompt)}</div><div class="answer"><strong>Answer:</strong> ${escapeHtml(question.answer)}</div><p>${escapeHtml(question.explanation)}</p></section>`).join("")}</body></html>`;
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(lesson.title)} GEONTRANSIT Daily Lesson</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111}h1{margin-bottom:6px}.facts{display:grid;gap:8px;margin:18px 0}.facts div,.card{border:1px solid #999;border-radius:10px;padding:12px;break-inside:avoid}.label{font-size:12px;text-transform:uppercase;color:#555;font-weight:700}.prompt{font-size:17px;font-weight:700}.answer{margin-top:8px}</style></head><body><h1>${escapeHtml(lesson.title)} Daily Lesson</h1><p>${escapeHtml(lesson.summary)}</p><div class="facts">${lesson.facts.map((fact, index) => `<div><span class="label">Fact ${index + 1}</span><p>${escapeHtml(fact)}</p></div>`).join("")}</div><h2>Review Questions</h2>${cards.map((question) => `<section class="card"><div class="label">${escapeHtml(categoryLabels[question.category])}</div><div class="prompt">${escapeHtml(question.prompt)}</div><div class="answer"><strong>Answer:</strong> ${escapeHtml(question.answer)}</div><p>${escapeHtml(question.explanation)}</p></section>`).join("")}</body></html>`;
   const blob = new Blob([html], { type: "text/html;charset=utf-8" });
   const objectUrl = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
@@ -2747,8 +2858,16 @@ function DailyLessonPanel({ onClose }: { onClose: () => void }) {
   const lessonIndex = localMidnightDay % dailyLessons.length;
   const lesson = dailyLessons[lessonIndex];
   const lessonImage = countryImagePathForName(lesson.title);
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [onClose]);
   return (
-    <aside className="daily-lesson-panel" aria-label="Daily transit lesson">
+    <div className="daily-lesson-backdrop" role="presentation" onMouseDown={onClose}>
+    <aside className="daily-lesson-panel" role="dialog" aria-modal="true" aria-label="Daily transit lesson" onMouseDown={(event) => event.stopPropagation()}>
       <div className="daily-lesson-heading">
         <div>
           <p className="eyebrow">Daily lesson</p>
@@ -2781,6 +2900,7 @@ function DailyLessonPanel({ onClose }: { onClose: () => void }) {
         </article>
       </div>
     </aside>
+    </div>
   );
 }
 
@@ -2920,7 +3040,7 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="guide-backdrop" role="dialog" aria-modal="false" aria-label="GeoInTransit quick start">
+    <div className="guide-backdrop" role="dialog" aria-modal="false" aria-label="GEONTRANSIT quick start">
       <section className="guide-panel">
         <div className="guide-heading">
           <div>
@@ -3150,14 +3270,14 @@ function GuideVisual({ type }: { type: string }) {
 
 function AboutPanel({ onClose }: { onClose: () => void }) {
   return (
-    <aside className="about-panel" aria-label="About GeoInTransit">
+    <aside className="about-panel" aria-label="About GEONTRANSIT">
       <div>
         <p className="eyebrow">About</p>
         <button type="button" onClick={onClose} aria-label="Close about panel">×</button>
       </div>
-      <h2>GeoInTransit</h2>
+      <h2>GEONTRANSIT</h2>
       <p>
-        GeoInTransit is a map-first transit geography trainer. Explore countries, metro systems, airports, landmarks, regional boundaries, and study images, then jump into questions that connect what you see on the map with how places actually move.
+        GEONTRANSIT is a map-first transit geography trainer. Explore countries, metro systems, airports, landmarks, regional boundaries, and study images, then jump into questions that connect what you see on the map with how places actually move.
       </p>
       <p>
         Country profiles bring together flags, local images, transport links, Google Maps, Wikipedia, Transitland, practice decks, review cards, and CSV exports so you can study one country, compare several, or build your own reference sheet.
@@ -3482,6 +3602,7 @@ function MapTab({
   const [countrySearchFocused, setCountrySearchFocused] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [trackerExpanded, setTrackerExpanded] = useState(false);
+  const [completenessFilter, setCompletenessFilter] = useState<CompletenessFilter>("all");
   const [regionCompletionRows, setRegionCompletionRows] = useState<RegionCompletionRow[]>([]);
   const selectedExportRegions = exportRegionIds
     .map((id) => regions.find((region) => region.id === id))
@@ -3563,12 +3684,17 @@ function MapTab({
     .map((regionId) => regions.find((region) => region.id === regionId))
     .filter((region): region is Region => Boolean(region))
     .sort((a, b) => a.name.localeCompare(b.name));
-  const completedProfileCount = completedProfileRegions.length;
-  const partialProfileCount = regions.filter((region) => {
-    const completion = profileCompletionFor(region);
-    return !completion.complete && [completion.hasCapital, completion.hasPopulation, completion.hasFlag, completion.hasImage].filter(Boolean).length >= 2;
-  }).length;
+  const countryCompletenessRows = sortedRegions.map((region) => ({
+    region,
+    missing: missingItemsForRegion(region),
+  }));
+  const completedProfileCount = countryCompletenessRows.filter((row) => row.missing.length === 0).length;
+  const partialProfileCount = countryCompletenessRows.filter((row) => row.missing.length > 0 && row.missing.length <= 3).length;
   const minimalProfileCount = regions.length - completedProfileCount - partialProfileCount;
+  const visibleCountryCompletenessRows = countryCompletenessRows
+    .filter((row) => completenessFilter === "all"
+      || (completenessFilter === "complete" ? row.missing.length === 0 : row.missing.includes(completenessFilter)))
+    .slice(0, 28);
   const regionCompleteCount = regionCompletionRows.filter((row) => row.complete).length;
   const missingRegionRows = regionCompletionRows.filter((row) => !row.complete);
   const visibleRegionCompletionRows = trackerExpanded ? regionCompletionRows : regionCompletionRows.slice(0, 12);
@@ -3747,6 +3873,30 @@ function MapTab({
               <span><strong>Fully complete</strong>{completedProfileCount}</span>
               <span><strong>Partially complete</strong>{partialProfileCount}</span>
               <span><strong>Minimal data</strong>{minimalProfileCount}</span>
+            </div>
+            <div className="completeness-filter-grid" aria-label="Filter data completeness">
+              {completenessFilters.map(([id, label]) => (
+                <button
+                  key={id}
+                  type="button"
+                  className={completenessFilter === id ? "selected" : ""}
+                  onClick={() => setCompletenessFilter(id)}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <div className="country-completeness-list" aria-live="polite">
+              {visibleCountryCompletenessRows.map(({ region, missing }) => (
+                <button key={region.id} type="button" onClick={() => selectRegionAndZoom(region.id)}>
+                  <strong>{region.name}</strong>
+                  {missing.length === 0 ? (
+                    <span className="complete">Complete</span>
+                  ) : (
+                    <span>Missing: {missing.map((item) => missingItemLabels[item]).join(", ")}</span>
+                  )}
+                </button>
+              ))}
             </div>
             <select
               id="regional-layer-country"
@@ -4117,7 +4267,7 @@ function practiceFlashcardsForRegion(region: Region, topics: PracticeTopic[], di
 
 function downloadPracticeFlashcards(region: Region, topics: PracticeTopic[], difficulty: DifficultyLevel) {
   const cards = practiceFlashcardsForRegion(region, topics, difficulty);
-  const html = `<!doctype html><html><head><meta charset="utf-8"><title>${region.name} GeoInTransit Flashcards</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111}h1{margin-bottom:4px}.card{break-inside:avoid;border:1px solid #999;border-radius:10px;padding:14px;margin:12px 0}.label{font-size:12px;text-transform:uppercase;color:#666}.front{font-size:18px;font-weight:700}.back{margin-top:10px}</style></head><body><h1>${region.name} Practice Flashcards</h1><p>Print this page or save it as PDF from your browser.</p>${cards.map((card) => `<section class="card"><div class="label">${card.category}</div><div class="front">${card.front}</div><div class="back">${card.back}</div></section>`).join("")}</body></html>`;
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>${region.name} GEONTRANSIT Flashcards</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111}h1{margin-bottom:4px}.card{break-inside:avoid;border:1px solid #999;border-radius:10px;padding:14px;margin:12px 0}.label{font-size:12px;text-transform:uppercase;color:#666}.front{font-size:18px;font-weight:700}.back{margin-top:10px}</style></head><body><h1>${region.name} Practice Flashcards</h1><p>Print this page or save it as PDF from your browser.</p>${cards.map((card) => `<section class="card"><div class="label">${card.category}</div><div class="front">${card.front}</div><div class="back">${card.back}</div></section>`).join("")}</body></html>`;
   const blob = new Blob([html], { type: "text/html;charset=utf-8" });
   const objectUrl = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
@@ -4136,7 +4286,7 @@ function downloadReviewFlashcards(profile: PlayerProfile) {
     back: `${item.question.answer}. ${item.question.explanation}`,
     category: categoryLabels[item.question.category],
   }));
-  const html = `<!doctype html><html><head><meta charset="utf-8"><title>GeoInTransit Review Flashcards</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111}h1{margin-bottom:4px}.card{break-inside:avoid;border:1px solid #999;border-radius:10px;padding:14px;margin:12px 0}.label{font-size:12px;text-transform:uppercase;color:#666}.front{font-size:18px;font-weight:700}.back{margin-top:10px}</style></head><body><h1>Review Flashcards</h1><p>Made from saved missed questions. Print this page or save it as PDF from your browser.</p>${cards.map((card) => `<section class="card"><div class="label">${card.category}</div><div class="front">${card.front}</div><div class="back">${card.back}</div></section>`).join("")}</body></html>`;
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>GEONTRANSIT Review Flashcards</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111}h1{margin-bottom:4px}.card{break-inside:avoid;border:1px solid #999;border-radius:10px;padding:14px;margin:12px 0}.label{font-size:12px;text-transform:uppercase;color:#666}.front{font-size:18px;font-weight:700}.back{margin-top:10px}</style></head><body><h1>Review Flashcards</h1><p>Made from saved missed questions. Print this page or save it as PDF from your browser.</p>${cards.map((card) => `<section class="card"><div class="label">${card.category}</div><div class="front">${card.front}</div><div class="back">${card.back}</div></section>`).join("")}</body></html>`;
   const blob = new Blob([html], { type: "text/html;charset=utf-8" });
   const objectUrl = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
@@ -4215,10 +4365,6 @@ function OperationsMap({
     ? gadmSubdivisions.find((feature) => subdivisionCode(feature) === "US-DC")
     : undefined;
   const dcProjected = worldProjection([-77.0369, 38.9072]);
-  const subdivisionJumpOptions = gadmSubdivisions
-    .map((feature) => ({ feature, name: subdivisionName(feature), code: subdivisionCode(feature) }))
-    .sort((a, b) => a.name.localeCompare(b.name));
-
   useEffect(() => {
     setSelectedSubdivision(null);
     setGadmSubdivisions([]);
@@ -4494,23 +4640,7 @@ function OperationsMap({
           </div>
         )}
       </div>
-      {showRegionalBoundaries && subdivisionJumpOptions.length > 0 && !compact ? (
-        <label className="subdivision-jump-control">
-          <span>Region</span>
-          <select
-            value={selectedSubdivision ? subdivisionCode(selectedSubdivision) : ""}
-            onChange={(event) => {
-              const next = subdivisionJumpOptions.find((item) => item.code === event.target.value)?.feature;
-              if (next) setSelectedSubdivision(next);
-            }}
-          >
-            <option value="">Choose a region...</option>
-            {subdivisionJumpOptions.map(({ code, name }, index) => (
-              <option key={`${code || name}-${index}`} value={code}>{name}</option>
-            ))}
-          </select>
-        </label>
-      ) : null}
+      {null}
       {selectedSubdivision && !compact ? (() => {
         const note = subdivisionStudyNote(selectedSubdivision);
         const population = subdivisionPopulation(selectedSubdivision) ?? note?.population;
@@ -4858,8 +4988,12 @@ function RegionPanel({
   const nearbyRegions = nearbyRegionsFor(region.id);
   const practiceTopicOptions = practiceTopicOptionsForRegion(region, regionTransitSystems.length, regionAttractions.length);
   const [practiceTopics, setPracticeTopics] = useState<PracticeTopic[]>(practiceTopicOptions.map((topic) => topic.id));
+  const [selectedProfileRegion, setSelectedProfileRegion] = useState("");
+  const selectedProfileRegionImage = selectedProfileRegion ? subdivisionImagePathForRegion(region.id, selectedProfileRegion) : "";
+  const selectedProfileRegionFlag = selectedProfileRegion ? regionalFlagImagePathForName(region.id, selectedProfileRegion) : "";
   useEffect(() => {
     setPracticeTopics(practiceTopicOptions.map((topic) => topic.id));
+    setSelectedProfileRegion("");
   }, [region.id]);
   const togglePracticeTopic = (topic: PracticeTopic) => {
     setPracticeTopics((topics) => topics.includes(topic)
@@ -4882,6 +5016,29 @@ function RegionPanel({
       <div className="fact-box compact-facts">
         <p><strong>Population:</strong> {region.population}</p>
       </div>
+      {subregions.length > 0 && (
+        <div className="profile-region-picker">
+          <label>
+            <span>Choose a region/province/state</span>
+            <select value={selectedProfileRegion} onChange={(event) => setSelectedProfileRegion(event.target.value)}>
+              <option value="">Region</option>
+              {subregions.map((name) => (
+                <option key={name} value={name}>{name}</option>
+              ))}
+            </select>
+          </label>
+          {selectedProfileRegion ? (
+            <div className="profile-region-preview">
+              {selectedProfileRegionFlag ? <img src={selectedProfileRegionFlag} alt={`${selectedProfileRegion} flag`} loading="lazy" /> : null}
+              {selectedProfileRegionImage ? <img src={selectedProfileRegionImage} alt={`${selectedProfileRegion} image`} loading="lazy" /> : null}
+              <div>
+                <strong>{selectedProfileRegion}</strong>
+                <span>{selectedProfileRegionImage || selectedProfileRegionFlag ? "Matched uploaded regional asset" : "No uploaded image or flag matched yet"}</span>
+              </div>
+            </div>
+          ) : null}
+        </div>
+      )}
       {profileImage && <PlaceImageCard image={profileImage} />}
       {nearbyRegions.length > 0 && (
         <details className="nearby-panel" open>
@@ -5028,9 +5185,9 @@ function AskGeoInTransitPanel() {
     "High-speed rail by ridership",
   ];
   return (
-    <section className="ask-geointransit-panel" aria-label="Ask GeoInTransit prompts">
+    <section className="ask-geointransit-panel" aria-label="Ask GEONTRANSIT prompts">
       <div>
-        <strong>Ask GeoInTransit</strong>
+        <strong>Ask GEONTRANSIT</strong>
         <span>Quick prompts for cleaner study paths</span>
       </div>
       <div>
@@ -5068,7 +5225,7 @@ function PlaceImageCard({ image }: { image: PlaceImage }) {
 function subregionsFor(regionId: string) {
   const subregions: Record<string, string[]> = {
     "united-states": ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming", "District of Columbia", "Puerto Rico"],
-    canada: ["Ontario", "Quebec", "British Columbia", "Alberta", "Manitoba", "Nova Scotia", "New Brunswick", "Saskatchewan", "Newfoundland and Labrador"],
+    canada: ["Ontario", "Quebec", "British Columbia", "Alberta", "Manitoba", "Nova Scotia", "New Brunswick", "Saskatchewan", "Newfoundland and Labrador", "Prince Edward Island", "Northwest Territories", "Nunavut", "Yukon"],
     brazil: ["Sao Paulo", "Rio de Janeiro", "Bahia", "Minas Gerais", "Parana", "Rio Grande do Sul", "Amazonas", "Pernambuco"],
     chile: ["Santiago Metropolitan Region", "Valparaiso Region", "Biobio Region", "Antofagasta Region", "Los Lagos Region", "Magallanes Region"],
     japan: ["Hokkaido", "Honshu", "Shikoku", "Kyushu", "Okinawa", "Kanto", "Kansai", "Chugoku"],
@@ -5080,9 +5237,11 @@ function subregionsFor(regionId: string) {
     india: ["Delhi", "Maharashtra", "Karnataka", "Tamil Nadu", "West Bengal", "Gujarat", "Uttar Pradesh", "Kerala"],
     indonesia: ["Java", "Sumatra", "Bali", "Kalimantan", "Sulawesi", "Papua"],
     argentina: ["Buenos Aires Province", "Cordoba", "Santa Fe", "Mendoza", "Patagonia", "Tierra del Fuego"],
-    nigeria: ["Lagos State", "Federal Capital Territory", "Kano State", "Rivers State", "Oyo State", "Kaduna State"],
+    nigeria: ["Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi", "Bayelsa", "Benue", "Borno", "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "Federal Capital Territory", "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfara"],
     russia: ["Moscow", "Saint Petersburg", "Siberia", "Far East", "Tatarstan", "Krasnodar Krai"],
-    france: ["Ile-de-France", "Provence-Alpes-Cote d'Azur", "Occitanie", "Nouvelle-Aquitaine", "Brittany", "Corsica"],
+    france: ["Ile-de-France", "Auvergne-Rhone-Alpes", "Bourgogne-Franche-Comte", "Brittany", "Centre-Val de Loire", "Corsica", "Grand Est", "Hauts-de-France", "Normandy", "Nouvelle-Aquitaine", "Occitanie", "Pays de la Loire", "Provence-Alpes-Cote d'Azur"],
+    germany: ["Baden-Wurttemberg", "Bavaria", "Berlin", "Brandenburg", "Bremen", "Hamburg", "Hesse", "Lower Saxony", "Mecklenburg-Vorpommern", "North Rhine-Westphalia", "Rhineland-Palatinate", "Saarland", "Saxony", "Saxony-Anhalt", "Schleswig-Holstein", "Thuringia"],
+    greece: ["Attica", "Central Greece", "Central Macedonia", "Crete", "Eastern Macedonia and Thrace", "Epirus", "Ionian Islands", "North Aegean", "Peloponnese", "South Aegean", "Thessaly", "Western Greece", "Western Macedonia"],
     portugal: ["Norte", "Centro", "Grande Lisboa", "Alentejo", "Algarve", "Azores", "Madeira"],
     spain: ["Madrid", "Catalonia", "Andalusia", "Valencian Community", "Basque Country", "Galicia"],
     "south-korea": ["Seoul Capital Area", "Busan", "Incheon", "Daegu", "Jeju", "Gyeonggi"],
@@ -5091,7 +5250,8 @@ function subregionsFor(regionId: string) {
     thailand: ["Bangkok", "Chiang Mai", "Phuket", "Isan", "Chonburi", "Krabi"],
     finland: ["Uusimaa", "Lapland", "Southwest Finland", "Pirkanmaa", "North Ostrobothnia"],
     iceland: ["Capital Region", "Southern Peninsula", "South Iceland", "Westfjords", "North Iceland"],
-    norway: ["Oslo", "Vestland", "Trondelag", "Troms", "Nordland", "Svalbard"],
+    norway: ["Akershus", "Agder", "Buskerud", "Finnmark", "Innlandet", "More og Romsdal", "Nordland", "Oslo", "Ostfold", "Rogaland", "Telemark", "Troms", "Trondelag", "Vestfold", "Vestland", "Svalbard"],
+    ukraine: ["Cherkasy Oblast", "Chernihiv Oblast", "Chernivtsi Oblast", "Dnipropetrovsk Oblast", "Donetsk Oblast", "Ivano-Frankivsk Oblast", "Kharkiv Oblast", "Kherson Oblast", "Khmelnytskyi Oblast", "Kirovohrad Oblast", "Kyiv Oblast", "Luhansk Oblast", "Lviv Oblast", "Mykolaiv Oblast", "Odesa Oblast", "Poltava Oblast", "Rivne Oblast", "Sumy Oblast", "Ternopil Oblast", "Vinnytsia Oblast", "Volyn Oblast", "Zakarpattia Oblast", "Zaporizhzhia Oblast", "Zhytomyr Oblast"],
     sweden: ["Stockholm County", "Vastra Gotaland", "Skane", "Norrbotten", "Uppsala County"],
     "new-zealand": ["North Island", "South Island", "Auckland Region", "Wellington Region", "Canterbury", "Otago"],
   };

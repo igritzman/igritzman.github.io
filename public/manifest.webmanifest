@@ -1,6 +1,6 @@
 {
-  "name": "GeoInTransit",
-  "short_name": "GeoInTransit",
+  "name": "GEONTRANSIT",
+  "short_name": "GEONTRANSIT",
   "description": "A transit-first geography quiz and interactive world map.",
   "start_url": "/",
   "display": "standalone",
