@@ -117,11 +117,21 @@ const gadmSubdivisionPromises: Record<string, Promise<GadmSubdivisionFeature[]>>
 
 const gadmLevelOneFiles: Record<string, string> = {
   "united-states": "/data/gadm/level1/gadm41_USA_1.json",
+  argentina: "/data/gadm/level1/gadm41_ARG_1.json",
+  brazil: "/data/gadm/level1/gadm41_BRA_1.json",
   canada: "/data/gadm/level1/gadm41_CAN_1.json",
+  chile: "/data/gadm/level1/gadm41_CHL_1.json",
+  china: "/data/gadm/level1/gadm41_CHN_1.json",
+  algeria: "/data/gadm/level1/gadm41_DZA_1.json",
+  egypt: "/data/gadm/level1/gadm41_EGY_1.json",
+  estonia: "/data/gadm/level1/gadm41_EST_2.json",
   ethiopia: "/data/gadm/level1/gadm41_ETH_1.json",
   ghana: "/data/gadm/level1/gadm41_GHA_1.json",
+  indonesia: "/data/gadm/level1/gadm41_IDN_1.json",
   kenya: "/data/gadm/level1/gadm41_KEN_1.json",
   japan: "/data/gadm/level1/gadm41_JPN_1.json",
+  morocco: "/data/gadm/level1/gadm41_MAR_1.json",
+  norway: "/data/gadm/level1/gadm41_NOR_1.json",
   poland: "/data/gadm/level1/gadm41_POL_1.json",
   india: "/data/gadm/level1/gadm41_IND_1.json",
   australia: "/data/gadm/level1/gadm41_AUS_1.json",
@@ -135,13 +145,16 @@ const gadmLevelOneFiles: Record<string, string> = {
   romania: "/data/gadm/level1/gadm41_ROU_1.json",
   russia: "/data/gadm/level1/gadm41_RUS_1.json",
   "south-africa": "/data/gadm/level1/gadm41_ZAF_1.json",
+  "south-korea": "/data/gadm/level1/gadm41_KOR_1.json",
   spain: "/data/gadm/level1/gadm41_ESP_1.json",
   italy: "/data/gadm/level1/gadm41_ITA_1.json",
   france: "/data/gadm/level1/gadm41_FRA_1.json",
   ireland: "/data/gadm/level1/gadm41_IRL_1.json",
+  thailand: "/data/gadm/level1/gadm41_THA_1.json",
   turkey: "/data/gadm/level1/gadm41_TUR_1.json",
   uae: "/data/gadm/level1/gadm41_ARE_1.json",
   ukraine: "/data/gadm/level1/gadm41_UKR_1.json",
+  vietnam: "/data/gadm/level1/gadm41_VNM_1.json",
   "united-kingdom": "/data/gadm/level1/gadm41_GBR_2.json",
   zimbabwe: "/data/gadm/level1/gadm41_ZWE_1.json",
 };
@@ -169,6 +182,25 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "CA-BC": { capital: "Victoria", transit: "SkyTrain, West Coast Express, BC Ferries" },
   "CA-ON": { capital: "Toronto", population: "about 16 million", transit: "TTC, GO Transit, UP Express, Ottawa O-Train; major airports YYZ and YOW" },
   "CA-QC": { capital: "Quebec City", transit: "Montreal Metro, REM, exo, RTC buses" },
+  "PT.AV": { capital: "Aveiro", population: "714,200 (2011 census)", transit: "Aveiro rail, regional buses, coastal road links" },
+  "PT.AC": { capital: "Ponta Delgada", population: "246,772 (2011 census)", transit: "Inter-island flights and ferries, Ponta Delgada airport, regional buses" },
+  "PT.BE": { capital: "Beja", population: "152,758 (2011 census)", transit: "Beja rail, regional road links, airport facilities" },
+  "PT.BR": { capital: "Braga", population: "848,185 (2011 census)", transit: "Braga rail, Minho corridor buses, Porto regional access" },
+  "PT.BA": { capital: "Braganca", population: "136,252 (2011 census)", transit: "Northeast road and coach links" },
+  "PT.CB": { capital: "Castelo Branco", population: "196,264 (2011 census)", transit: "Beira Baixa rail and regional road links" },
+  "PT.CO": { capital: "Coimbra", population: "430,104 (2011 census)", transit: "Coimbra rail, Mondego mobility corridor, regional buses" },
+  "PT.EV": { capital: "Evora", population: "166,726 (2011 census)", transit: "Alentejo rail and regional road links" },
+  "PT.FA": { capital: "Faro", population: "451,006 (2011 census)", transit: "Algarve rail, Faro airport, coastal buses" },
+  "PT.GU": { capital: "Guarda", population: "160,939 (2011 census)", transit: "Beira Alta road and rail corridors" },
+  "PT.LE": { capital: "Leiria", population: "470,930 (2011 census)", transit: "Regional coach, road corridors, and central coast links" },
+  "PT.LI": { capital: "Lisbon", population: "2,250,533 (2011 census)", transit: "Lisbon Metro, commuter rail, ferries, airport links" },
+  "PT.PA": { capital: "Portalegre", population: "118,506 (2011 census)", transit: "Alentejo road and coach links" },
+  "PT.PO": { capital: "Porto", population: "1,817,172 (2011 census)", transit: "Porto Metro, suburban rail, airport and Douro links" },
+  "PT.SA": { capital: "Santarem", population: "453,638 (2011 census)", transit: "Tagus corridor rail and road links" },
+  "PT.SE": { capital: "Setubal", population: "851,258 (2011 census)", transit: "Fertagus rail, ferries, port, and regional buses" },
+  "PT.VC": { capital: "Viana do Castelo", population: "244,836 (2011 census)", transit: "Minho rail and coastal road links" },
+  "PT.VR": { capital: "Vila Real", population: "206,661 (2011 census)", transit: "Douro/northern road corridors and regional coaches" },
+  "PT.VI": { capital: "Viseu", population: "377,653 (2011 census)", transit: "Central road corridors and regional coach links" },
   "JP-01": { capital: "Sapporo", transit: "Sapporo Subway, JR Hokkaido, airport rail to New Chitose" },
   "JP-13": { capital: "Tokyo", transit: "Tokyo Metro, Toei Subway, JR East, private railways" },
   "JP-23": { capital: "Nagoya", transit: "Nagoya Subway, Meitetsu, JR Central, Shinkansen access" },
@@ -1689,6 +1721,14 @@ function usStateImagePathForName(name: string) {
   return fileName ? `/images/us-state-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}` : "";
 }
 
+function canadaProvinceImagePathForName(name: string) {
+  const slug = slugifyCountryName(name);
+  const directPaths: Record<string, string> = {
+    quebec: "/images/region-images/canada/quebec.jpg",
+  };
+  return directPaths[slug] ?? "";
+}
+
 function regionImagePathForName(countryId: string, name: string) {
   const slug = slugifyCountryName(name);
   const rows = regionImageFiles[countryId];
@@ -1716,6 +1756,7 @@ function regionalFlagImagePathForName(countryId: string, name: string) {
 
 function subdivisionImagePathForRegion(countryId: string, name: string) {
   return regionImagePathForName(countryId, name)
+    || (countryId === "canada" ? canadaProvinceImagePathForName(name) : "")
     || (countryId === "united-states" || countryId === "canada" ? usStateImagePathForName(name) : "");
 }
 
@@ -2050,7 +2091,12 @@ function buildRegionPracticeQuestions(region: Region, count: number, startDiffic
   const geographyPool = regions.flatMap((item) => item.riversMountains.slice(0, 3));
   const placePool = regions.flatMap((item) => item.placesOfInterest.slice(0, 3));
   const capitalPool = regions.map((item) => item.capital);
-  const primaryAirport = region.airports[0] ?? `No major commercial airport listed for ${region.name}`;
+  const cityAirportClue = region.id === "china"
+    ? { prompt: "Which airport code is a major Shanghai gateway?", answer: "PVG", explanation: "PVG is Shanghai Pudong International Airport; PEK is Beijing Capital." }
+    : region.id === "mexico"
+      ? { prompt: "Which airport code serves Guadalajara?", answer: "GDL", explanation: "GDL is Guadalajara International Airport; MEX is Mexico City's main airport code." }
+      : null;
+  const primaryAirport = cityAirportClue?.answer ?? region.airports[0] ?? `No major commercial airport listed for ${region.name}`;
   const practiceTemplates: Question[] = [
     {
       id: `practice-${region.id}-capital`,
@@ -2068,10 +2114,10 @@ function buildRegionPracticeQuestions(region: Region, count: number, startDiffic
       category: primaryAirport.length === 3 && primaryAirport.toUpperCase() === primaryAirport ? "airport-codes" : "airports",
       difficulty: startDifficulty,
       inputType: "multiple-choice",
-      prompt: `Which airport or aviation clue belongs to ${region.name}?`,
+      prompt: cityAirportClue?.prompt ?? `Which airport or aviation clue belongs to ${region.name}?`,
       answer: primaryAirport,
-      choices: choicesFrom(primaryAirport, airportPool),
-      explanation: `${primaryAirport} appears in ${region.name}'s aviation profile.`,
+      choices: choicesFrom(primaryAirport, cityAirportClue ? [...airportPool, "PEK", "SHA", "CAN", "MEX", "MTY"] : airportPool),
+      explanation: cityAirportClue?.explanation ?? `${primaryAirport} appears in ${region.name}'s aviation profile.`,
       relatedRegionIds: [region.id],
     },
     {
@@ -2228,7 +2274,7 @@ function App() {
   const [profiles, setProfiles] = useState<PlayerProfile[]>(() => loadProfiles());
   const [friends, setFriends] = useState<LocalFriend[]>(() => loadFriends());
   const [run, setRun] = useState<QuizRun | null>(() => hydrateSavedRun(loadRun()));
-  const [selectedRegionId, setSelectedRegionId] = useState<string | null>("united-states");
+  const [selectedRegionId, setSelectedRegionId] = useState<string | null>(null);
   const [mapStyle, setMapStyle] = useState<MapStyle>("default");
   const [operationalOverlay, setOperationalOverlay] = useState(false);
   const [mapZoom, setMapZoom] = useState(1);
@@ -2242,7 +2288,8 @@ function App() {
   const [questionCount, setQuestionCount] = useState<10 | 15 | 20 | 150>(10);
   const [selectedStartLevel, setSelectedStartLevel] = useState<DifficultyLevel>("gateway");
   const [showReviewAnswers, setShowReviewAnswers] = useState(false);
-  const [showGuide, setShowGuide] = useState(() => localStorage.getItem("geontransit.guide.seen.v3") !== "yes");
+  const [showGuide, setShowGuide] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [showStartMenu, setShowStartMenu] = useState(false);
@@ -2467,6 +2514,33 @@ function resetProfile() {
   function closeGuide() {
     localStorage.setItem("geontransit.guide.seen.v3", "yes");
     setShowGuide(false);
+  }
+
+  function enterMap(options: { random?: boolean; guide?: boolean; lesson?: boolean } = {}) {
+    setShowWelcome(false);
+    setActiveTab("map");
+    setMapZoom(1);
+    setMapPan({ x: 0, y: 0 });
+    if (options.random) {
+      const nextRegion = regions[Math.floor(Math.random() * regions.length)];
+      setSelectedRegionId(nextRegion.id);
+      setMapZoom(4.8);
+    } else {
+      setSelectedRegionId(null);
+    }
+    if (options.guide) setShowGuide(true);
+    if (options.lesson) setShowDailyLesson(true);
+  }
+
+  if (showWelcome) {
+    return (
+      <WelcomeSplash
+        onStart={() => enterMap()}
+        onDailyLesson={() => enterMap({ lesson: true })}
+        onRandomCountry={() => enterMap({ random: true })}
+        onHowItWorks={() => enterMap({ guide: true })}
+      />
+    );
   }
 
   return (
@@ -2852,6 +2926,53 @@ function downloadDailyLessonReviewPage(lesson: DailyLesson) {
   window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
 }
 
+function WelcomeSplash({
+  onStart,
+  onDailyLesson,
+  onRandomCountry,
+  onHowItWorks,
+}: {
+  onStart: () => void;
+  onDailyLesson: () => void;
+  onRandomCountry: () => void;
+  onHowItWorks: () => void;
+}) {
+  return (
+    <main className="welcome-splash">
+      <div className="welcome-map-preview" aria-hidden="true">
+        <OperationsMap
+          selectedId=""
+          onSelect={() => undefined}
+          compact
+          mapStyle="default"
+          countryLayer
+          regionalBoundaryLayer={false}
+          operationalOverlay={false}
+          touristAttractionsLayer={false}
+          transitSystemsLayer={false}
+          zoom={1.08}
+          pan={{ x: 0, y: 0 }}
+        />
+      </div>
+      <section className="welcome-card" aria-label="GEONTRANSIT welcome">
+        <img className="welcome-logo" src="/images/brand/geontransit-logo.svg" alt="GEONTRANSIT" />
+        <p className="eyebrow">Map-first geography and transit learning</p>
+        <h1>Explore countries, regions, airports, and transit systems from one clean world map.</h1>
+        <p>
+          Start with no profile selected. Click any country when you are ready, then open regions,
+          images, flags, airports, and practice questions without crowding the map.
+        </p>
+        <div className="welcome-actions">
+          <button type="button" className="primary-action" onClick={onStart}>Start Exploring</button>
+          <button type="button" onClick={onDailyLesson}>Daily Lesson</button>
+          <button type="button" onClick={onRandomCountry}>Random Country</button>
+          <button type="button" onClick={onHowItWorks}>How It Works</button>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 function DailyLessonPanel({ onClose }: { onClose: () => void }) {
   const now = new Date();
   const localMidnightDay = Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 86400000);
@@ -2989,44 +3110,29 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
   const [activeStep, setActiveStep] = useState(0);
   const guideSteps = [
     {
-      title: "Read the Map",
-      text: "Search or click a country. The map centers it, keeps borders crisp, and lets you zoom, drag, and cross the dateline smoothly.",
+      title: "Explore",
+      text: "Start with the world map. Click a country or use search when you want a profile, then pan or zoom without opening extra panels.",
       visual: "map",
     },
     {
-      title: "Toggle Layers",
-      text: "Toggle flags, transit, landmarks, and regional boundaries. Keep only the layers you need.",
-      visual: "layers",
-    },
-    {
-      title: "Open a Profile",
-      text: "Profiles show the country image, flag, airports, transit, landmarks, and exact reference links.",
+      title: "Regions",
+      text: "Choose a province, state, county, or district from the country profile. Region boundaries, flags, images, capitals, and populations appear where loaded.",
       visual: "profile",
     },
     {
-      title: "Use the Links",
-      text: "Example: Hong Kong links open HKG Airport in Google Maps, MTR and Airport Express references, Star Ferry context, and Transitland network maps.",
+      title: "Transit",
+      text: "Turn on transit networks for airports, metro systems, rail corridors, and useful map links without cluttering the base map.",
       visual: "sidebar",
     },
     {
-      title: "Play Questions",
-      text: "Answer station, image, landmark, airport, capital, and regional-flag prompts across 15 levels.",
+      title: "Quiz",
+      text: "Practice capitals, flags, landmarks, airports, regions, and transit clues. Questions get harder as you move up the levels.",
       visual: "start",
     },
     {
-      title: "Answer Images",
-      text: "Some questions use real transit maps, landmarks, and regional flags. Easier rounds may show Florida or Texas; harder rounds may show Eastern Cape, Italy, or Philippines province flags.",
-      visual: "questions",
-    },
-    {
-      title: "Daily Lesson",
-      text: "Open Start Here for one daily country or region lesson with a profile image, five facts, and downloads.",
-      visual: "lesson",
-    },
-    {
-      title: "Review and Export",
-      text: "Review misses, print flashcards, then export CSVs. Use Current, Selected, or All Countries; deselect the map when you do not want one-country context.",
-      visual: "export",
+      title: "Advanced Features",
+      text: "Open Map tools to toggle flags, regional boundaries, tourist attractions, transit networks, completeness filters, and CSV exports.",
+      visual: "layers",
     },
   ];
 
@@ -3485,6 +3591,7 @@ function PlayTab({
           <button type="button" onClick={() => setShowHint((value) => !value)}>{showHint ? "Hide Hint" : "Show Hint"}</button>
           {showHint && <p>{buildQuestionHint(question)}</p>}
         </div>
+        {currentAnswer && question.inputType === "map-click" && <AnsweredMapPreview answer={question.answer} />}
         {currentAnswer && (
           <div className={`feedback-banner ${currentAnswer.correct ? "correct" : "missed"}`}>
             <strong>{currentAnswer.correct ? "Correct" : currentAnswer.userAnswer ? "Missed" : "Skipped"}</strong>
@@ -3600,7 +3707,7 @@ function MapTab({
   const [lastCsvExport, setLastCsvExport] = useState<CsvExport | null>(null);
   const [countrySearch, setCountrySearch] = useState(selectedRegion?.name ?? "");
   const [countrySearchFocused, setCountrySearchFocused] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const [trackerExpanded, setTrackerExpanded] = useState(false);
   const [completenessFilter, setCompletenessFilter] = useState<CompletenessFilter>("all");
   const [regionCompletionRows, setRegionCompletionRows] = useState<RegionCompletionRow[]>([]);
@@ -3704,6 +3811,10 @@ function MapTab({
   }, [selectedRegion?.id, selectedRegion?.name]);
 
   useEffect(() => {
+    setSidebarCollapsed(!selectedRegion);
+  }, [selectedRegion?.id]);
+
+  useEffect(() => {
     setTrackerExpanded(false);
     if (!selectedRegion || !gadmLevelOneFiles[selectedRegion.id]) {
       setRegionCompletionRows([]);
@@ -3784,7 +3895,7 @@ function MapTab({
           <div>
             <p className="eyebrow">Map layer</p>
             <strong>{catalogCoverage.unMemberCountries} UN countries + Taiwan, Bougainville, Kosovo</strong>
-            <span>Click a country, then scroll the sidebar for facts, links, images, and sample questions.</span>
+            <span>Click a country to open its profile, or keep the map unselected for a clean world view.</span>
           </div>
           <label className="country-select country-combobox" htmlFor="country-search">
             Country
@@ -4689,6 +4800,28 @@ function QuizMap({ onAnswer }: { onAnswer: (answer: string) => void }) {
   return (
     <div className="quiz-map-wrap">
       <OperationsMap selectedId="" mapStyle="topographic" onSelect={(id) => onAnswer(regions.find((region) => region.id === id)?.name ?? id)} />
+    </div>
+  );
+}
+
+function AnsweredMapPreview({ answer }: { answer: string }) {
+  const region = regions.find((item) => item.name.toLowerCase() === answer.toLowerCase() || item.id === slugifyCountryName(answer));
+  return (
+    <div className="quiz-map-wrap answered-map-preview">
+      <OperationsMap
+        selectedId={region?.id ?? ""}
+        mapStyle="topographic"
+        onSelect={() => undefined}
+        compact
+        countryLayer
+        regionalBoundaryLayer={false}
+        operationalOverlay={false}
+        touristAttractionsLayer={false}
+        transitSystemsLayer={false}
+        zoom={region ? 2.3 : 1.1}
+        pan={{ x: 0, y: 0 }}
+      />
+      <span>{region ? `${region.name} highlighted on the world map` : "World map reference"}</span>
     </div>
   );
 }
