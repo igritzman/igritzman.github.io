@@ -1529,7 +1529,7 @@ function regionalFlagImageSrc(feature: GadmSubdivisionFeature) {
     ?? (normalizedRegionSlug.includes("magallanes") ? countryFlagRows?.["magallanes-y-la-ant-rtica-chilena-chile"] : undefined)
     ?? (normalizedRegionSlug.includes("magallanes") ? countryFlagRows?.["magallanes-y-antartica-chilena"] : undefined)
     ?? fuzzyCountryFlagFile;
-  if (countryFlagFile) return `/images/region-flags/imported/${encodeURIComponent(countryFlagFile).replace(/%2F/g, "/")}`;
+  if (countryFlagFile) return `/images/region-flags/${encodeURIComponent(countryFlagFile).replace(/%2F/g, "/")}`;
   return regionalFlagByName[normalizedRegionSlug]
     ?? (feature.properties?.NAME_1 ? regionalFlagByName[slugifyCountryName(feature.properties.NAME_1)] : undefined)
     ?? "";
@@ -1617,6 +1617,7 @@ function countryImagePathForName(name: string) {
 
 function countryImageFileNameForName(name: string) {
   const key = imageLookupKey(name);
+  if (key === "greenland") return "Greenland-uploaded.avif";
   const alias = countryImageAliases[key] ?? key;
   return dailyLessonCountryImageFiles[name] ?? countryImageFiles[key] ?? countryImageFiles[alias] ?? countryImageFiles[slugifyCountryName(name).replace(/-/g, "")];
 }
@@ -1721,6 +1722,49 @@ function usStateImagePathForName(name: string) {
   return fileName ? `/images/us-state-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}` : "";
 }
 
+function expandedAssetSlugs(slug: string) {
+  const plain = slug
+    .replace(/^of-/, "")
+    .replace(/^flag-of-/, "")
+    .replace(/-svg$/, "")
+    .replace(/-jpg$/, "")
+    .replace(/-jpeg$/, "")
+    .replace(/-png$/, "")
+    .replace(/-webp$/, "")
+    .replace(/-avif$/, "")
+    .replace(/-province$/, "")
+    .replace(/-region$/, "")
+    .replace(/-county$/, "")
+    .replace(/-fylke$/, "")
+    .replace(/-chile$/, "")
+    .replace(/-uk$/, "")
+    .replace(/-england$/, "")
+    .replace(/-scotland$/, "")
+    .replace(/-wales$/, "")
+    .replace(/-northern-ireland$/, "");
+  const withoutDiacritics = plain.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  return Array.from(new Set([
+    slug,
+    plain,
+    withoutDiacritics,
+    plain.replace(/-and-/g, "-"),
+    plain.replace(/-y-/g, "-"),
+    plain.replace(/-de-/g, "-"),
+    plain.replace(/-do-/g, "-"),
+    plain.replace(/-da-/g, "-"),
+    plain.replace(/-la-/g, "-"),
+    plain.replace(/-the-/g, "-"),
+  ].filter(Boolean)));
+}
+
+function fuzzyManifestFile(rows: Record<string, string> | undefined, targetSlug: string) {
+  if (!rows) return undefined;
+  const targets = expandedAssetSlugs(targetSlug);
+  const entries = Object.entries(rows).map(([key, value]) => ({ key, value, slugs: expandedAssetSlugs(key) }));
+  return entries.find((entry) => targets.some((target) => entry.slugs.includes(target)))?.value
+    ?? entries.find((entry) => targets.some((target) => entry.slugs.some((key) => key.startsWith(`${target}-`) || target.startsWith(`${key}-`) || key.includes(target))))?.value;
+}
+
 function canadaProvinceImagePathForName(name: string) {
   const slug = slugifyCountryName(name);
   const directPaths: Record<string, string> = {
@@ -1732,24 +1776,18 @@ function canadaProvinceImagePathForName(name: string) {
 function regionImagePathForName(countryId: string, name: string) {
   const slug = slugifyCountryName(name);
   const rows = regionImageFiles[countryId];
-  const fuzzyFileName = rows
-    ? Object.entries(rows).find(([key]) => key === slug || key.startsWith(`${slug}-`) || slug.startsWith(`${key}-`))?.[1]
-    : undefined;
   const fileName = rows?.[slug]
     ?? rows?.[slug.replace("-y-la-", "-y-")]
     ?? (slug.includes("magallanes") ? rows?.["magallenes"] : undefined)
     ?? (slug.includes("magallanes") ? rows?.["magallanes-y-antartica-chilena"] : undefined)
-    ?? fuzzyFileName;
+    ?? fuzzyManifestFile(rows, slug);
   return fileName ? `/images/region-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}` : "";
 }
 
 function regionalFlagImagePathForName(countryId: string, name: string) {
   const slug = slugifyCountryName(name);
   const rows = regionFlagFiles[countryId];
-  const fuzzyFileName = rows
-    ? Object.entries(rows).find(([key]) => key === slug || key.startsWith(`${slug}-`) || slug.startsWith(`${key}-`))?.[1]
-    : undefined;
-  const fileName = rows?.[slug] ?? fuzzyFileName;
+  const fileName = rows?.[slug] ?? fuzzyManifestFile(rows, slug);
   if (fileName) return `/images/region-flags/${encodeURIComponent(fileName).replace(/%2F/g, "/")}`;
   return regionalFlagByName[slug] ?? "";
 }
@@ -2091,11 +2129,14 @@ function buildRegionPracticeQuestions(region: Region, count: number, startDiffic
   const geographyPool = regions.flatMap((item) => item.riversMountains.slice(0, 3));
   const placePool = regions.flatMap((item) => item.placesOfInterest.slice(0, 3));
   const capitalPool = regions.map((item) => item.capital);
-  const cityAirportClue = region.id === "china"
-    ? { prompt: "Which airport code is a major Shanghai gateway?", answer: "PVG", explanation: "PVG is Shanghai Pudong International Airport; PEK is Beijing Capital." }
-    : region.id === "mexico"
-      ? { prompt: "Which airport code serves Guadalajara?", answer: "GDL", explanation: "GDL is Guadalajara International Airport; MEX is Mexico City's main airport code." }
-      : null;
+  const cityAirportClues: Record<string, { prompt: string; answer: string; aliases: string[]; explanation: string }> = {
+    china: { prompt: "Which airport code is a major Shanghai gateway?", answer: "PVG", aliases: ["pvg", "sha"], explanation: "PVG is Shanghai Pudong International Airport; SHA is Shanghai Hongqiao. PEK is Beijing Capital." },
+    japan: { prompt: "Which airport code is the main international gateway for Osaka?", answer: "KIX", aliases: ["kix"], explanation: "KIX is Kansai International Airport for Osaka; HND and NRT are Tokyo airport codes." },
+    mexico: { prompt: "Which airport code serves Guadalajara?", answer: "GDL", aliases: ["gdl"], explanation: "GDL is Guadalajara International Airport; MEX is Mexico City's main airport code." },
+    turkey: { prompt: "Which airport code is a major Istanbul gateway?", answer: "IST", aliases: ["ist", "saw"], explanation: "IST is Istanbul Airport; SAW is Istanbul Sabiha Gokcen." },
+    "united-kingdom": { prompt: "Which airport code is a major London gateway?", answer: "LHR", aliases: ["lhr", "lgw", "stn", "ltn", "lcy", "sen"], explanation: "LHR is Heathrow; London also uses LGW, STN, LTN, LCY, and SEN." },
+  };
+  const cityAirportClue = cityAirportClues[region.id] ?? null;
   const primaryAirport = cityAirportClue?.answer ?? region.airports[0] ?? `No major commercial airport listed for ${region.name}`;
   const practiceTemplates: Question[] = [
     {
@@ -2116,6 +2157,7 @@ function buildRegionPracticeQuestions(region: Region, count: number, startDiffic
       inputType: "multiple-choice",
       prompt: cityAirportClue?.prompt ?? `Which airport or aviation clue belongs to ${region.name}?`,
       answer: primaryAirport,
+      aliases: cityAirportClue?.aliases,
       choices: choicesFrom(primaryAirport, cityAirportClue ? [...airportPool, "PEK", "SHA", "CAN", "MEX", "MTY"] : airportPool),
       explanation: cityAirportClue?.explanation ?? `${primaryAirport} appears in ${region.name}'s aviation profile.`,
       relatedRegionIds: [region.id],
@@ -2534,12 +2576,7 @@ function resetProfile() {
 
   if (showWelcome) {
     return (
-      <WelcomeSplash
-        onStart={() => enterMap()}
-        onDailyLesson={() => enterMap({ lesson: true })}
-        onRandomCountry={() => enterMap({ random: true })}
-        onHowItWorks={() => enterMap({ guide: true })}
-      />
+      <WelcomeSplash onStart={() => enterMap()} />
     );
   }
 
@@ -2928,14 +2965,8 @@ function downloadDailyLessonReviewPage(lesson: DailyLesson) {
 
 function WelcomeSplash({
   onStart,
-  onDailyLesson,
-  onRandomCountry,
-  onHowItWorks,
 }: {
   onStart: () => void;
-  onDailyLesson: () => void;
-  onRandomCountry: () => void;
-  onHowItWorks: () => void;
 }) {
   return (
     <main className="welcome-splash">
@@ -2954,19 +2985,16 @@ function WelcomeSplash({
           pan={{ x: 0, y: 0 }}
         />
       </div>
+      <div className="welcome-travel-orbit" aria-hidden="true">
+        <span className="orbit-globe">◎</span>
+        <span className="orbit-plane">✈</span>
+        <span className="orbit-train">▰▰</span>
+      </div>
       <section className="welcome-card" aria-label="GEONTRANSIT welcome">
         <img className="welcome-logo" src="/images/brand/geontransit-logo.svg" alt="GEONTRANSIT" />
         <p className="eyebrow">Map-first geography and transit learning</p>
-        <h1>Explore countries, regions, airports, and transit systems from one clean world map.</h1>
-        <p>
-          Start with no profile selected. Click any country when you are ready, then open regions,
-          images, flags, airports, and practice questions without crowding the map.
-        </p>
         <div className="welcome-actions">
-          <button type="button" className="primary-action" onClick={onStart}>Start Exploring</button>
-          <button type="button" onClick={onDailyLesson}>Daily Lesson</button>
-          <button type="button" onClick={onRandomCountry}>Random Country</button>
-          <button type="button" onClick={onHowItWorks}>How It Works</button>
+          <button type="button" className="primary-action" onClick={onStart}>Start Exploring →</button>
         </div>
       </section>
     </main>
@@ -3115,24 +3143,24 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
       visual: "map",
     },
     {
+      title: "Toggle Layers",
+      text: "Open Map tools when you need flags, regional boundaries, tourist attractions, transit networks, or a different base map.",
+      visual: "layers",
+    },
+    {
+      title: "Advanced Features",
+      text: "Use Advanced Options for the region selector, completion filters, and missing-data checks. Keep it collapsed when you only want the map.",
+      visual: "sidebar",
+    },
+    {
       title: "Regions",
       text: "Choose a province, state, county, or district from the country profile. Region boundaries, flags, images, capitals, and populations appear where loaded.",
       visual: "profile",
     },
     {
-      title: "Transit",
-      text: "Turn on transit networks for airports, metro systems, rail corridors, and useful map links without cluttering the base map.",
-      visual: "sidebar",
-    },
-    {
       title: "Quiz",
       text: "Practice capitals, flags, landmarks, airports, regions, and transit clues. Questions get harder as you move up the levels.",
       visual: "start",
-    },
-    {
-      title: "Advanced Features",
-      text: "Open Map tools to toggle flags, regional boundaries, tourist attractions, transit networks, completeness filters, and CSV exports.",
-      visual: "layers",
     },
   ];
 
@@ -3708,6 +3736,7 @@ function MapTab({
   const [countrySearch, setCountrySearch] = useState(selectedRegion?.name ?? "");
   const [countrySearchFocused, setCountrySearchFocused] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
+  const [controlsHidden, setControlsHidden] = useState(false);
   const [trackerExpanded, setTrackerExpanded] = useState(false);
   const [completenessFilter, setCompletenessFilter] = useState<CompletenessFilter>("all");
   const [regionCompletionRows, setRegionCompletionRows] = useState<RegionCompletionRow[]>([]);
@@ -3885,9 +3914,9 @@ function MapTab({
   };
 
   return (
-    <section className={`map-layout ${sidebarCollapsed ? "sidebar-collapsed" : ""}`}>
+    <section className={`map-layout ${sidebarCollapsed ? "sidebar-collapsed" : ""} ${selectedRegion ? "" : "no-profile-selected"}`}>
       <div className="map-column">
-        <details className="map-toolbar compact-tool-panel" open>
+        <details className="map-toolbar compact-tool-panel">
           <summary>
             <span>Map tools</span>
             <em>region, zoom, layers</em>
@@ -3973,7 +4002,7 @@ function MapTab({
             />
             Regional boundaries
           </label>
-          <details className="region-availability-note" open>
+          <details className="region-availability-note">
             <summary>
               <span>Advanced Options</span>
               <em>{completedProfileCount}/{regions.length} complete profiles</em>
@@ -4100,6 +4129,14 @@ function MapTab({
           </div>
         </details>
         <div className="map-frame">
+          <button
+            type="button"
+            className="map-controls-toggle"
+            onClick={() => setControlsHidden((hidden) => !hidden)}
+            aria-pressed={controlsHidden}
+          >
+            {controlsHidden ? "Show Controls" : "Hide Controls"}
+          </button>
           <OperationsMap
             selectedId={selectedRegionId}
             onSelect={selectRegionAndZoom}
@@ -4118,17 +4155,21 @@ function MapTab({
             onPanChange={onMapPanChange}
             onZoomChange={onMapZoomChange}
           />
-          <div className="map-zoom-overlay" aria-label="Map zoom controls">
-            <button onClick={zoomIn} aria-label="Zoom in">+</button>
-            <button onClick={zoomOut} aria-label="Zoom out">-</button>
-          </div>
-          <div className="map-pan-overlay" aria-label="Map pan controls">
-            <button type="button" className="pan-up-button" onClick={() => panMap(0, 90)} aria-label="Move map north">↑</button>
-            <button type="button" className="pan-left-button" onClick={() => panMap(120, 0)} aria-label="Move map west">←</button>
-            <button type="button" className="pan-center-button" onClick={() => onMapPanChange({ x: 0, y: 0 })} aria-label="Center selected country">⌖</button>
-            <button type="button" className="pan-right-button" onClick={() => panMap(-120, 0)} aria-label="Move map east">→</button>
-            <button type="button" className="pan-down-button" onClick={() => panMap(0, -90)} aria-label="Move map south">↓</button>
-          </div>
+          {!controlsHidden && (
+            <>
+              <div className="map-zoom-overlay" aria-label="Map zoom controls">
+                <button onClick={zoomIn} aria-label="Zoom in">+</button>
+                <button onClick={zoomOut} aria-label="Zoom out">-</button>
+              </div>
+              <div className="map-pan-overlay" aria-label="Map pan controls">
+                <button type="button" className="pan-up-button" onClick={() => panMap(0, 90)} aria-label="Move map north">↑</button>
+                <button type="button" className="pan-left-button" onClick={() => panMap(120, 0)} aria-label="Move map west">←</button>
+                <button type="button" className="pan-center-button" onClick={() => onMapPanChange({ x: 0, y: 0 })} aria-label="Center selected country">⌖</button>
+                <button type="button" className="pan-right-button" onClick={() => panMap(-120, 0)} aria-label="Move map east">→</button>
+                <button type="button" className="pan-down-button" onClick={() => panMap(0, -90)} aria-label="Move map south">↓</button>
+              </div>
+            </>
+          )}
         </div>
         <p className="map-drag-hint">Drag the map to move across regions.</p>
         <div className="map-movement-legend" aria-label="Map movement and layer legend">
@@ -4215,6 +4256,7 @@ function MapTab({
           ) : null}
         </details>
       </div>
+      {selectedRegion && (
       <div className="map-sidebar-shell">
         <button
           type="button"
@@ -4224,7 +4266,7 @@ function MapTab({
         >
           {sidebarCollapsed ? "Open profile" : "×"}
         </button>
-        {!sidebarCollapsed && (selectedRegion ? (
+        {!sidebarCollapsed && (
           <RegionPanel
             region={selectedRegion}
             selectedAttractionId={selectedAttractionId}
@@ -4241,8 +4283,9 @@ function MapTab({
             onPracticeRegion={onPracticeRegion}
             onReplay={onReplay}
           />
-        ) : <EmptyRegionPanel />)}
+        )}
       </div>
+      )}
     </section>
   );
 }
@@ -4422,6 +4465,11 @@ function triggerCsvDownload(csvExport: CsvExport) {
   }
 }
 
+function countryColorIndex(name: string, fallbackIndex: number) {
+  const hash = [...name].reduce((total, letter) => ((total * 31) + letter.charCodeAt(0)) % 9973, fallbackIndex);
+  return hash % 29;
+}
+
 function OperationsMap({
   selectedId,
   onSelect,
@@ -4578,7 +4626,7 @@ function OperationsMap({
                 return (
                   <path
                     key={`${country.properties.name}-${index}-${offset}`}
-                    className={`territory-cell territory-${index % 17} ${regionId ? `region-${regionId}` : ""} ${regionId === selectedId ? "selected" : ""}`}
+                    className={`territory-cell territory-${countryColorIndex(country.properties.name, index)} ${regionId ? `region-${regionId}` : ""} ${regionId === selectedId ? "selected" : ""}`}
                     d={pathData}
                   />
                 );
@@ -4596,7 +4644,7 @@ function OperationsMap({
               return (
                 <path
                   key={`${country.properties.name}-${index}`}
-                  className={`territory-cell territory-${index % 17} ${regionId ? `region-${regionId}` : ""} ${regionId === selectedId ? "selected" : ""} ${region ? "clickable" : "unmapped"}`}
+                  className={`territory-cell territory-${countryColorIndex(country.properties.name, index)} ${regionId ? `region-${regionId}` : ""} ${regionId === selectedId ? "selected" : ""} ${region ? "clickable" : "unmapped"}`}
                   d={pathData}
                   data-region-id={regionId}
                   onClick={() => regionId && onSelect(regionId)}
@@ -5407,6 +5455,15 @@ function nearbyRegionsFor(regionId: string) {
     ukraine: ["poland", "slovakia", "hungary", "romania", "moldova", "belarus", "russia"],
     norway: ["sweden", "finland", "russia", "denmark", "iceland"],
     "united-kingdom": ["ireland", "france", "netherlands", "belgium", "faroe-islands", "iceland"],
+    chad: ["libya", "sudan", "central-african-republic", "cameroon", "nigeria", "niger"],
+    "central-african-republic": ["chad", "sudan", "south-sudan", "democratic-republic-of-the-congo", "congo", "cameroon"],
+    "democratic-republic-of-the-congo": ["congo", "central-african-republic", "south-sudan", "uganda", "rwanda", "burundi", "tanzania", "zambia", "angola"],
+    egypt: ["libya", "sudan", "israel", "saudi-arabia", "jordan", "cyprus"],
+    brazil: ["argentina", "bolivia", "colombia", "guyana", "paraguay", "peru", "suriname", "uruguay", "venezuela"],
+    argentina: ["chile", "bolivia", "paraguay", "brazil", "uruguay"],
+    chile: ["argentina", "bolivia", "peru"],
+    china: ["mongolia", "russia", "north-korea", "india", "nepal", "pakistan", "vietnam", "laos", "myanmar", "kazakhstan"],
+    philippines: ["taiwan", "malaysia", "indonesia", "vietnam"],
   };
   return (nearbyIds[regionId] ?? [])
     .map((id) => regions.find((region) => region.id === id))

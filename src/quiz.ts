@@ -126,6 +126,17 @@ function airportPromptTarget(region: (typeof regions)[number]) {
   return preferredCity && !preferredCity.includes("Largest commercial") && !preferredCity.includes("Primary airport") ? preferredCity : region.name;
 }
 
+function cityAirportClue(region: (typeof regions)[number]) {
+  const clues: Record<string, { city: string; answer: string; aliases: string[]; explanation: string }> = {
+    japan: { city: "Osaka", answer: "KIX", aliases: ["kix"], explanation: "KIX is Kansai International Airport, the main international gateway for Osaka." },
+    china: { city: "Shanghai", answer: "PVG", aliases: ["pvg", "sha"], explanation: "PVG is Shanghai Pudong International Airport; SHA is Shanghai Hongqiao. PEK is Beijing." },
+    mexico: { city: "Guadalajara", answer: "GDL", aliases: ["gdl"], explanation: "GDL is Guadalajara International Airport; MEX is Mexico City." },
+    turkey: { city: "Istanbul", answer: "IST", aliases: ["ist", "saw"], explanation: "IST is Istanbul Airport; SAW is Istanbul Sabiha Gokcen." },
+    "united-kingdom": { city: "London", answer: "LHR", aliases: ["lhr", "lgw", "stn", "ltn", "lcy", "sen"], explanation: "LHR is Heathrow; London also uses LGW, STN, LTN, LCY, and SEN." },
+  };
+  return clues[region.id] ?? null;
+}
+
 function allowedFlagCount(count: number, startDifficulty: DifficultyLevel) {
   const ratio = levelIndex(startDifficulty) <= levelIndex("connector") ? 0.15 : 0.1;
   return Math.max(1, Math.floor(count * ratio));
@@ -146,7 +157,8 @@ function buildMonthlyRotationQuestions(monthKey = currentMonthKey()) {
       const region = regionPool[(day * slotsPerDay + slot) % regionPool.length];
       const seed = `${monthKey}-${day}-${slot}-${region.id}`;
       const template = slot % 10;
-      const primaryAirport = region.airports[0];
+      const airportClue = cityAirportClue(region);
+      const primaryAirport = airportClue?.answer ?? region.airports[0];
       const primaryRail = region.rail[0];
       const primaryMetro = region.metro[0];
       const primaryHighway = region.highways[0];
@@ -173,11 +185,11 @@ function buildMonthlyRotationQuestions(monthKey = currentMonthKey()) {
           inputType: primaryAirport.length === 3 && primaryAirport.toUpperCase() === primaryAirport ? "typed" : "multiple-choice",
           prompt: primaryAirport.startsWith("No ")
             ? `Day ${day + 1}: which airport note belongs to ${region.name}?`
-            : `Day ${day + 1}: identify a major airport clue for ${airportPromptTarget(region)}.`,
+            : `Day ${day + 1}: identify a major airport clue for ${airportClue?.city ?? airportPromptTarget(region)}.`,
           answer: primaryAirport,
-          aliases: primaryAirport.length === 3 ? [primaryAirport.toLowerCase()] : undefined,
+          aliases: airportClue?.aliases ?? (primaryAirport.length === 3 ? [primaryAirport.toLowerCase()] : undefined),
           choices: primaryAirport.length === 3 ? undefined : choicesFor(primaryAirport, regions.flatMap((item) => item.airports.slice(0, 1)), seed),
-          explanation: primaryAirport.startsWith("No ") ? primaryAirport : `${primaryAirport} appears in ${region.name}'s aviation profile.`,
+          explanation: airportClue?.explanation ?? (primaryAirport.startsWith("No ") ? primaryAirport : `${primaryAirport} appears in ${region.name}'s aviation profile.`),
           relatedRegionIds: [region.id],
         } : template === 2 ? {
           id: `monthly-${monthKey}-${day + 1}-${slot + 1}-rail-${region.id}`,
@@ -305,7 +317,7 @@ export function pickQuestions(startDifficulty: DifficultyLevel, count = 10, prof
   const pools = difficultyLevels.map((level) => allQuestions.filter((question) => question.difficulty === level));
   const lowestDailyIndex = Math.max(0, levelIndex(startDifficulty) - 1);
   const highestDailyIndex = Math.min(difficultyLevels.length - 1, levelIndex(startDifficulty) + Math.ceil(count / 5));
-  const targetTransportCount = Math.round(count * 0.7);
+  const targetTransportCount = Math.round(count * 0.48);
   const maxGeneralCount = count - targetTransportCount;
   const maxFlagCount = allowedFlagCount(count, startDifficulty);
   const targetImageCount = Math.max(1, Math.round(count * 0.1));
@@ -328,7 +340,8 @@ export function pickQuestions(startDifficulty: DifficultyLevel, count = 10, prof
     })
     .filter((question) => !recentlySeenIds.has(question.id))
     .sort((a, b) => questionVarietyScore(b, recentMissIds, recentlySeenIds, profile, selected) - questionVarietyScore(a, recentMissIds, recentlySeenIds, profile, selected));
-  while (selected.length < Math.min(count, todaysDeck.length) && dailyFresh.length > 0) {
+  const maxDailyFreshCount = Math.max(2, Math.ceil(count * 0.35));
+  while (selected.length < Math.min(maxDailyFreshCount, count, todaysDeck.length) && dailyFresh.length > 0) {
     const nextIndex = dailyFresh.findIndex(canAddQuestion);
     const pickIndex = nextIndex >= 0 ? nextIndex : 0;
     selected.push(dailyFresh.splice(pickIndex, 1)[0]);

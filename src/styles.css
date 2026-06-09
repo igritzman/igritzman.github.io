@@ -142,13 +142,15 @@ input {
   position: relative;
   z-index: 2;
   display: grid;
-  width: min(760px, calc(100vw - 2rem));
-  gap: 1rem;
+  width: min(520px, calc(100vw - 2rem));
+  justify-items: center;
+  gap: 1.05rem;
   border: 1px solid rgba(102, 217, 198, 0.3);
   border-radius: 10px;
   background: rgba(5, 16, 22, 0.9);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
   padding: clamp(1rem, 3vw, 2rem);
+  text-align: center;
 }
 
 .welcome-logo {
@@ -168,15 +170,15 @@ input {
 }
 
 .welcome-card p {
-  max-width: 62ch;
   margin: 0;
   color: #d7e8eb;
-  line-height: 1.55;
+  line-height: 1.35;
 }
 
 .welcome-actions {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: min(260px, 100%);
+  grid-template-columns: 1fr;
   gap: 0.6rem;
 }
 
@@ -189,6 +191,50 @@ input {
   border-color: rgba(102, 217, 198, 0.7);
   background: linear-gradient(135deg, #2fc2bd, #5c81f4);
   color: #041016;
+}
+
+.welcome-travel-orbit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.welcome-travel-orbit span {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(102, 217, 198, 0.34);
+  border-radius: 999px;
+  background: rgba(5, 16, 22, 0.7);
+  color: #d7f4ef;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.24);
+  font-weight: 950;
+}
+
+.orbit-globe {
+  left: 12%;
+  top: 18%;
+  width: 62px;
+  height: 62px;
+  font-size: 2.2rem;
+}
+
+.orbit-plane {
+  right: 14%;
+  top: 22%;
+  width: 54px;
+  height: 54px;
+  font-size: 1.55rem;
+}
+
+.orbit-train {
+  right: 18%;
+  bottom: 18%;
+  width: 78px;
+  height: 42px;
+  border-radius: 12px;
+  font-size: 0.9rem;
 }
 
 .topbar {
@@ -1236,6 +1282,10 @@ h3 {
   grid-template-columns: minmax(0, 1fr) auto;
 }
 
+.map-layout.no-profile-selected {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .map-sidebar-shell {
   display: grid;
   gap: 0.5rem;
@@ -1261,6 +1311,19 @@ h3 {
 .map-frame {
   position: relative;
   margin-top: 0.35rem;
+}
+
+.map-controls-toggle {
+  position: absolute;
+  right: 0.9rem;
+  top: 0.9rem;
+  z-index: 12;
+  min-height: 34px;
+  padding: 0 0.75rem;
+  border-color: rgba(102, 217, 198, 0.34);
+  background: rgba(5, 16, 22, 0.82);
+  font-size: 0.78rem;
+  font-weight: 950;
 }
 
 .map-toolbar {
@@ -2424,6 +2487,18 @@ h3 {
 .territory-14 { fill: rgba(178, 101, 102, 0.88); }
 .territory-15 { fill: rgba(132, 136, 194, 0.88); }
 .territory-16 { fill: rgba(151, 170, 83, 0.88); }
+.territory-17 { fill: rgba(92, 167, 132, 0.88); }
+.territory-18 { fill: rgba(198, 128, 92, 0.88); }
+.territory-19 { fill: rgba(102, 139, 194, 0.88); }
+.territory-20 { fill: rgba(188, 116, 145, 0.88); }
+.territory-21 { fill: rgba(126, 166, 88, 0.88); }
+.territory-22 { fill: rgba(91, 163, 174, 0.88); }
+.territory-23 { fill: rgba(169, 131, 74, 0.88); }
+.territory-24 { fill: rgba(139, 118, 182, 0.88); }
+.territory-25 { fill: rgba(184, 101, 84, 0.88); }
+.territory-26 { fill: rgba(86, 150, 114, 0.88); }
+.territory-27 { fill: rgba(176, 144, 95, 0.88); }
+.territory-28 { fill: rgba(118, 156, 190, 0.88); }
 
 .region-sudan { fill: rgba(181, 139, 76, 0.9); }
 .region-south-sudan { fill: rgba(88, 154, 126, 0.9); }
@@ -4775,14 +4850,6 @@ h3 {
   .guide-question-demo,
   .guide-region-demo {
     grid-template-columns: 1fr;
-  }
-
-  .welcome-actions {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .welcome-card h1 {
-    font-size: 2.15rem;
   }
 
   .guide-close-actions,
