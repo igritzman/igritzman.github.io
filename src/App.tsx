@@ -2985,14 +2985,9 @@ function WelcomeSplash({
           pan={{ x: 0, y: 0 }}
         />
       </div>
-      <div className="welcome-travel-orbit" aria-hidden="true">
-        <span className="orbit-globe">◎</span>
-        <span className="orbit-plane">✈</span>
-        <span className="orbit-train">▰▰</span>
-      </div>
       <section className="welcome-card" aria-label="GEONTRANSIT welcome">
         <img className="welcome-logo" src="/images/brand/geontransit-logo.svg" alt="GEONTRANSIT" />
-        <p className="eyebrow">Map-first geography and transit learning</p>
+        <p className="eyebrow">Explore the World Through Geography & Transit</p>
         <div className="welcome-actions">
           <button type="button" className="primary-action" onClick={onStart}>Start Exploring →</button>
         </div>
@@ -3081,8 +3076,8 @@ const dailyLessons = [
   {
     title: "Japan",
     summary: "Japan is perfect for station-order thinking: Shinkansen corridors, dense metros, and island regions.",
-    facts: ["Tokyo is the capital", "Shinkansen means bullet train network", "Honshu carries the busiest high-speed rail spine", "Tokyo and Osaka have major metro systems", "Hokkaido, Kyushu, and Shikoku add island-region clues"],
-    prompt: "Read the rail corridor order before answering the map question.",
+    facts: ["Tokyo is one of the world's largest metropolitan areas", "The Shinkansen is one of the world's most famous high-speed rail systems", "Japan consists of four main islands: Honshu, Hokkaido, Kyushu, and Shikoku", "Osaka's main international airport clue is KIX", "Hokkaido, Kyushu, and Shikoku add strong island-region clues"],
+    prompt: "Start with the four main islands, then use Shinkansen and airport clues to separate Tokyo, Osaka, and regional questions.",
   },
   {
     title: "Colombia",
@@ -3111,8 +3106,14 @@ const dailyLessons = [
   {
     title: "China",
     summary: "China is a high-speed rail and metro geography powerhouse with many huge urban systems.",
-    facts: ["Beijing is the capital", "Shanghai, Guangzhou, Shenzhen, Chongqing, and Zhengzhou have major metro clues", "High-speed rail links many megacity corridors", "Airport and railway-station labels help decode dense maps", "Chinese labels are easier when paired with romanized station names and route icons"],
-    prompt: "Use airport icons, high-speed railway stations, and city hubs before guessing.",
+    facts: ["Beijing has one of the world's largest subway systems", "Shanghai operates one of the world's longest metro networks", "China has the world's largest high-speed rail network", "Shanghai airport clues should point to PVG or SHA, not Beijing's PEK", "Guangzhou, Shenzhen, Chongqing, and Zhengzhou make strong metro-and-rail comparison clues"],
+    prompt: "Match the city first: Beijing, Shanghai, Guangzhou, Shenzhen, Chongqing, and Zhengzhou each have different airport and metro clues.",
+  },
+  {
+    title: "Morocco",
+    summary: "Morocco connects Atlantic, Mediterranean, desert, and high-speed rail clues in one compact profile.",
+    facts: ["Al Boraq is Africa's first high-speed rail line", "Casablanca is Morocco's largest city", "Marrakesh is known for its historic medina", "Tangier sits near the meeting point of the Atlantic and Mediterranean", "Rabat and Sale share an important tramway corridor"],
+    prompt: "Use Al Boraq, Casablanca, Marrakesh, Tangier, and Rabat-Sale as today's anchor clues.",
   },
   {
     title: "Australia",
@@ -3148,8 +3149,8 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
       visual: "layers",
     },
     {
-      title: "Advanced Features",
-      text: "Use Advanced Options for the region selector, completion filters, and missing-data checks. Keep it collapsed when you only want the map.",
+      title: "Map Tools & Advanced Options",
+      text: "Use Advanced Options for the region selector, completion filters, and missing-data checks. For example, Australia can show complete regional profiles, while Brazil or Bougainville can show what still needs review.",
       visual: "sidebar",
     },
     {
@@ -4179,7 +4180,16 @@ function MapTab({
           <span><strong>Regions</strong> detailed subdivisions appear at 480%+</span>
           <span><strong>Transit</strong> toggle network pins in Map tools</span>
         </div>
-        <AskGeoInTransitPanel />
+        <AskGeoInTransitPanel
+          onSelectRegion={selectRegionAndZoom}
+          onSelectTransit={(systemId) => {
+            const system = projectedTransitSystems.find((item) => item.id === systemId);
+            if (!system) return;
+            onTransitSystemsLayerChange(true);
+            onTransitSystemSelect(system);
+            selectRegionAndZoom(system.countryId);
+          }}
+        />
         <details className="export-panel compact-tool-panel">
           <summary>
             <span>Export data</span>
@@ -4419,8 +4429,36 @@ function practiceFlashcardsForRegion(region: Region, topics: PracticeTopic[], di
   }));
 }
 
-function downloadPracticeFlashcards(region: Region, topics: PracticeTopic[], difficulty: DifficultyLevel) {
+function downloadPracticeFlashcards(region: Region, topics: PracticeTopic[], difficulty: DifficultyLevel, format: "html" | "csv" | "json" = "html") {
   const cards = practiceFlashcardsForRegion(region, topics, difficulty);
+  if (format === "csv") {
+    const csv = [
+      ["country", "category", "front", "back"],
+      ...cards.map((card) => [region.name, card.category, card.front, card.back]),
+    ].map((row) => row.map(csvCell).join(",")).join("\r\n");
+    const blob = new Blob([`\uFEFF${csv}`], { type: "text/csv;charset=utf-8" });
+    const objectUrl = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = objectUrl;
+    anchor.download = `${region.id}-practice-flashcards.csv`;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+    return;
+  }
+  if (format === "json") {
+    const blob = new Blob([JSON.stringify({ region: region.name, cards }, null, 2)], { type: "application/json;charset=utf-8" });
+    const objectUrl = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = objectUrl;
+    anchor.download = `${region.id}-practice-flashcards.json`;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+    return;
+  }
   const html = `<!doctype html><html><head><meta charset="utf-8"><title>${region.name} GEONTRANSIT Flashcards</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111}h1{margin-bottom:4px}.card{break-inside:avoid;border:1px solid #999;border-radius:10px;padding:14px;margin:12px 0}.label{font-size:12px;text-transform:uppercase;color:#666}.front{font-size:18px;font-weight:700}.back{margin-top:10px}</style></head><body><h1>${region.name} Practice Flashcards</h1><p>Print this page or save it as PDF from your browser.</p>${cards.map((card) => `<section class="card"><div class="label">${card.category}</div><div class="front">${card.front}</div><div class="back">${card.back}</div></section>`).join("")}</body></html>`;
   const blob = new Blob([html], { type: "text/html;charset=utf-8" });
   const objectUrl = URL.createObjectURL(blob);
@@ -4466,9 +4504,33 @@ function triggerCsvDownload(csvExport: CsvExport) {
 }
 
 function countryColorIndex(name: string, fallbackIndex: number) {
+  const regionId = regionIdForCountryName(name);
+  const adjacentColorOverrides: Record<string, number> = {
+    portugal: 8,
+    spain: 20,
+    france: 5,
+    andorra: 23,
+    morocco: 24,
+    sudan: 12,
+    chad: 18,
+    "central-african-republic": 13,
+    "democratic-republic-of-the-congo": 19,
+    congo: 6,
+    cameroon: 10,
+    nigeria: 1,
+    niger: 4,
+    ethiopia: 9,
+    somalia: 27,
+    kenya: 26,
+    uganda: 15,
+    tanzania: 21,
+  };
+  if (regionId && adjacentColorOverrides[regionId] !== undefined) return adjacentColorOverrides[regionId];
   const hash = [...name].reduce((total, letter) => ((total * 31) + letter.charCodeAt(0)) % 9973, fallbackIndex);
   return hash % 29;
 }
+
+const microstateMarkerIds = ["andorra", "monaco", "san-marino", "liechtenstein", "vatican-city"];
 
 function OperationsMap({
   selectedId,
@@ -4711,6 +4773,28 @@ function OperationsMap({
             );
           }))}
         </div>}
+        {countryLayer && (
+          <div className="microstate-marker-layer" aria-label="Small country quick selectors">
+            {WORLD_WRAP_OFFSETS.flatMap((offset) => microstateMarkerIds.map((regionId) => {
+              const region = regions.find((item) => item.id === regionId);
+              if (!region) return null;
+              const position = mapPositionForRegion(region);
+              return (
+                <button
+                  key={`${region.id}-micro-${offset}`}
+                  className={`microstate-marker ${region.id === selectedId ? "selected" : ""}`}
+                  style={{ left: `calc(${position.x}% + ${offset}%)`, top: `${position.y}%`, transform: `scale(${1 / zoom})` }}
+                  onClick={() => onSelect(region.id)}
+                  title={region.name}
+                  aria-label={`Open ${region.name} profile`}
+                >
+                  <FlagAsset code={region.flag} label={`${region.name} flag`} />
+                  <span>{region.name}</span>
+                </button>
+              );
+            }))}
+          </div>
+        )}
         <div className="city-label-layer" aria-hidden="true">
           {projectedCityLabels.map((city) => (
             <span
@@ -5170,11 +5254,14 @@ function RegionPanel({
   const practiceTopicOptions = practiceTopicOptionsForRegion(region, regionTransitSystems.length, regionAttractions.length);
   const [practiceTopics, setPracticeTopics] = useState<PracticeTopic[]>(practiceTopicOptions.map((topic) => topic.id));
   const [selectedProfileRegion, setSelectedProfileRegion] = useState("");
+  const [showAllProfileRegions, setShowAllProfileRegions] = useState(false);
   const selectedProfileRegionImage = selectedProfileRegion ? subdivisionImagePathForRegion(region.id, selectedProfileRegion) : "";
   const selectedProfileRegionFlag = selectedProfileRegion ? regionalFlagImagePathForName(region.id, selectedProfileRegion) : "";
+  const visibleProfileRegions = showAllProfileRegions ? subregions : subregions.slice(0, 6);
   useEffect(() => {
     setPracticeTopics(practiceTopicOptions.map((topic) => topic.id));
     setSelectedProfileRegion("");
+    setShowAllProfileRegions(false);
   }, [region.id]);
   const togglePracticeTopic = (topic: PracticeTopic) => {
     setPracticeTopics((topics) => topics.includes(topic)
@@ -5217,6 +5304,24 @@ function RegionPanel({
                 <span>{selectedProfileRegionImage || selectedProfileRegionFlag ? "Matched uploaded regional asset" : "No uploaded image or flag matched yet"}</span>
               </div>
             </div>
+          ) : null}
+          <div className="profile-region-quick-list">
+            {visibleProfileRegions.map((name) => {
+              const regionFlag = regionalFlagImagePathForName(region.id, name);
+              const regionImage = subdivisionImagePathForRegion(region.id, name);
+              return (
+                <button key={name} type="button" onClick={() => setSelectedProfileRegion(name)} className={selectedProfileRegion === name ? "selected" : ""}>
+                  {regionFlag ? <img src={regionFlag} alt="" loading="lazy" /> : null}
+                  <span>{name}</span>
+                  <em>{regionImage || regionFlag ? "assets" : "needs assets"}</em>
+                </button>
+              );
+            })}
+          </div>
+          {subregions.length > 6 ? (
+            <button type="button" className="profile-region-show-all" onClick={() => setShowAllProfileRegions((value) => !value)}>
+              {showAllProfileRegions ? "Show Fewer Regions" : "Show All Regions"}
+            </button>
           ) : null}
         </div>
       )}
@@ -5286,9 +5391,9 @@ function RegionPanel({
         </details>
       )}
       <InfoGroup title="Highways" items={region.highways} regionName={region.name} badge />
-      <InfoGroup title="Maritime" items={region.maritime} regionName={region.name} />
+      {shouldShowInfoGroup(region, "Maritime", region.maritime) && <InfoGroup title="Maritime" items={region.maritime} regionName={region.name} />}
       <InfoGroup title="Landmarks" items={region.landmarks} regionName={region.name} />
-      <InfoGroup title="Rivers & Mountains" items={region.riversMountains} regionName={region.name} />
+      {shouldShowInfoGroup(region, "Rivers & Mountains", region.riversMountains) && <InfoGroup title="Rivers & Mountains" items={region.riversMountains} regionName={region.name} />}
       <InfoGroup title="Places of Interest" items={region.placesOfInterest} regionName={region.name} />
       {regionAttractions.length > 0 && (
         <div className="attractions-panel">
@@ -5310,7 +5415,7 @@ function RegionPanel({
           ))}
         </div>
       )}
-      {subregions.length > 0 && <InfoGroup title="States, Provinces & Regions" items={subregions} regionName={region.name} />}
+      {subregions.length > 0 && <InfoGroup title="States, Provinces & Regions" items={visibleProfileRegions} regionName={region.name} />}
       <InfoGroup title="Fun Facts" items={region.funFacts} regionName={region.name} />
       <div className="fact-box">
         {region.facts.map((fact) => <p key={fact}>{fact}</p>)}
@@ -5334,9 +5439,17 @@ function RegionPanel({
         {sampleQuestions.map((question) => (
           <button key={question.id} onClick={() => onPracticeRegion(region, question, practiceTopics)}>{question.prompt}</button>
         ))}
-        <button type="button" className="secondary-action" onClick={() => downloadPracticeFlashcards(region, practiceTopics, "gateway")}>
-          Download Practice Flashcards
-        </button>
+        <div className="practice-download-row">
+          <button type="button" className="secondary-action" onClick={() => downloadPracticeFlashcards(region, practiceTopics, "gateway", "html")}>
+            Download HTML
+          </button>
+          <button type="button" className="secondary-action" onClick={() => downloadPracticeFlashcards(region, practiceTopics, "gateway", "csv")}>
+            Download CSV
+          </button>
+          <button type="button" className="secondary-action" onClick={() => downloadPracticeFlashcards(region, practiceTopics, "gateway", "json")}>
+            Download JSON
+          </button>
+        </div>
       </div>
       <button className="primary-action" onClick={() => onPracticeRegion(region, sampleQuestions[0], practiceTopics)}>Practice From This Deck</button>
     </aside>
@@ -5356,7 +5469,21 @@ function EmptyRegionPanel() {
   );
 }
 
-function AskGeoInTransitPanel() {
+type AskResult = {
+  label: string;
+  detail: string;
+  regionId?: string;
+  transitSystemId?: string;
+};
+
+function AskGeoInTransitPanel({
+  onSelectRegion,
+  onSelectTransit,
+}: {
+  onSelectRegion: (regionId: string) => void;
+  onSelectTransit: (systemId: string) => void;
+}) {
+  const [query, setQuery] = useState("");
   const prompts = [
     "Show nearby countries",
     "Compare Portugal and Spain",
@@ -5365,15 +5492,112 @@ function AskGeoInTransitPanel() {
     "Countries similar to Japan",
     "High-speed rail by ridership",
   ];
+  const findRegionMention = (text: string) => {
+    const normalizedText = text.toLowerCase();
+    return regions.find((region) => normalizedText.includes(region.name.toLowerCase()) || normalizedText.includes(region.id.replaceAll("-", " ")));
+  };
+  const resultsForQuery = (text: string): AskResult[] => {
+    const normalized = text.trim().toLowerCase();
+    if (!normalized) return [];
+    if (normalized.includes("near")) {
+      const region = findRegionMention(normalized) ?? regions.find((item) => item.id === "hungary") ?? regions[0];
+      return nearbyRegionsFor(region.id).map((nearby) => ({
+        label: nearby.name,
+        detail: `Nearby ${region.name}; click to open the profile.`,
+        regionId: nearby.id,
+      }));
+    }
+    if (normalized.includes("morocco") && normalized.includes("transit")) {
+      const systems = projectedTransitSystems.filter((system) => system.countryId === "morocco");
+      const baseResults = systems.map((system) => ({
+        label: system.name,
+        detail: `${system.city} · ${system.type}`,
+        transitSystemId: system.id,
+      }));
+      return [
+        { label: "Al Boraq", detail: "Africa's first high-speed rail line.", regionId: "morocco" },
+        { label: "ONCF", detail: "Morocco's national rail operator.", regionId: "morocco" },
+        ...baseResults,
+      ];
+    }
+    if (normalized.includes("similar") && normalized.includes("japan")) {
+      return [
+        { label: "Taiwan", detail: "Island geography, dense cities, high-speed rail, and strong metro clues.", regionId: "taiwan" },
+        { label: "South Korea", detail: "Dense rail, major metro systems, and a peninsula/island-adjacent geography comparison.", regionId: "south-korea" },
+        { label: "Singapore", detail: "Compact island geography with a highly legible MRT and airport profile.", regionId: "singapore" },
+      ];
+    }
+    if (normalized.includes("high speed rail") || normalized.includes("high-speed rail")) {
+      return ["china", "japan", "france", "spain", "italy", "morocco"]
+        .map((regionId) => regions.find((region) => region.id === regionId))
+        .filter((region): region is Region => Boolean(region))
+        .map((region) => ({
+          label: region.name,
+          detail: region.rail.find((item) => /shinkansen|tgv|ice|al boraq|high-speed|alta velocidad|frecciarossa/i.test(item)) ?? "High-speed rail profile",
+          regionId: region.id,
+        }));
+    }
+    if (normalized.includes("compare") && normalized.includes("portugal") && normalized.includes("spain")) {
+      return [
+        { label: "Portugal", detail: "Open Portugal to compare regions, airports, and Iberian rail context.", regionId: "portugal" },
+        { label: "Spain", detail: "Open Spain to compare autonomous communities, AVE rail, and airports.", regionId: "spain" },
+      ];
+    }
+    if (normalized.includes("largest") && normalized.includes("turkey")) {
+      return [
+        { label: "Istanbul", detail: "Turkey's largest metro area and a major aviation/transit clue.", regionId: "turkey" },
+        { label: "Ankara", detail: "Capital region clue; useful for province and airport questions.", regionId: "turkey" },
+        { label: "Izmir", detail: "Aegean region anchor with rail, ferry, and airport clues.", regionId: "turkey" },
+      ];
+    }
+    const regionMatches = regions
+      .filter((region) => region.name.toLowerCase().includes(normalized) || region.id.replaceAll("-", " ").includes(normalized))
+      .slice(0, 8);
+    return regionMatches.map((region) => ({
+      label: region.name,
+      detail: `${region.capital} · ${region.population}`,
+      regionId: region.id,
+    }));
+  };
+  const activeResults = resultsForQuery(query);
+  const runPrompt = (prompt: string) => {
+    setQuery(prompt);
+  };
   return (
     <section className="ask-geointransit-panel" aria-label="Ask GEONTRANSIT prompts">
       <div>
         <strong>Ask GEONTRANSIT</strong>
-        <span>Quick prompts for cleaner study paths</span>
+        <span>Search nearby countries, transit systems, comparisons, and study paths</span>
       </div>
+      <label className="ask-search">
+        <span>Search</span>
+        <input
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Try: Countries near Hungary"
+          aria-label="Ask GEONTRANSIT search"
+        />
+      </label>
+      {activeResults.length > 0 ? (
+        <div className="ask-results" aria-live="polite">
+          {activeResults.map((result) => (
+            <button
+              key={`${result.label}-${result.regionId ?? result.transitSystemId ?? result.detail}`}
+              type="button"
+              onClick={() => {
+                if (result.transitSystemId) onSelectTransit(result.transitSystemId);
+                else if (result.regionId) onSelectRegion(result.regionId);
+              }}
+            >
+              <strong>{result.label}</strong>
+              <span>{result.detail}</span>
+            </button>
+          ))}
+        </div>
+      ) : null}
       <div>
         {prompts.map((prompt) => (
-          <button key={prompt} type="button" onClick={() => navigator.clipboard?.writeText(prompt)}>
+          <button key={prompt} type="button" onClick={() => runPrompt(prompt)}>
             {prompt}
           </button>
         ))}
@@ -5537,6 +5761,59 @@ function InfoGroup({ title, items, regionName, badge = false }: { title: string;
   );
 }
 
+const landlockedRegionIds = new Set([
+  "andorra",
+  "armenia",
+  "austria",
+  "belarus",
+  "bolivia",
+  "botswana",
+  "burkina-faso",
+  "burundi",
+  "central-african-republic",
+  "chad",
+  "czechia",
+  "ethiopia",
+  "hungary",
+  "kazakhstan",
+  "kosovo",
+  "kyrgyzstan",
+  "laos",
+  "lesotho",
+  "liechtenstein",
+  "luxembourg",
+  "malawi",
+  "mali",
+  "moldova",
+  "mongolia",
+  "nepal",
+  "niger",
+  "north-macedonia",
+  "paraguay",
+  "rwanda",
+  "san-marino",
+  "serbia",
+  "slovakia",
+  "south-sudan",
+  "switzerland",
+  "tajikistan",
+  "turkmenistan",
+  "uganda",
+  "uzbekistan",
+  "vatican-city",
+  "zambia",
+  "zimbabwe",
+]);
+
+function shouldShowInfoGroup(region: Region, title: string, items: string[]) {
+  const filteredItems = items.filter(Boolean);
+  if (filteredItems.length === 0) return false;
+  if (title === "Maritime" && landlockedRegionIds.has(region.id)) return false;
+  if (title === "Maritime" && filteredItems.every((item) => /landlocked|nearest maritime|where applicable|no seaport|no port|nearby coast/i.test(item))) return false;
+  if (title === "Rivers & Mountains" && region.id === "vatican-city") return false;
+  return true;
+}
+
 function isReferenceClickable(groupTitle: string, item: string) {
   const normalized = item.toLowerCase();
   if (groupTitle === "Fun Facts") return false;
@@ -5549,6 +5826,7 @@ function isReferenceClickable(groupTitle: string, item: string) {
   if (normalized.includes("capital-area") || normalized.includes("capital transit") || normalized.includes("intercity rail/coach")) return false;
   if (normalized.includes("regional cross-border") || normalized.includes("regional commuter") || normalized.includes("cargo or charter")) return false;
   if (normalized.includes("platform") && !normalized.includes("station")) return false;
+  if (/^(capital station district|national museum or monument|airport gateway area|historic market or central square|major park or waterfront)$/i.test(item.trim())) return false;
   if (["Landmarks", "Places of Interest", "Major Cities", "Rivers & Mountains"].includes(groupTitle)) return true;
   if (groupTitle === "Airports") return /\b[A-Z0-9]{3}\b/.test(item) || normalized.includes("airport") || normalized.includes("airfield") || normalized.includes("airstrip");
   if (groupTitle === "Highways") return /\d/.test(item) || /\b(road|highway|bridge|tunnel|expressway|motorway|causeway|pass|corridor)\b/.test(normalized);
@@ -5560,6 +5838,13 @@ function isReferenceClickable(groupTitle: string, item: string) {
 function referenceUrlForItem(groupTitle: string, item: string, regionName = "") {
   const normalized = item.toLowerCase();
   const exactReferences: Array<[RegExp, string]> = [
+    [/casa de la vall/, "https://en.wikipedia.org/wiki/Casa_de_la_Vall"],
+    [/sant joan de caselles/, "https://en.wikipedia.org/wiki/Esgl%C3%A9sia_de_Sant_Joan_de_Caselles"],
+    [/madriu-perafita-claror|madriu valley/, "https://en.wikipedia.org/wiki/Madriu-Perafita-Claror_Valley"],
+    [/bel[eé]m tower/, "https://en.wikipedia.org/wiki/Bel%C3%A9m_Tower"],
+    [/pena palace/, "https://en.wikipedia.org/wiki/Pena_Palace"],
+    [/fushimi inari/, "https://en.wikipedia.org/wiki/Fushimi_Inari-taisha"],
+    [/tokyo tower/, "https://en.wikipedia.org/wiki/Tokyo_Tower"],
     [/shinkansen/, "https://en.wikipedia.org/wiki/Shinkansen"],
     [/\btgv\b/, "https://en.wikipedia.org/wiki/TGV"],
     [/\bice\b|intercity-express/, "https://en.wikipedia.org/wiki/Intercity_Express"],

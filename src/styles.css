@@ -120,13 +120,17 @@ input {
   place-items: center;
   overflow: hidden;
   padding: clamp(1rem, 3vw, 2rem);
+  background:
+    linear-gradient(115deg, rgba(4, 13, 18, 0.92), rgba(4, 13, 18, 0.58) 45%, rgba(4, 13, 18, 0.88)),
+    url("/images/country-images/Japan.jpg") right center / cover no-repeat,
+    #07141b;
 }
 
 .welcome-map-preview {
   position: absolute;
   inset: 0;
-  opacity: 0.48;
-  filter: saturate(0.9) contrast(1.05);
+  opacity: 0.3;
+  filter: saturate(0.82) contrast(1.08);
 }
 
 .welcome-map-preview .operations-map {
@@ -142,15 +146,16 @@ input {
   position: relative;
   z-index: 2;
   display: grid;
-  width: min(520px, calc(100vw - 2rem));
+  width: min(760px, calc(100vw - 2rem));
   justify-items: center;
-  gap: 1.05rem;
-  border: 1px solid rgba(102, 217, 198, 0.3);
-  border-radius: 10px;
-  background: rgba(5, 16, 22, 0.9);
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
-  padding: clamp(1rem, 3vw, 2rem);
+  gap: clamp(1rem, 2.6vw, 1.7rem);
+  border: 1px solid rgba(102, 217, 198, 0.34);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(6, 21, 28, 0.88), rgba(5, 16, 22, 0.78));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48);
+  padding: clamp(1.4rem, 5vw, 3.2rem);
   text-align: center;
+  backdrop-filter: blur(10px);
 }
 
 .welcome-logo {
@@ -173,68 +178,28 @@ input {
   margin: 0;
   color: #d7e8eb;
   line-height: 1.35;
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .welcome-actions {
   display: grid;
-  width: min(260px, 100%);
+  width: min(340px, 100%);
   grid-template-columns: 1fr;
   gap: 0.6rem;
 }
 
 .welcome-actions button {
-  min-height: 46px;
+  min-height: 58px;
   font-weight: 900;
+  font-size: 1.08rem;
 }
 
 .welcome-actions .primary-action {
   border-color: rgba(102, 217, 198, 0.7);
   background: linear-gradient(135deg, #2fc2bd, #5c81f4);
   color: #041016;
-}
-
-.welcome-travel-orbit {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.welcome-travel-orbit span {
-  position: absolute;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(102, 217, 198, 0.34);
-  border-radius: 999px;
-  background: rgba(5, 16, 22, 0.7);
-  color: #d7f4ef;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.24);
-  font-weight: 950;
-}
-
-.orbit-globe {
-  left: 12%;
-  top: 18%;
-  width: 62px;
-  height: 62px;
-  font-size: 2.2rem;
-}
-
-.orbit-plane {
-  right: 14%;
-  top: 22%;
-  width: 54px;
-  height: 54px;
-  font-size: 1.55rem;
-}
-
-.orbit-train {
-  right: 18%;
-  bottom: 18%;
-  width: 78px;
-  height: 42px;
-  border-radius: 12px;
-  font-size: 0.9rem;
 }
 
 .topbar {
@@ -1287,16 +1252,22 @@ h3 {
 }
 
 .map-sidebar-shell {
+  position: relative;
   display: grid;
   gap: 0.5rem;
   align-self: start;
 }
 
 .sidebar-collapse-button {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  z-index: 4;
   justify-self: end;
-  min-width: 44px;
-  min-height: 44px;
+  min-width: 38px;
+  min-height: 38px;
   padding: 0 0.75rem;
+  border-radius: 999px;
   border-color: rgba(255, 198, 84, 0.34);
   background: rgba(8, 20, 27, 0.92);
   color: #ffe2a0;
@@ -1315,8 +1286,9 @@ h3 {
 
 .map-controls-toggle {
   position: absolute;
-  right: 0.9rem;
+  left: 0.9rem;
   top: 0.9rem;
+  right: auto;
   z-index: 12;
   min-height: 34px;
   padding: 0 0.75rem;
@@ -1813,6 +1785,56 @@ h3 {
   padding: 0.55rem 0.65rem;
 }
 
+.profile-region-quick-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 0.45rem;
+}
+
+.profile-region-quick-list button {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.42rem;
+  align-items: center;
+  min-height: 42px;
+  border-color: rgba(141, 179, 185, 0.18);
+  background: rgba(8, 20, 27, 0.72);
+  color: #e9f3f5;
+  text-align: left;
+}
+
+.profile-region-quick-list button.selected {
+  border-color: rgba(102, 217, 198, 0.68);
+  background: rgba(102, 217, 198, 0.12);
+}
+
+.profile-region-quick-list img {
+  width: 30px;
+  height: 20px;
+  border-radius: 3px;
+  object-fit: cover;
+  background: rgba(234, 244, 246, 0.94);
+}
+
+.profile-region-quick-list span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-region-quick-list em {
+  grid-column: 2;
+  color: #9bb1b7;
+  font-size: 0.7rem;
+  font-style: normal;
+}
+
+.profile-region-show-all {
+  justify-self: start;
+  min-height: 36px;
+  border-color: rgba(102, 217, 198, 0.34);
+}
+
 .profile-region-preview {
   display: grid;
   grid-template-columns: repeat(2, 58px) minmax(0, 1fr);
@@ -2211,7 +2233,9 @@ h3 {
 
 .map-stage {
   position: relative;
+  aspect-ratio: 1.42 / 1;
   min-height: 620px;
+  max-height: min(760px, 78vh);
   overflow: hidden;
   border: 1px solid rgba(91, 111, 116, 0.28);
   background: #cfd5d7;
@@ -2653,6 +2677,45 @@ h3 {
   border-color: rgba(255, 198, 84, 0.9);
   opacity: 1;
   box-shadow: 0 0 0 2px rgba(255, 198, 84, 0.18);
+}
+
+.microstate-marker-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.microstate-marker {
+  position: absolute;
+  display: inline-flex;
+  gap: 0.28rem;
+  align-items: center;
+  translate: -50% -50%;
+  min-height: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  background: rgba(5, 16, 22, 0.84);
+  color: #eef8fa;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+  padding: 0.16rem 0.42rem 0.16rem 0.18rem;
+  font-size: 0.62rem;
+  font-weight: 900;
+  pointer-events: auto;
+  white-space: nowrap;
+}
+
+.microstate-marker img {
+  width: 20px;
+  height: 14px;
+  border-radius: 2px;
+  object-fit: cover;
+}
+
+.microstate-marker.selected {
+  border-color: rgba(255, 198, 84, 0.96);
+  background: rgba(255, 198, 84, 0.16);
+  color: #ffe2a0;
 }
 
 .deep-zoom .map-marker.quiet.curated {
@@ -4204,6 +4267,46 @@ h3 {
   gap: 0.12rem;
 }
 
+.ask-search {
+  display: grid;
+  gap: 0.28rem;
+}
+
+.ask-search span {
+  color: #8fe8dc;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.ask-search input {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid rgba(141, 179, 185, 0.26);
+  border-radius: 8px;
+  background: rgba(5, 16, 22, 0.78);
+  color: #eef9fb;
+  padding: 0 0.75rem;
+}
+
+.ask-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0.48rem;
+}
+
+.ask-results button {
+  display: grid;
+  gap: 0.2rem;
+  align-content: center;
+  min-height: 64px;
+  border-radius: 8px;
+  border-color: rgba(102, 217, 198, 0.22);
+  background: rgba(8, 20, 27, 0.76);
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+}
+
 .ask-geointransit-panel strong {
   color: #e9f3f5;
 }
@@ -4220,6 +4323,16 @@ h3 {
   background: rgba(255, 198, 84, 0.15);
   color: #ffd891;
   font-weight: 900;
+}
+
+.practice-download-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.practice-download-row button {
+  flex: 1 1 120px;
 }
 
 .fact-box {
