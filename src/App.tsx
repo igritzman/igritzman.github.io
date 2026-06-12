@@ -71,9 +71,37 @@ type PlaceImage = {
   };
 };
 
+type LightboxImage = {
+  src: string;
+  title: string;
+  caption?: string;
+};
+
+type AskCardItem = {
+  label: string;
+  regionId?: string;
+  flag?: string;
+  note?: string;
+};
+
+type AskCard = {
+  id: string;
+  tab: string;
+  title: string;
+  category: string;
+  summary: string;
+  items: AskCardItem[];
+  image?: {
+    src: string;
+    alt: string;
+  };
+  compareIds?: string[];
+};
+
 const metroImageByPrompt: Record<string, string> = {
   "Medellin MetroCable": "/images/metro-images/Medellin%20Metro.jpg",
   "Al Boraq high-speed train": "/images/metro-images/Railways_Morocco.png",
+  "Budapest rail and metro": "/images/metro-images/Budapest.png",
   "Shinkansen station order": "/images/metro-images/Shinkansen_map_202405_en.png",
   "High-speed rail corridor map": "/images/metro-images/Shinkansen_map_202405_en.png",
   "Washington DC Metro core": "/images/metro-images/WMATA.png",
@@ -90,6 +118,7 @@ const metroImageByPrompt: Record<string, string> = {
   "Luoyang Metro network": "/images/metro-images/System_Map_of_Luoyang_Metro.png",
   "Hong Kong MTR": "/images/metro-images/Hong%20Kong.png",
   "Cairo rapid transit": "/images/metro-images/Cairo_Rapid_Transit_map.png",
+  "Kuala Lumpur rapid transit": "/images/metro-images/RapidKL%20Kuala%20Lumpur.jpg",
   "Guangzhou Metro network": "/images/metro-images/Guangzhou_Metro_Network.png",
   "Shenzhen Metro network": "/images/metro-images/Shenzhen_Metro_(Rapid_Transit)_System_Map.svg.png",
   "Chongqing Rail Transit": "/images/metro-images/Chongqing%20Rail%20Plan.png",
@@ -117,16 +146,16 @@ const gadmSubdivisionPromises: Record<string, Promise<GadmSubdivisionFeature[]>>
 
 const gadmLevelOneFiles: Record<string, string> = {
   "united-states": "/data/gadm/level1/gadm41_USA_1.json",
+  algeria: "/data/gadm/level1/gadm41_DZA_1.json",
   argentina: "/data/gadm/level1/gadm41_ARG_1.json",
-  brazil: "/data/gadm/level1/gadm41_BRA_1.json",
   canada: "/data/gadm/level1/gadm41_CAN_1.json",
+  brazil: "/data/gadm/level1/gadm41_BRA_1.json",
   chile: "/data/gadm/level1/gadm41_CHL_1.json",
   china: "/data/gadm/level1/gadm41_CHN_1.json",
-  algeria: "/data/gadm/level1/gadm41_DZA_1.json",
   egypt: "/data/gadm/level1/gadm41_EGY_1.json",
-  estonia: "/data/gadm/level1/gadm41_EST_2.json",
   ethiopia: "/data/gadm/level1/gadm41_ETH_1.json",
   ghana: "/data/gadm/level1/gadm41_GHA_1.json",
+  greece: "/data/gadm/level1/geoBoundaries_GRC_ADM1.json",
   indonesia: "/data/gadm/level1/gadm41_IDN_1.json",
   kenya: "/data/gadm/level1/gadm41_KEN_1.json",
   japan: "/data/gadm/level1/gadm41_JPN_1.json",
@@ -136,7 +165,6 @@ const gadmLevelOneFiles: Record<string, string> = {
   india: "/data/gadm/level1/gadm41_IND_1.json",
   australia: "/data/gadm/level1/gadm41_AUS_1.json",
   germany: "/data/gadm/level1/gadm41_DEU_1.json",
-  greece: "/data/gadm/level1/geoBoundaries_GRC_ADM1.json",
   mexico: "/data/gadm/level1/gadm41_MEX_1.json",
   nepal: "/data/gadm/level1/geoboundaries_NPL_ADM1.json",
   nigeria: "/data/gadm/level1/gadm41_NGA_1.json",
@@ -147,15 +175,15 @@ const gadmLevelOneFiles: Record<string, string> = {
   "south-africa": "/data/gadm/level1/gadm41_ZAF_1.json",
   "south-korea": "/data/gadm/level1/gadm41_KOR_1.json",
   spain: "/data/gadm/level1/gadm41_ESP_1.json",
+  thailand: "/data/gadm/level1/gadm41_THA_1.json",
   italy: "/data/gadm/level1/gadm41_ITA_1.json",
   france: "/data/gadm/level1/gadm41_FRA_1.json",
   ireland: "/data/gadm/level1/gadm41_IRL_1.json",
-  thailand: "/data/gadm/level1/gadm41_THA_1.json",
   turkey: "/data/gadm/level1/gadm41_TUR_1.json",
   uae: "/data/gadm/level1/gadm41_ARE_1.json",
   ukraine: "/data/gadm/level1/gadm41_UKR_1.json",
-  vietnam: "/data/gadm/level1/gadm41_VNM_1.json",
   "united-kingdom": "/data/gadm/level1/gadm41_GBR_2.json",
+  vietnam: "/data/gadm/level1/gadm41_VNM_1.json",
   zimbabwe: "/data/gadm/level1/gadm41_ZWE_1.json",
 };
 
@@ -182,25 +210,6 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "CA-BC": { capital: "Victoria", transit: "SkyTrain, West Coast Express, BC Ferries" },
   "CA-ON": { capital: "Toronto", population: "about 16 million", transit: "TTC, GO Transit, UP Express, Ottawa O-Train; major airports YYZ and YOW" },
   "CA-QC": { capital: "Quebec City", transit: "Montreal Metro, REM, exo, RTC buses" },
-  "PT.AV": { capital: "Aveiro", population: "714,200 (2011 census)", transit: "Aveiro rail, regional buses, coastal road links" },
-  "PT.AC": { capital: "Ponta Delgada", population: "246,772 (2011 census)", transit: "Inter-island flights and ferries, Ponta Delgada airport, regional buses" },
-  "PT.BE": { capital: "Beja", population: "152,758 (2011 census)", transit: "Beja rail, regional road links, airport facilities" },
-  "PT.BR": { capital: "Braga", population: "848,185 (2011 census)", transit: "Braga rail, Minho corridor buses, Porto regional access" },
-  "PT.BA": { capital: "Braganca", population: "136,252 (2011 census)", transit: "Northeast road and coach links" },
-  "PT.CB": { capital: "Castelo Branco", population: "196,264 (2011 census)", transit: "Beira Baixa rail and regional road links" },
-  "PT.CO": { capital: "Coimbra", population: "430,104 (2011 census)", transit: "Coimbra rail, Mondego mobility corridor, regional buses" },
-  "PT.EV": { capital: "Evora", population: "166,726 (2011 census)", transit: "Alentejo rail and regional road links" },
-  "PT.FA": { capital: "Faro", population: "451,006 (2011 census)", transit: "Algarve rail, Faro airport, coastal buses" },
-  "PT.GU": { capital: "Guarda", population: "160,939 (2011 census)", transit: "Beira Alta road and rail corridors" },
-  "PT.LE": { capital: "Leiria", population: "470,930 (2011 census)", transit: "Regional coach, road corridors, and central coast links" },
-  "PT.LI": { capital: "Lisbon", population: "2,250,533 (2011 census)", transit: "Lisbon Metro, commuter rail, ferries, airport links" },
-  "PT.PA": { capital: "Portalegre", population: "118,506 (2011 census)", transit: "Alentejo road and coach links" },
-  "PT.PO": { capital: "Porto", population: "1,817,172 (2011 census)", transit: "Porto Metro, suburban rail, airport and Douro links" },
-  "PT.SA": { capital: "Santarem", population: "453,638 (2011 census)", transit: "Tagus corridor rail and road links" },
-  "PT.SE": { capital: "Setubal", population: "851,258 (2011 census)", transit: "Fertagus rail, ferries, port, and regional buses" },
-  "PT.VC": { capital: "Viana do Castelo", population: "244,836 (2011 census)", transit: "Minho rail and coastal road links" },
-  "PT.VR": { capital: "Vila Real", population: "206,661 (2011 census)", transit: "Douro/northern road corridors and regional coaches" },
-  "PT.VI": { capital: "Viseu", population: "377,653 (2011 census)", transit: "Central road corridors and regional coach links" },
   "JP-01": { capital: "Sapporo", transit: "Sapporo Subway, JR Hokkaido, airport rail to New Chitose" },
   "JP-13": { capital: "Tokyo", transit: "Tokyo Metro, Toei Subway, JR East, private railways" },
   "JP-23": { capital: "Nagoya", transit: "Nagoya Subway, Meitetsu, JR Central, Shinkansen access" },
@@ -343,11 +352,6 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   occitanie: { capital: "Toulouse", transit: "Toulouse Metro, Montpellier trams, TER Occitanie" },
   "pays-de-la-loire": { capital: "Nantes", transit: "Nantes tramway, TER Pays de la Loire, Atlantic rail corridors" },
   "provence-alpes-cote-d-azur": { capital: "Marseille", transit: "Marseille Metro, Nice tramway, TER Zou!, TGV Mediterranee" },
-  Azores: { capital: "Ponta Delgada", population: "241,884 (2024 estimate, INE)", transit: "Inter-island flights and ferries, Ponta Delgada airport, regional bus links" },
-  "Açores": { capital: "Ponta Delgada", population: "241,884 (2024 estimate, INE)", transit: "Inter-island flights and ferries, Ponta Delgada airport, regional bus links" },
-  azores: { capital: "Ponta Delgada", population: "241,884 (2024 estimate, INE)", transit: "Inter-island flights and ferries, Ponta Delgada airport, regional bus links" },
-  Madeira: { capital: "Funchal", population: "257,302 (2024 estimate, INE)", transit: "Madeira buses, Funchal cable car, port ferries, Cristiano Ronaldo airport" },
-  madeira: { capital: "Funchal", population: "257,302 (2024 estimate, INE)", transit: "Madeira buses, Funchal cable car, port ferries, Cristiano Ronaldo airport" },
   guadeloupe: { capital: "Basse-Terre", transit: "Regional buses, ferry links, Pointe-a-Pitre airport" },
   martinique: { capital: "Fort-de-France", transit: "TCSP Martinique BRT, ferries, airport links" },
   guyane: { capital: "Cayenne", transit: "Regional road links, Cayenne-Felix Eboue airport" },
@@ -482,7 +486,7 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "CA-NS": { capital: "Halifax", population: "about 1.1 million", transit: "Halifax Transit buses and ferries, VIA Rail Ocean" },
   "CA-NT": { capital: "Yellowknife", population: "about 45,000", transit: "Yellowknife Transit and northern air links" },
   "CA-NU": { capital: "Iqaluit", population: "about 40,000", transit: "Air and sealift links; no intercity road or rail network" },
-  "CA-PE": { capital: "Charlottetown", population: "182,508 (Q4 2025 estimate)", transit: "T3 Transit, Charlottetown Airport (YYG), ferry links, and Confederation Bridge road access" },
+  "CA-PE": { capital: "Charlottetown", population: "about 180,000", transit: "T3 Transit, ferry and Confederation Bridge road links" },
   "CA-SK": { capital: "Regina", population: "about 1.3 million", transit: "Regina Transit, Saskatoon Transit, intercity highway and air links" },
   "CA-YT": { capital: "Whitehorse", population: "about 48,000", transit: "Whitehorse Transit and northern air links" },
   abruzzo: { capital: "L'Aquila", transit: "Regional rail and Adriatic corridor links through Pescara" },
@@ -515,43 +519,6 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "central-visayas": { capital: "Cebu City", transit: "Cebu BRT corridor, ferries, Mactan-Cebu airport" },
   "eastern-visayas": { capital: "Tacloban", transit: "Tacloban airport, ferry and highway links" },
   "zamboanga-peninsula": { capital: "Pagadian", transit: "Regional bus, ferry, Zamboanga and Pagadian airport links" },
-  Abia: { capital: "Umuahia", transit: "Umuahia road links, Aba commercial corridors, and regional coach service" },
-  Adamawa: { capital: "Yola", transit: "Yola airport, Benue River road corridors, and regional buses" },
-  "Akwa Ibom": { capital: "Uyo", transit: "Victor Attah International Airport and Uyo regional road links" },
-  Anambra: { capital: "Awka", transit: "Awka-Onitsha road corridors and regional bus links" },
-  Bauchi: { capital: "Bauchi", transit: "Bauchi rail/road corridors and regional coach service" },
-  Bayelsa: { capital: "Yenagoa", transit: "Delta waterways, Yenagoa road links, and regional buses" },
-  Benue: { capital: "Makurdi", transit: "Makurdi road bridges, Benue River corridors, and regional buses" },
-  Borno: { capital: "Maiduguri", transit: "Maiduguri airport and northeast road corridors" },
-  "Cross River": { capital: "Calabar", transit: "Calabar port, airport, and regional road links" },
-  Delta: { capital: "Asaba", transit: "Asaba airport, Warri port access, and Niger Delta roads" },
-  Ebonyi: { capital: "Abakaliki", transit: "Abakaliki road corridors and regional coach links" },
-  Edo: { capital: "Benin City", transit: "Benin airport and Lagos-Abuja road corridor links" },
-  Ekiti: { capital: "Ado Ekiti", transit: "Ado Ekiti road links and regional bus service" },
-  Enugu: { capital: "Enugu", transit: "Akanu Ibiam airport, Enugu rail links, and regional buses" },
-  "Federal Capital Territory": { capital: "Abuja", transit: "Abuja Metro, Nnamdi Azikiwe International Airport, and regional road corridors" },
-  Gombe: { capital: "Gombe", transit: "Gombe airport, rail/road corridors, and regional buses" },
-  Imo: { capital: "Owerri", transit: "Owerri airport and southeast road corridors" },
-  Jigawa: { capital: "Dutse", transit: "Dutse road links and northern regional buses" },
-  Kaduna: { capital: "Kaduna", transit: "Abuja-Kaduna rail, Kaduna airport, and northern road corridors" },
-  Kano: { capital: "Kano", transit: "Kano airport, rail hub, and northern road corridors" },
-  Katsina: { capital: "Katsina", transit: "Katsina airport and northern road links" },
-  Kebbi: { capital: "Birnin Kebbi", transit: "Birnin Kebbi road links and regional air access" },
-  Kogi: { capital: "Lokoja", transit: "Niger-Benue confluence road corridors and regional buses" },
-  Kwara: { capital: "Ilorin", transit: "Ilorin airport, rail links, and regional road corridors" },
-  Lagos: { capital: "Ikeja", transit: "Lagos Rail Mass Transit, BRT, ports, and Murtala Muhammed International Airport" },
-  Nasarawa: { capital: "Lafia", transit: "Lafia road links and Abuja regional access" },
-  Niger: { capital: "Minna", transit: "Minna rail/road corridors and Abuja regional access" },
-  Ogun: { capital: "Abeokuta", transit: "Lagos-Ibadan rail, Abeokuta roads, and regional buses" },
-  Ondo: { capital: "Akure", transit: "Akure airport and southwest road corridors" },
-  Osun: { capital: "Osogbo", transit: "Osogbo rail/road corridors and regional buses" },
-  Oyo: { capital: "Ibadan", transit: "Lagos-Ibadan rail, Ibadan road corridors, and regional buses" },
-  Plateau: { capital: "Jos", transit: "Jos road corridors and regional coach links" },
-  Rivers: { capital: "Port Harcourt", transit: "Port Harcourt airport, port, and Niger Delta road corridors" },
-  Sokoto: { capital: "Sokoto", transit: "Sokoto airport and northwest road corridors" },
-  Taraba: { capital: "Jalingo", transit: "Jalingo road links and regional coach service" },
-  Yobe: { capital: "Damaturu", transit: "Damaturu road links and Potiskum regional corridors" },
-  Zamfara: { capital: "Gusau", transit: "Gusau road links and northwest regional buses" },
   "northern-mindanao": { capital: "Cagayan de Oro", transit: "Laguindingan airport, port and regional bus links" },
   "davao-region": { capital: "Davao City", transit: "Davao bus corridors, port and airport links" },
   soccsksargen: { capital: "Koronadal", transit: "General Santos airport, regional bus and highway links" },
@@ -1529,7 +1496,7 @@ function regionalFlagImageSrc(feature: GadmSubdivisionFeature) {
     ?? (normalizedRegionSlug.includes("magallanes") ? countryFlagRows?.["magallanes-y-la-ant-rtica-chilena-chile"] : undefined)
     ?? (normalizedRegionSlug.includes("magallanes") ? countryFlagRows?.["magallanes-y-antartica-chilena"] : undefined)
     ?? fuzzyCountryFlagFile;
-  if (countryFlagFile) return `/images/region-flags/${encodeURIComponent(countryFlagFile).replace(/%2F/g, "/")}`;
+  if (countryFlagFile) return `/images/region-flags/imported/${encodeURIComponent(countryFlagFile).replace(/%2F/g, "/")}`;
   return regionalFlagByName[normalizedRegionSlug]
     ?? (feature.properties?.NAME_1 ? regionalFlagByName[slugifyCountryName(feature.properties.NAME_1)] : undefined)
     ?? "";
@@ -1565,6 +1532,31 @@ const countryImageFiles = countryImageManifest as Record<string, string>;
 const regionFlagFiles = regionFlagManifest as Record<string, Record<string, string>>;
 const regionImageFiles = regionImageManifest as Record<string, Record<string, string>>;
 const usStateImageFiles = usStateImageManifest as Record<string, string>;
+const localRegionalImageFallbacks: Record<string, Record<string, string>> = {
+  australia: {
+    "australian-capital-territory": "australia/australian-capital-territory.jpg",
+    "new-south-wales": "australia/new-south-wales.jpg",
+    "northern-territory": "australia/northern-territory.jpg",
+    queensland: "australia/queensland.jpg",
+    "south-australia": "australia/south-australia.webp",
+    tasmania: "australia/tasmania.jpg",
+    victoria: "australia/victoria.jpeg",
+    "western-australia": "australia/western-australia.jpg",
+  },
+  japan: {
+    chugoku: "japan/chugoku.jpg",
+    honshu: "japan/honshu.jpg",
+    hokkaido: "japan/hokkaido.jpg",
+    kansai: "japan/kansai.jpg",
+    kanto: "japan/kanto.jpg",
+    kyushu: "japan/kyushu.jpg",
+    okinawa: "japan/okinawa.webp",
+    shikoku: "japan/shikoku.jpg",
+  },
+  "united-states": {
+    "puerto-rico": "united-states/puerto-rico.jpg",
+  },
+};
 const MAP_PAN_LIMIT_X = 12000;
 const MAP_PAN_LIMIT_Y = 900;
 const WORLD_WRAP_OFFSETS = [-200, -100, 0, 100, 200];
@@ -1604,10 +1596,7 @@ function prettifySubdivisionCountryName(name?: string) {
 
 function subdivisionCountryKey(feature: GadmSubdivisionFeature) {
   const pretty = prettifySubdivisionCountryName(feature.properties?.COUNTRY);
-  const shapeGroupCountries: Record<string, string> = {
-    GRC: "greece",
-  };
-  return regionIdForCountryName(pretty) || slugifyCountryName(pretty) || (feature.properties?.shapeGroup ? shapeGroupCountries[feature.properties.shapeGroup] : "");
+  return regionIdForCountryName(pretty) || slugifyCountryName(pretty);
 }
 
 function countryImagePathForName(name: string) {
@@ -1617,7 +1606,6 @@ function countryImagePathForName(name: string) {
 
 function countryImageFileNameForName(name: string) {
   const key = imageLookupKey(name);
-  if (key === "greenland") return "Greenland-uploaded.avif";
   const alias = countryImageAliases[key] ?? key;
   return dailyLessonCountryImageFiles[name] ?? countryImageFiles[key] ?? countryImageFiles[alias] ?? countryImageFiles[slugifyCountryName(name).replace(/-/g, "")];
 }
@@ -1637,52 +1625,6 @@ function profileCompletionFor(region: Region) {
 }
 
 const completedProfileRegions = regions.filter((region) => profileCompletionFor(region).complete);
-
-const completenessFilters = [
-  ["all", "All"],
-  ["complete", "Complete"],
-  ["country-image", "Missing country image"],
-  ["flag", "Missing flag"],
-  ["region-images", "Missing region images"],
-  ["region-flags", "Missing region flags"],
-  ["capital", "Missing capital"],
-  ["population", "Missing population"],
-  ["airports", "Missing airports"],
-  ["transit", "Missing transit data"],
-] as const;
-
-type CompletenessFilter = (typeof completenessFilters)[number][0];
-type MissingItemKey = Exclude<CompletenessFilter, "all" | "complete">;
-
-const missingItemLabels: Record<MissingItemKey, string> = {
-  "country-image": "country image",
-  flag: "flag",
-  "region-images": "region images",
-  "region-flags": "region flags",
-  capital: "capital",
-  population: "population",
-  airports: "airports",
-  transit: "transit data",
-};
-
-function missingItemsForRegion(region: Region): MissingItemKey[] {
-  const completion = profileCompletionFor(region);
-  const hasRegionalLayer = Boolean(gadmLevelOneFiles[region.id]);
-  const regionImageCount = Object.keys(regionImageFiles[region.id] ?? {}).length;
-  const regionFlagCount = Object.keys(regionFlagFiles[region.id] ?? {}).length;
-  const airportNeedsCompletion = region.airports.length === 0 || region.airports.some((airport) => /primary international airport|secondary airport|capital gateway airport|regional domestic airport|cargo or charter airport/i.test(airport));
-  const transitNeedsCompletion = [...region.rail, ...region.metro].some((item) => /national rail or intercity coach|capital transit network|where available|primary station district/i.test(item));
-  return [
-    ...(!completion.hasImage ? ["country-image" as const] : []),
-    ...(!completion.hasFlag ? ["flag" as const] : []),
-    ...(hasRegionalLayer && regionImageCount === 0 ? ["region-images" as const] : []),
-    ...(hasRegionalLayer && regionFlagCount === 0 ? ["region-flags" as const] : []),
-    ...(!completion.hasCapital ? ["capital" as const] : []),
-    ...(!completion.hasPopulation ? ["population" as const] : []),
-    ...(airportNeedsCompletion ? ["airports" as const] : []),
-    ...(transitNeedsCompletion ? ["transit" as const] : []),
-  ];
-}
 
 type RegionCompletionRow = {
   code: string;
@@ -1722,79 +1664,24 @@ function usStateImagePathForName(name: string) {
   return fileName ? `/images/us-state-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}` : "";
 }
 
-function expandedAssetSlugs(slug: string) {
-  const plain = slug
-    .replace(/^of-/, "")
-    .replace(/^flag-of-/, "")
-    .replace(/-svg$/, "")
-    .replace(/-jpg$/, "")
-    .replace(/-jpeg$/, "")
-    .replace(/-png$/, "")
-    .replace(/-webp$/, "")
-    .replace(/-avif$/, "")
-    .replace(/-province$/, "")
-    .replace(/-region$/, "")
-    .replace(/-county$/, "")
-    .replace(/-fylke$/, "")
-    .replace(/-chile$/, "")
-    .replace(/-uk$/, "")
-    .replace(/-england$/, "")
-    .replace(/-scotland$/, "")
-    .replace(/-wales$/, "")
-    .replace(/-northern-ireland$/, "");
-  const withoutDiacritics = plain.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  return Array.from(new Set([
-    slug,
-    plain,
-    withoutDiacritics,
-    plain.replace(/-and-/g, "-"),
-    plain.replace(/-y-/g, "-"),
-    plain.replace(/-de-/g, "-"),
-    plain.replace(/-do-/g, "-"),
-    plain.replace(/-da-/g, "-"),
-    plain.replace(/-la-/g, "-"),
-    plain.replace(/-the-/g, "-"),
-  ].filter(Boolean)));
-}
-
-function fuzzyManifestFile(rows: Record<string, string> | undefined, targetSlug: string) {
-  if (!rows) return undefined;
-  const targets = expandedAssetSlugs(targetSlug);
-  const entries = Object.entries(rows).map(([key, value]) => ({ key, value, slugs: expandedAssetSlugs(key) }));
-  return entries.find((entry) => targets.some((target) => entry.slugs.includes(target)))?.value
-    ?? entries.find((entry) => targets.some((target) => entry.slugs.some((key) => key.startsWith(`${target}-`) || target.startsWith(`${key}-`) || key.includes(target))))?.value;
-}
-
-function canadaProvinceImagePathForName(name: string) {
-  const slug = slugifyCountryName(name);
-  const directPaths: Record<string, string> = {
-    quebec: "/images/region-images/canada/quebec.jpg",
-  };
-  return directPaths[slug] ?? "";
-}
-
 function regionImagePathForName(countryId: string, name: string) {
   const slug = slugifyCountryName(name);
   const rows = regionImageFiles[countryId];
+  const fuzzyFileName = rows
+    ? Object.entries(rows).find(([key]) => key === slug || key.startsWith(`${slug}-`) || slug.startsWith(`${key}-`))?.[1]
+    : undefined;
+  const localFileName = localRegionalImageFallbacks[countryId]?.[slug];
   const fileName = rows?.[slug]
     ?? rows?.[slug.replace("-y-la-", "-y-")]
+    ?? localFileName
     ?? (slug.includes("magallanes") ? rows?.["magallenes"] : undefined)
     ?? (slug.includes("magallanes") ? rows?.["magallanes-y-antartica-chilena"] : undefined)
-    ?? fuzzyManifestFile(rows, slug);
+    ?? fuzzyFileName;
   return fileName ? `/images/region-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}` : "";
-}
-
-function regionalFlagImagePathForName(countryId: string, name: string) {
-  const slug = slugifyCountryName(name);
-  const rows = regionFlagFiles[countryId];
-  const fileName = rows?.[slug] ?? fuzzyManifestFile(rows, slug);
-  if (fileName) return `/images/region-flags/${encodeURIComponent(fileName).replace(/%2F/g, "/")}`;
-  return regionalFlagByName[slug] ?? "";
 }
 
 function subdivisionImagePathForRegion(countryId: string, name: string) {
   return regionImagePathForName(countryId, name)
-    || (countryId === "canada" ? canadaProvinceImagePathForName(name) : "")
     || (countryId === "united-states" || countryId === "canada" ? usStateImagePathForName(name) : "");
 }
 
@@ -1912,15 +1799,6 @@ function subdivisionName(feature: GadmSubdivisionFeature) {
     "Valled'Aosta": "Valle d'Aosta",
     WesternAustralia: "Western Australia",
     WestBengal: "West Bengal",
-    "Anatolikis Makedonias kai Thr*": "Eastern Macedonia and Thrace",
-    "Dytikis Elladas": "Western Greece",
-    "Dytikis Makedonias": "Western Macedonia",
-    "Ionia Nisia": "Ionian Islands",
-    "Kentrikis Makedonias": "Central Macedonia",
-    "Notio Aigaio": "South Aegean",
-    "Peloponnisos": "Peloponnese",
-    "Sterea Ellada": "Central Greece",
-    "Voreio Aigaio": "North Aegean",
   };
   return displayNames[name] ?? name.replace(/([a-z])([A-Z])/g, "$1 $2");
 }
@@ -1960,11 +1838,7 @@ function subdivisionPopulation(feature: GadmSubdivisionFeature) {
   const compactName = subdivisionName(feature);
   const plainName = compactName.replace(/\([^)]*\)/g, "").trim();
   const parentName = feature.properties?.NAME_1 ? feature.properties.NAME_1.replace(/([a-z])([A-Z])/g, "$1 $2") : "";
-  const shapeGroupCountryNames: Record<string, string> = {
-    GRC: "Greece",
-    NPL: "Nepal",
-  };
-  const countryName = feature.properties?.COUNTRY ?? (feature.properties?.shapeGroup ? shapeGroupCountryNames[feature.properties.shapeGroup] : "");
+  const countryName = feature.properties?.COUNTRY ?? (feature.properties?.shapeGroup === "NPL" ? "Nepal" : "");
   const countryRows = countryName ? importedRegionalPopulations[countryName] : undefined;
   return regionalPopulationByCode[code]
     ?? (feature.properties?.HASC_1 ? regionalPopulationByCode[feature.properties.HASC_1] : undefined)
@@ -2129,15 +2003,7 @@ function buildRegionPracticeQuestions(region: Region, count: number, startDiffic
   const geographyPool = regions.flatMap((item) => item.riversMountains.slice(0, 3));
   const placePool = regions.flatMap((item) => item.placesOfInterest.slice(0, 3));
   const capitalPool = regions.map((item) => item.capital);
-  const cityAirportClues: Record<string, { prompt: string; answer: string; aliases: string[]; explanation: string }> = {
-    china: { prompt: "Which airport code is a major Shanghai gateway?", answer: "PVG", aliases: ["pvg", "sha"], explanation: "PVG is Shanghai Pudong International Airport; SHA is Shanghai Hongqiao. PEK is Beijing Capital." },
-    japan: { prompt: "Which airport code is the main international gateway for Osaka?", answer: "KIX", aliases: ["kix"], explanation: "KIX is Kansai International Airport for Osaka; HND and NRT are Tokyo airport codes." },
-    mexico: { prompt: "Which airport code serves Guadalajara?", answer: "GDL", aliases: ["gdl"], explanation: "GDL is Guadalajara International Airport; MEX is Mexico City's main airport code." },
-    turkey: { prompt: "Which airport code is a major Istanbul gateway?", answer: "IST", aliases: ["ist", "saw"], explanation: "IST is Istanbul Airport; SAW is Istanbul Sabiha Gokcen." },
-    "united-kingdom": { prompt: "Which airport code is a major London gateway?", answer: "LHR", aliases: ["lhr", "lgw", "stn", "ltn", "lcy", "sen"], explanation: "LHR is Heathrow; London also uses LGW, STN, LTN, LCY, and SEN." },
-  };
-  const cityAirportClue = cityAirportClues[region.id] ?? null;
-  const primaryAirport = cityAirportClue?.answer ?? region.airports[0] ?? `No major commercial airport listed for ${region.name}`;
+  const primaryAirport = region.airports[0] ?? `No major commercial airport listed for ${region.name}`;
   const practiceTemplates: Question[] = [
     {
       id: `practice-${region.id}-capital`,
@@ -2155,11 +2021,10 @@ function buildRegionPracticeQuestions(region: Region, count: number, startDiffic
       category: primaryAirport.length === 3 && primaryAirport.toUpperCase() === primaryAirport ? "airport-codes" : "airports",
       difficulty: startDifficulty,
       inputType: "multiple-choice",
-      prompt: cityAirportClue?.prompt ?? `Which airport or aviation clue belongs to ${region.name}?`,
+      prompt: `Which airport or aviation clue belongs to ${region.name}?`,
       answer: primaryAirport,
-      aliases: cityAirportClue?.aliases,
-      choices: choicesFrom(primaryAirport, cityAirportClue ? [...airportPool, "PEK", "SHA", "CAN", "MEX", "MTY"] : airportPool),
-      explanation: cityAirportClue?.explanation ?? `${primaryAirport} appears in ${region.name}'s aviation profile.`,
+      choices: choicesFrom(primaryAirport, airportPool),
+      explanation: `${primaryAirport} appears in ${region.name}'s aviation profile.`,
       relatedRegionIds: [region.id],
     },
     {
@@ -2310,13 +2175,28 @@ function hydrateSavedRun(savedRun: QuizRun | null) {
   };
 }
 
+function LandingScreen({ onStart }: { onStart: () => void }) {
+  return (
+    <main className="landing-screen" aria-label="GEOTRANSIT landing page">
+      <img className="landing-hero-image" src="/images/brand/geotransit-hero.png" alt="" />
+      <div className="landing-overlay" />
+      <section className="landing-content">
+        <button type="button" className="landing-start-button" onClick={onStart}>
+          Start Exploring →
+        </button>
+      </section>
+    </main>
+  );
+}
+
 function App() {
+  const [hasStarted, setHasStarted] = useState(false);
   const [activeTab, setActiveTab] = useState<Tab>("map");
   const [profile, setProfile] = useState<PlayerProfile>(() => loadProfile());
   const [profiles, setProfiles] = useState<PlayerProfile[]>(() => loadProfiles());
   const [friends, setFriends] = useState<LocalFriend[]>(() => loadFriends());
   const [run, setRun] = useState<QuizRun | null>(() => hydrateSavedRun(loadRun()));
-  const [selectedRegionId, setSelectedRegionId] = useState<string | null>(null);
+  const [selectedRegionId, setSelectedRegionId] = useState<string | null>("united-states");
   const [mapStyle, setMapStyle] = useState<MapStyle>("default");
   const [operationalOverlay, setOperationalOverlay] = useState(false);
   const [mapZoom, setMapZoom] = useState(1);
@@ -2330,8 +2210,7 @@ function App() {
   const [questionCount, setQuestionCount] = useState<10 | 15 | 20 | 150>(10);
   const [selectedStartLevel, setSelectedStartLevel] = useState<DifficultyLevel>("gateway");
   const [showReviewAnswers, setShowReviewAnswers] = useState(false);
-  const [showGuide, setShowGuide] = useState(false);
-  const [showWelcome, setShowWelcome] = useState(true);
+  const [showGuide, setShowGuide] = useState(() => localStorage.getItem("geontransit.guide.seen.v3") !== "yes");
   const [showSettings, setShowSettings] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [showStartMenu, setShowStartMenu] = useState(false);
@@ -2558,33 +2437,18 @@ function resetProfile() {
     setShowGuide(false);
   }
 
-  function enterMap(options: { random?: boolean; guide?: boolean; lesson?: boolean } = {}) {
-    setShowWelcome(false);
-    setActiveTab("map");
-    setMapZoom(1);
-    setMapPan({ x: 0, y: 0 });
-    if (options.random) {
-      const nextRegion = regions[Math.floor(Math.random() * regions.length)];
-      setSelectedRegionId(nextRegion.id);
-      setMapZoom(4.8);
-    } else {
-      setSelectedRegionId(null);
-    }
-    if (options.guide) setShowGuide(true);
-    if (options.lesson) setShowDailyLesson(true);
-  }
-
-  if (showWelcome) {
-    return (
-      <WelcomeSplash onStart={() => enterMap()} />
-    );
+  if (!hasStarted) {
+    return <LandingScreen onStart={() => {
+      setHasStarted(true);
+      setActiveTab("map");
+    }} />;
   }
 
   return (
     <main className="app-shell">
       <header className="topbar">
         <div className="brand-lockup">
-          <img className="brand-logo-image" src="/images/brand/geontransit-logo.svg" alt="GEONTRANSIT" />
+          <img className="brand-logo-image" src="/images/brand/geotransit-logo-clean.png" alt="GEONTRANSIT" />
         </div>
         <div className="status-grid" aria-label="Profile status">
           <Metric label="Operator" value={`${profile.emoji ?? "🚇"} ${profile.name || (profile.isGuest ? "Guest user" : "Create username")}`} />
@@ -2884,7 +2748,7 @@ function StartHereMenu({
         <div className="start-here-popover" role="menu" aria-label="Start here options">
           <button type="button" onClick={onAbout} role="menuitem">
             <strong>ℹ️ About This App</strong>
-            <span>What GEONTRANSIT does and how profiles work</span>
+            <span>What GeoInTransit does and how profiles work</span>
           </button>
           <button type="button" onClick={onGuide} role="menuitem">
             <strong>❓ How to Use</strong>
@@ -2951,7 +2815,7 @@ function downloadDailyLessonCsv(lesson: DailyLesson) {
 
 function downloadDailyLessonReviewPage(lesson: DailyLesson) {
   const cards = dailyLessonQuestions(lesson);
-  const html = `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(lesson.title)} GEONTRANSIT Daily Lesson</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111}h1{margin-bottom:6px}.facts{display:grid;gap:8px;margin:18px 0}.facts div,.card{border:1px solid #999;border-radius:10px;padding:12px;break-inside:avoid}.label{font-size:12px;text-transform:uppercase;color:#555;font-weight:700}.prompt{font-size:17px;font-weight:700}.answer{margin-top:8px}</style></head><body><h1>${escapeHtml(lesson.title)} Daily Lesson</h1><p>${escapeHtml(lesson.summary)}</p><div class="facts">${lesson.facts.map((fact, index) => `<div><span class="label">Fact ${index + 1}</span><p>${escapeHtml(fact)}</p></div>`).join("")}</div><h2>Review Questions</h2>${cards.map((question) => `<section class="card"><div class="label">${escapeHtml(categoryLabels[question.category])}</div><div class="prompt">${escapeHtml(question.prompt)}</div><div class="answer"><strong>Answer:</strong> ${escapeHtml(question.answer)}</div><p>${escapeHtml(question.explanation)}</p></section>`).join("")}</body></html>`;
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(lesson.title)} GeoInTransit Daily Lesson</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111}h1{margin-bottom:6px}.facts{display:grid;gap:8px;margin:18px 0}.facts div,.card{border:1px solid #999;border-radius:10px;padding:12px;break-inside:avoid}.label{font-size:12px;text-transform:uppercase;color:#555;font-weight:700}.prompt{font-size:17px;font-weight:700}.answer{margin-top:8px}</style></head><body><h1>${escapeHtml(lesson.title)} Daily Lesson</h1><p>${escapeHtml(lesson.summary)}</p><div class="facts">${lesson.facts.map((fact, index) => `<div><span class="label">Fact ${index + 1}</span><p>${escapeHtml(fact)}</p></div>`).join("")}</div><h2>Review Questions</h2>${cards.map((question) => `<section class="card"><div class="label">${escapeHtml(categoryLabels[question.category])}</div><div class="prompt">${escapeHtml(question.prompt)}</div><div class="answer"><strong>Answer:</strong> ${escapeHtml(question.answer)}</div><p>${escapeHtml(question.explanation)}</p></section>`).join("")}</body></html>`;
   const blob = new Blob([html], { type: "text/html;charset=utf-8" });
   const objectUrl = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
@@ -2963,55 +2827,15 @@ function downloadDailyLessonReviewPage(lesson: DailyLesson) {
   window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
 }
 
-function WelcomeSplash({
-  onStart,
-}: {
-  onStart: () => void;
-}) {
-  return (
-    <main className="welcome-splash">
-      <div className="welcome-map-preview" aria-hidden="true">
-        <OperationsMap
-          selectedId=""
-          onSelect={() => undefined}
-          compact
-          mapStyle="default"
-          countryLayer
-          regionalBoundaryLayer={false}
-          operationalOverlay={false}
-          touristAttractionsLayer={false}
-          transitSystemsLayer={false}
-          zoom={1.08}
-          pan={{ x: 0, y: 0 }}
-        />
-      </div>
-      <section className="welcome-card" aria-label="GEONTRANSIT welcome">
-        <img className="welcome-logo" src="/images/brand/geontransit-logo.svg" alt="GEONTRANSIT" />
-        <p className="eyebrow">Explore the World Through Geography & Transit</p>
-        <div className="welcome-actions">
-          <button type="button" className="primary-action" onClick={onStart}>Start Exploring →</button>
-        </div>
-      </section>
-    </main>
-  );
-}
-
 function DailyLessonPanel({ onClose }: { onClose: () => void }) {
   const now = new Date();
   const localMidnightDay = Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 86400000);
   const lessonIndex = localMidnightDay % dailyLessons.length;
   const lesson = dailyLessons[lessonIndex];
   const lessonImage = countryImagePathForName(lesson.title);
-  useEffect(() => {
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
-  }, [onClose]);
+  const lessonRegion = regions.find((region) => region.name === lesson.title);
   return (
-    <div className="daily-lesson-backdrop" role="presentation" onMouseDown={onClose}>
-    <aside className="daily-lesson-panel" role="dialog" aria-modal="true" aria-label="Daily transit lesson" onMouseDown={(event) => event.stopPropagation()}>
+    <aside className="daily-lesson-panel" aria-label="Daily transit lesson">
       <div className="daily-lesson-heading">
         <div>
           <p className="eyebrow">Daily lesson</p>
@@ -3022,7 +2846,7 @@ function DailyLessonPanel({ onClose }: { onClose: () => void }) {
       <figure className="daily-lesson-hero">
         <img className="daily-lesson-image" src={lessonImage} alt={`${lesson.title} profile view`} />
         <figcaption>
-          <span>Today</span>
+          <span>{lessonRegion ? <FlagAsset code={lessonRegion.flag} label={`${lesson.title} flag`} /> : null} Today</span>
           <strong>{lesson.title}</strong>
         </figcaption>
       </figure>
@@ -3044,7 +2868,6 @@ function DailyLessonPanel({ onClose }: { onClose: () => void }) {
         </article>
       </div>
     </aside>
-    </div>
   );
 }
 
@@ -3076,8 +2899,8 @@ const dailyLessons = [
   {
     title: "Japan",
     summary: "Japan is perfect for station-order thinking: Shinkansen corridors, dense metros, and island regions.",
-    facts: ["Tokyo is one of the world's largest metropolitan areas", "The Shinkansen is one of the world's most famous high-speed rail systems", "Japan consists of four main islands: Honshu, Hokkaido, Kyushu, and Shikoku", "Osaka's main international airport clue is KIX", "Hokkaido, Kyushu, and Shikoku add strong island-region clues"],
-    prompt: "Start with the four main islands, then use Shinkansen and airport clues to separate Tokyo, Osaka, and regional questions.",
+    facts: ["Tokyo is the capital", "Shinkansen means bullet train network", "Honshu carries the busiest high-speed rail spine", "Tokyo and Osaka have major metro systems", "Hokkaido, Kyushu, and Shikoku add island-region clues"],
+    prompt: "Read the rail corridor order before answering the map question.",
   },
   {
     title: "Colombia",
@@ -3106,14 +2929,8 @@ const dailyLessons = [
   {
     title: "China",
     summary: "China is a high-speed rail and metro geography powerhouse with many huge urban systems.",
-    facts: ["Beijing has one of the world's largest subway systems", "Shanghai operates one of the world's longest metro networks", "China has the world's largest high-speed rail network", "Shanghai airport clues should point to PVG or SHA, not Beijing's PEK", "Guangzhou, Shenzhen, Chongqing, and Zhengzhou make strong metro-and-rail comparison clues"],
-    prompt: "Match the city first: Beijing, Shanghai, Guangzhou, Shenzhen, Chongqing, and Zhengzhou each have different airport and metro clues.",
-  },
-  {
-    title: "Morocco",
-    summary: "Morocco connects Atlantic, Mediterranean, desert, and high-speed rail clues in one compact profile.",
-    facts: ["Al Boraq is Africa's first high-speed rail line", "Casablanca is Morocco's largest city", "Marrakesh is known for its historic medina", "Tangier sits near the meeting point of the Atlantic and Mediterranean", "Rabat and Sale share an important tramway corridor"],
-    prompt: "Use Al Boraq, Casablanca, Marrakesh, Tangier, and Rabat-Sale as today's anchor clues.",
+    facts: ["Beijing is the capital", "Shanghai, Guangzhou, Shenzhen, Chongqing, and Zhengzhou have major metro clues", "High-speed rail links many megacity corridors", "Airport and railway-station labels help decode dense maps", "Chinese labels are easier when paired with romanized station names and route icons"],
+    prompt: "Use airport icons, high-speed railway stations, and city hubs before guessing.",
   },
   {
     title: "Australia",
@@ -3139,29 +2956,49 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
   const [activeStep, setActiveStep] = useState(0);
   const guideSteps = [
     {
-      title: "Explore",
-      text: "Start with the world map. Click a country or use search when you want a profile, then pan or zoom without opening extra panels.",
+      title: "Read the Map",
+      text: "Search or click a country. The map centers it, keeps borders crisp, and lets you zoom, drag, and cross the dateline smoothly.",
       visual: "map",
     },
     {
       title: "Toggle Layers",
-      text: "Open Map tools when you need flags, regional boundaries, tourist attractions, transit networks, or a different base map.",
+      text: "Open or hide Map tools from the control panel. Switch on flags, transit networks, landmarks, and regional boundaries only when you need them so the map stays readable.",
       visual: "layers",
     },
     {
-      title: "Map Tools & Advanced Options",
-      text: "Use Advanced Options for the region selector, completion filters, and missing-data checks. For example, Australia can show complete regional profiles, while Brazil or Bougainville can show what still needs review.",
-      visual: "sidebar",
-    },
-    {
-      title: "Regions",
-      text: "Choose a province, state, county, or district from the country profile. Region boundaries, flags, images, capitals, and populations appear where loaded.",
+      title: "Open a Profile",
+      text: "Profiles show the country image, flag, airports, transit, landmarks, nearby countries, regional assets, and reference links. Countries with region files reveal clickable subdivisions when zoomed in.",
       visual: "profile",
     },
     {
-      title: "Quiz",
-      text: "Practice capitals, flags, landmarks, airports, regions, and transit clues. Questions get harder as you move up the levels.",
+      title: "Explore GEONTRANSIT",
+      text: "Use the expandable discovery cards by category: Countries, Regions, Rail, Airports, Islands, Mountains, Borders, Mega Cities, and Hidden Gems. Each card gives a visual hook, country chips, and profile jumps.",
+      visual: "discover",
+    },
+    {
+      title: "Use the Links",
+      text: "Example: Hong Kong links open HKG Airport in Google Maps, MTR and Airport Express references, Star Ferry context, and Transitland network maps.",
+      visual: "sidebar",
+    },
+    {
+      title: "Play Questions",
+      text: "Answer station, image, landmark, airport, capital, and regional-flag prompts across 15 levels.",
       visual: "start",
+    },
+    {
+      title: "Answer Images",
+      text: "Some questions use real transit maps, landmarks, and regional flags. Easier rounds may show Florida or Texas; harder rounds may show Eastern Cape, Italy, or Philippines province flags.",
+      visual: "questions",
+    },
+    {
+      title: "Daily Lesson",
+      text: "Open Start Here for one daily country or region lesson with a profile image, five facts, and downloads.",
+      visual: "lesson",
+    },
+    {
+      title: "Review and Export",
+      text: "Review misses, print flashcards, then export CSVs. Use Current, Selected, or All Countries; deselect the map when you do not want one-country context.",
+      visual: "export",
     },
   ];
 
@@ -3175,7 +3012,7 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="guide-backdrop" role="dialog" aria-modal="false" aria-label="GEONTRANSIT quick start">
+    <div className="guide-backdrop" role="dialog" aria-modal="false" aria-label="GeoInTransit quick start">
       <section className="guide-panel">
         <div className="guide-heading">
           <div>
@@ -3299,6 +3136,22 @@ function GuideVisual({ type }: { type: string }) {
           </div>
         </div>
       )}
+      {type === "discover" && (
+        <div className="guide-discovery-demo">
+          <div>
+            <strong>Explore GEONTRANSIT</strong>
+            <span>Rail</span>
+            <span>Airports</span>
+            <span>Borders</span>
+            <span>Hidden Gems</span>
+          </div>
+          <article>
+            <em>Mountain railways</em>
+            <strong>Which countries turn steep geography into transit?</strong>
+            <p>Expand a card, compare the country chips, then open the profile that helps the idea stick.</p>
+          </article>
+        </div>
+      )}
       {type === "profile" && (
         <div className="guide-profile-screen">
           <div className="guide-hk-photo">
@@ -3405,14 +3258,14 @@ function GuideVisual({ type }: { type: string }) {
 
 function AboutPanel({ onClose }: { onClose: () => void }) {
   return (
-    <aside className="about-panel" aria-label="About GEONTRANSIT">
+    <aside className="about-panel" aria-label="About GeoInTransit">
       <div>
         <p className="eyebrow">About</p>
         <button type="button" onClick={onClose} aria-label="Close about panel">×</button>
       </div>
-      <h2>GEONTRANSIT</h2>
+      <h2>GeoInTransit</h2>
       <p>
-        GEONTRANSIT is a map-first transit geography trainer. Explore countries, metro systems, airports, landmarks, regional boundaries, and study images, then jump into questions that connect what you see on the map with how places actually move.
+        GeoInTransit is a map-first transit geography trainer. Explore countries, metro systems, airports, landmarks, regional boundaries, and study images, then jump into questions that connect what you see on the map with how places actually move.
       </p>
       <p>
         Country profiles bring together flags, local images, transport links, Google Maps, Wikipedia, Transitland, practice decks, review cards, and CSV exports so you can study one country, compare several, or build your own reference sheet.
@@ -3620,7 +3473,6 @@ function PlayTab({
           <button type="button" onClick={() => setShowHint((value) => !value)}>{showHint ? "Hide Hint" : "Show Hint"}</button>
           {showHint && <p>{buildQuestionHint(question)}</p>}
         </div>
-        {currentAnswer && question.inputType === "map-click" && <AnsweredMapPreview answer={question.answer} />}
         {currentAnswer && (
           <div className={`feedback-banner ${currentAnswer.correct ? "correct" : "missed"}`}>
             <strong>{currentAnswer.correct ? "Correct" : currentAnswer.userAnswer ? "Missed" : "Skipped"}</strong>
@@ -3736,10 +3588,8 @@ function MapTab({
   const [lastCsvExport, setLastCsvExport] = useState<CsvExport | null>(null);
   const [countrySearch, setCountrySearch] = useState(selectedRegion?.name ?? "");
   const [countrySearchFocused, setCountrySearchFocused] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
-  const [controlsHidden, setControlsHidden] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [trackerExpanded, setTrackerExpanded] = useState(false);
-  const [completenessFilter, setCompletenessFilter] = useState<CompletenessFilter>("all");
   const [regionCompletionRows, setRegionCompletionRows] = useState<RegionCompletionRow[]>([]);
   const selectedExportRegions = exportRegionIds
     .map((id) => regions.find((region) => region.id === id))
@@ -3821,17 +3671,12 @@ function MapTab({
     .map((regionId) => regions.find((region) => region.id === regionId))
     .filter((region): region is Region => Boolean(region))
     .sort((a, b) => a.name.localeCompare(b.name));
-  const countryCompletenessRows = sortedRegions.map((region) => ({
-    region,
-    missing: missingItemsForRegion(region),
-  }));
-  const completedProfileCount = countryCompletenessRows.filter((row) => row.missing.length === 0).length;
-  const partialProfileCount = countryCompletenessRows.filter((row) => row.missing.length > 0 && row.missing.length <= 3).length;
+  const completedProfileCount = completedProfileRegions.length;
+  const partialProfileCount = regions.filter((region) => {
+    const completion = profileCompletionFor(region);
+    return !completion.complete && [completion.hasCapital, completion.hasPopulation, completion.hasFlag, completion.hasImage].filter(Boolean).length >= 2;
+  }).length;
   const minimalProfileCount = regions.length - completedProfileCount - partialProfileCount;
-  const visibleCountryCompletenessRows = countryCompletenessRows
-    .filter((row) => completenessFilter === "all"
-      || (completenessFilter === "complete" ? row.missing.length === 0 : row.missing.includes(completenessFilter)))
-    .slice(0, 28);
   const regionCompleteCount = regionCompletionRows.filter((row) => row.complete).length;
   const missingRegionRows = regionCompletionRows.filter((row) => !row.complete);
   const visibleRegionCompletionRows = trackerExpanded ? regionCompletionRows : regionCompletionRows.slice(0, 12);
@@ -3839,10 +3684,6 @@ function MapTab({
   useEffect(() => {
     setCountrySearch(selectedRegion?.name ?? "");
   }, [selectedRegion?.id, selectedRegion?.name]);
-
-  useEffect(() => {
-    setSidebarCollapsed(!selectedRegion);
-  }, [selectedRegion?.id]);
 
   useEffect(() => {
     setTrackerExpanded(false);
@@ -3915,17 +3756,17 @@ function MapTab({
   };
 
   return (
-    <section className={`map-layout ${sidebarCollapsed ? "sidebar-collapsed" : ""} ${selectedRegion ? "" : "no-profile-selected"}`}>
+    <section className={`map-layout ${sidebarCollapsed ? "sidebar-collapsed" : ""}`}>
       <div className="map-column">
-        <details className="map-toolbar compact-tool-panel">
+        <details className="map-toolbar compact-tool-panel" open>
           <summary>
-            <span>Map tools</span>
+            <span>Show / hide map controls</span>
             <em>region, zoom, layers</em>
           </summary>
           <div>
             <p className="eyebrow">Map layer</p>
-            <strong>{catalogCoverage.unMemberCountries} UN countries + Taiwan, Bougainville, Kosovo</strong>
-            <span>Click a country to open its profile, or keep the map unselected for a clean world view.</span>
+            <strong>{catalogCoverage.unMemberCountries} UN countries + Taiwan, Bougainville, Kosovo </strong>
+            <span>Click a country, then scroll the sidebar for facts, links, images, and sample questions.</span>
           </div>
           <label className="country-select country-combobox" htmlFor="country-search">
             Country
@@ -4014,30 +3855,6 @@ function MapTab({
               <span><strong>Fully complete</strong>{completedProfileCount}</span>
               <span><strong>Partially complete</strong>{partialProfileCount}</span>
               <span><strong>Minimal data</strong>{minimalProfileCount}</span>
-            </div>
-            <div className="completeness-filter-grid" aria-label="Filter data completeness">
-              {completenessFilters.map(([id, label]) => (
-                <button
-                  key={id}
-                  type="button"
-                  className={completenessFilter === id ? "selected" : ""}
-                  onClick={() => setCompletenessFilter(id)}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-            <div className="country-completeness-list" aria-live="polite">
-              {visibleCountryCompletenessRows.map(({ region, missing }) => (
-                <button key={region.id} type="button" onClick={() => selectRegionAndZoom(region.id)}>
-                  <strong>{region.name}</strong>
-                  {missing.length === 0 ? (
-                    <span className="complete">Complete</span>
-                  ) : (
-                    <span>Missing: {missing.map((item) => missingItemLabels[item]).join(", ")}</span>
-                  )}
-                </button>
-              ))}
             </div>
             <select
               id="regional-layer-country"
@@ -4130,14 +3947,6 @@ function MapTab({
           </div>
         </details>
         <div className="map-frame">
-          <button
-            type="button"
-            className="map-controls-toggle"
-            onClick={() => setControlsHidden((hidden) => !hidden)}
-            aria-pressed={controlsHidden}
-          >
-            {controlsHidden ? "Show Controls" : "Hide Controls"}
-          </button>
           <OperationsMap
             selectedId={selectedRegionId}
             onSelect={selectRegionAndZoom}
@@ -4156,21 +3965,17 @@ function MapTab({
             onPanChange={onMapPanChange}
             onZoomChange={onMapZoomChange}
           />
-          {!controlsHidden && (
-            <>
-              <div className="map-zoom-overlay" aria-label="Map zoom controls">
-                <button onClick={zoomIn} aria-label="Zoom in">+</button>
-                <button onClick={zoomOut} aria-label="Zoom out">-</button>
-              </div>
-              <div className="map-pan-overlay" aria-label="Map pan controls">
-                <button type="button" className="pan-up-button" onClick={() => panMap(0, 90)} aria-label="Move map north">↑</button>
-                <button type="button" className="pan-left-button" onClick={() => panMap(120, 0)} aria-label="Move map west">←</button>
-                <button type="button" className="pan-center-button" onClick={() => onMapPanChange({ x: 0, y: 0 })} aria-label="Center selected country">⌖</button>
-                <button type="button" className="pan-right-button" onClick={() => panMap(-120, 0)} aria-label="Move map east">→</button>
-                <button type="button" className="pan-down-button" onClick={() => panMap(0, -90)} aria-label="Move map south">↓</button>
-              </div>
-            </>
-          )}
+          <div className="map-zoom-overlay" aria-label="Map zoom controls">
+            <button onClick={zoomIn} aria-label="Zoom in">+</button>
+            <button onClick={zoomOut} aria-label="Zoom out">-</button>
+          </div>
+          <div className="map-pan-overlay" aria-label="Map pan controls">
+            <button type="button" className="pan-up-button" onClick={() => panMap(0, 90)} aria-label="Move map north">↑</button>
+            <button type="button" className="pan-left-button" onClick={() => panMap(120, 0)} aria-label="Move map west">←</button>
+            <button type="button" className="pan-center-button" onClick={() => onMapPanChange({ x: 0, y: 0 })} aria-label="Center selected country">⌖</button>
+            <button type="button" className="pan-right-button" onClick={() => panMap(-120, 0)} aria-label="Move map east">→</button>
+            <button type="button" className="pan-down-button" onClick={() => panMap(0, -90)} aria-label="Move map south">↓</button>
+          </div>
         </div>
         <p className="map-drag-hint">Drag the map to move across regions.</p>
         <div className="map-movement-legend" aria-label="Map movement and layer legend">
@@ -4180,16 +3985,7 @@ function MapTab({
           <span><strong>Regions</strong> detailed subdivisions appear at 480%+</span>
           <span><strong>Transit</strong> toggle network pins in Map tools</span>
         </div>
-        <AskGeoInTransitPanel
-          onSelectRegion={selectRegionAndZoom}
-          onSelectTransit={(systemId) => {
-            const system = projectedTransitSystems.find((item) => item.id === systemId);
-            if (!system) return;
-            onTransitSystemsLayerChange(true);
-            onTransitSystemSelect(system);
-            selectRegionAndZoom(system.countryId);
-          }}
-        />
+        <AskGeoInTransitPanel currentRegion={selectedRegion} onSelectRegion={selectRegionAndZoom} />
         <details className="export-panel compact-tool-panel">
           <summary>
             <span>Export data</span>
@@ -4266,7 +4062,6 @@ function MapTab({
           ) : null}
         </details>
       </div>
-      {selectedRegion && (
       <div className="map-sidebar-shell">
         <button
           type="button"
@@ -4276,7 +4071,7 @@ function MapTab({
         >
           {sidebarCollapsed ? "Open profile" : "×"}
         </button>
-        {!sidebarCollapsed && (
+        {!sidebarCollapsed && (selectedRegion ? (
           <RegionPanel
             region={selectedRegion}
             selectedAttractionId={selectedAttractionId}
@@ -4293,9 +4088,8 @@ function MapTab({
             onPracticeRegion={onPracticeRegion}
             onReplay={onReplay}
           />
-        )}
+        ) : <EmptyRegionPanel />)}
       </div>
-      )}
     </section>
   );
 }
@@ -4429,37 +4223,9 @@ function practiceFlashcardsForRegion(region: Region, topics: PracticeTopic[], di
   }));
 }
 
-function downloadPracticeFlashcards(region: Region, topics: PracticeTopic[], difficulty: DifficultyLevel, format: "html" | "csv" | "json" = "html") {
+function downloadPracticeFlashcards(region: Region, topics: PracticeTopic[], difficulty: DifficultyLevel) {
   const cards = practiceFlashcardsForRegion(region, topics, difficulty);
-  if (format === "csv") {
-    const csv = [
-      ["country", "category", "front", "back"],
-      ...cards.map((card) => [region.name, card.category, card.front, card.back]),
-    ].map((row) => row.map(csvCell).join(",")).join("\r\n");
-    const blob = new Blob([`\uFEFF${csv}`], { type: "text/csv;charset=utf-8" });
-    const objectUrl = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-    anchor.href = objectUrl;
-    anchor.download = `${region.id}-practice-flashcards.csv`;
-    document.body.appendChild(anchor);
-    anchor.click();
-    anchor.remove();
-    window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
-    return;
-  }
-  if (format === "json") {
-    const blob = new Blob([JSON.stringify({ region: region.name, cards }, null, 2)], { type: "application/json;charset=utf-8" });
-    const objectUrl = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-    anchor.href = objectUrl;
-    anchor.download = `${region.id}-practice-flashcards.json`;
-    document.body.appendChild(anchor);
-    anchor.click();
-    anchor.remove();
-    window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
-    return;
-  }
-  const html = `<!doctype html><html><head><meta charset="utf-8"><title>${region.name} GEONTRANSIT Flashcards</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111}h1{margin-bottom:4px}.card{break-inside:avoid;border:1px solid #999;border-radius:10px;padding:14px;margin:12px 0}.label{font-size:12px;text-transform:uppercase;color:#666}.front{font-size:18px;font-weight:700}.back{margin-top:10px}</style></head><body><h1>${region.name} Practice Flashcards</h1><p>Print this page or save it as PDF from your browser.</p>${cards.map((card) => `<section class="card"><div class="label">${card.category}</div><div class="front">${card.front}</div><div class="back">${card.back}</div></section>`).join("")}</body></html>`;
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>${region.name} GeoInTransit Flashcards</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111}h1{margin-bottom:4px}.card{break-inside:avoid;border:1px solid #999;border-radius:10px;padding:14px;margin:12px 0}.label{font-size:12px;text-transform:uppercase;color:#666}.front{font-size:18px;font-weight:700}.back{margin-top:10px}</style></head><body><h1>${region.name} Practice Flashcards</h1><p>Print this page or save it as PDF from your browser.</p>${cards.map((card) => `<section class="card"><div class="label">${card.category}</div><div class="front">${card.front}</div><div class="back">${card.back}</div></section>`).join("")}</body></html>`;
   const blob = new Blob([html], { type: "text/html;charset=utf-8" });
   const objectUrl = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
@@ -4478,7 +4244,7 @@ function downloadReviewFlashcards(profile: PlayerProfile) {
     back: `${item.question.answer}. ${item.question.explanation}`,
     category: categoryLabels[item.question.category],
   }));
-  const html = `<!doctype html><html><head><meta charset="utf-8"><title>GEONTRANSIT Review Flashcards</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111}h1{margin-bottom:4px}.card{break-inside:avoid;border:1px solid #999;border-radius:10px;padding:14px;margin:12px 0}.label{font-size:12px;text-transform:uppercase;color:#666}.front{font-size:18px;font-weight:700}.back{margin-top:10px}</style></head><body><h1>Review Flashcards</h1><p>Made from saved missed questions. Print this page or save it as PDF from your browser.</p>${cards.map((card) => `<section class="card"><div class="label">${card.category}</div><div class="front">${card.front}</div><div class="back">${card.back}</div></section>`).join("")}</body></html>`;
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>GeoInTransit Review Flashcards</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111}h1{margin-bottom:4px}.card{break-inside:avoid;border:1px solid #999;border-radius:10px;padding:14px;margin:12px 0}.label{font-size:12px;text-transform:uppercase;color:#666}.front{font-size:18px;font-weight:700}.back{margin-top:10px}</style></head><body><h1>Review Flashcards</h1><p>Made from saved missed questions. Print this page or save it as PDF from your browser.</p>${cards.map((card) => `<section class="card"><div class="label">${card.category}</div><div class="front">${card.front}</div><div class="back">${card.back}</div></section>`).join("")}</body></html>`;
   const blob = new Blob([html], { type: "text/html;charset=utf-8" });
   const objectUrl = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
@@ -4502,35 +4268,6 @@ function triggerCsvDownload(csvExport: CsvExport) {
     anchor.remove();
   }
 }
-
-function countryColorIndex(name: string, fallbackIndex: number) {
-  const regionId = regionIdForCountryName(name);
-  const adjacentColorOverrides: Record<string, number> = {
-    portugal: 8,
-    spain: 20,
-    france: 5,
-    andorra: 23,
-    morocco: 24,
-    sudan: 12,
-    chad: 18,
-    "central-african-republic": 13,
-    "democratic-republic-of-the-congo": 19,
-    congo: 6,
-    cameroon: 10,
-    nigeria: 1,
-    niger: 4,
-    ethiopia: 9,
-    somalia: 27,
-    kenya: 26,
-    uganda: 15,
-    tanzania: 21,
-  };
-  if (regionId && adjacentColorOverrides[regionId] !== undefined) return adjacentColorOverrides[regionId];
-  const hash = [...name].reduce((total, letter) => ((total * 31) + letter.charCodeAt(0)) % 9973, fallbackIndex);
-  return hash % 29;
-}
-
-const microstateMarkerIds = ["andorra", "monaco", "san-marino", "liechtenstein", "vatican-city"];
 
 function OperationsMap({
   selectedId,
@@ -4586,6 +4323,10 @@ function OperationsMap({
     ? gadmSubdivisions.find((feature) => subdivisionCode(feature) === "US-DC")
     : undefined;
   const dcProjected = worldProjection([-77.0369, 38.9072]);
+  const subdivisionJumpOptions = gadmSubdivisions
+    .map((feature) => ({ feature, name: subdivisionName(feature), code: subdivisionCode(feature) }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
   useEffect(() => {
     setSelectedSubdivision(null);
     setGadmSubdivisions([]);
@@ -4688,7 +4429,7 @@ function OperationsMap({
                 return (
                   <path
                     key={`${country.properties.name}-${index}-${offset}`}
-                    className={`territory-cell territory-${countryColorIndex(country.properties.name, index)} ${regionId ? `region-${regionId}` : ""} ${regionId === selectedId ? "selected" : ""}`}
+                    className={`territory-cell territory-${index % 17} ${regionId ? `region-${regionId} country-${regionId}` : ""} ${regionId === selectedId ? "selected" : ""}`}
                     d={pathData}
                   />
                 );
@@ -4706,7 +4447,7 @@ function OperationsMap({
               return (
                 <path
                   key={`${country.properties.name}-${index}`}
-                  className={`territory-cell territory-${countryColorIndex(country.properties.name, index)} ${regionId ? `region-${regionId}` : ""} ${regionId === selectedId ? "selected" : ""} ${region ? "clickable" : "unmapped"}`}
+                  className={`territory-cell territory-${index % 17} ${regionId ? `region-${regionId} country-${regionId}` : ""} ${regionId === selectedId ? "selected" : ""} ${region ? "clickable" : "unmapped"}`}
                   d={pathData}
                   data-region-id={regionId}
                   onClick={() => regionId && onSelect(regionId)}
@@ -4773,28 +4514,6 @@ function OperationsMap({
             );
           }))}
         </div>}
-        {countryLayer && (
-          <div className="microstate-marker-layer" aria-label="Small country quick selectors">
-            {WORLD_WRAP_OFFSETS.flatMap((offset) => microstateMarkerIds.map((regionId) => {
-              const region = regions.find((item) => item.id === regionId);
-              if (!region) return null;
-              const position = mapPositionForRegion(region);
-              return (
-                <button
-                  key={`${region.id}-micro-${offset}`}
-                  className={`microstate-marker ${region.id === selectedId ? "selected" : ""}`}
-                  style={{ left: `calc(${position.x}% + ${offset}%)`, top: `${position.y}%`, transform: `scale(${1 / zoom})` }}
-                  onClick={() => onSelect(region.id)}
-                  title={region.name}
-                  aria-label={`Open ${region.name} profile`}
-                >
-                  <FlagAsset code={region.flag} label={`${region.name} flag`} />
-                  <span>{region.name}</span>
-                </button>
-              );
-            }))}
-          </div>
-        )}
         <div className="city-label-layer" aria-hidden="true">
           {projectedCityLabels.map((city) => (
             <span
@@ -4883,7 +4602,23 @@ function OperationsMap({
           </div>
         )}
       </div>
-      {null}
+      {showRegionalBoundaries && subdivisionJumpOptions.length > 0 && !compact ? (
+        <label className="subdivision-jump-control">
+          <span>Region</span>
+          <select
+            value={selectedSubdivision ? subdivisionCode(selectedSubdivision) : ""}
+            onChange={(event) => {
+              const next = subdivisionJumpOptions.find((item) => item.code === event.target.value)?.feature;
+              if (next) setSelectedSubdivision(next);
+            }}
+          >
+            <option value="">Choose a region...</option>
+            {subdivisionJumpOptions.map(({ code, name }, index) => (
+              <option key={`${code || name}-${index}`} value={code}>{name}</option>
+            ))}
+          </select>
+        </label>
+      ) : null}
       {selectedSubdivision && !compact ? (() => {
         const note = subdivisionStudyNote(selectedSubdivision);
         const population = subdivisionPopulation(selectedSubdivision) ?? note?.population;
@@ -4932,28 +4667,6 @@ function QuizMap({ onAnswer }: { onAnswer: (answer: string) => void }) {
   return (
     <div className="quiz-map-wrap">
       <OperationsMap selectedId="" mapStyle="topographic" onSelect={(id) => onAnswer(regions.find((region) => region.id === id)?.name ?? id)} />
-    </div>
-  );
-}
-
-function AnsweredMapPreview({ answer }: { answer: string }) {
-  const region = regions.find((item) => item.name.toLowerCase() === answer.toLowerCase() || item.id === slugifyCountryName(answer));
-  return (
-    <div className="quiz-map-wrap answered-map-preview">
-      <OperationsMap
-        selectedId={region?.id ?? ""}
-        mapStyle="topographic"
-        onSelect={() => undefined}
-        compact
-        countryLayer
-        regionalBoundaryLayer={false}
-        operationalOverlay={false}
-        touristAttractionsLayer={false}
-        transitSystemsLayer={false}
-        zoom={region ? 2.3 : 1.1}
-        pan={{ x: 0, y: 0 }}
-      />
-      <span>{region ? `${region.name} highlighted on the world map` : "World map reference"}</span>
     </div>
   );
 }
@@ -5253,21 +4966,9 @@ function RegionPanel({
   const nearbyRegions = nearbyRegionsFor(region.id);
   const practiceTopicOptions = practiceTopicOptionsForRegion(region, regionTransitSystems.length, regionAttractions.length);
   const [practiceTopics, setPracticeTopics] = useState<PracticeTopic[]>(practiceTopicOptions.map((topic) => topic.id));
-  const [selectedProfileRegion, setSelectedProfileRegion] = useState("");
-  const [showAllProfileRegions, setShowAllProfileRegions] = useState(false);
-  const selectedProfileRegionImage = selectedProfileRegion ? subdivisionImagePathForRegion(region.id, selectedProfileRegion) : "";
-  const selectedProfileRegionFlag = selectedProfileRegion ? regionalFlagImagePathForName(region.id, selectedProfileRegion) : "";
-  const visibleProfileRegions = showAllProfileRegions ? subregions : subregions.slice(0, 6);
   useEffect(() => {
     setPracticeTopics(practiceTopicOptions.map((topic) => topic.id));
-    setSelectedProfileRegion("");
-    setShowAllProfileRegions(false);
   }, [region.id]);
-  const togglePracticeTopic = (topic: PracticeTopic) => {
-    setPracticeTopics((topics) => topics.includes(topic)
-      ? topics.filter((item) => item !== topic)
-      : [...topics, topic]);
-  };
 
   return (
     <aside className="region-panel">
@@ -5284,47 +4985,6 @@ function RegionPanel({
       <div className="fact-box compact-facts">
         <p><strong>Population:</strong> {region.population}</p>
       </div>
-      {subregions.length > 0 && (
-        <div className="profile-region-picker">
-          <label>
-            <span>Choose a region/province/state</span>
-            <select value={selectedProfileRegion} onChange={(event) => setSelectedProfileRegion(event.target.value)}>
-              <option value="">Region</option>
-              {subregions.map((name) => (
-                <option key={name} value={name}>{name}</option>
-              ))}
-            </select>
-          </label>
-          {selectedProfileRegion ? (
-            <div className="profile-region-preview">
-              {selectedProfileRegionFlag ? <img src={selectedProfileRegionFlag} alt={`${selectedProfileRegion} flag`} loading="lazy" /> : null}
-              {selectedProfileRegionImage ? <img src={selectedProfileRegionImage} alt={`${selectedProfileRegion} image`} loading="lazy" /> : null}
-              <div>
-                <strong>{selectedProfileRegion}</strong>
-                <span>{selectedProfileRegionImage || selectedProfileRegionFlag ? "Matched uploaded regional asset" : "No uploaded image or flag matched yet"}</span>
-              </div>
-            </div>
-          ) : null}
-          <div className="profile-region-quick-list">
-            {visibleProfileRegions.map((name) => {
-              const regionFlag = regionalFlagImagePathForName(region.id, name);
-              const regionImage = subdivisionImagePathForRegion(region.id, name);
-              return (
-                <button key={name} type="button" onClick={() => setSelectedProfileRegion(name)} className={selectedProfileRegion === name ? "selected" : ""}>
-                  {regionFlag ? <img src={regionFlag} alt="" loading="lazy" /> : null}
-                  <span>{name}</span>
-                  <em>{regionImage || regionFlag ? "assets" : "needs assets"}</em>
-                </button>
-              );
-            })}
-          </div>
-          {subregions.length > 6 ? (
-            <button type="button" className="profile-region-show-all" onClick={() => setShowAllProfileRegions((value) => !value)}>
-              {showAllProfileRegions ? "Show Fewer Regions" : "Show All Regions"}
-            </button>
-          ) : null}
-        </div>
-      )}
       {profileImage && <PlaceImageCard image={profileImage} />}
       {nearbyRegions.length > 0 && (
         <details className="nearby-panel" open>
@@ -5332,9 +4992,11 @@ function RegionPanel({
             <span>Explore Nearby</span>
             <em>{nearbyRegions.length}</em>
           </summary>
+          <p>{nearbyDescriptionFor(region)}</p>
           <div>
             {nearbyRegions.map((nearby) => (
               <button key={nearby.id} type="button" onClick={() => onSelectNearby(nearby.id)}>
+                <FlagAsset code={nearby.flag} label={`${nearby.name} flag`} />
                 {nearby.name}
               </button>
             ))}
@@ -5391,9 +5053,9 @@ function RegionPanel({
         </details>
       )}
       <InfoGroup title="Highways" items={region.highways} regionName={region.name} badge />
-      {shouldShowInfoGroup(region, "Maritime", region.maritime) && <InfoGroup title="Maritime" items={region.maritime} regionName={region.name} />}
+      <InfoGroup title="Maritime" items={region.maritime} regionName={region.name} />
       <InfoGroup title="Landmarks" items={region.landmarks} regionName={region.name} />
-      {shouldShowInfoGroup(region, "Rivers & Mountains", region.riversMountains) && <InfoGroup title="Rivers & Mountains" items={region.riversMountains} regionName={region.name} />}
+      <InfoGroup title="Rivers & Mountains" items={region.riversMountains} regionName={region.name} />
       <InfoGroup title="Places of Interest" items={region.placesOfInterest} regionName={region.name} />
       {regionAttractions.length > 0 && (
         <div className="attractions-panel">
@@ -5415,41 +5077,22 @@ function RegionPanel({
           ))}
         </div>
       )}
-      {subregions.length > 0 && <InfoGroup title="States, Provinces & Regions" items={visibleProfileRegions} regionName={region.name} />}
+      {subregions.length > 0 && <RegionAssetGrid region={region} subregions={subregions} />}
+      {subregions.length > 0 && <InfoGroup title="States, Provinces & Regions" items={subregions} regionName={region.name} />}
       <InfoGroup title="Fun Facts" items={region.funFacts} regionName={region.name} />
       <div className="fact-box">
         {region.facts.map((fact) => <p key={fact}>{fact}</p>)}
       </div>
       <div className="sample-questions">
-        <h3>Practice Decks</h3>
-        <p>Choose the topics you want, then practice only this country. Bigger countries include more transit-network questions; smaller countries keep the deck lighter.</p>
-        <div className="practice-topic-grid">
-          {practiceTopicOptions.map((topic) => (
-            <button
-              key={topic.id}
-              type="button"
-              className={practiceTopics.includes(topic.id) ? "selected" : ""}
-              onClick={() => togglePracticeTopic(topic.id)}
-            >
-              {topic.label}
-            </button>
-          ))}
-        </div>
+        <h3>Learn This Country</h3>
+        <p>Practice with this profile's transport, airport, region, landmark, and geography clues, then export flashcards for offline review.</p>
         {sampleQuestions.length === 0 && <p>No local samples yet; this region is ready for expansion.</p>}
         {sampleQuestions.map((question) => (
           <button key={question.id} onClick={() => onPracticeRegion(region, question, practiceTopics)}>{question.prompt}</button>
         ))}
-        <div className="practice-download-row">
-          <button type="button" className="secondary-action" onClick={() => downloadPracticeFlashcards(region, practiceTopics, "gateway", "html")}>
-            Download HTML
-          </button>
-          <button type="button" className="secondary-action" onClick={() => downloadPracticeFlashcards(region, practiceTopics, "gateway", "csv")}>
-            Download CSV
-          </button>
-          <button type="button" className="secondary-action" onClick={() => downloadPracticeFlashcards(region, practiceTopics, "gateway", "json")}>
-            Download JSON
-          </button>
-        </div>
+        <button type="button" className="secondary-action" onClick={() => downloadPracticeFlashcards(region, practiceTopics, "gateway")}>
+          Download Practice Flashcards
+        </button>
       </div>
       <button className="primary-action" onClick={() => onPracticeRegion(region, sampleQuestions[0], practiceTopics)}>Practice From This Deck</button>
     </aside>
@@ -5469,168 +5112,404 @@ function EmptyRegionPanel() {
   );
 }
 
-type AskResult = {
-  label: string;
-  detail: string;
-  regionId?: string;
-  transitSystemId?: string;
-};
+const askGeoTransitCards: AskCard[] = [
+  {
+    id: "hungary-neighbors",
+    tab: "Borders",
+    title: "Countries Bordering Hungary",
+    category: "Nearby countries",
+    summary: "Hungary sits in the heart of Central Europe. Explore how its rail and road connections link the Balkans, Central Europe, and Eastern Europe.",
+    items: [
+      { label: "Austria", regionId: "austria", flag: "AT", note: "Vienna and Budapest anchor a strong Danube rail corridor." },
+      { label: "Slovakia", regionId: "slovakia", flag: "SK", note: "Bratislava is close enough to Vienna to shape cross-border commuting." },
+      { label: "Ukraine", regionId: "ukraine", flag: "UA", note: "Eastern connections add broad-gauge and border-transfer context." },
+      { label: "Romania", regionId: "romania", flag: "RO", note: "Transylvania links mountain geography with rail gateways." },
+      { label: "Serbia", regionId: "serbia", flag: "RS", note: "The Budapest-Belgrade axis is a major Balkan rail story." },
+      { label: "Croatia", regionId: "croatia", flag: "HR", note: "Drava and Sava corridors pull Hungary toward the Adriatic." },
+      { label: "Slovenia", regionId: "slovenia", flag: "SI", note: "Alpine-Adriatic routes connect Central Europe to ports." },
+    ],
+    image: { src: "/images/country-images/Austria.jpg", alt: "Austria landscape and transport reference" },
+  },
+  {
+    id: "morocco-transit",
+    tab: "Rail",
+    title: "Transit Systems in Morocco",
+    category: "Transit systems",
+    summary: "Morocco is a clean example of national rail, high-speed rail, and city tramways working at different scales.",
+    items: [
+      { label: "Al Boraq", regionId: "morocco", flag: "MA", note: "Tangier, Rabat, Casablanca high-speed rail." },
+      { label: "ONCF", regionId: "morocco", flag: "MA", note: "National rail backbone and intercity network." },
+      { label: "Casablanca Tramway", regionId: "morocco", flag: "MA", note: "Urban surface transit in Morocco's largest city." },
+      { label: "Rabat-Sale Tramway", regionId: "morocco", flag: "MA", note: "Capital-region tram across the Bou Regreg." },
+    ],
+    image: { src: "/images/metro-images/Railways_Morocco.png", alt: "Morocco railways map" },
+  },
+  {
+    id: "spain-portugal-hsr",
+    tab: "Rail",
+    title: "Compare Spain and Portugal High-Speed Rail",
+    category: "Country comparison",
+    summary: "Spain has one of the world's largest high-speed rail networks; Portugal is more corridor-focused, with Lisbon-Porto and cross-border links carrying the comparison.",
+    items: [
+      { label: "Spain", regionId: "spain", flag: "ES", note: "Large AVE network radiating from Madrid." },
+      { label: "Portugal", regionId: "portugal", flag: "PT", note: "Lisbon-Porto and Iberian cross-border planning are the core story." },
+    ],
+    compareIds: ["spain", "portugal"],
+    image: { src: "/images/region-images/imported/portugal/lisbon.jpg", alt: "Portugal and Lisbon corridor context for Iberian rail comparison" },
+  },
+  {
+    id: "similar-japan",
+    tab: "Countries",
+    title: "Countries Similar to Japan",
+    category: "Geography comparison",
+    summary: "Use island geography, dense metropolitan corridors, and rail intensity as the comparison lens.",
+    items: [
+      { label: "Taiwan", regionId: "taiwan", flag: "TW", note: "Island spine with HSR and dense western cities." },
+      { label: "South Korea", regionId: "south-korea", flag: "KR", note: "High-speed rail, major metro areas, and peninsula constraints." },
+      { label: "Singapore", regionId: "singapore", flag: "SG", note: "Compact island city-state with highly legible MRT planning." },
+    ],
+    image: { src: "/images/metro-images/Singapore_MRT_Network.svg.png", alt: "Singapore MRT network map for island transit comparison" },
+  },
+  {
+    id: "mountain-railways",
+    tab: "Mountains",
+    title: "Mountain Railways Around the World",
+    category: "Mountain railways",
+    summary: "These systems turn steep terrain into the lesson: tunnels, switchbacks, cableways, and tourist rail all become geography made visible.",
+    items: [
+      { label: "Switzerland", regionId: "switzerland", flag: "CH", note: "Alpine tunnels and mountain rail define national mobility." },
+      { label: "Peru", regionId: "peru", flag: "PE", note: "Andean rail links pair altitude with heritage tourism." },
+      { label: "Bolivia", regionId: "bolivia", flag: "BO", note: "La Paz cable cars solve extreme elevation differences." },
+      { label: "Japan", regionId: "japan", flag: "JP", note: "Mountain corridors and urban rail meet in tight terrain." },
+    ],
+  },
+  {
+    id: "island-transit",
+    tab: "Islands",
+    title: "Island Countries With Major Transit Systems",
+    category: "Island transit",
+    summary: "Island systems are useful because limited land forces clear choices: rail spines, port access, airport links, and dense city networks.",
+    items: [
+      { label: "Japan", regionId: "japan", flag: "JP", note: "Shinkansen and metro networks knit multiple islands together." },
+      { label: "Singapore", regionId: "singapore", flag: "SG", note: "MRT planning is the island's main urban mobility skeleton." },
+      { label: "United Kingdom", regionId: "united-kingdom", flag: "GB", note: "National Rail and London transport dominate the island pattern." },
+      { label: "Sri Lanka", regionId: "sri-lanka", flag: "LK", note: "Coastal and hill-country rail show terrain contrast." },
+    ],
+    image: { src: "/images/metro-images/Singapore_MRT_Network.svg.png", alt: "Singapore MRT network map" },
+  },
+  {
+    id: "african-metros",
+    tab: "Mega Cities",
+    title: "Countries With Metro Systems in Africa",
+    category: "African metro systems",
+    summary: "A strong regional set for comparing legacy metros, new light rail, cable transit, and commuter-rail upgrades.",
+    items: [
+      { label: "Egypt", regionId: "egypt", flag: "EG", note: "Cairo Metro is Africa's largest rapid-transit anchor." },
+      { label: "Algeria", regionId: "algeria", flag: "DZ", note: "Algiers Metro pairs with tramway networks." },
+      { label: "Morocco", regionId: "morocco", flag: "MA", note: "Tramways and Al Boraq create a layered transit profile." },
+      { label: "Ethiopia", regionId: "ethiopia", flag: "ET", note: "Addis Ababa light rail is a key urban example." },
+    ],
+    image: { src: "/images/metro-images/Cairo_Rapid_Transit_map.png", alt: "Cairo rapid transit map" },
+  },
+  {
+    id: "geography-shaped-transport",
+    tab: "Hidden Gems",
+    title: "Best Examples of Geography Shaping Transportation",
+    category: "Geography-shaped transportation",
+    summary: "Use these when you want the app to explain why transport looks the way it does, not just where it is.",
+    items: [
+      { label: "Chile", regionId: "chile", flag: "CL", note: "Long, narrow geography concentrates routes between Andes and Pacific." },
+      { label: "Norway", regionId: "norway", flag: "NO", note: "Fjords make ferries, tunnels, and coastal aviation central." },
+      { label: "Switzerland", regionId: "switzerland", flag: "CH", note: "Alps create tunnel and mountain-rail engineering lessons." },
+      { label: "Indonesia", regionId: "indonesia", flag: "ID", note: "Archipelago geography makes air and maritime networks essential." },
+    ],
+  },
+  {
+    id: "border-city-links",
+    tab: "Borders",
+    title: "Border Cities With Major Transit Links",
+    category: "Border cities",
+    summary: "Good for learning cross-border commuting, station geography, and how cities operate as pairs.",
+    items: [
+      { label: "Austria", regionId: "austria", flag: "AT", note: "Vienna-Bratislava is a compact cross-border rail example." },
+      { label: "Slovakia", regionId: "slovakia", flag: "SK", note: "Bratislava's position makes borders part of daily mobility." },
+      { label: "Singapore", regionId: "singapore", flag: "SG", note: "Johor Bahru links show metro, bus, and border pressure." },
+      { label: "United States", regionId: "united-states", flag: "US", note: "San Diego-Tijuana shows border-region mobility at scale." },
+    ],
+  },
+  {
+    id: "unusual-capital-rail",
+    tab: "Rail",
+    title: "Capital Cities With Unusual Rail Systems",
+    category: "Capital rail",
+    summary: "Use capital cities where the rail story is not generic: cable cars, new metros, airport links, or unusual network geography.",
+    items: [
+      { label: "Bolivia", regionId: "bolivia", flag: "BO", note: "La Paz uses cable cars as mass transit across elevation." },
+      { label: "Hungary", regionId: "hungary", flag: "HU", note: "Budapest mixes historic metro, trams, and Danube crossings." },
+      { label: "Malaysia", regionId: "malaysia", flag: "MY", note: "Kuala Lumpur blends metro, commuter rail, and airport express." },
+      { label: "United Arab Emirates", regionId: "uae", flag: "AE", note: "Abu Dhabi capital context contrasts with Dubai's metro." },
+    ],
+    image: { src: "/images/metro-images/Seilbahnnetz_La_PazBolivia.svg.png", alt: "La Paz cable car network map" },
+  },
+  {
+    id: "global-airport-hubs",
+    tab: "Airports",
+    title: "Countries With Global Airport Hubs",
+    category: "Airports",
+    summary: "Use these to compare where geography, aviation, and long-haul transfer markets make airports globally important.",
+    items: [
+      { label: "United Arab Emirates", regionId: "uae", flag: "AE", note: "Dubai and Abu Dhabi connect Europe, Asia, Africa, and Oceania." },
+      { label: "Singapore", regionId: "singapore", flag: "SG", note: "Changi is a compact island-state transfer hub." },
+      { label: "Turkey", regionId: "turkey", flag: "TR", note: "Istanbul sits between Europe, Asia, and Middle East flows." },
+      { label: "Netherlands", regionId: "netherlands", flag: "NL", note: "Schiphol links a small country to a huge global network." },
+    ],
+    image: { src: "/images/country-images/United%20Arab%20Emirates.jpg", alt: "United Arab Emirates skyline and airport-hub context" },
+  },
+  {
+    id: "island-rail-systems",
+    tab: "Islands",
+    title: "Island Countries With Rail Systems",
+    category: "Island rail",
+    summary: "A good GEONTRANSIT comparison: compact land, constrained corridors, and rail networks that have to work around coastlines.",
+    items: [
+      { label: "Japan", regionId: "japan", flag: "JP", note: "Dense intercity and urban rail across multiple islands." },
+      { label: "Sri Lanka", regionId: "sri-lanka", flag: "LK", note: "Rail links coastal cities and hill-country terrain." },
+      { label: "United Kingdom", regionId: "united-kingdom", flag: "GB", note: "National Rail, London, Glasgow, and regional rail corridors." },
+      { label: "Taiwan", regionId: "taiwan", flag: "TW", note: "HSR and conventional rail follow the island's western urban spine." },
+    ],
+    image: { src: "/images/metro-images/Shinkansen_map_202405_en.png", alt: "Japan Shinkansen map" },
+  },
+  {
+    id: "deserts-mountains-metros",
+    tab: "Mountains",
+    title: "Countries With Deserts, Mountains, and Metro Systems",
+    category: "Geography plus metro",
+    summary: "These profiles show how extreme terrain and urban transit can coexist inside one national geography story.",
+    items: [
+      { label: "Chile", regionId: "chile", flag: "CL", note: "Atacama, Andes, and Santiago Metro." },
+      { label: "Algeria", regionId: "algeria", flag: "DZ", note: "Sahara, Atlas edges, and Algiers Metro." },
+      { label: "Iran", regionId: "iran", flag: "IR", note: "Deserts, Alborz/Zagros, and Tehran Metro." },
+      { label: "China", regionId: "china", flag: "CN", note: "Western deserts, Himalaya/Tibet edges, and massive metro systems." },
+    ],
+    image: { src: "/images/country-images/Chile.jpg", alt: "Chile geography reference" },
+  },
+  {
+    id: "disconnected-regions",
+    tab: "Regions",
+    title: "Regions That Feel Far From the Capital",
+    category: "Regional geography",
+    summary: "Use these to explore countries where distance, islands, mountains, or colonial-era boundaries make regional identity especially important.",
+    items: [
+      { label: "Indonesia", regionId: "indonesia", flag: "ID", note: "Papua, Sumatra, Java, and island chains create large regional contrasts." },
+      { label: "Russia", regionId: "russia", flag: "RU", note: "Siberia and the Far East are far from Moscow by rail and air." },
+      { label: "Chile", regionId: "chile", flag: "CL", note: "Patagonia and Atacama sit at opposite ends of a long country." },
+      { label: "France", regionId: "france", flag: "FR", note: "Corsica and overseas geography change the profile." },
+    ],
+    image: { src: "/images/region-images/imported/chile/magallanes-y-antartica-chilena.jpg", alt: "Southern Chile regional geography" },
+  },
+  {
+    id: "capital-not-largest",
+    tab: "Countries",
+    title: "Capitals That Are Not the Largest City",
+    category: "Country comparison",
+    summary: "These countries are useful for separating political geography from economic and transportation geography.",
+    items: [
+      { label: "United Arab Emirates", regionId: "uae", flag: "AE", note: "Abu Dhabi is the capital; Dubai is the largest hub." },
+      { label: "Australia", regionId: "australia", flag: "AU", note: "Canberra is the capital; Sydney and Melbourne dominate transport." },
+      { label: "Turkey", regionId: "turkey", flag: "TR", note: "Ankara is capital; Istanbul is the largest global gateway." },
+      { label: "Brazil", regionId: "brazil", flag: "BR", note: "Brasilia is capital; Sao Paulo is the largest metro economy." },
+    ],
+    image: { src: "/images/country-images/Brazil.jpg", alt: "Brazil profile image" },
+  },
+];
 
-function AskGeoInTransitPanel({
-  onSelectRegion,
-  onSelectTransit,
-}: {
-  onSelectRegion: (regionId: string) => void;
-  onSelectTransit: (systemId: string) => void;
-}) {
-  const [query, setQuery] = useState("");
-  const prompts = [
-    "Show nearby countries",
-    "Compare Portugal and Spain",
-    "Largest regions in Turkey",
-    "Transit systems in Morocco",
-    "Countries similar to Japan",
-    "High-speed rail by ridership",
-  ];
-  const findRegionMention = (text: string) => {
-    const normalizedText = text.toLowerCase();
-    return regions.find((region) => normalizedText.includes(region.name.toLowerCase()) || normalizedText.includes(region.id.replaceAll("-", " ")));
+const askGeoTransitTabs = ["Countries", "Regions", "Rail", "Airports", "Islands", "Mountains", "Borders", "Mega Cities", "Hidden Gems"];
+
+function countryTransitHook(region: Region) {
+  const specificHooks: Record<string, string> = {
+    brazil: "Brazil is strongest when you compare Sao Paulo's metro scale, Rio's coastal rail/airport geography, Brasilia's planned-capital layout, Amazon river corridors, and Atlantic ports.",
+    chile: "Chile is a retention-friendly geography lesson: Atacama in the north, Santiago Metro in the center, Valparaiso port links, and Patagonia/Punta Arenas at the long southern edge.",
+    turkey: "Turkey is more than Istanbul: compare Istanbul's metro and Bosporus crossings with Ankara rail, Izmir coastal transit, Adana and Antalya gateways, and Anatolian high-speed corridors.",
+    japan: "Japan connects island geography through Shinkansen spines, Tokyo and Osaka metro regions, Hokkaido and Kyushu rail contrasts, ferries, airports, and mountain corridors.",
+    morocco: "Morocco's profile should anchor on Al Boraq between Tangier, Rabat, and Casablanca, then add Casablanca tram, Rabat-Sale tram, Marrakech tourism flows, Fez, ports, and Atlas geography.",
+    norway: "Norway is a fjord-and-distance lesson: ferries, tunnels, coastal aviation, Bergen light rail, Oslo rail, Svalbard air access, and mountain routes matter more than megacity scale.",
+    egypt: "Egypt combines Nile geography, Cairo Metro, Alexandria coastal rail and port links, Suez Canal logistics, Red Sea airports, Luxor, and Aswan river tourism.",
+    indonesia: "Indonesia is archipelago mobility: Jakarta MRT, Java rail, ferries, ports, airports, Bali tourism flows, Sumatra and Papua distance, and island-by-island regional identity.",
+    mexico: "Mexico connects Mexico City Metro and high-altitude capital geography with Guadalajara, Monterrey, border corridors, Maya Train/Yucatan tourism, and major airports like MEX and CUN.",
+    france: "France is Paris plus regions: TGV corridors, RER/Metro, Lyon and Marseille, Atlantic and Mediterranean ports, Corsica, and overseas geography.",
+    haiti: "Haiti is best explored through Port-au-Prince, Cap-Haitien, mountain roads, Caribbean port access, shared-island geography with the Dominican Republic, and airport gateways.",
+    jamaica: "Jamaica's transport memory hook is island corridors: Kingston, Montego Bay, ports, airports, mountain roads, tourism coastlines, and ferry/road constraints.",
+    "united-states": "The United States is a regions-first profile: Northeast rail, Sun Belt airports, Great Lakes metros, West Coast transit, Alaska/Hawaii distance, and huge interstate corridors.",
   };
-  const resultsForQuery = (text: string): AskResult[] => {
-    const normalized = text.trim().toLowerCase();
-    if (!normalized) return [];
-    if (normalized.includes("near")) {
-      const region = findRegionMention(normalized) ?? regions.find((item) => item.id === "hungary") ?? regions[0];
-      return nearbyRegionsFor(region.id).map((nearby) => ({
-        label: nearby.name,
-        detail: `Nearby ${region.name}; click to open the profile.`,
-        regionId: nearby.id,
-      }));
-    }
-    if (normalized.includes("morocco") && normalized.includes("transit")) {
-      const systems = projectedTransitSystems.filter((system) => system.countryId === "morocco");
-      const baseResults = systems.map((system) => ({
-        label: system.name,
-        detail: `${system.city} · ${system.type}`,
-        transitSystemId: system.id,
-      }));
-      return [
-        { label: "Al Boraq", detail: "Africa's first high-speed rail line.", regionId: "morocco" },
-        { label: "ONCF", detail: "Morocco's national rail operator.", regionId: "morocco" },
-        ...baseResults,
-      ];
-    }
-    if (normalized.includes("similar") && normalized.includes("japan")) {
-      return [
-        { label: "Taiwan", detail: "Island geography, dense cities, high-speed rail, and strong metro clues.", regionId: "taiwan" },
-        { label: "South Korea", detail: "Dense rail, major metro systems, and a peninsula/island-adjacent geography comparison.", regionId: "south-korea" },
-        { label: "Singapore", detail: "Compact island geography with a highly legible MRT and airport profile.", regionId: "singapore" },
-      ];
-    }
-    if (normalized.includes("high speed rail") || normalized.includes("high-speed rail")) {
-      return ["china", "japan", "france", "spain", "italy", "morocco"]
-        .map((regionId) => regions.find((region) => region.id === regionId))
-        .filter((region): region is Region => Boolean(region))
-        .map((region) => ({
-          label: region.name,
-          detail: region.rail.find((item) => /shinkansen|tgv|ice|al boraq|high-speed|alta velocidad|frecciarossa/i.test(item)) ?? "High-speed rail profile",
-          regionId: region.id,
-        }));
-    }
-    if (normalized.includes("compare") && normalized.includes("portugal") && normalized.includes("spain")) {
-      return [
-        { label: "Portugal", detail: "Open Portugal to compare regions, airports, and Iberian rail context.", regionId: "portugal" },
-        { label: "Spain", detail: "Open Spain to compare autonomous communities, AVE rail, and airports.", regionId: "spain" },
-      ];
-    }
-    if (normalized.includes("largest") && normalized.includes("turkey")) {
-      return [
-        { label: "Istanbul", detail: "Turkey's largest metro area and a major aviation/transit clue.", regionId: "turkey" },
-        { label: "Ankara", detail: "Capital region clue; useful for province and airport questions.", regionId: "turkey" },
-        { label: "Izmir", detail: "Aegean region anchor with rail, ferry, and airport clues.", regionId: "turkey" },
-      ];
-    }
-    const regionMatches = regions
-      .filter((region) => region.name.toLowerCase().includes(normalized) || region.id.replaceAll("-", " ").includes(normalized))
-      .slice(0, 8);
-    return regionMatches.map((region) => ({
-      label: region.name,
-      detail: `${region.capital} · ${region.population}`,
-      regionId: region.id,
-    }));
-  };
-  const activeResults = resultsForQuery(query);
-  const runPrompt = (prompt: string) => {
-    setQuery(prompt);
-  };
+  if (specificHooks[region.id]) return specificHooks[region.id];
+  const strongest = [
+    region.metro[0],
+    region.rail[0],
+    region.airports[0],
+    region.maritime[0],
+    region.highways[0],
+  ].filter(Boolean)[0];
+  if (strongest) return `${region.name}'s profile starts with ${strongest}, then connects outward through regions, nearby countries, and geography.`;
+  return `${region.name}'s profile is best explored through capital geography, nearby countries, and regional movement patterns.`;
+}
+
+function askPreviewImage(card: AskCard) {
+  if (card.image?.src) return card.image.src;
+  const firstRegion = card.items
+    .map((item) => item.regionId ? regions.find((region) => region.id === item.regionId) : null)
+    .find((region): region is Region => Boolean(region));
+  return firstRegion ? countryImagePathForName(firstRegion.name) : "";
+}
+
+function AskGeoInTransitPanel({ currentRegion, onSelectRegion }: { currentRegion: Region | null; onSelectRegion: (regionId: string) => void }) {
+  const contextualCard: AskCard | null = currentRegion ? {
+    id: `context-${currentRegion.id}`,
+    tab: "Countries",
+    title: `Explore ${currentRegion.name} Through Geography and Transit`,
+    category: "Current profile",
+    summary: `${currentRegion.name} connects ${currentRegion.capital.includes("queued") ? "its capital region" : currentRegion.capital} with regional geography, airports, rail or road corridors, and nearby countries. Expand this card for a focused GEONTRANSIT route through the country you already opened.`,
+    items: [
+      { label: currentRegion.name, regionId: currentRegion.id, flag: currentRegion.flag, note: countryTransitHook(currentRegion) },
+      ...nearbyRegionsFor(currentRegion.id).slice(0, 3).map((region) => ({
+        label: region.name,
+        regionId: region.id,
+        flag: region.flag,
+        note: `Nearby profile for border, corridor, airport, ferry, or regional comparison.`,
+      })),
+    ],
+    image: { src: countryImagePathForName(currentRegion.name), alt: `${currentRegion.name} country profile image` },
+  } : null;
+  const cards = contextualCard ? [contextualCard, ...askGeoTransitCards] : askGeoTransitCards;
+  const [activeTab, setActiveTab] = useState(contextualCard ? "Countries" : "Borders");
+  const visibleCards = cards.filter((card) => card.tab === activeTab);
+  const [openCardId, setOpenCardId] = useState(contextualCard?.id ?? "hungary-neighbors");
+  const [lightboxImage, setLightboxImage] = useState<LightboxImage | null>(null);
   return (
-    <section className="ask-geointransit-panel" aria-label="Ask GEONTRANSIT prompts">
-      <div>
-        <strong>Ask GEONTRANSIT</strong>
-        <span>Search nearby countries, transit systems, comparisons, and study paths</span>
-      </div>
-      <label className="ask-search">
-        <span>Search</span>
-        <input
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder="Try: Countries near Hungary"
-          aria-label="Ask GEONTRANSIT search"
-        />
-      </label>
-      {activeResults.length > 0 ? (
-        <div className="ask-results" aria-live="polite">
-          {activeResults.map((result) => (
-            <button
-              key={`${result.label}-${result.regionId ?? result.transitSystemId ?? result.detail}`}
-              type="button"
-              onClick={() => {
-                if (result.transitSystemId) onSelectTransit(result.transitSystemId);
-                else if (result.regionId) onSelectRegion(result.regionId);
-              }}
-            >
-              <strong>{result.label}</strong>
-              <span>{result.detail}</span>
-            </button>
-          ))}
+    <section className="ask-geointransit-panel" aria-label="Explore GEONTRANSIT discovery prompts">
+      <div className="ask-panel-heading">
+        <div>
+          <strong>Explore GEONTRANSIT</strong>
+          <span>Expandable discovery cards for geography, regions, rail, airports, borders, islands, and unusual comparisons</span>
         </div>
-      ) : null}
-      <div>
-        {prompts.map((prompt) => (
-          <button key={prompt} type="button" onClick={() => runPrompt(prompt)}>
-            {prompt}
+      </div>
+      <div className="ask-tabs" role="tablist" aria-label="GEONTRANSIT discovery categories">
+        {askGeoTransitTabs.map((tab) => (
+          <button key={tab} type="button" className={activeTab === tab ? "active" : ""} onClick={() => setActiveTab(tab)} role="tab" aria-selected={activeTab === tab}>
+            {tab}
           </button>
         ))}
       </div>
+      <div className="ask-discovery-grid">
+        {visibleCards.map((card) => {
+          const open = openCardId === card.id;
+          const previewImage = askPreviewImage(card);
+          return (
+            <article key={card.id} className={`ask-card ${open ? "open" : ""}`}>
+              {previewImage ? (
+                <button
+                  type="button"
+                  className="ask-card-thumb"
+                  onClick={() => setLightboxImage({ src: previewImage, title: card.title, caption: card.image?.alt ?? card.category })}
+                >
+                  <img src={previewImage} alt={card.image?.alt ?? `${card.title} visual`} loading="lazy" />
+                </button>
+              ) : null}
+              <div className="ask-card-intro">
+                <em>{card.category}</em>
+                <strong>{card.title}</strong>
+                <p>{card.summary}</p>
+                <div className="ask-chip-row">
+                  {card.items.slice(0, 4).map((item) => (
+                    <button key={`${card.id}-chip-${item.label}`} type="button" onClick={() => item.regionId && onSelectRegion(item.regionId)} disabled={!item.regionId}>
+                      {item.flag ? <FlagAsset code={item.flag} label={`${item.label} flag`} /> : null}
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+                <button type="button" className="ask-action-button" onClick={() => setOpenCardId(open ? "" : card.id)} aria-expanded={open}>
+                  {open ? "Collapse" : "Expand"}
+                </button>
+              </div>
+              {open ? (
+                <div className="ask-card-body">
+                  <div className="ask-card-items">
+                    {card.items.map((item) => (
+                      <div key={`${card.id}-${item.label}`}>
+                        <span>{item.flag ? <FlagAsset code={item.flag} label={`${item.label} flag`} /> : flagEmoji(item.flag ?? "")}</span>
+                        <strong>{item.label}</strong>
+                        {item.note ? <p>{item.note}</p> : null}
+                        {item.regionId ? (
+                          <button type="button" onClick={() => onSelectRegion(item.regionId!)}>
+                            Open profile
+                          </button>
+                        ) : null}
+                      </div>
+                    ))}
+                  </div>
+                  {card.compareIds ? (
+                    <button type="button" className="compare-action" onClick={() => card.compareIds?.[0] && onSelectRegion(card.compareIds[0])}>
+                      Compare
+                    </button>
+                  ) : null}
+                </div>
+              ) : null}
+            </article>
+          );
+        })}
+      </div>
+      {lightboxImage ? <ImageLightbox image={lightboxImage} onClose={() => setLightboxImage(null)} /> : null}
     </section>
+  );
+}
+
+function ImageLightbox({ image, onClose }: { image: LightboxImage; onClose: () => void }) {
+  return (
+    <div className="image-lightbox" role="dialog" aria-modal="true" aria-label={`${image.title} image preview`} onClick={onClose}>
+      <div className="image-lightbox-card" onClick={(event) => event.stopPropagation()}>
+        <button type="button" onClick={onClose} aria-label="Close image preview">×</button>
+        <img src={image.src} alt={image.title} />
+        <div>
+          <strong>{image.title}</strong>
+          {image.caption ? <span>{image.caption}</span> : null}
+        </div>
+      </div>
+    </div>
   );
 }
 
 function PlaceImageCard({ image }: { image: PlaceImage }) {
   const [hidden, setHidden] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState<LightboxImage | null>(null);
   useEffect(() => {
     setHidden(false);
   }, [image.imagePath]);
   if (hidden) return null;
   return (
-    <figure className="place-image-card">
-      <img
-        src={image.imagePath}
-        alt={`${image.name} place reference`}
-        loading="lazy"
-        onError={() => setHidden(true)}
-      />
-      <figcaption>
-        <strong>{image.name}</strong>
-      </figcaption>
-    </figure>
+    <>
+      <button
+        type="button"
+        className="place-image-card"
+        onClick={() => setLightboxImage({ src: image.imagePath, title: image.name, caption: `${image.type} reference for ${image.region}` })}
+      >
+        <img
+          src={image.imagePath}
+          alt={`${image.name} place reference`}
+          loading="lazy"
+          onError={() => setHidden(true)}
+        />
+        <span>
+          <strong>{image.name}</strong>
+        </span>
+      </button>
+      {lightboxImage ? <ImageLightbox image={lightboxImage} onClose={() => setLightboxImage(null)} /> : null}
+    </>
   );
 }
 
 function subregionsFor(regionId: string) {
   const subregions: Record<string, string[]> = {
     "united-states": ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming", "District of Columbia", "Puerto Rico"],
-    canada: ["Ontario", "Quebec", "British Columbia", "Alberta", "Manitoba", "Nova Scotia", "New Brunswick", "Saskatchewan", "Newfoundland and Labrador", "Prince Edward Island", "Northwest Territories", "Nunavut", "Yukon"],
+    canada: ["Ontario", "Quebec", "British Columbia", "Alberta", "Manitoba", "Nova Scotia", "New Brunswick", "Saskatchewan", "Newfoundland and Labrador"],
     brazil: ["Sao Paulo", "Rio de Janeiro", "Bahia", "Minas Gerais", "Parana", "Rio Grande do Sul", "Amazonas", "Pernambuco"],
     chile: ["Santiago Metropolitan Region", "Valparaiso Region", "Biobio Region", "Antofagasta Region", "Los Lagos Region", "Magallanes Region"],
     japan: ["Hokkaido", "Honshu", "Shikoku", "Kyushu", "Okinawa", "Kanto", "Kansai", "Chugoku"],
@@ -5642,25 +5521,89 @@ function subregionsFor(regionId: string) {
     india: ["Delhi", "Maharashtra", "Karnataka", "Tamil Nadu", "West Bengal", "Gujarat", "Uttar Pradesh", "Kerala"],
     indonesia: ["Java", "Sumatra", "Bali", "Kalimantan", "Sulawesi", "Papua"],
     argentina: ["Buenos Aires Province", "Cordoba", "Santa Fe", "Mendoza", "Patagonia", "Tierra del Fuego"],
-    nigeria: ["Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi", "Bayelsa", "Benue", "Borno", "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "Federal Capital Territory", "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfara"],
+    nigeria: ["Lagos State", "Federal Capital Territory", "Kano State", "Rivers State", "Oyo State", "Kaduna State"],
     russia: ["Moscow", "Saint Petersburg", "Siberia", "Far East", "Tatarstan", "Krasnodar Krai"],
-    france: ["Ile-de-France", "Auvergne-Rhone-Alpes", "Bourgogne-Franche-Comte", "Brittany", "Centre-Val de Loire", "Corsica", "Grand Est", "Hauts-de-France", "Normandy", "Nouvelle-Aquitaine", "Occitanie", "Pays de la Loire", "Provence-Alpes-Cote d'Azur"],
-    germany: ["Baden-Wurttemberg", "Bavaria", "Berlin", "Brandenburg", "Bremen", "Hamburg", "Hesse", "Lower Saxony", "Mecklenburg-Vorpommern", "North Rhine-Westphalia", "Rhineland-Palatinate", "Saarland", "Saxony", "Saxony-Anhalt", "Schleswig-Holstein", "Thuringia"],
-    greece: ["Attica", "Central Greece", "Central Macedonia", "Crete", "Eastern Macedonia and Thrace", "Epirus", "Ionian Islands", "North Aegean", "Peloponnese", "South Aegean", "Thessaly", "Western Greece", "Western Macedonia"],
-    portugal: ["Norte", "Centro", "Grande Lisboa", "Alentejo", "Algarve", "Azores", "Madeira"],
+    germany: ["Bavaria", "Berlin", "Hamburg", "Hesse", "North Rhine-Westphalia", "Saxony", "Baden-Wurttemberg", "Lower Saxony"],
+    france: ["Ile-de-France", "Provence-Alpes-Cote d'Azur", "Occitanie", "Nouvelle-Aquitaine", "Brittany", "Corsica"],
     spain: ["Madrid", "Catalonia", "Andalusia", "Valencian Community", "Basque Country", "Galicia"],
+    greece: ["Attica", "Central Macedonia", "Crete", "South Aegean", "Thessaly", "Western Greece", "Epirus"],
+    morocco: ["Casablanca-Settat", "Rabat-Sale-Kenitra", "Marrakesh-Safi", "Tangier-Tetouan-Al Hoceima", "Fes-Meknes", "Souss-Massa"],
+    algeria: ["Algiers", "Oran", "Constantine", "Annaba", "Adrar", "Tamanrasset"],
+    egypt: ["Cairo", "Alexandria", "Giza", "Luxor", "Aswan", "South Sinai", "Suez"],
     "south-korea": ["Seoul Capital Area", "Busan", "Incheon", "Daegu", "Jeju", "Gyeonggi"],
     uae: ["Abu Dhabi", "Dubai", "Sharjah", "Ajman", "Ras Al Khaimah", "Fujairah"],
     denmark: ["Zealand", "Jutland", "Funen", "Capital Region", "Aarhus Region"],
     thailand: ["Bangkok", "Chiang Mai", "Phuket", "Isan", "Chonburi", "Krabi"],
     finland: ["Uusimaa", "Lapland", "Southwest Finland", "Pirkanmaa", "North Ostrobothnia"],
     iceland: ["Capital Region", "Southern Peninsula", "South Iceland", "Westfjords", "North Iceland"],
-    norway: ["Akershus", "Agder", "Buskerud", "Finnmark", "Innlandet", "More og Romsdal", "Nordland", "Oslo", "Ostfold", "Rogaland", "Telemark", "Troms", "Trondelag", "Vestfold", "Vestland", "Svalbard"],
-    ukraine: ["Cherkasy Oblast", "Chernihiv Oblast", "Chernivtsi Oblast", "Dnipropetrovsk Oblast", "Donetsk Oblast", "Ivano-Frankivsk Oblast", "Kharkiv Oblast", "Kherson Oblast", "Khmelnytskyi Oblast", "Kirovohrad Oblast", "Kyiv Oblast", "Luhansk Oblast", "Lviv Oblast", "Mykolaiv Oblast", "Odesa Oblast", "Poltava Oblast", "Rivne Oblast", "Sumy Oblast", "Ternopil Oblast", "Vinnytsia Oblast", "Volyn Oblast", "Zakarpattia Oblast", "Zaporizhzhia Oblast", "Zhytomyr Oblast"],
+    norway: ["Oslo", "Vestland", "Trondelag", "Troms", "Nordland", "Svalbard"],
     sweden: ["Stockholm County", "Vastra Gotaland", "Skane", "Norrbotten", "Uppsala County"],
     "new-zealand": ["North Island", "South Island", "Auckland Region", "Wellington Region", "Canterbury", "Otago"],
   };
   return subregions[regionId] ?? [];
+}
+
+function missingAssetMessage(name: string) {
+  return `${name} still needs a regional image. Suggested asset types: flag, landmark, transit image, or regional capital image.`;
+}
+
+function nearbyDescriptionFor(region: Region) {
+  if (region.id === "hungary") {
+    return "Hungary sits in the heart of Central Europe. Explore how its rail and road connections link the Balkans, Central Europe, and Eastern Europe.";
+  }
+  if (region.maritime.some((item) => item.toLowerCase().includes("port") || item.toLowerCase().includes("ferr"))) {
+    return `${region.name}'s nearby profiles help compare border, coastal, ferry, port, and airport corridors in the same neighborhood.`;
+  }
+  if (region.riversMountains.some((item) => /mountain|alps|andes|himalaya|river/i.test(item))) {
+    return `${region.name}'s neighbors show how terrain, river valleys, border crossings, and rail corridors shape regional movement.`;
+  }
+  return `${region.name}'s nearby profiles show how neighboring countries connect through roads, rail, airports, borders, and shared regional geography.`;
+}
+
+function RegionAssetGrid({ region, subregions }: { region: Region; subregions: string[] }) {
+  const [lightboxImage, setLightboxImage] = useState<LightboxImage | null>(null);
+  const [missingAsset, setMissingAsset] = useState<string | null>(null);
+  const openAsset = (name: string) => {
+    const imagePath = subdivisionImagePathForRegion(region.id, name);
+    if (imagePath) {
+      setLightboxImage({ src: imagePath, title: name, caption: `${region.name} regional asset` });
+      return;
+    }
+    setMissingAsset(name);
+  };
+  return (
+    <details className="region-asset-panel">
+      <summary>
+        <span>Regional assets</span>
+        <em>{subregions.length}</em>
+      </summary>
+      <div>
+        {subregions.map((name) => {
+          const imagePath = subdivisionImagePathForRegion(region.id, name);
+          return (
+            <button
+              key={name}
+              type="button"
+              className={imagePath ? "has-asset" : "needs-asset"}
+              onClick={() => openAsset(name)}
+            >
+              {imagePath ? <img src={imagePath} alt="" loading="lazy" /> : <span>Needs assets</span>}
+              <strong>{name}</strong>
+              <em>{imagePath ? "assets" : "needs assets"}</em>
+            </button>
+          );
+        })}
+      </div>
+      {missingAsset ? (
+        <div className="missing-asset-note" role="status">
+          <button type="button" onClick={() => setMissingAsset(null)} aria-label="Close missing asset note">×</button>
+          <strong>{missingAsset}</strong>
+          <p>{missingAssetMessage(missingAsset)}</p>
+        </div>
+      ) : null}
+      {lightboxImage ? <ImageLightbox image={lightboxImage} onClose={() => setLightboxImage(null)} /> : null}
+    </details>
+  );
 }
 
 function nearbyRegionsFor(regionId: string) {
@@ -5679,25 +5622,50 @@ function nearbyRegionsFor(regionId: string) {
     ukraine: ["poland", "slovakia", "hungary", "romania", "moldova", "belarus", "russia"],
     norway: ["sweden", "finland", "russia", "denmark", "iceland"],
     "united-kingdom": ["ireland", "france", "netherlands", "belgium", "faroe-islands", "iceland"],
-    chad: ["libya", "sudan", "central-african-republic", "cameroon", "nigeria", "niger"],
-    "central-african-republic": ["chad", "sudan", "south-sudan", "democratic-republic-of-the-congo", "congo", "cameroon"],
-    "democratic-republic-of-the-congo": ["congo", "central-african-republic", "south-sudan", "uganda", "rwanda", "burundi", "tanzania", "zambia", "angola"],
-    egypt: ["libya", "sudan", "israel", "saudi-arabia", "jordan", "cyprus"],
-    brazil: ["argentina", "bolivia", "colombia", "guyana", "paraguay", "peru", "suriname", "uruguay", "venezuela"],
-    argentina: ["chile", "bolivia", "paraguay", "brazil", "uruguay"],
-    chile: ["argentina", "bolivia", "peru"],
-    china: ["mongolia", "russia", "north-korea", "india", "nepal", "pakistan", "vietnam", "laos", "myanmar", "kazakhstan"],
-    philippines: ["taiwan", "malaysia", "indonesia", "vietnam"],
+    chile: ["argentina", "bolivia", "peru", "brazil", "uruguay", "paraguay"],
+    argentina: ["chile", "uruguay", "paraguay", "bolivia", "brazil"],
+    brazil: ["argentina", "uruguay", "paraguay", "bolivia", "peru", "colombia"],
+    mexico: ["united-states", "guatemala", "belize", "honduras", "cuba"],
+    cuba: ["jamaica", "bahamas", "haiti", "dominican-republic", "mexico", "united-states"],
+    japan: ["south-korea", "taiwan", "china", "russia", "philippines"],
+    morocco: ["spain", "algeria", "portugal", "tunisia", "mauritania"],
+    algeria: ["morocco", "tunisia", "libya", "mali", "niger", "mauritania"],
+    fiji: ["tonga", "samoa", "vanuatu", "new-zealand", "australia"],
+    vietnam: ["cambodia", "laos", "thailand", "china", "philippines"],
+    indonesia: ["malaysia", "singapore", "philippines", "australia", "papua-new-guinea", "timor-leste"],
+    malaysia: ["singapore", "thailand", "indonesia", "brunei", "philippines"],
+    egypt: ["libya", "sudan", "israel", "jordan", "saudi-arabia", "greece"],
+    nigeria: ["benin", "niger", "chad", "cameroon", "ghana"],
+    "south-africa": ["namibia", "botswana", "zimbabwe", "mozambique", "lesotho", "eswatini"],
   };
-  return (nearbyIds[regionId] ?? [])
+  const curatedNearbyIds = nearbyIds[regionId];
+  if (curatedNearbyIds) {
+    return curatedNearbyIds
     .map((id) => regions.find((region) => region.id === id))
     .filter((region): region is Region => Boolean(region));
+  }
+  const origin = capitalCoordinatesByRegionId[regionId];
+  if (!origin) return [];
+  return regions
+    .filter((region) => region.id !== regionId && Boolean(capitalCoordinatesByRegionId[region.id]))
+    .map((region) => ({ region, distance: coordinateDistance(origin, capitalCoordinatesByRegionId[region.id]) }))
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 6)
+    .map((item) => item.region);
+}
+
+function coordinateDistance(a: [number, number], b: [number, number]) {
+  const longitudeDelta = Math.abs(a[0] - b[0]);
+  const wrappedLongitudeDelta = Math.min(longitudeDelta, 360 - longitudeDelta);
+  const latitudeDelta = a[1] - b[1];
+  return Math.hypot(wrappedLongitudeDelta * Math.cos(((a[1] + b[1]) / 2) * Math.PI / 180), latitudeDelta);
 }
 
 function CountryDiagram({ region }: { region: Region }) {
   const cities = [region.capital, ...region.majorCities].filter((item, index, array) => item && !item.includes("queued") && array.indexOf(item) === index).slice(0, 6);
   const landmarks = region.landmarks.slice(0, 5);
   const [activeImage, setActiveImage] = useState(0);
+  const [lightboxImage, setLightboxImage] = useState<LightboxImage | null>(null);
   const activeLandmark = landmarks[activeImage] ?? landmarks[0] ?? region.name;
   const countryImage = countryImagePathForName(region.name);
   const previousImage = () => setActiveImage((index) => (index + landmarks.length - 1) % landmarks.length);
@@ -5705,13 +5673,17 @@ function CountryDiagram({ region }: { region: Region }) {
 
   return (
     <div className="country-diagram">
-      <figure className="country-profile-photo">
+      <button
+        type="button"
+        className="country-profile-photo"
+        onClick={() => countryImage && setLightboxImage({ src: countryImage, title: region.name, caption: region.capital.includes("queued") ? "Country profile image" : region.capital })}
+      >
         <img src={countryImage} alt={`${region.name} profile view`} loading="lazy" />
-        <figcaption>
+        <span>
           <strong>{region.name}</strong>
-          <span>{region.capital.includes("queued") ? "Capital profile" : region.capital}</span>
-        </figcaption>
-      </figure>
+          <em>{region.capital.includes("queued") ? "Capital profile" : region.capital}</em>
+        </span>
+      </button>
       <div className="country-shape">
         <span className="capital-pin">{region.capital.includes("queued") ? "Capital" : region.capital}</span>
         {cities.slice(1).map((city, index) => (
@@ -5732,6 +5704,7 @@ function CountryDiagram({ region }: { region: Region }) {
           </button>
         ))}
       </div>
+      {lightboxImage ? <ImageLightbox image={lightboxImage} onClose={() => setLightboxImage(null)} /> : null}
     </div>
   );
 }
@@ -5761,59 +5734,6 @@ function InfoGroup({ title, items, regionName, badge = false }: { title: string;
   );
 }
 
-const landlockedRegionIds = new Set([
-  "andorra",
-  "armenia",
-  "austria",
-  "belarus",
-  "bolivia",
-  "botswana",
-  "burkina-faso",
-  "burundi",
-  "central-african-republic",
-  "chad",
-  "czechia",
-  "ethiopia",
-  "hungary",
-  "kazakhstan",
-  "kosovo",
-  "kyrgyzstan",
-  "laos",
-  "lesotho",
-  "liechtenstein",
-  "luxembourg",
-  "malawi",
-  "mali",
-  "moldova",
-  "mongolia",
-  "nepal",
-  "niger",
-  "north-macedonia",
-  "paraguay",
-  "rwanda",
-  "san-marino",
-  "serbia",
-  "slovakia",
-  "south-sudan",
-  "switzerland",
-  "tajikistan",
-  "turkmenistan",
-  "uganda",
-  "uzbekistan",
-  "vatican-city",
-  "zambia",
-  "zimbabwe",
-]);
-
-function shouldShowInfoGroup(region: Region, title: string, items: string[]) {
-  const filteredItems = items.filter(Boolean);
-  if (filteredItems.length === 0) return false;
-  if (title === "Maritime" && landlockedRegionIds.has(region.id)) return false;
-  if (title === "Maritime" && filteredItems.every((item) => /landlocked|nearest maritime|where applicable|no seaport|no port|nearby coast/i.test(item))) return false;
-  if (title === "Rivers & Mountains" && region.id === "vatican-city") return false;
-  return true;
-}
-
 function isReferenceClickable(groupTitle: string, item: string) {
   const normalized = item.toLowerCase();
   if (groupTitle === "Fun Facts") return false;
@@ -5826,7 +5746,6 @@ function isReferenceClickable(groupTitle: string, item: string) {
   if (normalized.includes("capital-area") || normalized.includes("capital transit") || normalized.includes("intercity rail/coach")) return false;
   if (normalized.includes("regional cross-border") || normalized.includes("regional commuter") || normalized.includes("cargo or charter")) return false;
   if (normalized.includes("platform") && !normalized.includes("station")) return false;
-  if (/^(capital station district|national museum or monument|airport gateway area|historic market or central square|major park or waterfront)$/i.test(item.trim())) return false;
   if (["Landmarks", "Places of Interest", "Major Cities", "Rivers & Mountains"].includes(groupTitle)) return true;
   if (groupTitle === "Airports") return /\b[A-Z0-9]{3}\b/.test(item) || normalized.includes("airport") || normalized.includes("airfield") || normalized.includes("airstrip");
   if (groupTitle === "Highways") return /\d/.test(item) || /\b(road|highway|bridge|tunnel|expressway|motorway|causeway|pass|corridor)\b/.test(normalized);
@@ -5838,13 +5757,6 @@ function isReferenceClickable(groupTitle: string, item: string) {
 function referenceUrlForItem(groupTitle: string, item: string, regionName = "") {
   const normalized = item.toLowerCase();
   const exactReferences: Array<[RegExp, string]> = [
-    [/casa de la vall/, "https://en.wikipedia.org/wiki/Casa_de_la_Vall"],
-    [/sant joan de caselles/, "https://en.wikipedia.org/wiki/Esgl%C3%A9sia_de_Sant_Joan_de_Caselles"],
-    [/madriu-perafita-claror|madriu valley/, "https://en.wikipedia.org/wiki/Madriu-Perafita-Claror_Valley"],
-    [/bel[eé]m tower/, "https://en.wikipedia.org/wiki/Bel%C3%A9m_Tower"],
-    [/pena palace/, "https://en.wikipedia.org/wiki/Pena_Palace"],
-    [/fushimi inari/, "https://en.wikipedia.org/wiki/Fushimi_Inari-taisha"],
-    [/tokyo tower/, "https://en.wikipedia.org/wiki/Tokyo_Tower"],
     [/shinkansen/, "https://en.wikipedia.org/wiki/Shinkansen"],
     [/\btgv\b/, "https://en.wikipedia.org/wiki/TGV"],
     [/\bice\b|intercity-express/, "https://en.wikipedia.org/wiki/Intercity_Express"],
