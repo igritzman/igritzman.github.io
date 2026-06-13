@@ -1137,6 +1137,13 @@ const cityLabels = [
   { id: "guangzhou", name: "Guangzhou", coordinate: [113.2644, 23.1291] },
   { id: "shenzhen", name: "Shenzhen", coordinate: [114.0579, 22.5431] },
   { id: "chongqing", name: "Chongqing", coordinate: [106.5516, 29.563] },
+  { id: "tianjin", name: "Tianjin", coordinate: [117.3616, 39.3434] },
+  { id: "harbin", name: "Harbin", coordinate: [126.6424, 45.7567] },
+  { id: "wuhan", name: "Wuhan", coordinate: [114.3055, 30.5928] },
+  { id: "chengdu", name: "Chengdu", coordinate: [104.0665, 30.5728] },
+  { id: "xian", name: "Xi'an", coordinate: [108.9398, 34.3416] },
+  { id: "nanjing", name: "Nanjing", coordinate: [118.7969, 32.0603] },
+  { id: "hangzhou", name: "Hangzhou", coordinate: [120.1551, 30.2741] },
   { id: "mumbai", name: "Mumbai", coordinate: [72.8777, 19.076] },
   { id: "delhi", name: "Delhi", coordinate: [77.209, 28.6139] },
   { id: "jakarta", name: "Jakarta", coordinate: [106.8456, -6.2088] },
@@ -1169,11 +1176,18 @@ const cityLabels = [
   { id: "sapporo", name: "Sapporo", coordinate: [141.3545, 43.0618] },
   { id: "yokohama", name: "Yokohama", coordinate: [139.638, 35.4437] },
   { id: "nagoya", name: "Nagoya", coordinate: [136.9066, 35.1815] },
+  { id: "fukuoka", name: "Fukuoka", coordinate: [130.4017, 33.5902] },
+  { id: "kobe", name: "Kobe", coordinate: [135.1955, 34.6901] },
   { id: "addis-ababa", name: "Addis Ababa", coordinate: [38.7578, 8.9806] },
   { id: "zagreb", name: "Zagreb", coordinate: [15.9819, 45.815] },
   { id: "ljubljana", name: "Ljubljana", coordinate: [14.5058, 46.0569] },
   { id: "dakar", name: "Dakar", coordinate: [-17.4677, 14.7167] },
   { id: "curitiba", name: "Curitiba", coordinate: [-49.2733, -25.4284] },
+  { id: "florianopolis", name: "Florianopolis", coordinate: [-48.548, -27.5949] },
+  { id: "recife", name: "Recife", coordinate: [-34.877, -8.0476] },
+  { id: "salvador", name: "Salvador", coordinate: [-38.5014, -12.9777] },
+  { id: "brasilia", name: "Brasilia", coordinate: [-47.8825, -15.7942] },
+  { id: "porto-alegre", name: "Porto Alegre", coordinate: [-51.2177, -30.0346] },
   { id: "santiago", name: "Santiago", coordinate: [-70.6693, -33.4489] },
   { id: "salt-lake-city", name: "Salt Lake City", coordinate: [-111.891, 40.7608] },
   { id: "seattle", name: "Seattle", coordinate: [-122.3321, 47.6062] },
@@ -1181,21 +1195,66 @@ const cityLabels = [
   { id: "calgary", name: "Calgary", coordinate: [-114.0719, 51.0447] },
   { id: "houston", name: "Houston", coordinate: [-95.3698, 29.7604] },
   { id: "phoenix", name: "Phoenix", coordinate: [-112.074, 33.4484] },
+  { id: "philadelphia", name: "Philadelphia", coordinate: [-75.1652, 39.9526] },
+  { id: "dallas", name: "Dallas", coordinate: [-96.797, 32.7767] },
+  { id: "san-antonio", name: "San Antonio", coordinate: [-98.4936, 29.4241] },
+  { id: "san-diego", name: "San Diego", coordinate: [-117.1611, 32.7157] },
   { id: "tucson", name: "Tucson", coordinate: [-110.9747, 32.2226] },
   { id: "jacksonville", name: "Jacksonville", coordinate: [-81.6557, 30.3322] },
   { id: "charlotte", name: "Charlotte", coordinate: [-80.8431, 35.2271] },
   { id: "austin", name: "Austin", coordinate: [-97.7431, 30.2672] },
   { id: "tampa", name: "Tampa", coordinate: [-82.4572, 27.9506] },
+  { id: "orlando", name: "Orlando", coordinate: [-81.3792, 28.5383] },
+  { id: "atlanta", name: "Atlanta", coordinate: [-84.388, 33.749] },
+  { id: "portland", name: "Portland", coordinate: [-122.6784, 45.5152] },
   { id: "pittsburgh", name: "Pittsburgh", coordinate: [-79.9959, 40.4406] },
   { id: "detroit", name: "Detroit", coordinate: [-83.0458, 42.3314] },
   { id: "cleveland", name: "Cleveland", coordinate: [-81.6944, 41.4993] },
   { id: "minneapolis", name: "Minneapolis", coordinate: [-93.265, 44.9778] },
+  { id: "barranquilla", name: "Barranquilla", coordinate: [-74.8069, 10.9639] },
+  { id: "cartagena", name: "Cartagena", coordinate: [-75.4794, 10.391] },
+  { id: "cali", name: "Cali", coordinate: [-76.532, 3.4516] },
+  { id: "medellin", name: "Medellin", coordinate: [-75.5812, 6.2442] },
+  { id: "bucaramanga", name: "Bucaramanga", coordinate: [-73.1198, 7.1193] },
+  { id: "sochi", name: "Sochi", coordinate: [39.7342, 43.6028] },
+  { id: "vladivostok", name: "Vladivostok", coordinate: [131.8855, 43.1155] },
+  { id: "kazan", name: "Kazan", coordinate: [49.1064, 55.7961] },
+  { id: "yekaterinburg", name: "Yekaterinburg", coordinate: [60.6122, 56.8519] },
   { id: "lima", name: "Lima", coordinate: [-77.0428, -12.0464] },
 ] satisfies Array<{ id: string; name: string; coordinate: [number, number] }>;
 
 const projectedCityLabels = cityLabels.flatMap((city) => {
   const projected = worldProjection(city.coordinate);
   return projected ? [{ ...city, x: projected[0], y: projected[1] }] : [];
+});
+
+const airportLabels = [
+  { code: "JFK", name: "John F. Kennedy International Airport", city: "New York", countryId: "united-states", coordinate: [-73.7781, 40.6413], fact: "Major transatlantic and long-haul gateway for New York." },
+  { code: "LGA", name: "LaGuardia Airport", city: "New York", countryId: "united-states", coordinate: [-73.874, 40.7769], fact: "Short-haul domestic airport tied closely to New York city geography." },
+  { code: "EWR", name: "Newark Liberty International Airport", city: "Newark/New York", countryId: "united-states", coordinate: [-74.1745, 40.6895], fact: "New Jersey gateway linked to New York by rail and road." },
+  { code: "PHL", name: "Philadelphia International Airport", city: "Philadelphia", countryId: "united-states", coordinate: [-75.2411, 39.8744], fact: "Airport gateway for Philadelphia and the Northeast Corridor." },
+  { code: "DCA", name: "Ronald Reagan Washington National Airport", city: "Washington, D.C.", countryId: "united-states", coordinate: [-77.0377, 38.8512], fact: "Metro-linked airport beside the Potomac." },
+  { code: "IAD", name: "Washington Dulles International Airport", city: "Washington, D.C.", countryId: "united-states", coordinate: [-77.4565, 38.9531], fact: "Silver Line airport link expands the D.C. region westward." },
+  { code: "ATL", name: "Hartsfield-Jackson Atlanta International Airport", city: "Atlanta", countryId: "united-states", coordinate: [-84.4277, 33.6407], fact: "One of the world's busiest passenger hubs." },
+  { code: "MIA", name: "Miami International Airport", city: "Miami", countryId: "united-states", coordinate: [-80.287, 25.7959], fact: "Major Latin America and Caribbean gateway." },
+  { code: "FLL", name: "Fort Lauderdale-Hollywood International Airport", city: "Fort Lauderdale", countryId: "united-states", coordinate: [-80.1527, 26.0726], fact: "South Florida airport paired with Tri-Rail and Brightline corridors." },
+  { code: "MCO", name: "Orlando International Airport", city: "Orlando", countryId: "united-states", coordinate: [-81.3081, 28.4312], fact: "Brightline now links Orlando airport with South Florida." },
+  { code: "TPA", name: "Tampa International Airport", city: "Tampa", countryId: "united-states", coordinate: [-82.5332, 27.9755], fact: "West Florida aviation gateway." },
+  { code: "CLT", name: "Charlotte Douglas International Airport", city: "Charlotte", countryId: "united-states", coordinate: [-80.9431, 35.214], fact: "Major Southeast connecting hub." },
+  { code: "ORD", name: "Chicago O'Hare International Airport", city: "Chicago", countryId: "united-states", coordinate: [-87.9073, 41.9742], fact: "Blue Line rail connects O'Hare to the Chicago Loop." },
+  { code: "DFW", name: "Dallas Fort Worth International Airport", city: "Dallas-Fort Worth", countryId: "united-states", coordinate: [-97.0403, 32.8998], fact: "Huge Texas hub between Dallas and Fort Worth." },
+  { code: "IAH", name: "George Bush Intercontinental Airport", city: "Houston", countryId: "united-states", coordinate: [-95.3414, 29.9902], fact: "Houston's major long-haul gateway." },
+  { code: "DEN", name: "Denver International Airport", city: "Denver", countryId: "united-states", coordinate: [-104.6737, 39.8561], fact: "Mountain West hub with airport rail to downtown Denver." },
+  { code: "PHX", name: "Phoenix Sky Harbor International Airport", city: "Phoenix", countryId: "united-states", coordinate: [-112.0116, 33.4343], fact: "Desert metro airport tied to Valley Metro Rail by Sky Train." },
+  { code: "LAS", name: "Harry Reid International Airport", city: "Las Vegas", countryId: "united-states", coordinate: [-115.1537, 36.084], fact: "Visitor-heavy desert aviation gateway." },
+  { code: "SEA", name: "Seattle-Tacoma International Airport", city: "Seattle", countryId: "united-states", coordinate: [-122.3088, 47.4502], fact: "Link light rail connects Sea-Tac to Seattle." },
+  { code: "SFO", name: "San Francisco International Airport", city: "San Francisco", countryId: "united-states", coordinate: [-122.379, 37.6213], fact: "BART airport station ties SFO into the Bay Area rail network." },
+  { code: "LAX", name: "Los Angeles International Airport", city: "Los Angeles", countryId: "united-states", coordinate: [-118.4085, 33.9416], fact: "LAX is the West Coast's signature global air gateway." },
+] satisfies Array<{ code: string; name: string; city: string; countryId: string; coordinate: [number, number]; fact: string }>;
+
+const projectedAirportLabels = airportLabels.flatMap((airport) => {
+  const projected = worldProjection(airport.coordinate);
+  return projected ? [{ ...airport, x: projected[0], y: projected[1] }] : [];
 });
 
 function attractionIcon(kind: AttractionKind) {
@@ -2181,6 +2240,8 @@ function LandingScreen({ onStart }: { onStart: () => void }) {
       <img className="landing-hero-image" src="/images/brand/geotransit-hero.png" alt="" />
       <div className="landing-overlay" />
       <section className="landing-content">
+        <img className="landing-logo" src="/images/brand/geontransit-full-logo.png" alt="GEONTRANSIT" />
+        <p>Explore Geography, Cities, Transit &amp; Infrastructure Around The World</p>
         <button type="button" className="landing-start-button" onClick={onStart}>
           Start Exploring →
         </button>
@@ -2210,7 +2271,7 @@ function App() {
   const [questionCount, setQuestionCount] = useState<10 | 15 | 20 | 150>(10);
   const [selectedStartLevel, setSelectedStartLevel] = useState<DifficultyLevel>("gateway");
   const [showReviewAnswers, setShowReviewAnswers] = useState(false);
-  const [showGuide, setShowGuide] = useState(() => localStorage.getItem("geontransit.guide.seen.v3") !== "yes");
+  const [showGuide, setShowGuide] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [showStartMenu, setShowStartMenu] = useState(false);
@@ -2448,7 +2509,7 @@ function resetProfile() {
     <main className="app-shell">
       <header className="topbar">
         <div className="brand-lockup">
-          <img className="brand-logo-image" src="/images/brand/geotransit-logo-clean.png" alt="GEONTRANSIT" />
+          <img className="brand-logo-image" src="/images/brand/geontransit-full-logo.png" alt="GEONTRANSIT" />
         </div>
         <div className="status-grid" aria-label="Profile status">
           <Metric label="Operator" value={`${profile.emoji ?? "🚇"} ${profile.name || (profile.isGuest ? "Guest user" : "Create username")}`} />
@@ -3140,15 +3201,33 @@ function GuideVisual({ type }: { type: string }) {
         <div className="guide-discovery-demo">
           <div>
             <strong>Explore GEONTRANSIT</strong>
+            <span>Countries</span>
+            <span>Regions</span>
             <span>Rail</span>
             <span>Airports</span>
+            <span>Islands</span>
+            <span>Mountains</span>
             <span>Borders</span>
+            <span>Mega Cities</span>
             <span>Hidden Gems</span>
           </div>
           <article>
-            <em>Mountain railways</em>
-            <strong>Which countries turn steep geography into transit?</strong>
-            <p>Expand a card, compare the country chips, then open the profile that helps the idea stick.</p>
+            <img src="/images/ask/dubai-airport.png" alt="" />
+            <em>Airports</em>
+            <strong>Which countries became global transfer hubs?</strong>
+            <p>Expand the card, compare country chips, then open the profile.</p>
+          </article>
+          <article>
+            <img src="/images/ask/mountain-railway-reference.png" alt="" />
+            <em>Mountains</em>
+            <strong>Where does terrain shape rail?</strong>
+            <p>Use the image first, then connect it to the geography facts.</p>
+          </article>
+          <article>
+            <img src="/images/ask/cairo-megacity.png" alt="" />
+            <em>Mega Cities</em>
+            <strong>How do huge cities move?</strong>
+            <p>Look for metros, airports, rivers, ring roads, and station hubs.</p>
           </article>
         </div>
       )}
@@ -3665,7 +3744,18 @@ function MapTab({
       .filter((city) => city.name.toLowerCase().includes(countrySearchQuery))
       .slice(0, 4)
     : [];
-  const searchResultCount = matchingCountries.length + matchingTransit.length + matchingAttractions.length + matchingCities.length;
+  const matchingAirports = countrySearchQuery
+    ? projectedAirportLabels
+      .filter((airport) => [airport.code, airport.name, airport.city].some((value) => value.toLowerCase().includes(countrySearchQuery)))
+      .slice(0, 5)
+    : [];
+  const matchingSubregions = countrySearchQuery
+    ? regions
+      .flatMap((region) => subregionsFor(region.id).map((name) => ({ name, region })))
+      .filter((item) => item.name.toLowerCase().includes(countrySearchQuery))
+      .slice(0, 6)
+    : [];
+  const searchResultCount = matchingCountries.length + matchingTransit.length + matchingAttractions.length + matchingCities.length + matchingAirports.length + matchingSubregions.length;
   const selectedRegionFileSlug = selectedRegion?.id ?? "country";
   const regionalLayerRegions = Object.keys(gadmLevelOneFiles)
     .map((regionId) => regions.find((region) => region.id === regionId))
@@ -3742,6 +3832,23 @@ function MapTab({
     onMapPanChange({ x: 0, y: 0 });
   };
 
+  const selectAirportSearchResult = (airport: (typeof projectedAirportLabels)[number]) => {
+    const region = regions.find((item) => item.id === airport.countryId);
+    setCountrySearch(`${airport.code} · ${airport.city}`);
+    setCountrySearchFocused(false);
+    onTransitSystemsLayerChange(true);
+    if (region) onSelectRegion(region.id);
+    onMapZoomChange(Math.max(mapZoom, 5.6));
+    onMapPanChange({ x: 0, y: 0 });
+  };
+
+  const selectSubregionSearchResult = (item: { name: string; region: Region }) => {
+    setCountrySearch(item.name);
+    setCountrySearchFocused(false);
+    onRegionalBoundaryLayerChange(true);
+    selectRegionAndZoom(item.region.id);
+  };
+
   const updateCountrySearch = (value: string) => {
     setCountrySearch(value);
     if (!value.trim()) {
@@ -3758,7 +3865,7 @@ function MapTab({
   return (
     <section className={`map-layout ${sidebarCollapsed ? "sidebar-collapsed" : ""}`}>
       <div className="map-column">
-        <details className="map-toolbar compact-tool-panel" open>
+        <details className="map-toolbar compact-tool-panel">
           <summary>
             <span>Show / hide map controls</span>
             <em>region, zoom, layers</em>
@@ -3820,6 +3927,18 @@ function MapTab({
                   <button key={city.id} type="button" role="option" onMouseDown={(event) => event.preventDefault()} onClick={() => selectCitySearchResult(city)}>
                     <span className="search-result-icon">◎</span>
                     <span>{city.name}<em>city</em></span>
+                  </button>
+                ))}
+                {matchingAirports.map((airport) => (
+                  <button key={airport.code} type="button" role="option" onMouseDown={(event) => event.preventDefault()} onClick={() => selectAirportSearchResult(airport)}>
+                    <span className="search-result-icon">✈</span>
+                    <span>{airport.code}<em>{airport.city} · {airport.name}</em></span>
+                  </button>
+                ))}
+                {matchingSubregions.map((item) => (
+                  <button key={`${item.region.id}-${item.name}`} type="button" role="option" onMouseDown={(event) => event.preventDefault()} onClick={() => selectSubregionSearchResult(item)}>
+                    <span className="search-result-icon">▧</span>
+                    <span>{item.name}<em>{item.region.name} region</em></span>
                   </button>
                 ))}
               </div>
@@ -4525,6 +4644,23 @@ function OperationsMap({
             </span>
           ))}
         </div>
+        {(transitSystemsLayer || zoom > 2.2) ? (
+          <div className="airport-marker-layer" aria-label="Airport code markers">
+            {projectedAirportLabels.map((airport) => (
+              <button
+                key={airport.code}
+                type="button"
+                className="airport-marker"
+                style={{ left: `${airport.x}%`, top: `${airport.y}%`, transform: `translate(-50%, -50%) scale(${1 / zoom})` }}
+                onClick={() => onSelect(airport.countryId)}
+                title={`${airport.code} · ${airport.name}: ${airport.fact}`}
+                aria-label={`Select ${airport.name}`}
+              >
+                <span>{airport.code}</span>
+              </button>
+            ))}
+          </div>
+        ) : null}
         {showRegionalBoundaries && dcSubdivision && dcProjected ? (
           <button
             type="button"
@@ -5182,6 +5318,7 @@ const askGeoTransitCards: AskCard[] = [
       { label: "Bolivia", regionId: "bolivia", flag: "BO", note: "La Paz cable cars solve extreme elevation differences." },
       { label: "Japan", regionId: "japan", flag: "JP", note: "Mountain corridors and urban rail meet in tight terrain." },
     ],
+    image: { src: "/images/ask/mountain-railway-reference.png", alt: "Mountain railway climbing through alpine terrain" },
   },
   {
     id: "island-transit",
@@ -5209,7 +5346,7 @@ const askGeoTransitCards: AskCard[] = [
       { label: "Morocco", regionId: "morocco", flag: "MA", note: "Tramways and Al Boraq create a layered transit profile." },
       { label: "Ethiopia", regionId: "ethiopia", flag: "ET", note: "Addis Ababa light rail is a key urban example." },
     ],
-    image: { src: "/images/metro-images/Cairo_Rapid_Transit_map.png", alt: "Cairo rapid transit map" },
+    image: { src: "/images/ask/cairo-megacity.png", alt: "Cairo skyline and Nile megacity context" },
   },
   {
     id: "geography-shaped-transport",
@@ -5263,7 +5400,7 @@ const askGeoTransitCards: AskCard[] = [
       { label: "Turkey", regionId: "turkey", flag: "TR", note: "Istanbul sits between Europe, Asia, and Middle East flows." },
       { label: "Netherlands", regionId: "netherlands", flag: "NL", note: "Schiphol links a small country to a huge global network." },
     ],
-    image: { src: "/images/country-images/United%20Arab%20Emirates.jpg", alt: "United Arab Emirates skyline and airport-hub context" },
+    image: { src: "/images/ask/dubai-airport.png", alt: "Dubai airport and skyline as a global hub reference" },
   },
   {
     id: "island-rail-systems",
@@ -5516,12 +5653,12 @@ function subregionsFor(regionId: string) {
     australia: ["New South Wales", "Victoria", "Queensland", "Western Australia", "South Australia", "Tasmania", "Northern Territory"],
     "united-kingdom": ["England", "Scotland", "Wales", "Northern Ireland", "Greater London", "West Midlands"],
     "south-africa": ["Gauteng", "Western Cape", "KwaZulu-Natal", "Eastern Cape", "Free State", "Mpumalanga", "Limpopo"],
-    china: ["Beijing", "Shanghai", "Guangdong", "Sichuan", "Yunnan", "Xinjiang", "Tibet", "Hong Kong"],
+    china: ["Beijing", "Shanghai", "Guangdong", "Sichuan", "Yunnan", "Xinjiang", "Tibet", "Hong Kong", "Macau", "Chongqing", "Tianjin", "Zhejiang", "Jiangsu", "Hubei", "Hunan", "Heilongjiang", "Fujian"],
     "hong-kong": ["Hong Kong Island", "Kowloon", "New Territories", "Lantau Island", "Outlying Islands", "Sha Tin", "Tsuen Wan", "Yuen Long"],
     india: ["Delhi", "Maharashtra", "Karnataka", "Tamil Nadu", "West Bengal", "Gujarat", "Uttar Pradesh", "Kerala"],
     indonesia: ["Java", "Sumatra", "Bali", "Kalimantan", "Sulawesi", "Papua"],
     argentina: ["Buenos Aires Province", "Cordoba", "Santa Fe", "Mendoza", "Patagonia", "Tierra del Fuego"],
-    nigeria: ["Lagos State", "Federal Capital Territory", "Kano State", "Rivers State", "Oyo State", "Kaduna State"],
+    nigeria: ["Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi", "Bayelsa", "Benue", "Borno", "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "Federal Capital Territory", "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfara"],
     russia: ["Moscow", "Saint Petersburg", "Siberia", "Far East", "Tatarstan", "Krasnodar Krai"],
     germany: ["Bavaria", "Berlin", "Hamburg", "Hesse", "North Rhine-Westphalia", "Saxony", "Baden-Wurttemberg", "Lower Saxony"],
     france: ["Ile-de-France", "Provence-Alpes-Cote d'Azur", "Occitanie", "Nouvelle-Aquitaine", "Brittany", "Corsica"],
@@ -5530,7 +5667,8 @@ function subregionsFor(regionId: string) {
     morocco: ["Casablanca-Settat", "Rabat-Sale-Kenitra", "Marrakesh-Safi", "Tangier-Tetouan-Al Hoceima", "Fes-Meknes", "Souss-Massa"],
     algeria: ["Algiers", "Oran", "Constantine", "Annaba", "Adrar", "Tamanrasset"],
     egypt: ["Cairo", "Alexandria", "Giza", "Luxor", "Aswan", "South Sinai", "Suez"],
-    "south-korea": ["Seoul Capital Area", "Busan", "Incheon", "Daegu", "Jeju", "Gyeonggi"],
+    "south-korea": ["Seoul Capital Area", "Busan", "Daegu", "Incheon", "Gwangju", "Daejeon", "Ulsan", "Sejong", "Gyeonggi", "Gangwon", "North Chungcheong", "South Chungcheong", "North Jeolla", "South Jeolla", "North Gyeongsang", "South Gyeongsang", "Jeju"],
+    portugal: ["Azores", "Madeira", "Lisbon", "Porto", "Setubal", "Braga", "Coimbra", "Faro", "Aveiro", "Leiria", "Viseu", "Evora", "Beja", "Vila Real", "Braganca", "Guarda", "Castelo Branco", "Portalegre", "Viana do Castelo", "Santarem"],
     uae: ["Abu Dhabi", "Dubai", "Sharjah", "Ajman", "Ras Al Khaimah", "Fujairah"],
     denmark: ["Zealand", "Jutland", "Funen", "Capital Region", "Aarhus Region"],
     thailand: ["Bangkok", "Chiang Mai", "Phuket", "Isan", "Chonburi", "Krabi"],

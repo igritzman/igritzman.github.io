@@ -127,8 +127,8 @@ input {
   position: absolute;
   inset: 0 0 auto;
   z-index: 1;
-  height: 20vh;
-  background: linear-gradient(180deg, rgba(3, 8, 12, 0.72), rgba(3, 8, 12, 0.12), transparent);
+  height: 26vh;
+  background: linear-gradient(180deg, rgba(3, 8, 12, 0.9), rgba(3, 8, 12, 0.35), transparent);
   pointer-events: none;
 }
 
@@ -139,47 +139,49 @@ input {
   height: 100%;
   object-fit: cover;
   object-position: center 46%;
-  transform: scale(1.2);
+  transform: scale(1.03);
 }
 
 .landing-overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(3, 8, 12, 0.08), rgba(3, 8, 12, 0.46)),
-    linear-gradient(90deg, rgba(3, 8, 12, 0.34), transparent 34%, rgba(3, 8, 12, 0.24));
+    linear-gradient(180deg, rgba(3, 8, 12, 0.16), rgba(3, 8, 12, 0.2) 46%, rgba(3, 8, 12, 0.9) 84%),
+    linear-gradient(90deg, rgba(3, 8, 12, 0.38), transparent 34%, rgba(3, 8, 12, 0.3));
 }
 
 .landing-content {
   position: relative;
   z-index: 1;
   display: grid;
+  gap: clamp(0.85rem, 2vw, 1.25rem);
   justify-items: center;
-  width: min(760px, calc(100% - 2rem));
+  width: min(1120px, calc(100% - 2rem));
   padding: clamp(1.2rem, 3vw, 2rem);
   text-align: center;
-  transform: translateY(13vh);
+  transform: translateY(8vh);
 }
 
 .landing-logo {
-  width: min(390px, 82vw);
+  width: min(980px, 92vw);
   height: auto;
   object-fit: contain;
-  border-radius: 8px;
-  box-shadow: 0 18px 70px rgba(0, 0, 0, 0.26);
+  border-radius: 6px;
+  box-shadow: 0 18px 70px rgba(0, 0, 0, 0.3);
 }
 
 .landing-content p {
   margin: 0;
   color: #f5fbfc;
-  font-size: clamp(1.15rem, 2.4vw, 2rem);
+  font-size: clamp(1.05rem, 2.2vw, 1.65rem);
   font-weight: 900;
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.62);
+  max-width: 760px;
 }
 
 .landing-start-button {
-  width: min(680px, 82vw);
-  min-height: clamp(72px, 10vw, 104px);
+  width: min(420px, 82vw);
+  min-height: clamp(58px, 8vw, 76px);
   padding: 0 2.25rem;
   border-color: rgba(183, 244, 97, 0.82);
   background:
@@ -1071,14 +1073,14 @@ h3 {
 
 .guide-discovery-demo {
   display: grid;
-  grid-template-columns: minmax(180px, 0.85fr) minmax(240px, 1.15fr);
-  width: min(720px, 100%);
+  grid-template-columns: minmax(160px, 0.75fr) repeat(3, minmax(150px, 1fr));
+  width: min(940px, 100%);
 }
 
 .guide-discovery-demo > div,
 .guide-discovery-demo article {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  align-content: start;
   gap: 0.5rem;
   border: 1px solid rgba(141, 179, 185, 0.2);
   border-radius: 8px;
@@ -1086,14 +1088,22 @@ h3 {
   padding: 0.8rem;
 }
 
-.guide-discovery-demo article {
-  display: grid;
-  align-content: center;
+.guide-discovery-demo > div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.guide-discovery-demo article img {
+  width: 100%;
+  aspect-ratio: 1.85;
+  border-radius: 6px;
+  object-fit: cover;
 }
 
 .guide-discovery-demo article p {
   margin: 0;
   color: #cfe4e7;
+  font-size: 0.78rem;
 }
 
 .guide-lesson-demo {
@@ -1294,6 +1304,7 @@ h3 {
 }
 
 .map-column {
+  position: relative;
   display: grid;
   gap: 0.75rem;
 }
@@ -1316,7 +1327,13 @@ h3 {
 }
 
 .map-toolbar.compact-tool-panel {
-  margin-bottom: -0.2rem;
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  z-index: 18;
+  width: min(470px, calc(100% - 1.7rem));
+  margin-bottom: 0;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.24);
 }
 
 .map-toolbar > div:first-child span {
@@ -2427,6 +2444,36 @@ h3 {
   inset: 0;
   z-index: 4;
   pointer-events: none;
+}
+
+.airport-marker-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.airport-marker {
+  position: absolute;
+  min-width: 34px;
+  min-height: 22px;
+  padding: 0 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.74);
+  border-radius: 999px;
+  background: rgba(246, 250, 250, 0.92);
+  color: #102537;
+  font-size: 0.62rem;
+  font-weight: 950;
+  letter-spacing: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+  pointer-events: auto;
+}
+
+.airport-marker:hover,
+.airport-marker:focus-visible {
+  border-color: rgba(255, 198, 84, 0.96);
+  background: #ffffff;
+  outline: none;
 }
 
 .map-marker {
@@ -4399,14 +4446,15 @@ h3 {
   display: grid;
   gap: 0.2rem;
   padding: 0.8rem 0.95rem;
+  background: rgba(248, 252, 252, 0.96);
 }
 
 .image-lightbox-card strong {
-  color: #f4fbfc;
+  color: #061016;
 }
 
 .image-lightbox-card span {
-  color: #a9bec4;
+  color: #30464d;
   font-size: 0.86rem;
 }
 
@@ -5091,7 +5139,8 @@ h3 {
   .guide-review-screen,
   .guide-export-screen,
   .guide-question-demo,
-  .guide-region-demo {
+  .guide-region-demo,
+  .guide-discovery-demo {
     grid-template-columns: 1fr;
   }
 

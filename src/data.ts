@@ -2377,6 +2377,8 @@ const populationEstimates: Record<string, string> = {
   "cabo-verde": "about 600,000",
   eritrea: "about 3.7 million",
   "hong-kong": "about 7.5 million",
+  azores: "about 240,000",
+  "canary-islands": "about 2.2 million",
 };
 
 const capitalOverrides: Record<string, string> = {
@@ -2515,6 +2517,8 @@ const capitalOverrides: Record<string, string> = {
   "puerto-rico": "San Juan",
   "saint-pierre-and-miquelon": "Saint-Pierre",
   "hong-kong": "Hong Kong",
+  azores: "Ponta Delgada",
+  "canary-islands": "Las Palmas de Gran Canaria and Santa Cruz de Tenerife",
 };
 
 const noAirportRegionIds = new Set([
@@ -2542,7 +2546,7 @@ const flagCodeOverrides: Record<string, string> = {
   "costa-rica": "CR", cuba: "CU", cyprus: "CY", cameroon: "CM", albania: "AL", cambodia: "KH", burundi: "BI",
   uganda: "UG", rwanda: "RW", "sao-tome-and-principe": "ST", "equatorial-guinea": "GQ", philippines: "PH", "north-macedonia": "MK", palau: "PW",
   ethiopia: "ET", togo: "TG", "central-african-republic": "CF", bougainville: "PG", taiwan: "TW", "vatican-city": "VA",
-  "puerto-rico": "PR", "saint-pierre-and-miquelon": "PM", "hong-kong": "HK",
+  "puerto-rico": "PR", "saint-pierre-and-miquelon": "PM", "hong-kong": "HK", azores: "PT", "canary-islands": "ES",
 };
 
 function flagLookupSlug(value: string) {
@@ -2576,25 +2580,48 @@ function flagCodeForRegion(id: string, name: string) {
 
 const generatedProfileOverrides: Record<string, Partial<Pick<Region, "majorCities" | "airports" | "rail" | "metro" | "highways" | "maritime" | "landmarks" | "riversMountains" | "placesOfInterest" | "funFacts">>> = {
   "united-states": {
-    majorCities: ["Washington, D.C.", "New York", "Los Angeles", "Chicago", "Houston", "Miami", "Denver", "Seattle", "Honolulu", "Anchorage"],
+    majorCities: ["Washington, D.C.", "New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "Dallas", "San Antonio", "San Diego", "Austin", "Jacksonville", "San Francisco", "Seattle", "Denver", "Minneapolis", "Portland", "Tampa", "Miami", "Orlando", "Atlanta"],
+    airports: ["JFK", "LGA", "EWR", "PHL", "DCA", "IAD", "ATL", "MIA", "FLL", "MCO", "TPA", "CLT", "ORD", "DFW", "IAH", "DEN", "PHX", "LAS", "SEA", "SFO", "LAX"],
     rail: ["Amtrak Northeast Corridor", "Brightline Florida", "Tri-Rail South Florida", "SunRail Orlando", "Caltrain/BART Bay Area"],
     metro: ["NYC Subway", "Los Angeles Metro", "Miami Metrorail/Metromover", "Chicago L", "BART", "MARTA", "DART", "Boston T"],
     highways: ["I-95", "I-5", "I-10", "I-70", "I-80", "Florida Turnpike", "Lake Pontchartrain Causeway"],
     maritime: ["Hudson River", "Great Lakes ports", "Port of Los Angeles/Long Beach", "PortMiami", "Mississippi River corridor"],
     landmarks: ["Statue of Liberty", "Golden Gate Bridge", "Grand Canyon", "Four Corners", "National Mall"],
     placesOfInterest: ["New York Penn Station", "Los Angeles Union Station", "MiamiCentral", "Atlanta Five Points station", "San Francisco Embarcadero BART"],
+    funFacts: [
+      "The Northeast Corridor links Boston, New York, Philadelphia, Baltimore, and Washington through the country's strongest intercity rail spine.",
+      "Chicago's Loop is a rare elevated-rail downtown circuit that makes the city an easy transit geography lesson.",
+      "Dallas-Fort Worth, Atlanta, Denver, Phoenix, Las Vegas, Seattle, SFO, and LAX show how Sun Belt, mountain, and West Coast air hubs shape national movement.",
+      "California and Florida make a useful contrast: BART/Caltrain/LA Metro on one coast, Brightline/Tri-Rail/SunRail/Miami Metrorail on the other.",
+      "The U.S. profile should be read by region: Northeast rail, Great Lakes metros, Texas airports, Mountain West distance, and Pacific ports.",
+    ],
   },
   india: {
     landmarks: ["Taj Mahal", "India Gate", "Red Fort", "Gateway of India", "Jaipur railway landmarks"],
     placesOfInterest: ["Agra Fort", "Taj Mahal", "New Delhi station district", "Mumbai CST", "Varanasi ghats"],
   },
   china: {
+    majorCities: ["Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Chongqing", "Tianjin", "Harbin", "Wuhan", "Chengdu", "Xi'an", "Nanjing", "Hangzhou", "Hong Kong"],
+    airports: ["PEK", "PKX", "PVG", "SHA", "CAN", "SZX", "CTU", "TFU", "CKG", "XIY", "HGH", "HKG"],
+    rail: ["China high-speed rail", "Beijing-Shanghai HSR", "Guangzhou-Shenzhen-Hong Kong Express Rail Link", "Chengdu-Chongqing intercity rail", "Harbin-Dalian HSR"],
+    metro: ["Beijing Subway", "Shanghai Metro", "Guangzhou Metro", "Shenzhen Metro", "Chongqing Rail Transit", "Hong Kong MTR"],
     landmarks: ["Great Wall of China", "Forbidden City", "Shanghai skyline", "Terracotta Army", "Hong Kong-Zhuhai-Macao Bridge"],
     placesOfInterest: ["Beijing South railway station", "Shanghai Hongqiao hub", "Great Wall", "Xi'an city wall", "Pearl River Delta"],
   },
   japan: {
+    majorCities: ["Tokyo", "Yokohama", "Osaka", "Nagoya", "Sapporo", "Kyoto", "Kobe", "Fukuoka", "Hiroshima", "Sendai"],
+    airports: ["HND", "NRT", "KIX", "ITM", "CTS", "FUK", "NGO", "OKA", "HIJ", "SDJ"],
+    rail: ["Tokaido Shinkansen", "Sanyo Shinkansen", "Tohoku Shinkansen", "Hokkaido Shinkansen", "Kyushu Shinkansen"],
+    metro: ["Tokyo Metro", "Toei Subway", "Osaka Metro", "Yokohama Municipal Subway", "Sapporo Subway", "Fukuoka City Subway"],
     landmarks: ["Mount Fuji", "Kyoto temples", "Tokyo Station", "Hiroshima Peace Memorial", "Shinkansen platforms"],
     placesOfInterest: ["Kyoto", "Tokyo Station", "Hiroshima Station", "Osaka-Umeda", "Hakone/Mount Fuji gateway"],
+  },
+  colombia: {
+    majorCities: ["Bogota", "Medellin", "Cali", "Barranquilla", "Cartagena", "Bucaramanga"],
+    airports: ["BOG", "MDE", "CLO", "BAQ", "CTG", "BGA"],
+    rail: ["Metro de Medellin", "Bogota RegioTram project", "Caribbean freight corridors", "mountain-road bus corridors", "port freight links"],
+    metro: ["Medellin Metro", "TransMilenio BRT", "Cali MIO", "Barranquilla Transmetro", "Cartagena buses"],
+    landmarks: ["Monserrate", "Cartagena walled city", "Medellin Metrocable", "Coffee Cultural Landscape", "Magdalena River"],
   },
   spain: {
     landmarks: ["Park Guell", "Sagrada Familia", "Alhambra", "Puerta del Sol", "Barcelona Sants"],
@@ -2605,9 +2632,26 @@ const generatedProfileOverrides: Record<string, Partial<Pick<Region, "majorCitie
     placesOfInterest: ["Chefchaouen", "Marrakesh medina", "Casablanca Casa-Voyageurs", "Tangier", "Rabat tram corridor"],
   },
   brazil: {
-    majorCities: ["Brasilia", "Sao Paulo", "Rio de Janeiro", "Belem", "Salvador", "Manaus"],
+    majorCities: ["Brasilia", "Sao Paulo", "Rio de Janeiro", "Salvador", "Recife", "Curitiba", "Florianopolis", "Porto Alegre", "Belo Horizonte", "Manaus", "Belem"],
+    airports: ["GRU", "CGH", "GIG", "SDU", "BSB", "SSA", "REC", "CWB", "FLN", "POA", "BEL", "MAO"],
+    rail: ["Sao Paulo Metro/CPTM", "Rio SuperVia", "Curitiba BRT", "Belo Horizonte Metro", "Carajas Railway"],
+    metro: ["Sao Paulo Metro", "Rio Metro", "Salvador Metro", "Recife Metro", "Brasilia Metro"],
     riversMountains: ["Amazon River", "Iguazu Falls", "Serra do Mar", "Pantanal", "Sugarloaf Mountain"],
     landmarks: ["Christ the Redeemer", "Iguazu Falls", "Amazon Theatre", "Oscar Niemeyer architecture", "Port of Santos"],
+  },
+  mexico: {
+    majorCities: ["Mexico City", "Guadalajara", "Monterrey", "Puebla", "Tijuana", "Leon", "Merida", "Queretaro", "Cancun", "San Luis Potosi"],
+    airports: ["MEX", "NLU", "GDL", "MTY", "CUN", "TIJ", "MID", "BJX", "QRO", "PVR"],
+    rail: ["Mexico City Metro", "Tren Maya", "El Insurgente Toluca-Mexico City rail", "Guadalajara light rail", "Monterrey Metro"],
+    metro: ["Mexico City Metro", "Guadalajara SITEUR", "Monterrey Metrorrey", "Metrobus CDMX", "Mi Macro Guadalajara"],
+    landmarks: ["Zocalo", "Teotihuacan", "Chapultepec", "Guadalajara historic center", "Chichen Itza"],
+  },
+  russia: {
+    majorCities: ["Moscow", "Saint Petersburg", "Novosibirsk", "Yekaterinburg", "Kazan", "Sochi", "Vladivostok", "Nizhny Novgorod"],
+    airports: ["SVO", "DME", "VKO", "LED", "OVB", "SVX", "KZN", "AER", "VVO"],
+    rail: ["Moscow Metro", "Saint Petersburg Metro", "Trans-Siberian Railway", "Sapsan high-speed rail", "Moscow Central Circle"],
+    metro: ["Moscow Metro", "Saint Petersburg Metro", "Novosibirsk Metro", "Kazan Metro", "Nizhny Novgorod Metro"],
+    landmarks: ["Red Square", "Hermitage", "Sochi Olympic Park", "Vladivostok bridges", "Kazan Kremlin"],
   },
   australia: {
     majorCities: ["Canberra", "Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide"],
@@ -2646,6 +2690,8 @@ const generatedProfileOverrides: Record<string, Partial<Pick<Region, "majorCitie
     ["Victoria Harbour", "Lantau Island", "Kowloon Peninsula", "New Territories hills", "Pearl River Delta"],
     ["Central station", "Hong Kong International Airport", "West Kowloon station", "Victoria Peak", "Tsim Sha Tsui promenade"],
   ),
+  azores: quickProfile("Azores", "Ponta Delgada", ["Angra do Heroismo", "Horta", "Ribeira Grande", "Praia da Vitoria"], ["PDL", "TER", "HOR", "PIX", "SMA"], "no railway; inter-island mobility is air and ferry led", "Ponta Delgada buses", ["EN1-1A Sao Miguel ring road", "airport roads", "island coastal roads", "port access roads"], ["Atlantic ferries", "Port of Ponta Delgada", "Horta marina", "inter-island ferry links", "North Atlantic shipping"], ["Sete Cidades", "Mount Pico", "Angra do Heroismo", "Furnas", "Horta marina"], ["North Atlantic", "volcanic islands", "Mount Pico", "calderas", "mid-ocean archipelago"]),
+  "canary-islands": quickProfile("Canary Islands", "Las Palmas de Gran Canaria and Santa Cruz de Tenerife", ["Las Palmas", "Santa Cruz de Tenerife", "La Laguna", "Arrecife"], ["LPA", "TFS", "TFN", "ACE", "FUE"], "Tenerife tram; no inter-island railway", "Tenerife Tram and island buses", ["TF-1", "GC-1", "island ring roads", "airport access roads", "port roads"], ["Port of Las Palmas", "Santa Cruz de Tenerife port", "inter-island ferries", "Atlantic cruise routes", "island cargo links"], ["Teide", "Timanfaya", "Maspalomas Dunes", "La Laguna", "Anaga"], ["Atlantic Ocean", "Teide volcano", "volcanic islands", "trade-wind coasts", "Macaronesia"]),
 };
 
 function countryProfile(
@@ -2915,6 +2961,8 @@ const extraCountryLikeRegions = [
   "Saint Pierre and Miquelon",
   "Hong Kong",
   "Greenland",
+  "Azores",
+  "Canary Islands",
 ] as const;
 
 function slugify(name: string) {
@@ -3131,6 +3179,8 @@ const generatedPositionOverrides: Record<string, { x: number; y: number }> = {
   greenland: { x: 31, y: 18 },
   "saint-vincent-and-the-grenadines": { x: 34, y: 52 },
   andorra: { x: 48, y: 42 },
+  azores: { x: 39, y: 44 },
+  "canary-islands": { x: 43, y: 51 },
   monaco: { x: 50, y: 42 },
   "san-marino": { x: 52, y: 42 },
   "vatican-city": { x: 52, y: 45 },
