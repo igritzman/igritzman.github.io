@@ -1599,6 +1599,21 @@ function regionalFlagImageSrc(feature: GadmSubdivisionFeature) {
     ?? "";
 }
 
+function regionalFlagImagePathForName(countryId: string, name: string) {
+  const slug = slugifyCountryName(name);
+  const rows = regionFlagFiles[countryId];
+  const fuzzyFileName = rows
+    ? Object.entries(rows).find(([key]) => key === slug || key.startsWith(`${slug}-`) || slug.startsWith(`${key}-`))?.[1]
+    : undefined;
+  const fileName = rows?.[slug]
+    ?? rows?.[slug.replace("-y-la-", "-y-")]
+    ?? (slug.includes("magallanes") ? rows?.["magallanes-y-la-ant-rtica-chilena-chile"] : undefined)
+    ?? (slug.includes("magallanes") ? rows?.["magallanes-y-antartica-chilena"] : undefined)
+    ?? fuzzyFileName;
+  if (fileName) return `/images/region-flags/imported/${encodeURIComponent(fileName).replace(/%2F/g, "/")}`;
+  return regionalFlagByName[slug] ?? "";
+}
+
 const dailyLessonCountryImageFiles: Record<string, string> = {
   "United States": "USA.jpg",
   "United Kingdom": "UnitedKingdom.jpg",
@@ -1630,6 +1645,24 @@ const regionFlagFiles = regionFlagManifest as Record<string, Record<string, stri
 const regionImageFiles = regionImageManifest as Record<string, Record<string, string>>;
 const usStateImageFiles = usStateImageManifest as Record<string, string>;
 const localRegionalImageFallbacks: Record<string, Record<string, string>> = {
+  canada: {
+    quebec: "canada/quebec-city-panorama.png",
+  },
+  france: {
+    "auvergne-rhone-alpes": "france/auvergne-rhone-alpes.jpg",
+    "bourgogne-franche-comte": "france/bourgogne-franche-comte.jpg",
+    brittany: "france/brittany.jpg",
+    "centre-val-de-loire": "france/centre-val-de-loire.jpg",
+    corsica: "france/corsica.jpg",
+    "grand-est": "france/grand-est.jpg",
+    "hauts-de-france": "france/hauts-de-france.jpg",
+    "ile-de-france": "france/ile-de-france.webp",
+    normandy: "france/normandy.jpg",
+    "nouvelle-aquitaine": "france/nouvelle-aquitaine.jpg",
+    occitanie: "france/occitanie.jpg",
+    "pays-de-la-loire": "france/pays-de-la-loire.jpg",
+    "provence-alpes-cote-d-azur": "france/provence-alpes-cote-d-azur.jpg",
+  },
   australia: {
     "australian-capital-territory": "australia/australian-capital-territory.jpg",
     "new-south-wales": "australia/new-south-wales.jpg",
@@ -1699,6 +1732,40 @@ function subdivisionCountryKey(feature: GadmSubdivisionFeature) {
 function countryImagePathForName(name: string) {
   const fileName = countryImageFileNameForName(name) ?? "GeoTransitPlaceholder.svg";
   return `/images/country-images/${encodeURIComponent(fileName).replace(/%2F/g, "/")}`;
+}
+
+const airportReferenceImagesByRegion: Record<string, PlaceImage[]> = {
+  "united-states": [
+    makeLocalImage("JFK airport map", "airport", "United States", "/images/airport-references/jfk-terminal-map.png"),
+    makeLocalImage("LaGuardia airport map", "airport", "United States", "/images/airport-references/lga-terminal-map.png"),
+    makeLocalImage("Atlanta airport map", "airport", "United States", "/images/airport-references/atl-terminal-map.png"),
+    makeLocalImage("Dallas-Fort Worth airport map", "airport", "United States", "/images/airport-references/dfw-terminal-map.png"),
+    makeLocalImage("Orlando airport map", "airport", "United States", "/images/airport-references/mco-terminal-map.png"),
+  ],
+  "united-kingdom": [
+    makeLocalImage("London Heathrow airport map", "airport", "United Kingdom", "/images/airport-references/lhr-terminal-map.png"),
+  ],
+  taiwan: [
+    makeLocalImage("Taipei airport map", "airport", "Taiwan", "/images/airport-references/tpe-terminal-map.png"),
+  ],
+  france: [
+    makeLocalImage("Paris Charles de Gaulle airport map", "airport", "France", "/images/airport-references/cdg-terminal-map.png"),
+  ],
+};
+
+function makeLocalImage(name: string, type: string, region: string, imagePath: string): PlaceImage {
+  return {
+    name,
+    type,
+    region,
+    imagePath,
+    attribution: {
+      title: name,
+      author: "GeoTransit local asset",
+      license: "Local app asset",
+      sourceUrl: "#",
+    },
+  };
 }
 
 function countryImageFileNameForName(name: string) {
@@ -2289,9 +2356,8 @@ function LandingScreen({ onStart }: { onStart: () => void }) {
       <div className="landing-overlay" />
       <section className="landing-content">
         <img className="landing-logo" src="/images/brand/geontransit-logo.svg" alt="GEONTRANSIT" />
-        <p>Explore the world's transit systems, airports, regions, and geography.</p>
         <button type="button" className="landing-start-button" onClick={onStart}>
-          Explore Map
+          Start Here
         </button>
       </section>
     </main>
@@ -2299,7 +2365,7 @@ function LandingScreen({ onStart }: { onStart: () => void }) {
 }
 
 function App() {
-  const [hasStarted, setHasStarted] = useState(() => localStorage.getItem("geontransit.started.v1") === "yes");
+  const [hasStarted, setHasStarted] = useState(() => localStorage.getItem("geontransit.started.v2") === "yes");
   const [activeTab, setActiveTab] = useState<Tab>("map");
   const [profile, setProfile] = useState<PlayerProfile>(() => loadProfile());
   const [profiles, setProfiles] = useState<PlayerProfile[]>(() => loadProfiles());
@@ -2548,7 +2614,7 @@ function resetProfile() {
 
   if (!hasStarted) {
     return <LandingScreen onStart={() => {
-      localStorage.setItem("geontransit.started.v1", "yes");
+      localStorage.setItem("geontransit.started.v2", "yes");
       setHasStarted(true);
       setActiveTab("map");
     }} />;
@@ -5210,6 +5276,7 @@ function RegionPanel({
       } satisfies PlaceImage
     : null;
   const profileImage = countryImage ?? placeImage;
+  const airportReferenceImages = airportReferenceImagesByRegion[region.id] ?? [];
   const nearbyRegions = nearbyRegionsFor(region.id);
   const practiceTopicOptions = practiceTopicOptionsForRegion(region, regionTransitSystems.length, regionAttractions.length);
   const [practiceTopics, setPracticeTopics] = useState<PracticeTopic[]>(practiceTopicOptions.map((topic) => topic.id));
@@ -5233,6 +5300,7 @@ function RegionPanel({
         <p><strong>Population:</strong> {region.population}</p>
       </div>
       {profileImage && <PlaceImageCard image={profileImage} />}
+      {airportReferenceImages.length > 0 && <ProfileImageGallery title="Airport references" images={airportReferenceImages} />}
       {nearbyRegions.length > 0 && (
         <details className="nearby-panel" open>
           <summary>
@@ -5764,6 +5832,31 @@ function PlaceImageCard({ image }: { image: PlaceImage }) {
   );
 }
 
+function ProfileImageGallery({ title, images }: { title: string; images: PlaceImage[] }) {
+  const [lightboxImage, setLightboxImage] = useState<LightboxImage | null>(null);
+  return (
+    <section className="profile-image-gallery">
+      <div>
+        <strong>{title}</strong>
+        <em>{images.length}</em>
+      </div>
+      <div>
+        {images.map((image) => (
+          <button
+            key={image.imagePath}
+            type="button"
+            onClick={() => setLightboxImage({ src: image.imagePath, title: image.name, caption: `${image.region} ${image.type} reference` })}
+          >
+            <img src={image.imagePath} alt={`${image.name} reference`} loading="lazy" />
+            <span>{image.name}</span>
+          </button>
+        ))}
+      </div>
+      {lightboxImage ? <ImageLightbox image={lightboxImage} onClose={() => setLightboxImage(null)} /> : null}
+    </section>
+  );
+}
+
 function subregionsFor(regionId: string) {
   const subregions: Record<string, string[]> = {
     "united-states": ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming", "District of Columbia", "Puerto Rico"],
@@ -5824,8 +5917,10 @@ function RegionAssetGrid({ region, subregions }: { region: Region; subregions: s
   const [missingAsset, setMissingAsset] = useState<string | null>(null);
   const openAsset = (name: string) => {
     const imagePath = subdivisionImagePathForRegion(region.id, name);
-    if (imagePath) {
-      setLightboxImage({ src: imagePath, title: name, caption: `${region.name} regional asset` });
+    const flagPath = regionalFlagImagePathForName(region.id, name);
+    const assetPath = imagePath || flagPath;
+    if (assetPath) {
+      setLightboxImage({ src: assetPath, title: name, caption: `${region.name} regional asset` });
       return;
     }
     setMissingAsset(name);
@@ -5839,16 +5934,18 @@ function RegionAssetGrid({ region, subregions }: { region: Region; subregions: s
       <div>
         {subregions.map((name) => {
           const imagePath = subdivisionImagePathForRegion(region.id, name);
+          const flagPath = regionalFlagImagePathForName(region.id, name);
+          const assetPath = imagePath || flagPath;
           return (
             <button
               key={name}
               type="button"
-              className={imagePath ? "has-asset" : "needs-asset"}
+              className={assetPath ? "has-asset" : "needs-asset"}
               onClick={() => openAsset(name)}
             >
-              {imagePath ? <img src={imagePath} alt="" loading="lazy" /> : <span>Needs assets</span>}
+              {assetPath ? <img src={assetPath} alt="" loading="lazy" /> : <span>Needs assets</span>}
               <strong>{name}</strong>
-              <em>{imagePath ? "assets" : "needs assets"}</em>
+              <em>{assetPath ? "assets" : "needs assets"}</em>
             </button>
           );
         })}

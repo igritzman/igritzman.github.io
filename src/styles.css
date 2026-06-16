@@ -154,29 +154,20 @@ input {
   position: relative;
   z-index: 1;
   display: grid;
-  gap: clamp(0.85rem, 2vw, 1.25rem);
+  gap: clamp(1rem, 2.2vw, 1.6rem);
   justify-items: center;
   width: min(1120px, calc(100% - 2rem));
   padding: clamp(1.2rem, 3vw, 2rem);
   text-align: center;
-  transform: translateY(8vh);
+  transform: translateY(3vh);
 }
 
 .landing-logo {
-  width: min(980px, 92vw);
+  width: min(860px, 88vw);
   height: auto;
   object-fit: contain;
   border-radius: 6px;
   box-shadow: 0 18px 70px rgba(0, 0, 0, 0.3);
-}
-
-.landing-content p {
-  margin: 0;
-  color: #f5fbfc;
-  font-size: clamp(1.05rem, 2.2vw, 1.65rem);
-  font-weight: 900;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.62);
-  max-width: 760px;
 }
 
 .landing-start-button {
@@ -191,6 +182,10 @@ input {
   font-size: clamp(1.05rem, 2vw, 1.45rem);
   font-weight: 950;
   box-shadow: 0 0 0 4px rgba(183, 244, 97, 0.16), 0 18px 44px rgba(0, 0, 0, 0.36);
+}
+
+.landing-start-button::after {
+  content: " ->";
 }
 
 .topbar {
@@ -1344,21 +1339,21 @@ h3 {
 }
 
 .map-toolbar.compact-tool-panel {
-  position: absolute;
-  top: 0.7rem;
-  right: 0.7rem;
-  z-index: 24;
-  width: auto;
-  max-width: min(390px, calc(100% - 1.4rem));
-  margin-bottom: 0;
-  border: 0;
-  background: transparent;
-  padding: 0;
+  position: relative;
+  top: auto;
+  right: auto;
+  z-index: 12;
+  width: 100%;
+  max-width: none;
+  margin: 0.25rem 0 0.65rem;
+  border: 1px solid rgba(122, 241, 214, 0.24);
+  background: rgba(10, 23, 30, 0.78);
+  padding: 0.45rem 0.65rem;
   box-shadow: none;
 }
 
 .map-toolbar.compact-tool-panel[open] {
-  width: min(360px, calc(100% - 1.4rem));
+  width: 100%;
   border: 1px solid rgba(141, 179, 185, 0.2);
   background: rgba(10, 23, 30, 0.92);
   padding: 0.7rem;
@@ -1392,23 +1387,35 @@ h3 {
 }
 
 .map-toolbar.compact-tool-panel > summary {
-  min-height: 40px;
-  grid-template-columns: auto auto;
-  border: 1px solid rgba(122, 241, 214, 0.35);
-  border-radius: 999px;
-  background: rgba(10, 23, 30, 0.88);
-  padding: 0.45rem 0.75rem;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+  min-height: 36px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  padding: 0.2rem 0.15rem;
+  box-shadow: none;
+}
+
+.map-toolbar.compact-tool-panel > summary::before {
+  content: ">";
+  color: #7af1d6;
+  font-size: 1rem;
+  font-weight: 950;
+}
+
+.map-toolbar.compact-tool-panel[open] > summary::before {
+  content: "v";
 }
 
 .map-toolbar.compact-tool-panel[open] > summary {
   margin-bottom: 0.35rem;
   border-radius: 8px;
-  background: rgba(17, 47, 53, 0.94);
+  background: rgba(17, 47, 53, 0.72);
 }
 
 .map-toolbar.compact-tool-panel:not([open]) > summary em {
-  display: none;
+  display: block;
+  justify-self: end;
 }
 
 .compact-tool-panel summary::-webkit-details-marker {
@@ -4448,6 +4455,68 @@ h3 {
 
 .place-image-card > span strong {
   font-size: 0.92rem;
+}
+
+.profile-image-gallery {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0.75rem 0 0.9rem;
+}
+
+.profile-image-gallery > div:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #eff7f4;
+}
+
+.profile-image-gallery > div:first-child strong {
+  font-size: 0.95rem;
+}
+
+.profile-image-gallery > div:first-child em {
+  min-width: 2rem;
+  border-radius: 999px;
+  background: rgba(122, 241, 214, 0.18);
+  color: #87f5df;
+  font-style: normal;
+  font-weight: 950;
+  text-align: center;
+}
+
+.profile-image-gallery > div:last-child {
+  display: grid;
+  grid-auto-columns: minmax(135px, 42%);
+  grid-auto-flow: column;
+  gap: 0.55rem;
+  overflow-x: auto;
+  padding-bottom: 0.15rem;
+  scrollbar-width: thin;
+}
+
+.profile-image-gallery button {
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 88px auto;
+  min-height: 136px;
+  padding: 0;
+  border-radius: 8px;
+  background: rgba(12, 31, 38, 0.9);
+  text-align: left;
+}
+
+.profile-image-gallery img {
+  width: 100%;
+  height: 88px;
+  object-fit: cover;
+}
+
+.profile-image-gallery span {
+  padding: 0.55rem;
+  color: #eff7f4;
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1.25;
 }
 
 .image-lightbox {
