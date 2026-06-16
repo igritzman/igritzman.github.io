@@ -1345,11 +1345,23 @@ h3 {
 
 .map-toolbar.compact-tool-panel {
   position: absolute;
-  top: 0.85rem;
-  right: 0.85rem;
-  z-index: 18;
-  width: min(390px, calc(100% - 1.7rem));
+  top: 0.7rem;
+  right: 0.7rem;
+  z-index: 24;
+  width: auto;
+  max-width: min(390px, calc(100% - 1.4rem));
   margin-bottom: 0;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+}
+
+.map-toolbar.compact-tool-panel[open] {
+  width: min(360px, calc(100% - 1.4rem));
+  border: 1px solid rgba(141, 179, 185, 0.2);
+  background: rgba(10, 23, 30, 0.92);
+  padding: 0.7rem;
   box-shadow: 0 16px 38px rgba(0, 0, 0, 0.24);
 }
 
@@ -1377,6 +1389,26 @@ h3 {
   align-items: center;
   cursor: pointer;
   list-style: none;
+}
+
+.map-toolbar.compact-tool-panel > summary {
+  min-height: 40px;
+  grid-template-columns: auto auto;
+  border: 1px solid rgba(122, 241, 214, 0.35);
+  border-radius: 999px;
+  background: rgba(10, 23, 30, 0.88);
+  padding: 0.45rem 0.75rem;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
+.map-toolbar.compact-tool-panel[open] > summary {
+  margin-bottom: 0.35rem;
+  border-radius: 8px;
+  background: rgba(17, 47, 53, 0.94);
+}
+
+.map-toolbar.compact-tool-panel:not([open]) > summary em {
+  display: none;
 }
 
 .compact-tool-panel summary::-webkit-details-marker {

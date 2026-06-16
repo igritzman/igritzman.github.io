@@ -209,7 +209,7 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "US-WA": { capital: "Olympia", population: "about 8 million", transit: "Sound Transit Link, Sounder, Washington State Ferries" },
   "CA-BC": { capital: "Victoria", transit: "SkyTrain, West Coast Express, BC Ferries" },
   "CA-ON": { capital: "Toronto", population: "about 16 million", transit: "TTC, GO Transit, UP Express, Ottawa O-Train; major airports YYZ and YOW" },
-  "CA-QC": { capital: "Quebec City", transit: "Montreal Metro, REM, exo, RTC buses" },
+  "CA-QC": { capital: "Quebec City", population: "9,058,089 (2025 estimate; 8,501,840 in 2021)", transit: "Montreal Metro, REM, exo, RTC buses" },
   "JP-01": { capital: "Sapporo", transit: "Sapporo Subway, JR Hokkaido, airport rail to New Chitose" },
   "JP-13": { capital: "Tokyo", transit: "Tokyo Metro, Toei Subway, JR East, private railways" },
   "JP-23": { capital: "Nagoya", transit: "Nagoya Subway, Meitetsu, JR Central, Shinkansen access" },
@@ -2299,7 +2299,7 @@ function LandingScreen({ onStart }: { onStart: () => void }) {
 }
 
 function App() {
-  const [hasStarted, setHasStarted] = useState(false);
+  const [hasStarted, setHasStarted] = useState(() => localStorage.getItem("geontransit.started.v1") === "yes");
   const [activeTab, setActiveTab] = useState<Tab>("map");
   const [profile, setProfile] = useState<PlayerProfile>(() => loadProfile());
   const [profiles, setProfiles] = useState<PlayerProfile[]>(() => loadProfiles());
@@ -2548,6 +2548,7 @@ function resetProfile() {
 
   if (!hasStarted) {
     return <LandingScreen onStart={() => {
+      localStorage.setItem("geontransit.started.v1", "yes");
       setHasStarted(true);
       setActiveTab("map");
     }} />;
@@ -3912,8 +3913,8 @@ function MapTab({
       <div className="map-column">
         <details className="map-toolbar compact-tool-panel">
           <summary>
-            <span>Explore</span>
-            <em>search, layers, regions</em>
+            <span>Map tools</span>
+            <em>layers</em>
           </summary>
           <div>
             <p className="eyebrow">Map</p>
@@ -4387,9 +4388,74 @@ function practiceFlashcardsForRegion(region: Region, topics: PracticeTopic[], di
   }));
 }
 
+function flashcardReviewHtml(title: string, subtitle: string, cards: Array<{ front: string; back: string; category: string }>) {
+  const renderedCards = cards.map((card, index) => `
+    <button class="flip-card" type="button" aria-label="Flip card ${index + 1}">
+      <span class="flip-card-inner">
+        <span class="face front-face">
+          <span class="label">${escapeHtml(card.category)}</span>
+          <strong>${escapeHtml(card.front)}</strong>
+          <small>Click to reveal</small>
+        </span>
+        <span class="face back-face">
+          <span class="label">Answer</span>
+          <strong>${escapeHtml(card.back)}</strong>
+          <small>Click to return</small>
+        </span>
+      </span>
+    </button>
+  `).join("");
+  return `<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(title)}</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 28px; font-family: Inter, Arial, sans-serif; background: #061118; color: #e9f3f5; }
+    header { max-width: 980px; margin: 0 auto 22px; }
+    h1 { margin: 0 0 6px; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1; }
+    p { margin: 0; color: #b7c9ce; max-width: 760px; line-height: 1.5; }
+    .toolbar { max-width: 980px; margin: 0 auto 18px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .toolbar button { border: 1px solid rgba(122, 241, 214, 0.35); border-radius: 999px; padding: 0.65rem 0.9rem; background: #10262d; color: #e9f3f5; font-weight: 800; cursor: pointer; }
+    .deck { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .flip-card { width: 100%; height: 230px; padding: 0; border: 0; background: transparent; perspective: 1100px; cursor: pointer; text-align: left; color: inherit; }
+    .flip-card-inner { position: relative; display: block; width: 100%; height: 100%; transition: transform 0.45s ease; transform-style: preserve-3d; }
+    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+    .face { position: absolute; inset: 0; display: grid; align-content: center; gap: 12px; padding: 18px; border: 1px solid rgba(122, 241, 214, 0.22); border-radius: 18px; backface-visibility: hidden; box-shadow: 0 18px 38px rgba(0, 0, 0, 0.32); }
+    .front-face { background: linear-gradient(145deg, #0b1e25, #153039); }
+    .back-face { transform: rotateY(180deg); background: linear-gradient(145deg, #163427, #2f3518); }
+    .label { color: #7af1d6; font-size: 0.72rem; font-weight: 950; letter-spacing: 0.08em; text-transform: uppercase; }
+    strong { font-size: 1.08rem; line-height: 1.28; }
+    small { color: #a9bec4; font-weight: 800; }
+    @media (max-width: 620px) { body { padding: 18px; } .flip-card { height: 260px; } }
+    @media print { body { background: white; color: black; } .toolbar { display: none; } .deck { display: block; } .flip-card { height: auto; margin: 12px 0; page-break-inside: avoid; } .flip-card-inner, .flip-card.flipped .flip-card-inner { transform: none; } .face { position: static; box-shadow: none; background: white; color: black; border-color: #999; } .back-face { transform: none; margin-top: 8px; } small { display: none; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>${escapeHtml(title)}</h1>
+    <p>${escapeHtml(subtitle)}</p>
+  </header>
+  <nav class="toolbar" aria-label="Flashcard controls">
+    <button type="button" onclick="document.querySelectorAll('.flip-card').forEach((card) => card.classList.add('flipped'))">Show answers</button>
+    <button type="button" onclick="document.querySelectorAll('.flip-card').forEach((card) => card.classList.remove('flipped'))">Show prompts</button>
+  </nav>
+  <main class="deck">${renderedCards}</main>
+  <script>
+    document.querySelectorAll('.flip-card').forEach((card) => {
+      card.addEventListener('click', () => card.classList.toggle('flipped'));
+    });
+  </script>
+</body>
+</html>`;
+}
+
 function downloadPracticeFlashcards(region: Region, topics: PracticeTopic[], difficulty: DifficultyLevel) {
   const cards = practiceFlashcardsForRegion(region, topics, difficulty);
-  const html = `<!doctype html><html><head><meta charset="utf-8"><title>${region.name} GeoInTransit Flashcards</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111}h1{margin-bottom:4px}.card{break-inside:avoid;border:1px solid #999;border-radius:10px;padding:14px;margin:12px 0}.label{font-size:12px;text-transform:uppercase;color:#666}.front{font-size:18px;font-weight:700}.back{margin-top:10px}</style></head><body><h1>${region.name} Practice Flashcards</h1><p>Print this page or save it as PDF from your browser.</p>${cards.map((card) => `<section class="card"><div class="label">${card.category}</div><div class="front">${card.front}</div><div class="back">${card.back}</div></section>`).join("")}</body></html>`;
+  const html = flashcardReviewHtml(`${region.name} Practice Flashcards`, "Click each card to flip between the prompt and answer. Use these as quick review cards or print them when needed.", cards);
   const blob = new Blob([html], { type: "text/html;charset=utf-8" });
   const objectUrl = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
@@ -4408,7 +4474,7 @@ function downloadReviewFlashcards(profile: PlayerProfile) {
     back: `${item.question.answer}. ${item.question.explanation}`,
     category: categoryLabels[item.question.category],
   }));
-  const html = `<!doctype html><html><head><meta charset="utf-8"><title>GeoInTransit Review Flashcards</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111}h1{margin-bottom:4px}.card{break-inside:avoid;border:1px solid #999;border-radius:10px;padding:14px;margin:12px 0}.label{font-size:12px;text-transform:uppercase;color:#666}.front{font-size:18px;font-weight:700}.back{margin-top:10px}</style></head><body><h1>Review Flashcards</h1><p>Made from saved missed questions. Print this page or save it as PDF from your browser.</p>${cards.map((card) => `<section class="card"><div class="label">${card.category}</div><div class="front">${card.front}</div><div class="back">${card.back}</div></section>`).join("")}</body></html>`;
+  const html = flashcardReviewHtml("Review Flashcards", "Made from saved missed questions. Click each card to flip between the prompt and answer.", cards);
   const blob = new Blob([html], { type: "text/html;charset=utf-8" });
   const objectUrl = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
@@ -5393,6 +5459,8 @@ const askGeoTransitCards: AskCard[] = [
       { label: "Algeria", regionId: "algeria", flag: "DZ", note: "Algiers Metro pairs with tramway networks." },
       { label: "Morocco", regionId: "morocco", flag: "MA", note: "Tramways and Al Boraq create a layered transit profile." },
       { label: "Ethiopia", regionId: "ethiopia", flag: "ET", note: "Addis Ababa light rail is a key urban example." },
+      { label: "Nigeria", regionId: "nigeria", flag: "NG", note: "Lagos rail, ferries, and BRT show megacity mobility pressure." },
+      { label: "South Africa", regionId: "south-africa", flag: "ZA", note: "Gautrain and urban commuter rail anchor a different African model." },
     ],
     image: { src: "/images/ask/cairo-megacity.png", alt: "Cairo skyline and Nile megacity context" },
   },
@@ -5447,6 +5515,11 @@ const askGeoTransitCards: AskCard[] = [
       { label: "Singapore", regionId: "singapore", flag: "SG", note: "Changi is a compact island-state transfer hub." },
       { label: "Turkey", regionId: "turkey", flag: "TR", note: "Istanbul sits between Europe, Asia, and Middle East flows." },
       { label: "Netherlands", regionId: "netherlands", flag: "NL", note: "Schiphol links a small country to a huge global network." },
+      { label: "United States", regionId: "united-states", flag: "US", note: "A huge airport network connects major metros and small communities." },
+      { label: "United Kingdom", regionId: "united-kingdom", flag: "GB", note: "Heathrow, Gatwick, Manchester, and regional hubs make dense air links." },
+      { label: "Qatar", regionId: "qatar", flag: "QA", note: "Doha is a Gulf transfer hub with a compact national geography." },
+      { label: "Japan", regionId: "japan", flag: "JP", note: "Haneda, Narita, Kansai, and regional airports complement high-speed rail." },
+      { label: "China", regionId: "china", flag: "CN", note: "Beijing, Shanghai, Guangzhou, Chengdu, and Shenzhen anchor major flows." },
     ],
     image: { src: "/images/ask/dubai-airport.png", alt: "Dubai airport and skyline as a global hub reference" },
   },
