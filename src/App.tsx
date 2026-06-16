@@ -258,6 +258,44 @@ const subdivisionStudyNotes: Record<string, { capital?: string; population?: str
   "IN.UP": { capital: "Lucknow", population: "199,812,341 (2011 Census)", transit: "Lucknow Metro, Kanpur Metro, northern rail corridors" },
   "IN.UT": { capital: "Dehradun", population: "10,086,292 (2011 Census)", transit: "Dehradun rail/airport links, mountain road corridors" },
   "IN.WB": { capital: "Kolkata", population: "91,276,115 (2011 Census)", transit: "Kolkata Metro, suburban rail, tram heritage routes" },
+  "AU-TAS": { capital: "Hobart", population: "about 572,000", transit: "Hobart bus network, Spirit of Tasmania ferry links, regional air access" },
+  "AU-ACT": { capital: "Canberra", population: "about 473,000", transit: "Canberra light rail, ACTION buses, Canberra Airport links" },
+  "KR-11": { capital: "Seoul", population: "9,586,195 (2020 Census)", transit: "Seoul Metro, AREX airport rail, KTX at Seoul Station" },
+  "KR-26": { capital: "Busan", population: "3,349,016 (2020 Census)", transit: "Busan Metro, KTX, Port of Busan" },
+  "KR-27": { capital: "Daegu", population: "2,410,700 (2020 Census)", transit: "Daegu Metro, Dongdaegu KTX hub" },
+  "KR-28": { capital: "Incheon", population: "2,945,454 (2020 Census)", transit: "Incheon Subway, AREX, Incheon International Airport" },
+  "KR-29": { capital: "Gwangju", population: "1,477,573 (2020 Census)", transit: "Gwangju Metro and regional bus network" },
+  "KR-30": { capital: "Daejeon", population: "1,488,435 (2020 Census)", transit: "Daejeon Metro, KTX, central rail corridors" },
+  "KR-31": { capital: "Ulsan", population: "1,135,423 (2020 Census)", transit: "Ulsan buses, port links, Donghae rail corridor" },
+  "KR-41": { capital: "Suwon", population: "13,511,676 (2020 Census)", transit: "Seoul Metro extensions, Suin-Bundang Line, GTX corridors" },
+  "KR-42": { capital: "Chuncheon", population: "1,521,763 (2020 Census)", transit: "ITX-Cheongchun, mountain road and rail links" },
+  "KR-43": { capital: "Cheongju", population: "1,632,088 (2020 Census)", transit: "Cheongju airport access and central inland rail corridors" },
+  "KR-44": { capital: "Hongseong", population: "2,176,636 (2020 Census)", transit: "West-coast rail and expressway corridors" },
+  "KR-45": { capital: "Jeonju", population: "1,802,766 (2020 Census)", transit: "Jeonju rail and regional bus links" },
+  "KR-46": { capital: "Muan", population: "1,788,807 (2020 Census)", transit: "Muan airport, Honam rail, island ferry connections" },
+  "KR-47": { capital: "Andong", population: "2,644,757 (2020 Census)", transit: "Central inland rail and expressway corridors" },
+  "KR-48": { capital: "Changwon", population: "3,333,056 (2020 Census)", transit: "Changwon-Masan rail, Busan metro-region links" },
+  "KR-49": { capital: "Jeju", population: "670,858 (2020 Census)", transit: "Jeju buses, ferry routes, Jeju International Airport" },
+  "NO-03": { capital: "Oslo", population: "about 700,000", transit: "Oslo Metro, trams, commuter rail, Oslo Airport rail link" },
+  "NO-11": { capital: "Stavanger", population: "about 475,000", transit: "Jaeren Line, regional buses, Stavanger Airport links" },
+  "NO-15": { capital: "Molde", population: "about 270,000", transit: "Coastal ferries, Atlantic Road corridors, Molde air links" },
+  "NO-18": { capital: "Bodo", population: "about 239,000", transit: "Nordland Line, ferries, coastal aviation" },
+  "NO-31": { capital: "Sarpsborg", population: "299,647", transit: "Ostfold Line, Oslofjord road and rail corridors" },
+  "NO-32": { capital: "Oslo", population: "630,752", transit: "Oslo commuter rail, airport rail, regional buses" },
+  "NO-33": { capital: "Drammen", population: "284,955", transit: "Drammen Line, Bergen Line gateway, regional buses" },
+  "NO-34": { capital: "Hamar", population: "about 375,000", transit: "Dovre Line, Roros Line, inland road corridors" },
+  "NO-39": { capital: "Tonsberg", population: "253,555", transit: "Vestfold Line, coastal buses, ferry links" },
+  "NO-40": { capital: "Skien", population: "175,546", transit: "Bratsberg Line, Grenland buses, coastal routes" },
+  "NO-42": { capital: "Kristiansand", population: "about 299,000", transit: "Sorlandet Line, ferry routes to Denmark, regional buses" },
+  "NO-46": { capital: "Bergen", population: "about 632,000", transit: "Bergen Light Rail, Bergen Line, fjord ferries" },
+  "NO-50": { capital: "Steinkjer", population: "about 465,000", transit: "Tronderbanen rail, Trondheim transit, coastal routes" },
+  "NO-55": { capital: "Tromso", population: "168,340", transit: "Arctic buses, ferries, Tromso Airport links" },
+  "NO-56": { capital: "Vadso", population: "75,540", transit: "Coastal ferries, Arctic road corridors, regional airports" },
+  Corsica: { capital: "Ajaccio", transit: "Corsican railways, Ajaccio and Bastia ferry routes" },
+  Sardinia: { capital: "Cagliari", transit: "Sardinian rail, Cagliari metrotranvia, ferry routes" },
+  "Canary Islands": { capital: "Las Palmas de Gran Canaria", transit: "inter-island ferries, airports, Tenerife tram" },
+  Azores: { capital: "Ponta Delgada", transit: "inter-island air and ferry links" },
+  Ibiza: { capital: "Ibiza Town", transit: "ferry routes, buses, Ibiza Airport links" },
   "ZA-WC": { capital: "Cape Town", transit: "Metrorail Western Cape, MyCiTi, port and airport links" },
   "ZA-GP": { capital: "Johannesburg", transit: "Gautrain, Rea Vaya, Metrorail Gauteng" },
   "ZA-GT": { capital: "Johannesburg", transit: "Gautrain, Rea Vaya, Metrorail Gauteng" },
@@ -2063,6 +2101,9 @@ function buildRegionPracticeQuestions(region: Region, count: number, startDiffic
   const placePool = regions.flatMap((item) => item.placesOfInterest.slice(0, 3));
   const capitalPool = regions.map((item) => item.capital);
   const primaryAirport = region.airports[0] ?? `No major commercial airport listed for ${region.name}`;
+  const airportCity = region.majorCities[0] ?? region.capital.split(",")[0] ?? region.name;
+  const levelIndex = difficultyLevels.indexOf(startDifficulty);
+  const shouldUseCodeQuestions = levelIndex >= difficultyLevels.indexOf("interchange");
   const practiceTemplates: Question[] = [
     {
       id: `practice-${region.id}-capital`,
@@ -2077,13 +2118,15 @@ function buildRegionPracticeQuestions(region: Region, count: number, startDiffic
     },
     {
       id: `practice-${region.id}-airport`,
-      category: primaryAirport.length === 3 && primaryAirport.toUpperCase() === primaryAirport ? "airport-codes" : "airports",
+      category: shouldUseCodeQuestions && primaryAirport.length === 3 && primaryAirport.toUpperCase() === primaryAirport ? "airport-codes" : "airports",
       difficulty: startDifficulty,
       inputType: "multiple-choice",
-      prompt: `Which airport or aviation clue belongs to ${region.name}?`,
+      prompt: primaryAirport.length === 3 && primaryAirport.toUpperCase() === primaryAirport
+        ? `Which airport code matches ${airportCity}'s main gateway?`
+        : `Which aviation clue is tied to ${airportCity} and ${region.name}?`,
       answer: primaryAirport,
       choices: choicesFrom(primaryAirport, airportPool),
-      explanation: `${primaryAirport} appears in ${region.name}'s aviation profile.`,
+      explanation: `${primaryAirport} is the aviation clue connected to ${airportCity} in ${region.name}.`,
       relatedRegionIds: [region.id],
     },
     {
@@ -2113,10 +2156,10 @@ function buildRegionPracticeQuestions(region: Region, count: number, startDiffic
       category: "highways",
       difficulty: startDifficulty,
       inputType: "multiple-choice",
-      prompt: `Which highway or road corridor is tied to ${region.name}?`,
+      prompt: `Which road corridor helps explain movement across ${region.name}?`,
       answer: region.highways[0],
       choices: choicesFrom(region.highways[0], highwayPool),
-      explanation: `${region.highways[0]} is listed in ${region.name}'s road profile.`,
+      explanation: `${region.highways[0]} is one of the road clues in ${region.name}'s profile.`,
       relatedRegionIds: [region.id],
     },
     {
@@ -2168,7 +2211,7 @@ function buildRegionPracticeQuestions(region: Region, count: number, startDiffic
       category: "rail",
       difficulty: startDifficulty,
       inputType: "multiple-choice",
-      prompt: `Which country profile pairs ${region.rail[0]} with ${region.metro[0]}?`,
+      prompt: `Which country connects ${region.rail[0]} with ${region.metro[0]} in one profile?`,
       answer: region.name,
       choices: choicesFrom(region.name, countryPool),
       explanation: `${region.rail[0]} and ${region.metro[0]} are both transportation clues for ${region.name}.`,
@@ -2176,7 +2219,12 @@ function buildRegionPracticeQuestions(region: Region, count: number, startDiffic
     },
   ];
   const topicFilteredTemplates = practiceTemplates.filter((question) => questionMatchesPracticeTopics(question, topics));
-  const templates = topicFilteredTemplates.length > 0 ? topicFilteredTemplates : practiceTemplates;
+  const readableTemplates = topicFilteredTemplates.filter((question) => {
+    if (levelIndex < difficultyLevels.indexOf("interchange") && question.category === "airport-codes") return false;
+    if (levelIndex < difficultyLevels.indexOf("express") && question.category === "highways") return false;
+    return Boolean(question.answer && !question.answer.toLowerCase().includes("no major commercial airport"));
+  });
+  const templates = readableTemplates.length > 0 ? readableTemplates : topicFilteredTemplates.length > 0 ? topicFilteredTemplates : practiceTemplates;
   return shuffleByClock(templates).slice(0, count);
 }
 
@@ -2240,10 +2288,10 @@ function LandingScreen({ onStart }: { onStart: () => void }) {
       <img className="landing-hero-image" src="/images/brand/geotransit-hero.png" alt="" />
       <div className="landing-overlay" />
       <section className="landing-content">
-        <img className="landing-logo" src="/images/brand/geontransit-full-logo.png" alt="GEONTRANSIT" />
-        <p>Explore Geography, Cities, Transit &amp; Infrastructure Around The World</p>
+        <img className="landing-logo" src="/images/brand/geontransit-logo.svg" alt="GEONTRANSIT" />
+        <p>Explore the world's transit systems, airports, regions, and geography.</p>
         <button type="button" className="landing-start-button" onClick={onStart}>
-          Start Exploring →
+          Explore Map
         </button>
       </section>
     </main>
@@ -2509,13 +2557,13 @@ function resetProfile() {
     <main className="app-shell">
       <header className="topbar">
         <div className="brand-lockup">
-          <img className="brand-logo-image" src="/images/brand/geontransit-full-logo.png" alt="GEONTRANSIT" />
-        </div>
-        <div className="status-grid" aria-label="Profile status">
-          <Metric label="Operator" value={`${profile.emoji ?? "🚇"} ${profile.name || (profile.isGuest ? "Guest user" : "Create username")}`} />
-          <Metric label="Difficulty" value={difficultyLabels[profile.currentDifficulty]} />
-          <Metric label="Accuracy" value={`${accuracy}%`} />
-          <Metric label="High Score" value={profile.highScore.toString()} />
+          <button type="button" className="brand-home-button" onClick={() => setActiveTab("map")} aria-label="Return to map home">
+            <img className="brand-logo-image" src="/images/brand/geontransit-logo.svg" alt="GEONTRANSIT" />
+          </button>
+          <div className="brand-copy">
+            <p className="eyebrow">Welcome to GeoTransit</p>
+            <h1>Explore the world's transit systems, airports, regions, and geography.</h1>
+          </div>
         </div>
       </header>
 
@@ -3344,10 +3392,7 @@ function AboutPanel({ onClose }: { onClose: () => void }) {
       </div>
       <h2>GeoInTransit</h2>
       <p>
-        GeoInTransit is a map-first transit geography trainer. Explore countries, metro systems, airports, landmarks, regional boundaries, and study images, then jump into questions that connect what you see on the map with how places actually move.
-      </p>
-      <p>
-        Country profiles bring together flags, local images, transport links, Google Maps, Wikipedia, Transitland, practice decks, review cards, and CSV exports so you can study one country, compare several, or build your own reference sheet.
+        GEONTRANSIT is an interactive, map-first platform for exploring the world through geography and transportation. Click a country, region, airport, landmark, or transit system to see images, flags, nearby places, and short learning prompts.
       </p>
     </aside>
   );
@@ -3867,13 +3912,13 @@ function MapTab({
       <div className="map-column">
         <details className="map-toolbar compact-tool-panel">
           <summary>
-            <span>Show / hide map controls</span>
-            <em>region, zoom, layers</em>
+            <span>Explore</span>
+            <em>search, layers, regions</em>
           </summary>
           <div>
-            <p className="eyebrow">Map layer</p>
-            <strong>{catalogCoverage.unMemberCountries} UN countries + Taiwan, Bougainville, Kosovo </strong>
-            <span>Click a country, then scroll the sidebar for facts, links, images, and sample questions.</span>
+            <p className="eyebrow">Map</p>
+            <strong>Search or click any place.</strong>
+            <span>Profiles open beside the map with images, regions, transit, and nearby places.</span>
           </div>
           <label className="country-select country-combobox" htmlFor="country-search">
             Country
@@ -3965,10 +4010,10 @@ function MapTab({
           </label>
           <details className="region-availability-note">
             <summary>
-              <span>Advanced Options</span>
+              <span>Advanced</span>
               <em>{completedProfileCount}/{regions.length} complete profiles</em>
             </summary>
-            <p>Choose a country with loaded subdivisions, then use the region tracker below to see what is complete and what still needs work.</p>
+            <p>Choose a regional layer and check which profiles have capitals, population, flags, and images.</p>
             <div className="country-completeness-dashboard">
               <span><strong>Countries</strong>{regions.length}</span>
               <span><strong>Fully complete</strong>{completedProfileCount}</span>
@@ -4880,10 +4925,10 @@ function QuestionVisual({ question, onAnswer }: { question: Question; onAnswer?:
   }
 
   if (question.visualType === "flag") {
-    const src = flagImageSrc(question.image ?? "");
+    const flagCode = (question.image ?? "").trim().toUpperCase();
     return (
       <div className="flag-image-visual">
-        {src ? <img src={src} alt="Country flag prompt" /> : <span>{question.image}</span>}
+        {flagCode ? <FlagAsset code={flagCode} label="Country flag prompt" /> : <span>?</span>}
       </div>
     );
   }
@@ -5098,7 +5143,7 @@ function RegionPanel({
         },
       } satisfies PlaceImage
     : null;
-  const profileImage = placeImage ?? countryImage;
+  const profileImage = countryImage ?? placeImage;
   const nearbyRegions = nearbyRegionsFor(region.id);
   const practiceTopicOptions = practiceTopicOptionsForRegion(region, regionTransitSystems.length, regionAttractions.length);
   const [practiceTopics, setPracticeTopics] = useState<PracticeTopic[]>(practiceTopicOptions.map((topic) => topic.id));
@@ -5219,9 +5264,12 @@ function RegionPanel({
       <div className="fact-box">
         {region.facts.map((fact) => <p key={fact}>{fact}</p>)}
       </div>
-      <div className="sample-questions">
-        <h3>Learn This Country</h3>
-        <p>Practice with this profile's transport, airport, region, landmark, and geography clues, then export flashcards for offline review.</p>
+      <details className="sample-questions">
+        <summary>
+          <span>Practice Questions</span>
+          <em>{sampleQuestions.length || "new"}</em>
+        </summary>
+        <p>Short questions for this profile. Download flashcards when you want an offline review set.</p>
         {sampleQuestions.length === 0 && <p>No local samples yet; this region is ready for expansion.</p>}
         {sampleQuestions.map((question) => (
           <button key={question.id} onClick={() => onPracticeRegion(region, question, practiceTopics)}>{question.prompt}</button>
@@ -5229,8 +5277,8 @@ function RegionPanel({
         <button type="button" className="secondary-action" onClick={() => downloadPracticeFlashcards(region, practiceTopics, "gateway")}>
           Download Practice Flashcards
         </button>
-      </div>
-      <button className="primary-action" onClick={() => onPracticeRegion(region, sampleQuestions[0], practiceTopics)}>Practice From This Deck</button>
+      </details>
+      <button className="primary-action" onClick={() => onPracticeRegion(region, sampleQuestions[0], practiceTopics)}>Start Practice</button>
     </aside>
   );
 }

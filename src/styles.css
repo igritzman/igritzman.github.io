@@ -194,24 +194,41 @@ input {
 }
 
 .topbar {
-  display: grid;
-  grid-template-columns: minmax(280px, 0.92fr) minmax(360px, 1.08fr);
-  gap: 0.8rem;
+  display: block;
   align-items: center;
-  padding: 0.35rem 0 0.35rem;
+  padding: 0.25rem 0 0.35rem;
 }
 
 .brand-lockup {
   display: flex;
   min-width: 0;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.85rem;
+}
+
+.brand-home-button {
+  min-height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.brand-home-button:hover {
+  transform: none;
+  background: transparent;
+}
+
+.brand-copy {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
 }
 
 .brand-logo-image {
   display: block;
   flex: 0 0 auto;
-  width: clamp(190px, 20vw, 300px);
+  width: clamp(108px, 14vw, 178px);
   height: auto;
   object-fit: contain;
   border: 1px solid rgba(141, 179, 185, 0.18);
@@ -226,11 +243,11 @@ input {
 
 .brand-lockup h1 {
   min-width: 0;
-  max-width: 560px;
+  max-width: 760px;
   color: #dceff1;
-  font-size: clamp(0.86rem, 1.25vw, 1.06rem);
+  font-size: clamp(1rem, 2vw, 1.65rem);
   line-height: 1.25;
-  font-weight: 850;
+  font-weight: 900;
 }
 
 .eyebrow {
@@ -1331,7 +1348,7 @@ h3 {
   top: 0.85rem;
   right: 0.85rem;
   z-index: 18;
-  width: min(470px, calc(100% - 1.7rem));
+  width: min(390px, calc(100% - 1.7rem));
   margin-bottom: 0;
   box-shadow: 0 16px 38px rgba(0, 0, 0, 0.24);
 }
@@ -1339,6 +1356,9 @@ h3 {
 .map-toolbar > div:first-child span {
   display: block;
   margin-top: 0.25rem;
+  color: #b7c9ce;
+  font-size: 0.84rem;
+  line-height: 1.35;
 }
 
 .map-toolbar > div:first-child strong {
@@ -2579,7 +2599,7 @@ h3 {
 
 .subdivision-popover {
   right: 0.85rem;
-  top: 0.85rem;
+  top: 4.35rem;
   display: grid;
   gap: 0.35rem;
   width: min(330px, calc(100% - 1.7rem));
@@ -4357,7 +4377,7 @@ h3 {
   border: 1px solid rgba(141, 179, 185, 0.2);
   border-radius: 8px;
   background: rgba(6, 18, 24, 0.82);
-  min-height: 145px;
+  min-height: 178px;
   text-align: left;
   animation: imageReveal 260ms ease both;
 }
@@ -4365,7 +4385,7 @@ h3 {
 .place-image-card img {
   display: block;
   width: 100%;
-  height: clamp(145px, 19vw, 190px);
+  height: clamp(178px, 24vw, 235px);
   object-fit: cover;
   filter: saturate(1.02) contrast(1.02);
   animation: imageSettle 520ms ease both;
@@ -4401,18 +4421,20 @@ h3 {
 .image-lightbox {
   position: fixed;
   inset: 0;
-  z-index: 80;
+  z-index: 1000;
   display: grid;
   place-items: center;
   padding: 1rem;
-  background: rgba(2, 7, 10, 0.78);
-  backdrop-filter: blur(8px);
+  background: rgba(2, 7, 10, 0.86);
+  backdrop-filter: blur(10px);
 }
 
 .image-lightbox-card {
   position: relative;
   display: grid;
-  width: min(920px, 96vw);
+  width: fit-content;
+  min-width: min(420px, 92vw);
+  max-width: min(1080px, 94vw);
   max-height: 92vh;
   overflow: hidden;
   border: 1px solid rgba(141, 179, 185, 0.28);
@@ -4436,10 +4458,12 @@ h3 {
 
 .image-lightbox-card img {
   display: block;
-  width: 100%;
+  width: auto;
+  max-width: min(1080px, 94vw);
   max-height: 74vh;
   object-fit: contain;
   background: #03080b;
+  margin: 0 auto;
 }
 
 .image-lightbox-card div {
@@ -4590,7 +4614,37 @@ h3 {
 .sample-questions {
   display: grid;
   gap: 0.5rem;
+  margin-top: 0.9rem;
   margin-bottom: 1rem;
+  border-top: 1px solid rgba(141, 179, 185, 0.14);
+  padding-top: 0.75rem;
+}
+
+.sample-questions summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.5rem;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+  color: #e9f3f5;
+  font-weight: 950;
+}
+
+.sample-questions summary::-webkit-details-marker {
+  display: none;
+}
+
+.sample-questions summary em {
+  display: grid;
+  min-width: 28px;
+  min-height: 24px;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(102, 217, 198, 0.16);
+  color: #66d9c6;
+  font-style: normal;
+  font-size: 0.75rem;
 }
 
 .sample-questions button {
