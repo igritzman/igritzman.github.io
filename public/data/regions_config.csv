@@ -1,0 +1,33 @@
+country,division_type,wikipedia_base
+Nigeria,State,https://en.wikipedia.org/wiki/States_of_Nigeria
+France,Region,https://en.wikipedia.org/wiki/Regions_of_France
+United Kingdom,Country/Constituent Country,https://en.wikipedia.org/wiki/Countries_of_the_United_Kingdom
+Argentina,Province,https://en.wikipedia.org/wiki/Provinces_of_Argentina
+Chile,Region,https://en.wikipedia.org/wiki/Regions_of_Chile
+Mexico,State,https://en.wikipedia.org/wiki/States_of_Mexico
+Australia,State/Territory,https://en.wikipedia.org/wiki/States_and_territories_of_Australia
+Indonesia,Province,https://en.wikipedia.org/wiki/Provinces_of_Indonesia
+China,Province,https://en.wikipedia.org/wiki/Provinces_of_China
+India,State/Union Territory,https://en.wikipedia.org/wiki/States_and_union_territories_of_India
+South Korea,Province/Special City,https://en.wikipedia.org/wiki/Administrative_divisions_of_South_Korea
+Japan,Prefecture,https://en.wikipedia.org/wiki/Prefectures_of_Japan
+South Africa,Province,https://en.wikipedia.org/wiki/Provinces_of_South_Africa
+Morocco,Region,https://en.wikipedia.org/wiki/Regions_of_Morocco
+Algeria,Province,https://en.wikipedia.org/wiki/Provinces_of_Algeria
+Egypt,Governorate,https://en.wikipedia.org/wiki/Governorates_of_Egypt
+Kenya,County,https://en.wikipedia.org/wiki/Counties_of_Kenya
+Ethiopia,Region,https://en.wikipedia.org/wiki/Regions_of_Ethiopia
+Spain,Autonomous Community,https://en.wikipedia.org/wiki/Autonomous_communities_of_Spain
+Portugal,District/Autonomous Region,https://en.wikipedia.org/wiki/Districts_of_Portugal
+Poland,Voivodeship,https://en.wikipedia.org/wiki/Voivodeships_of_Poland
+Ukraine,Oblast,https://en.wikipedia.org/wiki/Oblasts_of_Ukraine
+Russia,Federal Subject,https://en.wikipedia.org/wiki/Federal_subjects_of_Russia
+Germany,State,https://en.wikipedia.org/wiki/States_of_Germany
+Italy,Region,https://en.wikipedia.org/wiki/Regions_of_Italy
+Brazil,State,https://en.wikipedia.org/wiki/States_of_Brazil
+United Arab Emirates,Emirate,https://en.wikipedia.org/wiki/Emirates_of_the_United_Arab_Emirates
+Greece,Region,https://en.wikipedia.org/wiki/Regions_of_Greece
+Norway,County,https://en.wikipedia.org/wiki/Counties_of_Norway
+Turkey,Province,https://en.wikipedia.org/wiki/Provinces_of_Turkey
+Ghana,Region,https://en.wikipedia.org/wiki/Regions_of_Ghana
+Zimbabwe,Province,https://en.wikipedia.org/wiki/Provinces_of_Zimbabwe

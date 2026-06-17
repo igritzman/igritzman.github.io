@@ -1663,6 +1663,12 @@ const localRegionalImageFallbacks: Record<string, Record<string, string>> = {
     "pays-de-la-loire": "france/pays-de-la-loire.jpg",
     "provence-alpes-cote-d-azur": "france/provence-alpes-cote-d-azur.jpg",
   },
+  portugal: {
+    azores: "portugal/azores.png",
+  },
+  spain: {
+    "canary-islands": "spain/canary-islands.png",
+  },
   australia: {
     "australian-capital-territory": "australia/australian-capital-territory.jpg",
     "new-south-wales": "australia/new-south-wales.jpg",
@@ -2355,7 +2361,7 @@ function LandingScreen({ onStart }: { onStart: () => void }) {
       <img className="landing-hero-image" src="/images/brand/geotransit-hero.png" alt="" />
       <div className="landing-overlay" />
       <section className="landing-content">
-        <img className="landing-logo" src="/images/brand/geontransit-logo.svg" alt="GEONTRANSIT" />
+        <img className="landing-logo" src="/images/brand/geontransit-wordmark.png" alt="GEONTRANSIT" />
         <button type="button" className="landing-start-button" onClick={onStart}>
           Start Here
         </button>
@@ -4456,7 +4462,7 @@ function practiceFlashcardsForRegion(region: Region, topics: PracticeTopic[], di
 
 function flashcardReviewHtml(title: string, subtitle: string, cards: Array<{ front: string; back: string; category: string }>) {
   const renderedCards = cards.map((card, index) => `
-    <button class="flip-card" type="button" aria-label="Flip card ${index + 1}">
+    <button class="flip-card${index === 0 ? " active" : ""}" type="button" aria-label="Flip card ${index + 1}">
       <span class="flip-card-inner">
         <span class="face front-face">
           <span class="label">${escapeHtml(card.category)}</span>
@@ -4484,10 +4490,12 @@ function flashcardReviewHtml(title: string, subtitle: string, cards: Array<{ fro
     header { max-width: 980px; margin: 0 auto 22px; }
     h1 { margin: 0 0 6px; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1; }
     p { margin: 0; color: #b7c9ce; max-width: 760px; line-height: 1.5; }
-    .toolbar { max-width: 980px; margin: 0 auto 18px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .toolbar { max-width: 680px; margin: 0 auto 18px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
     .toolbar button { border: 1px solid rgba(122, 241, 214, 0.35); border-radius: 999px; padding: 0.65rem 0.9rem; background: #10262d; color: #e9f3f5; font-weight: 800; cursor: pointer; }
-    .deck { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-    .flip-card { width: 100%; height: 230px; padding: 0; border: 0; background: transparent; perspective: 1100px; cursor: pointer; text-align: left; color: inherit; }
+    .progress { margin-left: auto; color: #b7c9ce; font-weight: 900; }
+    .deck { max-width: 680px; margin: 0 auto; }
+    .flip-card { display: none; width: 100%; height: min(58vh, 360px); min-height: 260px; padding: 0; border: 0; background: transparent; perspective: 1100px; cursor: pointer; text-align: left; color: inherit; }
+    .flip-card.active { display: block; }
     .flip-card-inner { position: relative; display: block; width: 100%; height: 100%; transition: transform 0.45s ease; transform-style: preserve-3d; }
     .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
     .face { position: absolute; inset: 0; display: grid; align-content: center; gap: 12px; padding: 18px; border: 1px solid rgba(122, 241, 214, 0.22); border-radius: 18px; backface-visibility: hidden; box-shadow: 0 18px 38px rgba(0, 0, 0, 0.32); }
@@ -4496,7 +4504,7 @@ function flashcardReviewHtml(title: string, subtitle: string, cards: Array<{ fro
     .label { color: #7af1d6; font-size: 0.72rem; font-weight: 950; letter-spacing: 0.08em; text-transform: uppercase; }
     strong { font-size: 1.08rem; line-height: 1.28; }
     small { color: #a9bec4; font-weight: 800; }
-    @media (max-width: 620px) { body { padding: 18px; } .flip-card { height: 260px; } }
+    @media (max-width: 620px) { body { padding: 18px; } .flip-card { height: 320px; } .progress { width: 100%; margin-left: 0; } }
     @media print { body { background: white; color: black; } .toolbar { display: none; } .deck { display: block; } .flip-card { height: auto; margin: 12px 0; page-break-inside: avoid; } .flip-card-inner, .flip-card.flipped .flip-card-inner { transform: none; } .face { position: static; box-shadow: none; background: white; color: black; border-color: #999; } .back-face { transform: none; margin-top: 8px; } small { display: none; } }
   </style>
 </head>
@@ -4506,14 +4514,38 @@ function flashcardReviewHtml(title: string, subtitle: string, cards: Array<{ fro
     <p>${escapeHtml(subtitle)}</p>
   </header>
   <nav class="toolbar" aria-label="Flashcard controls">
-    <button type="button" onclick="document.querySelectorAll('.flip-card').forEach((card) => card.classList.add('flipped'))">Show answers</button>
-    <button type="button" onclick="document.querySelectorAll('.flip-card').forEach((card) => card.classList.remove('flipped'))">Show prompts</button>
+    <button type="button" onclick="previousCard()">Previous</button>
+    <button type="button" onclick="nextCard()">Next</button>
+    <button type="button" onclick="setAnswer(true)">Show answer</button>
+    <button type="button" onclick="setAnswer(false)">Show prompt</button>
+    <span class="progress" id="card-progress"></span>
   </nav>
   <main class="deck">${renderedCards}</main>
   <script>
-    document.querySelectorAll('.flip-card').forEach((card) => {
+    const cards = Array.from(document.querySelectorAll('.flip-card'));
+    let activeIndex = 0;
+    function updateCard() {
+      cards.forEach((card, index) => card.classList.toggle('active', index === activeIndex));
+      const progress = document.getElementById('card-progress');
+      if (progress) progress.textContent = cards.length ? (activeIndex + 1) + ' / ' + cards.length : '0 / 0';
+    }
+    function nextCard() {
+      if (!cards.length) return;
+      activeIndex = (activeIndex + 1) % cards.length;
+      updateCard();
+    }
+    function previousCard() {
+      if (!cards.length) return;
+      activeIndex = (activeIndex - 1 + cards.length) % cards.length;
+      updateCard();
+    }
+    function setAnswer(showAnswer) {
+      cards[activeIndex]?.classList.toggle('flipped', showAnswer);
+    }
+    cards.forEach((card) => {
       card.addEventListener('click', () => card.classList.toggle('flipped'));
     });
+    updateCard();
   </script>
 </body>
 </html>`;
@@ -6066,7 +6098,7 @@ function CountryDiagram({ region }: { region: Region }) {
 }
 
 function InfoGroup({ title, items, regionName, badge = false }: { title: string; items: string[]; regionName: string; badge?: boolean }) {
-  const filteredItems = items.filter(Boolean);
+  const filteredItems = items.filter((item) => item && !isGenericProfileItem(title, item));
   if (filteredItems.length === 0) return null;
   return (
     <details className="info-group" open={["Major Cities", "Airports"].includes(title)}>
@@ -6088,6 +6120,42 @@ function InfoGroup({ title, items, regionName, badge = false }: { title: string;
       </div>
     </details>
   );
+}
+
+function isGenericProfileItem(groupTitle: string, item: string) {
+  const normalized = item.toLowerCase();
+  const genericPatterns = [
+    "largest commercial city",
+    "primary airport city",
+    "major regional city",
+    "historic or port city",
+    "primary international airport",
+    "secondary airport",
+    "capital gateway airport",
+    "regional domestic airport",
+    "cargo or charter airport",
+    "national rail or intercity coach corridor",
+    "capital-area commuter links",
+    "main freight corridor",
+    "regional cross-border corridor",
+    "capital transit network",
+    "airport/capital bus link",
+    "regional commuter buses",
+    "primary national highway",
+    "airport road",
+    "river/port access where applicable",
+    "airport gateway area",
+    "historic center",
+    "quiz and map-study anchor",
+    "full 193 un-country",
+    "local transit profile covering",
+    "harder quizzes can draw",
+    "available in the country profile",
+  ];
+  if (genericPatterns.some((pattern) => normalized.includes(pattern))) return true;
+  if (groupTitle === "Metro" && normalized === "local buses") return true;
+  if (groupTitle === "Fun Facts" && normalized.length < 36) return true;
+  return false;
 }
 
 function isReferenceClickable(groupTitle: string, item: string) {

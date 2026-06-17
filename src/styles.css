@@ -154,38 +154,39 @@ input {
   position: relative;
   z-index: 1;
   display: grid;
-  gap: clamp(1rem, 2.2vw, 1.6rem);
+  gap: clamp(1.25rem, 2.8vw, 2rem);
   justify-items: center;
   width: min(1120px, calc(100% - 2rem));
   padding: clamp(1.2rem, 3vw, 2rem);
   text-align: center;
-  transform: translateY(3vh);
+  transform: translateY(1vh);
 }
 
 .landing-logo {
-  width: min(860px, 88vw);
+  width: min(1040px, 92vw);
   height: auto;
   object-fit: contain;
-  border-radius: 6px;
-  box-shadow: 0 18px 70px rgba(0, 0, 0, 0.3);
+  border-radius: 0;
+  box-shadow: none;
+  filter: drop-shadow(0 18px 44px rgba(0, 0, 0, 0.34));
 }
 
 .landing-start-button {
-  width: min(420px, 82vw);
-  min-height: clamp(58px, 8vw, 76px);
+  width: min(540px, 86vw);
+  min-height: clamp(66px, 9vw, 86px);
   padding: 0 2.25rem;
   border-color: rgba(183, 244, 97, 0.82);
   background:
     linear-gradient(135deg, rgba(143, 192, 38, 0.98), rgba(24, 48, 15, 0.98)),
     #355d18;
   color: #fff;
-  font-size: clamp(1.05rem, 2vw, 1.45rem);
+  font-size: clamp(1.15rem, 2.4vw, 1.65rem);
   font-weight: 950;
   box-shadow: 0 0 0 4px rgba(183, 244, 97, 0.16), 0 18px 44px rgba(0, 0, 0, 0.36);
 }
 
 .landing-start-button::after {
-  content: " ->";
+  content: "  →";
 }
 
 .topbar {
@@ -1397,14 +1398,15 @@ h3 {
 }
 
 .map-toolbar.compact-tool-panel > summary::before {
-  content: ">";
+  content: "▸";
   color: #7af1d6;
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-weight: 950;
+  line-height: 1;
 }
 
 .map-toolbar.compact-tool-panel[open] > summary::before {
-  content: "v";
+  content: "▾";
 }
 
 .map-toolbar.compact-tool-panel[open] > summary {
