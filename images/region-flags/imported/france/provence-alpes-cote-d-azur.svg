@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-label="Provence-Alpes-Cote d'Azur regional flag">
+  <rect width="1200" height="720" fill="#ffd31a"/>
+  <g fill="#e72f3b">
+    <rect x="0" y="0" width="70" height="720"/>
+    <rect x="150" y="0" width="70" height="720"/>
+    <rect x="300" y="0" width="70" height="720"/>
+    <rect x="450" y="0" width="70" height="720"/>
+    <rect x="600" y="0" width="70" height="720"/>
+  </g>
+  <line x1="735" y1="0" x2="735" y2="720" stroke="#5b4200" stroke-width="6"/>
+  <path d="M975 96c56 0 101 17 136 50 14-2 33-12 58-30-7 31-20 55-39 72 31-1 57 5 78 19-31 12-53 28-66 49 12 45 3 89-27 132-25 36-62 70-112 101-19 12-31 26-37 43 6 22 28 41 65 56-53 12-98 6-134-17-34-22-54-52-58-91-43-5-78-19-105-42-30-25-48-59-54-101-42-10-72-33-92-68 37 7 69 1 96-18 7-46 31-83 72-112 38-28 83-43 133-43z" fill="#022c8c" stroke="#111" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M856 210c-14 21-17 42-10 63 8 22 28 34 58 36 35 2 67-6 97-23" fill="none" stroke="#111" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="934" cy="189" r="18" fill="#fff"/>
+  <path d="M850 372c83 48 167 48 252 0" fill="none" stroke="#111" stroke-width="10" stroke-linecap="round"/>
+  <path d="M1080 168c18 19 25 40 20 63 29-19 56-24 81-16-23 21-34 45-33 73-25-25-52-36-82-32 21-27 26-56 14-88zM954 493c18 41 13 82-14 122 43-22 87-24 132-5-35-40-44-84-26-133-25 22-56 28-92 16z" fill="#e72f3b" stroke="#111" stroke-width="6"/>
+  <rect x="735" y="480" width="465" height="240" fill="#fff" stroke="#5b4200" stroke-width="6"/>
+  <path d="M970 612c-44 0-80 26-80 58h160c0-32-36-58-80-58z" fill="#111"/>
+  <path d="M780 668c62-44 123-44 185 0 62-44 123-44 185 0" fill="none" stroke="#043db5" stroke-width="22"/>
+</svg>

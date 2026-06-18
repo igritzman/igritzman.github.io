@@ -1,0 +1,2390 @@
+[
+  {
+    "name": "India",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "/images/places/india.jpg",
+    "attribution": {
+      "title": "Taj Mahal, Agra, India edit3",
+      "author": "Yann, King of Hearts, Jbarta",
+      "license": "CC BY-SA 3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Taj_Mahal,_Agra,_India_edit3.jpg"
+    }
+  },
+  {
+    "name": "Costa Rica",
+    "type": "country",
+    "region": "Central America",
+    "imagePath": "/images/places/costa-rica.jpg",
+    "attribution": {
+      "title": "Mirador Valle de Orosi, Cartago, Costa Rica - panoramio",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mirador_Valle_de_Orosi,_Cartago,_Costa_Rica_-_panoramio.jpg"
+    }
+  },
+  {
+    "name": "Slovenia",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "/images/places/slovenia.jpg",
+    "attribution": {
+      "title": "Church of the Assumption, Slovenia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Church_of_the_Assumption,_Slovenia.jpg"
+    }
+  },
+  {
+    "name": "Ghana",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Nzulezu_front.jpg/1280px-Nzulezu_front.jpg",
+    "attribution": {
+      "title": "Nzulezu front",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nzulezu_front.jpg"
+    }
+  },
+  {
+    "name": "Guatemala",
+    "type": "country",
+    "region": "Central America",
+    "imagePath": "/images/places/guatemala.jpg",
+    "attribution": {
+      "title": "Lago de Atitlan en Guatemala",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lago_de_Atitl%C3%A1n_en_Guatemala.jpg"
+    }
+  },
+  {
+    "name": "Taiwan",
+    "type": "territory",
+    "region": "Asia",
+    "imagePath": "/images/places/taiwan.jpg",
+    "attribution": {
+      "title": "Taipei skyline",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Taipei_skyline.jpg"
+    }
+  },
+  {
+    "name": "United States",
+    "type": "country",
+    "region": "North America",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Golden_Gate_Bridge_Yang_Ming_Line.jpg/1280px-Golden_Gate_Bridge_Yang_Ming_Line.jpg",
+    "attribution": {
+      "title": "Golden Gate Bridge Yang Ming Line",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Golden_Gate_Bridge_Yang_Ming_Line.jpg"
+    }
+  },
+  {
+    "name": "Canada",
+    "type": "country",
+    "region": "North America",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Lake_Louise_Canada.JPG/1280px-Lake_Louise_Canada.JPG",
+    "attribution": {
+      "title": "Lake Louise Canada",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lake_Louise_Canada.JPG"
+    }
+  },
+  {
+    "name": "Peru",
+    "type": "country",
+    "region": "South America",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Machu_Picchu%2C_Peru.jpg/1280px-Machu_Picchu%2C_Peru.jpg",
+    "attribution": {
+      "title": "Machu Picchu, Peru",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Machu_Picchu,_Peru.jpg"
+    }
+  },
+  {
+    "name": "Chile",
+    "type": "country",
+    "region": "South America",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Torres_del_Paine_National_Park.jpg/1280px-Torres_del_Paine_National_Park.jpg",
+    "attribution": {
+      "title": "Torres del Paine National Park",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Torres_del_Paine_National_Park.jpg"
+    }
+  },
+  {
+    "name": "Israel",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/AlAqsaFromKotel.JPG?width=1280",
+    "attribution": {
+      "title": "Western Wall Plaza Jerusalem",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Western_Wall_Plaza_Jerusalem.jpg"
+    }
+  },
+  {
+    "name": "Uzbekistan",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Kalta_Minor%2C_Khiva%2C_Uzbekistan.jpg?width=1280",
+    "attribution": {
+      "title": "Kalta Minor minaret, Khiva",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kalta_Minor_minaret,_Khiva.jpg"
+    }
+  },
+  {
+    "name": "United Kingdom",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/London_Skyline_%28125508655%29.jpeg/1280px-London_Skyline_%28125508655%29.jpeg",
+    "attribution": {
+      "title": "London Skyline",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:London_Skyline_(125508655).jpeg"
+    }
+  },
+  {
+    "name": "Spain",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Sagrada_Familia_01.jpg/1280px-Sagrada_Familia_01.jpg",
+    "attribution": {
+      "title": "Sagrada Familia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sagrada_Familia_01.jpg"
+    }
+  },
+  {
+    "name": "Thailand",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Wat_Phra_That_Doi_Suthep_Chiang_Mai.jpg/1280px-Wat_Phra_That_Doi_Suthep_Chiang_Mai.jpg",
+    "attribution": {
+      "title": "Wat Phra That Doi Suthep Chiang Mai",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Wat_Phra_That_Doi_Suthep_Chiang_Mai.jpg"
+    }
+  },
+  {
+    "name": "France",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Tour_Eiffel_Wikimedia_Commons.jpg/1280px-Tour_Eiffel_Wikimedia_Commons.jpg",
+    "attribution": {
+      "title": "Tour Eiffel",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tour_Eiffel_Wikimedia_Commons.jpg"
+    }
+  },
+  {
+    "name": "Australia",
+    "type": "country",
+    "region": "Oceania",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Sydney_Opera_House_Sails.jpg/1280px-Sydney_Opera_House_Sails.jpg",
+    "attribution": {
+      "title": "Sydney Opera House Sails",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sydney_Opera_House_Sails.jpg"
+    }
+  },
+  {
+    "name": "Greece",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Oia%2C_Santorini_HDR_sunset.jpg/1280px-Oia%2C_Santorini_HDR_sunset.jpg",
+    "attribution": {
+      "title": "Oia, Santorini HDR sunset",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Oia,_Santorini_HDR_sunset.jpg"
+    }
+  },
+  {
+    "name": "Philippines",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/El_Nido_Bay_December_2018.jpg?width=1280",
+    "attribution": {
+      "title": "El Nido Palawan Aerial view",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:El_Nido_Palawan_Aerial_view.jpg"
+    }
+  },
+  {
+    "name": "Netherlands",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/KeizersgrachtReguliersgrachtAmsterdam.jpg/1280px-KeizersgrachtReguliersgrachtAmsterdam.jpg",
+    "attribution": {
+      "title": "Keizersgracht Reguliersgracht Amsterdam",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:KeizersgrachtReguliersgrachtAmsterdam.jpg"
+    }
+  },
+  {
+    "name": "Switzerland",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Matterhorn_from_Domh%C3%BCtte_-_2.jpg/1280px-Matterhorn_from_Domh%C3%BCtte_-_2.jpg",
+    "attribution": {
+      "title": "Matterhorn from Domhutte",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Matterhorn_from_Domh%C3%BCtte_-_2.jpg"
+    }
+  },
+  {
+    "name": "Mauritius",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Le_Morne_Beach_with_Le_Morne_Brabant_Mountain_in_the_background%2C_Mauritius_%2853698223315%29.jpg?width=1280",
+    "attribution": {
+      "title": "Le Morne Brabant, Mauritius",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Le_Morne_Brabant,_Mauritius.jpg"
+    }
+  },
+  {
+    "name": "Japan",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "/images/country-images/Japan.jpg",
+    "attribution": {
+      "title": "Japan country image",
+      "author": "User supplied Country Images (5).zip",
+      "license": "User supplied asset",
+      "sourceUrl": "/images/country-images/Japan.jpg"
+    }
+  },
+  {
+    "name": "Italy",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/1280px-Colosseo_2020.jpg",
+    "attribution": {
+      "title": "Colosseo 2020",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Colosseo_2020.jpg"
+    }
+  },
+  {
+    "name": "Czech Republic",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Charles_Bridge%2C_Prague.jpg/1280px-Charles_Bridge%2C_Prague.jpg",
+    "attribution": {
+      "title": "Charles Bridge, Prague",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Charles_Bridge,_Prague.jpg"
+    }
+  },
+  {
+    "name": "Turkey",
+    "type": "country",
+    "region": "Europe/Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Balloons_over_Cappadocia-2015-05-16-2.jpg?width=1280",
+    "attribution": {
+      "title": "Cappadocia Balloons",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cappadocia_Balloons.jpg"
+    }
+  },
+  {
+    "name": "Jordan",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Treasury_petra_crop.jpeg/1280px-Treasury_petra_crop.jpeg",
+    "attribution": {
+      "title": "Treasury Petra",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Treasury_petra_crop.jpeg"
+    }
+  },
+  {
+    "name": "Saint Lucia",
+    "type": "country",
+    "region": "Caribbean",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Gros_Piton_and_Petit_Piton_in_Saint_Lucia.JPG?width=1280",
+    "attribution": {
+      "title": "Pitons Saint Lucia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pitons_Saint_Lucia.jpg"
+    }
+  },
+  {
+    "name": "New Zealand",
+    "type": "country",
+    "region": "Oceania",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Milford_Sound_%28New_Zealand%29.JPG?width=1280",
+    "attribution": {
+      "title": "Milford Sound",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Milford_Sound_(New_Zealand).jpg"
+    }
+  },
+  {
+    "name": "Maldives",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Beach_at_Medhufushi_Island_Resort_in_the_Maldives2.jpg?width=1280",
+    "attribution": {
+      "title": "Maldives Resort",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Maldives_Resort.jpg"
+    }
+  },
+  {
+    "name": "South Korea",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Gyeongbokgung_Palace%2C_Seoul.jpg?width=1280",
+    "attribution": {
+      "title": "Gyeongbokgung palace",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gyeongbokgung-palace-1881x1254.jpg"
+    }
+  },
+  {
+    "name": "South Africa",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Table_Mountain_Cape_Town.jpg/1280px-Table_Mountain_Cape_Town.jpg",
+    "attribution": {
+      "title": "Table Mountain Cape Town",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Table_Mountain_Cape_Town.jpg"
+    }
+  },
+  {
+    "name": "Argentina",
+    "type": "country",
+    "region": "South America",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Buenos_Aires_Caminito_1.jpg?width=1280",
+    "attribution": {
+      "title": "Buenos Aires Caminito",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Buenos_Aires_Caminito_1.jpg"
+    }
+  },
+  {
+    "name": "Brazil",
+    "type": "country",
+    "region": "South America",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Cristo_Redentor_-_Rio_de_Janeiro%2C_Brasil.jpg/1280px-Cristo_Redentor_-_Rio_de_Janeiro%2C_Brasil.jpg",
+    "attribution": {
+      "title": "Cristo Redentor - Rio de Janeiro",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cristo_Redentor_-_Rio_de_Janeiro,_Brasil.jpg"
+    }
+  },
+  {
+    "name": "United Arab Emirates",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Burj_dubai_3.11.08.jpg?width=1280",
+    "attribution": {
+      "title": "Burj Khalifa",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Burj_Khalifa.jpg"
+    }
+  },
+  {
+    "name": "Indonesia",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Brantan_Bali_Pura-Ulun-Danu-Bratan-01.jpg?width=1280",
+    "attribution": {
+      "title": "Pura Ulun Danu Bratan, Bali",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pura_Ulun_Danu_Bratan,_Bali.jpg"
+    }
+  },
+  {
+    "name": "San Marino",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Fortress_of_Guaita_2013-09-19.jpg?width=1280",
+    "attribution": {
+      "title": "San Marino fortress",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:San_Marino_fortress.jpg"
+    }
+  },
+  {
+    "name": "Tanzania",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/042_Masai_giraffe_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg/1280px-042_Masai_giraffe_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg",
+    "attribution": {
+      "title": "Masai giraffe in Serengeti National Park",
+      "author": "Giles Laurent",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:042_Masai_giraffe_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg"
+    }
+  },
+  {
+    "name": "Portugal",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Caldeira%2C_isla_de_Fayal%2C_Azores%2C_Portugal%2C_2020-07-28%2C_DD_25-30_PAN.jpg?width=1280",
+    "attribution": {
+      "title": "Caldeira, isla de Fayal, Azores, Portugal",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Caldeira,_isla_de_Fayal,_Azores,_Portugal,_2020-07-28,_DD_25-30_PAN.jpg"
+    }
+  },
+  {
+    "name": "Belgium",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Ghent_April_2012-2.jpg?width=1280",
+    "attribution": {
+      "title": "Ghent April 2012",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ghent_April_2012-2.jpg"
+    }
+  },
+  {
+    "name": "Puerto Rico",
+    "type": "territory",
+    "region": "Caribbean",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Juan_Diego_Falls_in_R%C3%ADo_Grande%2C_Puerto_Rico.jpg?width=1280",
+    "attribution": {
+      "title": "Juan Diego Falls in Rio Grande, Puerto Rico",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Juan_Diego_Falls_in_R%C3%ADo_Grande,_Puerto_Rico.jpg"
+    }
+  },
+  {
+    "name": "Latvia",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Vistas_desde_la_iglesia_de_San_Pedro%2C_Riga%2C_Letonia%2C_2012-08-07%2C_DD_12.JPG?width=1280",
+    "attribution": {
+      "title": "View from St. Peter's Church, Riga",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vistas_desde_la_iglesia_de_San_Pedro,_Riga,_Letonia,_2012-08-07,_DD_12.JPG"
+    }
+  },
+  {
+    "name": "Iceland",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Gullfoss%2C_an_iconic_waterfall_of_Iceland.jpg?width=1280",
+    "attribution": {
+      "title": "Gullfoss, Iceland",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gullfoss,_an_iconic_waterfall_of_Iceland.jpg"
+    }
+  },
+  {
+    "name": "Tunisia",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/La_Marsa%2C_Tunisia_-_Street_view_towards_water%2C_January_2024.jpg?width=1280",
+    "attribution": {
+      "title": "La Marsa, Tunisia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:La_Marsa,_Tunisia_-_Street_view_towards_water,_January_2024.jpg"
+    }
+  },
+  {
+    "name": "Finland",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Tuira_Bridges_Oulu_20130715.JPG?width=1280",
+    "attribution": {
+      "title": "Tuira Bridges, Oulu",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tuira_Bridges_Oulu_20130715.JPG"
+    }
+  },
+  {
+    "name": "Albania",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Vajz%C3%AB%2C_Selenic%C3%AB%2C_Albania_2019_07_%E2%80%93_Landscape.jpg/1280px-Vajz%C3%AB%2C_Selenic%C3%AB%2C_Albania_2019_07_%E2%80%93_Landscape.jpg",
+    "attribution": {
+      "title": "Vajze, Selenice, Albania landscape",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vajz%C3%AB,_Selenic%C3%AB,_Albania_2019_07_%E2%80%93_Landscape.jpg"
+    }
+  },
+  {
+    "name": "Timor-Leste",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Timor-Leste_Coastline.jpg?width=1280",
+    "attribution": {
+      "title": "Timor-Leste coastline",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Timor-Leste_Coastline.jpg"
+    }
+  },
+  {
+    "name": "Sweden",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Hotell_i_G%C3%B6teborg_%28Radisson_BLU%29.jpg?width=1280",
+    "attribution": {
+      "title": "Gothenburg hotel view",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hotell_i_G%C3%B6teborg_(Radisson_BLU).jpg"
+    }
+  },
+  {
+    "name": "Croatia",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Plitvice_Lakes_National_Park_%282%29.jpg?width=1280",
+    "attribution": {
+      "title": "Plitvice Lakes National Park",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Plitvice_Lakes_National_Park_(2).jpg"
+    }
+  },
+  {
+    "name": "Turkmenistan",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/By_the_Independence_monument_park_%282%29_%2832291462448%29.jpg/1280px-By_the_Independence_monument_park_%282%29_%2832291462448%29.jpg",
+    "attribution": {
+      "title": "By the Independence Monument park, Ashgabat",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:By_the_Independence_monument_park_(2)_(32291462448).jpg"
+    }
+  },
+  {
+    "name": "Kiribati",
+    "type": "country",
+    "region": "Oceania",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/South_Tarawa_from_the_air.jpg?width=1280",
+    "attribution": {
+      "title": "South Tarawa from the air",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:South_Tarawa_from_the_air.jpg"
+    }
+  },
+  {
+    "name": "Lesotho",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Maletsunyanefalls.JPG?width=1280",
+    "attribution": {
+      "title": "Maletsunyane Falls, Lesotho",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Maletsunyanefalls.JPG"
+    }
+  },
+  {
+    "name": "Ireland",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Cliffs_of_Moher_bei_bestem_Wetter_%282007%29.jpg/1280px-Cliffs_of_Moher_bei_bestem_Wetter_%282007%29.jpg",
+    "attribution": {
+      "title": "Cliffs of Moher",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cliffs_of_Moher_bei_bestem_Wetter_(2007).jpg"
+    }
+  },
+  {
+    "name": "Denmark",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Boats_at_Nyhavn%2C_Copenhagen%2C_20220616_1937_6628.jpg?width=1280",
+    "attribution": {
+      "title": "Boats at Nyhavn, Copenhagen",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Boats_at_Nyhavn,_Copenhagen,_20220616_1937_6628.jpg"
+    }
+  },
+  {
+    "name": "Morocco",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Chefchaouen2007.JPG?width=1280",
+    "attribution": {
+      "title": "Chefchaouen",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chefchaouen2007.JPG"
+    }
+  },
+  {
+    "name": "Mexico",
+    "type": "country",
+    "region": "North America",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Chichen_Itza_3.jpg?width=1280",
+    "attribution": {
+      "title": "Chichen Itza",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chichen_Itza_3.jpg"
+    }
+  },
+  {
+    "name": "Iran",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Azadi_Tower_%2829358497718%29_%28cropped%29.jpg?width=1280",
+    "attribution": {
+      "title": "Azadi Tower",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Azadi_Tower_(29358497718)_(cropped).jpg"
+    }
+  },
+  {
+    "name": "Norway",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Bergen_V%C3%A5gen_Fl%C3%B8yen_Vestland_Norway_%282022.06.25%29.jpg?width=1280",
+    "attribution": {
+      "title": "Bergen Vagen Floyen, Norway",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bergen_V%C3%A5gen_Fl%C3%B8yen_Vestland_Norway_(2022.06.25).jpg"
+    }
+  },
+  {
+    "name": "Tajikistan",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Pamir_Mountains_%281%29.jpg?width=1280",
+    "attribution": {
+      "title": "Pamir Mountains, Tajikistan",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pamir_Mountains_(1).jpg"
+    }
+  },
+  {
+    "name": "Poland",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Pozna%C5%84%2C_Stary_Rynek_%28domki_budnicze_i_ratusz%29.jpg/1280px-Pozna%C5%84%2C_Stary_Rynek_%28domki_budnicze_i_ratusz%29.jpg",
+    "attribution": {
+      "title": "Poznan Old Market Square",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pozna%C5%84,_Stary_Rynek_(domki_budnicze_i_ratusz).jpg"
+    }
+  },
+  {
+    "name": "Austria",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Hallstatt_300.jpg?width=1280",
+    "attribution": {
+      "title": "Hallstatt mountain town",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hallstatt_300.jpg"
+    }
+  },
+  {
+    "name": "Togo",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Lome_Togo.jpg?width=1280",
+    "attribution": {
+      "title": "Lome, Togo",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lome_Togo.jpg"
+    }
+  },
+  {
+    "name": "Afghanistan",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Kabul_Afghanistan%2C_place_where_I_live.jpg?width=1280",
+    "attribution": {
+      "title": "Kabul Afghanistan, place where I live",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kabul_Afghanistan,_place_where_I_live.jpg"
+    }
+  },
+  {
+    "name": "Namibia",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Sossusvlei_Dune_Namib_Desert_Namibia_Luca_Galuzzi_2004.JPG/1280px-Sossusvlei_Dune_Namib_Desert_Namibia_Luca_Galuzzi_2004.JPG",
+    "attribution": {
+      "title": "Sossusvlei dunes, Namibia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sossusvlei_Dune_Namib_Desert_Namibia_Luca_Galuzzi_2004.JPG"
+    }
+  },
+  {
+    "name": "French Polynesia",
+    "type": "territory",
+    "region": "Oceania",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Mouaroa%2C_French_Polynesia%2C_December%2C_2011.jpg/1280px-Mouaroa%2C_French_Polynesia%2C_December%2C_2011.jpg",
+    "attribution": {
+      "title": "Moorea, French Polynesia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mouaroa,_French_Polynesia,_December,_2011.jpg"
+    }
+  },
+  {
+    "name": "Tuvalu",
+    "type": "country",
+    "region": "Oceania",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Funafuti_International_Airport.jpg?width=1280",
+    "attribution": {
+      "title": "Funafuti International Airport",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Funafuti_International_Airport.jpg"
+    }
+  },
+  {
+    "name": "China",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/China-Shanghai-YuGarden-the_Lantern_Festival-2012_1846.JPG/1280px-China-Shanghai-YuGarden-the_Lantern_Festival-2012_1846.JPG",
+    "attribution": {
+      "title": "Yu Garden Lantern Festival",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:China-Shanghai-YuGarden-the_Lantern_Festival-2012_1846.JPG"
+    }
+  },
+  {
+    "name": "Malaysia",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Gombak_Selangor_Batu-Caves-01.jpg/1280px-Gombak_Selangor_Batu-Caves-01.jpg",
+    "attribution": {
+      "title": "Batu Caves, Malaysia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gombak_Selangor_Batu-Caves-01.jpg"
+    }
+  },
+  {
+    "name": "Colombia",
+    "type": "country",
+    "region": "South America",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Colombia-Guatape-Fachadas_02.jpg/1280px-Colombia-Guatape-Fachadas_02.jpg",
+    "attribution": {
+      "title": "Guatape, Colombia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Colombia-Guatape-Fachadas_02.jpg"
+    }
+  },
+  {
+    "name": "Ecuador",
+    "type": "country",
+    "region": "South America",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Quito_as_from_panecillo_Basilica.jpg/1280px-Quito_as_from_panecillo_Basilica.jpg",
+    "attribution": {
+      "title": "El Panecillo, Quito, Ecuador",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Quito_as_from_panecillo_Basilica.jpg"
+    }
+  },
+  {
+    "name": "Sri Lanka",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Sigiriya_02.jpg/1280px-Sigiriya_02.jpg",
+    "attribution": {
+      "title": "Sigiriya Rock, Sri Lanka",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sigiriya_02.jpg"
+    }
+  },
+  {
+    "name": "Bahamas",
+    "type": "country",
+    "region": "Caribbean",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Paradise_Island_Light_and_Atlantic_Resort%2C_Bahamas.jpg?width=1280",
+    "attribution": {
+      "title": "Paradise Island Light and Atlantis Resort, Bahamas",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Paradise_Island_Light_and_Atlantic_Resort,_Bahamas.jpg"
+    }
+  },
+  {
+    "name": "Panama",
+    "type": "country",
+    "region": "Central America",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Panama_City_skyline.jpg?width=1280",
+    "attribution": {
+      "title": "Panama City skyline",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Panama_City_skyline.jpg"
+    }
+  },
+  {
+    "name": "Hungary",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Budapest_Parliament_4604.JPG/1280px-Budapest_Parliament_4604.JPG",
+    "attribution": {
+      "title": "Hungarian Parliament Building, Budapest",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Budapest_Parliament_4604.JPG"
+    }
+  },
+  {
+    "name": "Lithuania",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Trakai_Island_Castle.jpg?width=1280",
+    "attribution": {
+      "title": "Trakai Island Castle, Lithuania",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Trakai_Island_Castle.jpg"
+    }
+  },
+  {
+    "name": "Kazakhstan",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Night_at_Esil_District%2C_Astana_%28P1190721%29.jpg/1280px-Night_at_Esil_District%2C_Astana_%28P1190721%29.jpg",
+    "attribution": {
+      "title": "Astana Bayterek, Kazakhstan",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Night_at_Esil_District,_Astana_(P1190721).jpg"
+    }
+  },
+  {
+    "name": "Mongolia",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Life_in_a_Ger.jpg/1280px-Life_in_a_Ger.jpg",
+    "attribution": {
+      "title": "Yurts in Mongolia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Life_in_a_Ger.jpg"
+    }
+  },
+  {
+    "name": "Ethiopia",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/0/07/The_Simien_Mountains%2C_Ethiopia.jpg",
+    "attribution": {
+      "title": "Simien Mountains, Ethiopia",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Simien_Mountains,_Ethiopia.jpg"
+    }
+  },
+  {
+    "name": "Sierra Leone",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/The_Dwzark_view_of_freetown.jpg/1280px-The_Dwzark_view_of_freetown.jpg",
+    "attribution": {
+      "title": "View of Freetown, Sierra Leone",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Dwzark_view_of_freetown.jpg"
+    }
+  },
+  {
+    "name": "Moldova",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Orheiul_Vechi_hillside_view_%28182410493%29.jpg/1280px-Orheiul_Vechi_hillside_view_%28182410493%29.jpg",
+    "attribution": {
+      "title": "Orheiul Vechi, Moldova",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Orheiul_Vechi_hillside_view_(182410493).jpg"
+    }
+  },
+  {
+    "name": "Montenegro",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Kotor_and_Boka_kotorska_-_view_from_city_wall.jpg/1280px-Kotor_and_Boka_kotorska_-_view_from_city_wall.jpg",
+    "attribution": {
+      "title": "Kotor Bay, Montenegro",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kotor_and_Boka_kotorska_-_view_from_city_wall.jpg"
+    }
+  },
+  {
+    "name": "Egypt",
+    "type": "country",
+    "region": "Africa",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/All_Gizah_Pyramids.jpg?width=1280",
+    "attribution": {
+      "title": "Pyramids of Giza, Egypt",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:All_Gizah_Pyramids.jpg"
+    }
+  },
+  {
+    "name": "North Korea",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Ryugyong_Hotel%2C_Pyongyang%2C_North_Korea.jpg/1280px-Ryugyong_Hotel%2C_Pyongyang%2C_North_Korea.jpg",
+    "attribution": {
+      "title": "Ryugyong Hotel, Pyongyang",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ryugyong_Hotel,_Pyongyang,_North_Korea.jpg"
+    }
+  },
+  {
+    "name": "Bosnia and Herzegovina",
+    "type": "country",
+    "region": "Europe",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Mostar_Old_Town_Panorama_2007.jpg/1280px-Mostar_Old_Town_Panorama_2007.jpg",
+    "attribution": {
+      "title": "Mostar Old Bridge, Bosnia and Herzegovina",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mostar_Old_Town_Panorama_2007.jpg"
+    }
+  },
+  {
+    "name": "Iraq",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Erbil_Citadel.jpg?width=1280",
+    "attribution": {
+      "title": "Erbil Citadel, Iraq",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Erbil_Citadel.jpg"
+    }
+  },
+  {
+    "name": "Kyrgyzstan",
+    "type": "country",
+    "region": "Asia",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Song-Kul%2C_Kyrgyzstan_%2842769968080%29.jpg/1280px-Song-Kul%2C_Kyrgyzstan_%2842769968080%29.jpg",
+    "attribution": {
+      "title": "Yurts at Song Kul Lake, Kyrgyzstan",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Song-Kul,_Kyrgyzstan_(42769968080).jpg"
+    }
+  },
+  {
+    "name": "El Salvador",
+    "type": "country",
+    "region": "Central America",
+    "imagePath": "https://commons.wikimedia.org/wiki/Special:FilePath/Los_Volcanes_National_Park%2C_El_Salvador.jpg?width=1280",
+    "attribution": {
+      "title": "Los Volcanes National Park, El Salvador",
+      "author": "Wikimedia Commons contributor",
+      "license": "Wikimedia Commons",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Los_Volcanes_National_Park,_El_Salvador.jpg"
+    }
+  },
+  {
+    "name": "A lg er ia",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Algeria.png",
+    "attribution": {
+      "title": "A lg er ia country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "A nd or ra",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Andorra.png",
+    "attribution": {
+      "title": "A nd or ra country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "A ng ol a",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Angola.png",
+    "attribution": {
+      "title": "A ng ol a country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Antigua and Barbuda",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/AntiguaandBarbuda.png",
+    "attribution": {
+      "title": "Antigua and Barbuda country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "A rm en ia",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Armenia.png",
+    "attribution": {
+      "title": "A rm en ia country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Azerbaijan",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Azerbaian.png",
+    "attribution": {
+      "title": "Azerbaijan country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "B an gl ad es h",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Bangladesh.png",
+    "attribution": {
+      "title": "B an gl ad es h country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "B ar ba do s",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Barbados.png",
+    "attribution": {
+      "title": "B ar ba do s country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Belarus",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Belurus.png",
+    "attribution": {
+      "title": "Belarus country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "B en in",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Benin.png",
+    "attribution": {
+      "title": "B en in country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "B hu ta n",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Bhutan.png",
+    "attribution": {
+      "title": "B hu ta n country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "B ol iv ia",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Bolivia.png",
+    "attribution": {
+      "title": "B ol iv ia country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "B ot sw an a",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Botswana.jpg",
+    "attribution": {
+      "title": "B ot sw an a country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "B ou ga in vi ll e",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Bougainville.png",
+    "attribution": {
+      "title": "B ou ga in vi ll e country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "B ru ne i",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Brunei.png",
+    "attribution": {
+      "title": "B ru ne i country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "B ur ki na Fa so",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/BurkinaFaso.png",
+    "attribution": {
+      "title": "B ur ki na Fa so country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "B ur un di",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Burundi.png",
+    "attribution": {
+      "title": "B ur un di country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "C am bo di a",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Cambodia.png",
+    "attribution": {
+      "title": "C am bo di a country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "C am er oo n",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Cameroon.png",
+    "attribution": {
+      "title": "C am er oo n country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Cabo Verde",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/CapeVerde.png",
+    "attribution": {
+      "title": "Cabo Verde country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Cayman Islands",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/CaymanIslands.png",
+    "attribution": {
+      "title": "Cayman Islands country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "C ha d",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Chad.png",
+    "attribution": {
+      "title": "C ha d country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "C om or os",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Comoros.png",
+    "attribution": {
+      "title": "C om or os country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "C on go",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Congo.png",
+    "attribution": {
+      "title": "C on go country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Cote d'Ivoire",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/CoteDIvoire.png",
+    "attribution": {
+      "title": "Cote d'Ivoire country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "C ub a",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Cuba.png",
+    "attribution": {
+      "title": "C ub a country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "C yp ru s",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Cyprus.png",
+    "attribution": {
+      "title": "C yp ru s country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "D ji bo ut i",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Djibouti.png",
+    "attribution": {
+      "title": "D ji bo ut i country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "D om in ic a",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Dominica.png",
+    "attribution": {
+      "title": "D om in ic a country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Dominican Republic",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/DominicanRepublic.png",
+    "attribution": {
+      "title": "Dominican Republic country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Democratic Republic of the Congo",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/DRC.png",
+    "attribution": {
+      "title": "Democratic Republic of the Congo country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Equatorial Guinea",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/EquatorialGuinea.png",
+    "attribution": {
+      "title": "Equatorial Guinea country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "E ri tr ea",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Eritrea.png",
+    "attribution": {
+      "title": "E ri tr ea country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "E st on ia",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Estonia.png",
+    "attribution": {
+      "title": "E st on ia country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "E sw at in i",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Eswatini.png",
+    "attribution": {
+      "title": "E sw at in i country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "G ab on",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Gabon.png",
+    "attribution": {
+      "title": "G ab on country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "G am bi a",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Gambia.png",
+    "attribution": {
+      "title": "G am bi a country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "G eo rg ia",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Georgia.png",
+    "attribution": {
+      "title": "G eo rg ia country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "G er ma ny",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Germany.jpg",
+    "attribution": {
+      "title": "G er ma ny country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "G re na da",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Grenada.png",
+    "attribution": {
+      "title": "G re na da country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "G ui ne a",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Guinea.png",
+    "attribution": {
+      "title": "G ui ne a country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Guinea-Bissau",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/GuineaBissau.png",
+    "attribution": {
+      "title": "Guinea-Bissau country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "G uy an a",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Guyana.png",
+    "attribution": {
+      "title": "G uy an a country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "H ai ti",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Haiti.png",
+    "attribution": {
+      "title": "H ai ti country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "H on du ra s",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Honduras.png",
+    "attribution": {
+      "title": "H on du ra s country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Hong Kong",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/HongKong.png",
+    "attribution": {
+      "title": "Hong Kong country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "J am ai ca",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Jamaica.jpg",
+    "attribution": {
+      "title": "J am ai ca country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "K en ya",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Kenya.png",
+    "attribution": {
+      "title": "K en ya country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "K os ov o",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Kosovo.png",
+    "attribution": {
+      "title": "K os ov o country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "K uw ai t",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Kuwait.png",
+    "attribution": {
+      "title": "K uw ai t country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "L ao s",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Laos.png",
+    "attribution": {
+      "title": "L ao s country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "L eb an on",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Lebanon.png",
+    "attribution": {
+      "title": "L eb an on country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "L ib ya",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Libya.png",
+    "attribution": {
+      "title": "L ib ya country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "L ie ch te ns te in",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Liechtenstein.png",
+    "attribution": {
+      "title": "L ie ch te ns te in country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "M ad ag as ca r",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Madagascar.png",
+    "attribution": {
+      "title": "M ad ag as ca r country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "M al aw i",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Malawi.png",
+    "attribution": {
+      "title": "M al aw i country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "M al i",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Mali.png",
+    "attribution": {
+      "title": "M al i country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "M al ta",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Malta.png",
+    "attribution": {
+      "title": "M al ta country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Marshall Islands",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/MarshallIslands.png",
+    "attribution": {
+      "title": "Marshall Islands country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "M au ri ta ni a",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Mauritania.png",
+    "attribution": {
+      "title": "M au ri ta ni a country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "M ic ro ne si a",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Micronesia.png",
+    "attribution": {
+      "title": "M ic ro ne si a country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "M on ac o",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Monaco.png",
+    "attribution": {
+      "title": "M on ac o country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "M oz am bi qu e",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Mozambique.png",
+    "attribution": {
+      "title": "M oz am bi qu e country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "M ya nm ar",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Myanmar.png",
+    "attribution": {
+      "title": "M ya nm ar country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "N au ru",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Nauru.png",
+    "attribution": {
+      "title": "N au ru country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "N ep al",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Nepal.png",
+    "attribution": {
+      "title": "N ep al country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "N ig er",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Niger.png",
+    "attribution": {
+      "title": "N ig er country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "N ig er ia",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Nigeria.png",
+    "attribution": {
+      "title": "N ig er ia country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "N iu e",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Niue.jpg",
+    "attribution": {
+      "title": "N iu e country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "North Macedonia",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/North Macedonia.png",
+    "attribution": {
+      "title": "North Macedonia country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "O ma n",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Oman.png",
+    "attribution": {
+      "title": "O ma n country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "P ak is ta n",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Pakistan.png",
+    "attribution": {
+      "title": "P ak is ta n country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "P al au",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Palau.png",
+    "attribution": {
+      "title": "P al au country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "P ar ag ua y",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Paraguay.png",
+    "attribution": {
+      "title": "P ar ag ua y country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Pitcairn Islands",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/PitcairnIslands.png",
+    "attribution": {
+      "title": "Pitcairn Islands country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Papua New Guinea",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/PNG.png",
+    "attribution": {
+      "title": "Papua New Guinea country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Q at ar",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Qatar.png",
+    "attribution": {
+      "title": "Q at ar country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "R om an ia",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Romania.png",
+    "attribution": {
+      "title": "R om an ia country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "R us si a",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Russia.png",
+    "attribution": {
+      "title": "R us si a country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "R wa nd a",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Rwanda.png",
+    "attribution": {
+      "title": "R wa nd a country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Sao Tome and Principe",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/SaoTomeandPrincipe.png",
+    "attribution": {
+      "title": "Sao Tome and Principe country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "S au di Ar ab ia",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/SaudiArabia.png",
+    "attribution": {
+      "title": "S au di Ar ab ia country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "S en eg al",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Senegal.png",
+    "attribution": {
+      "title": "S en eg al country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "S er bi a",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Serbia.png",
+    "attribution": {
+      "title": "S er bi a country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "S ey ch el le s",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Seychelles.png",
+    "attribution": {
+      "title": "S ey ch el le s country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "S in ga po re",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Singapore.jpg",
+    "attribution": {
+      "title": "S in ga po re country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "S lo va ki a",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Slovakia.png",
+    "attribution": {
+      "title": "S lo va ki a country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Saint Helena",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/StHelena.png",
+    "attribution": {
+      "title": "Saint Helena country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Saint Kitts and Nevis",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/StKittsandNeivs.png",
+    "attribution": {
+      "title": "Saint Kitts and Nevis country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Saint Vincent and the Grenadines",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/StVincentandtheGrenadines.png",
+    "attribution": {
+      "title": "Saint Vincent and the Grenadines country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "S ud an",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Sudan.png",
+    "attribution": {
+      "title": "S ud an country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "S ur in am e",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Suriname.png",
+    "attribution": {
+      "title": "S ur in am e country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "S yr ia",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Syria.jpg",
+    "attribution": {
+      "title": "S yr ia country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "T ok el au",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Tokelau.png",
+    "attribution": {
+      "title": "T ok el au country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "T on ga",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Tonga.png",
+    "attribution": {
+      "title": "T on ga country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Trinidad and Tobago",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/TrinidadandTobago.png",
+    "attribution": {
+      "title": "Trinidad and Tobago country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "U ga nd a",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Uganda.png",
+    "attribution": {
+      "title": "U ga nd a country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "U kr ai ne",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Ukraine.png",
+    "attribution": {
+      "title": "U kr ai ne country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "U ru gu ay",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Uruguay.png",
+    "attribution": {
+      "title": "U ru gu ay country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "U.S. Virgin Islands",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/USVI.png",
+    "attribution": {
+      "title": "U.S. Virgin Islands country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "V an ua tu",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Vanuatu.png",
+    "attribution": {
+      "title": "V an ua tu country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Vatican City",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/VaticanCity.png",
+    "attribution": {
+      "title": "Vatican City country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "V en ez ue la",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Venezuela.png",
+    "attribution": {
+      "title": "V en ez ue la country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "V ie tn am",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Vietnam.png",
+    "attribution": {
+      "title": "V ie tn am country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Wallis and Futuna",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/WallisandFutuna.png",
+    "attribution": {
+      "title": "Wallis and Futuna country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Y em en",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Yemen.png",
+    "attribution": {
+      "title": "Y em en country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Z am bi a",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Zambia.png",
+    "attribution": {
+      "title": "Z am bi a country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Z im ba bw e",
+    "type": "country",
+    "region": "Country image pack",
+    "imagePath": "/images/country-images/Zimbabwe.png",
+    "attribution": {
+      "title": "Z im ba bw e country image",
+      "author": "User-provided Country Images archive",
+      "license": "User-provided asset",
+      "sourceUrl": ""
+    }
+  },
+  {
+    "name": "Somalia",
+    "type": "country",
+    "region": "Country Images",
+    "imagePath": "/images/country-images/Somalia.png",
+    "attribution": {
+      "title": "Somalia country image",
+      "author": "User supplied Country Images (5).zip",
+      "license": "User supplied asset",
+      "sourceUrl": "/images/country-images/Somalia.png"
+    }
+  },
+  {
+    "name": "Cape Verde",
+    "type": "country",
+    "region": "Country Images",
+    "imagePath": "/images/country-images/CapeVerde.png",
+    "attribution": {
+      "title": "Cape Verde country image",
+      "author": "User supplied Country Images (5).zip",
+      "license": "User supplied asset",
+      "sourceUrl": "/images/country-images/CapeVerde.png"
+    }
+  },
+  {
+    "name": "Bahrain",
+    "type": "country",
+    "region": "Country Images",
+    "imagePath": "/images/country-images/Bahrain.jpg",
+    "attribution": {
+      "title": "Bahrain country image",
+      "author": "User supplied Country Images (5).zip",
+      "license": "User supplied asset",
+      "sourceUrl": "/images/country-images/Bahrain.jpg"
+    }
+  },
+  {
+    "name": "South Sudan",
+    "type": "country",
+    "region": "Country Images",
+    "imagePath": "/images/country-images/South%20Sudan.jpeg",
+    "attribution": {
+      "title": "South Sudan country image",
+      "author": "User supplied Country Images (5).zip",
+      "license": "User supplied asset",
+      "sourceUrl": "/images/country-images/South%20Sudan.jpeg"
+    }
+  }
+]
