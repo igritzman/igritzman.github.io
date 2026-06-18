@@ -1692,6 +1692,10 @@ const localRegionalImageFallbacks: Record<string, Record<string, string>> = {
   "united-states": {
     "puerto-rico": "united-states/puerto-rico.jpg",
   },
+  greenland: {
+    greenland: "greenland/nuuk.png",
+    nuuk: "greenland/nuuk.png",
+  },
 };
 const MAP_PAN_LIMIT_X = 12000;
 const MAP_PAN_LIMIT_Y = 900;
@@ -1756,6 +1760,29 @@ const airportReferenceImagesByRegion: Record<string, PlaceImage[]> = {
   ],
   france: [
     makeLocalImage("Paris Charles de Gaulle airport map", "airport", "France", "/images/airport-references/cdg-terminal-map.png"),
+  ],
+  netherlands: [
+    makeLocalImage("Amsterdam Schiphol airport map", "airport", "Netherlands", "/images/airport-references/schiphol-terminal-map.png"),
+  ],
+  singapore: [
+    makeLocalImage("Jewel Changi airport garden", "airport", "Singapore", "/images/airport-references/changi-jewel.png"),
+    makeLocalImage("Singapore Changi terminal map", "airport", "Singapore", "/images/airport-references/changi-terminal-map.png"),
+  ],
+  japan: [
+    makeLocalImage("Tokyo airport rail map", "airport", "Japan", "/images/airport-references/tokyo-airport-map.png"),
+    makeLocalImage("Tokyo terminal map", "airport", "Japan", "/images/airport-references/tokyo-terminal-map.png"),
+  ],
+  china: [
+    makeLocalImage("Shanghai airport map", "airport", "China", "/images/airport-references/shanghai-airport-map.png"),
+  ],
+  ethiopia: [
+    makeLocalImage("Addis Ababa terminal map", "airport", "Ethiopia", "/images/airport-references/addis-ababa-terminal-map.png"),
+  ],
+  brazil: [
+    makeLocalImage("Sao Paulo airport terminal map", "airport", "Brazil", "/images/airport-references/sao-paulo-terminal-map.png"),
+  ],
+  australia: [
+    makeLocalImage("Sydney airport map", "airport", "Australia", "/images/airport-references/sydney-airport-map.png"),
   ],
 };
 
@@ -2361,7 +2388,7 @@ function LandingScreen({ onStart }: { onStart: () => void }) {
       <img className="landing-hero-image" src="/images/brand/geotransit-hero.png" alt="" />
       <div className="landing-overlay" />
       <section className="landing-content">
-        <img className="landing-logo" src="/images/brand/geontransit-wordmark.png" alt="GEONTRANSIT" />
+        <img className="landing-logo" src="/images/brand/geontransit-wide-logo.png" alt="GEONTRANSIT" />
         <button type="button" className="landing-start-button" onClick={onStart}>
           Start Here
         </button>
@@ -3786,6 +3813,7 @@ function MapTab({
   const [countrySearch, setCountrySearch] = useState(selectedRegion?.name ?? "");
   const [countrySearchFocused, setCountrySearchFocused] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mapControlsHidden, setMapControlsHidden] = useState(false);
   const [trackerExpanded, setTrackerExpanded] = useState(false);
   const [regionCompletionRows, setRegionCompletionRows] = useState<RegionCompletionRow[]>([]);
   const selectedExportRegions = exportRegionIds
@@ -4183,7 +4211,15 @@ function MapTab({
             ))}
           </div>
         </details>
-        <div className="map-frame">
+        <div className={`map-frame ${mapControlsHidden ? "map-controls-hidden" : ""}`}>
+          <button
+            type="button"
+            className="map-control-visibility"
+            aria-pressed={mapControlsHidden}
+            onClick={() => setMapControlsHidden((hidden) => !hidden)}
+          >
+            {mapControlsHidden ? "Show controls" : "Hide controls"}
+          </button>
           <OperationsMap
             selectedId={selectedRegionId}
             onSelect={selectRegionAndZoom}
@@ -4214,8 +4250,8 @@ function MapTab({
             <button type="button" className="pan-down-button" onClick={() => panMap(0, -90)} aria-label="Move map south">↓</button>
           </div>
         </div>
-        <p className="map-drag-hint">Drag the map to move across regions.</p>
-        <div className="map-movement-legend" aria-label="Map movement and layer legend">
+        <p className={`map-drag-hint ${mapControlsHidden ? "visually-muted" : ""}`}>Drag the map to move across regions.</p>
+        <div className={`map-movement-legend ${mapControlsHidden ? "visually-muted" : ""}`} aria-label="Map movement and layer legend">
           <span><strong>Pan</strong> drag the map</span>
           <span><strong>Zoom</strong> wheel, pinch, or +/- to 1000%</span>
           <span><strong>Labels</strong> city names appear at deep zoom</span>
@@ -5158,36 +5194,20 @@ function QuestionVisual({ question, onAnswer }: { question: Question; onAnswer?:
 
 function WmataStationMap({ question, onAnswer }: { question: Question; onAnswer?: (answer: string) => void }) {
   const stations = [
-    ["Ashburn", "7%", "49%"],
-    ["Rosslyn", "30%", "60%"],
-    ["Metro Center", "45%", "56%"],
-    ["L'Enfant Plaza", "50%", "68%"],
-    ["Fort Totten", "63%", "40%"],
-    ["College Park", "75%", "25%"],
-    ["Union Station", "58%", "50%"],
-    ["Reagan National Airport", "49%", "84%"],
-    ["New Carrollton", "90%", "54%"],
+    ["Ashburn", "81%", "68%"],
+    ["Rosslyn", "48%", "56%"],
+    ["Metro Center", "52%", "48%"],
+    ["L'Enfant Plaza", "54%", "60%"],
+    ["Fort Totten", "61%", "33%"],
+    ["College Park", "66%", "23%"],
+    ["Union Station", "58%", "41%"],
+    ["Reagan National Airport", "50%", "74%"],
+    ["New Carrollton", "76%", "43%"],
   ] as const;
 
   return (
     <div className="visual-card wmata-visual" aria-label={question.visualCaption}>
-      <svg className="wmata-lines" viewBox="0 0 100 76" aria-hidden="true">
-        <path className="wmata-water potomac" d="M24 64 C34 60, 38 66, 44 61 C51 56, 56 62, 62 57 C68 52, 75 55, 82 50" />
-        <path className="wmata-county" d="M22 18 L40 12 L54 19 L59 33 L75 29 L91 41 L83 69 L58 70 L45 62 L30 70 L16 57 Z" />
-        <path className="wmata-line silver" d="M8 37 L20 46 L31 46 L45 43 L58 43 L72 40 L92 36" />
-        <path className="wmata-line orange" d="M16 55 L31 46 L45 43 L58 47 L75 52 L92 52" />
-        <path className="wmata-line blue" d="M18 66 L31 58 L45 55 L50 64 L63 62 L90 58" />
-        <path className="wmata-line red" d="M24 12 L34 25 L43 42 L45 55 L58 49 L63 38 L68 15" />
-        <path className="wmata-line green" d="M78 18 L70 28 L63 38 L56 51 L50 66 L48 73" />
-        <path className="wmata-line yellow" d="M76 18 L68 29 L63 38 L55 50 L50 66 L42 72" />
-        <g className="wmata-transfer-rings">
-          <circle cx="31" cy="46" r="2.2" />
-          <circle cx="45" cy="55" r="2.6" />
-          <circle cx="50" cy="66" r="2.6" />
-          <circle cx="58" cy="49" r="2.2" />
-          <circle cx="63" cy="38" r="2.6" />
-        </g>
-      </svg>
+      <img className="wmata-reference-image" src="/images/metro-images/WMATA.png" alt="Unlabeled Washington Metro reference map" />
       {stations.map(([station, left, top]) => (
         <button
           key={station}
