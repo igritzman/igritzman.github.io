@@ -1778,6 +1778,38 @@ h3 {
   font-weight: 900;
 }
 
+.missing-data-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.missing-data-filters button {
+  min-height: 30px;
+  border-color: rgba(141, 179, 185, 0.2);
+  background: rgba(5, 16, 22, 0.62);
+  padding: 0.3rem 0.5rem;
+  color: #b8cbd0;
+  font-size: 0.72rem;
+}
+
+.missing-data-filters button.selected {
+  border-color: #2bc9b2;
+  background: rgba(43, 201, 178, 0.14);
+  color: #f1fffd;
+}
+
+.missing-data-filters button span {
+  color: #ffe2a0;
+  font-weight: 900;
+}
+
+.tracker-filter-summary {
+  margin: 0;
+  color: #a9bec4;
+  font-size: 0.72rem;
+}
+
 .tracker-region-list {
   display: grid;
   gap: 0.35rem;

@@ -1288,6 +1288,15 @@ const airportLabels = [
   { code: "SEA", name: "Seattle-Tacoma International Airport", city: "Seattle", countryId: "united-states", coordinate: [-122.3088, 47.4502], fact: "Link light rail connects Sea-Tac to Seattle." },
   { code: "SFO", name: "San Francisco International Airport", city: "San Francisco", countryId: "united-states", coordinate: [-122.379, 37.6213], fact: "BART airport station ties SFO into the Bay Area rail network." },
   { code: "LAX", name: "Los Angeles International Airport", city: "Los Angeles", countryId: "united-states", coordinate: [-118.4085, 33.9416], fact: "LAX is the West Coast's signature global air gateway." },
+  { code: "BOS", name: "Boston Logan International Airport", city: "Boston", countryId: "united-states", coordinate: [-71.0096, 42.3656], fact: "Logan links New England to domestic and transatlantic routes, with MBTA connections." },
+  { code: "DTW", name: "Detroit Metropolitan Wayne County Airport", city: "Detroit", countryId: "united-states", coordinate: [-83.3534, 42.2162], fact: "A major Great Lakes hub serving Detroit and southeast Michigan." },
+  { code: "MSP", name: "Minneapolis-Saint Paul International Airport", city: "Minneapolis-Saint Paul", countryId: "united-states", coordinate: [-93.2218, 44.8848], fact: "Both terminals connect to the METRO Blue Line." },
+  { code: "STL", name: "St. Louis Lambert International Airport", city: "St. Louis", countryId: "united-states", coordinate: [-90.37, 38.7487], fact: "MetroLink connects Lambert with central St. Louis." },
+  { code: "ICN", name: "Incheon International Airport", city: "Incheon / Seoul", countryId: "south-korea", coordinate: [126.4505, 37.4602], fact: "AREX links the airport terminals with Seoul Station." },
+  { code: "MAD", name: "Adolfo Suarez Madrid-Barajas Airport", city: "Madrid", countryId: "spain", coordinate: [-3.5676, 40.4983], fact: "Metro Line 8 and Cercanias connect Madrid with the airport complex." },
+  { code: "TLV", name: "Ben Gurion Airport", city: "Tel Aviv / Jerusalem", countryId: "israel", coordinate: [34.8867, 32.0055], fact: "Israel Railways links Terminal 3 with Tel Aviv and Jerusalem." },
+  { code: "JNB", name: "O. R. Tambo International Airport", city: "Johannesburg", countryId: "south-africa", coordinate: [28.246, -26.1337], fact: "Gautrain provides rapid rail access to Sandton and Johannesburg." },
+  { code: "AKL", name: "Auckland Airport", city: "Auckland", countryId: "new-zealand", coordinate: [174.785, -37.0082], fact: "New Zealand's largest international gateway, connected by airport bus corridors." },
 ] satisfies Array<{ code: string; name: string; city: string; countryId: string; coordinate: [number, number]; fact: string }>;
 
 const projectedAirportLabels = airportLabels.flatMap((airport) => {
@@ -1751,6 +1760,7 @@ const airportReferenceImagesByRegion: Record<string, PlaceImage[]> = {
     makeLocalImage("Atlanta airport map", "airport", "United States", "/images/airport-references/atl-terminal-map.png"),
     makeLocalImage("Dallas-Fort Worth airport map", "airport", "United States", "/images/airport-references/dfw-terminal-map.png"),
     makeLocalImage("Orlando airport map", "airport", "United States", "/images/airport-references/mco-terminal-map.png"),
+    makeLocalImage("San Francisco AirTrain terminal map", "airport", "United States", "/images/airport-references/sfo-airtrain-terminal-map.png"),
   ],
   "united-kingdom": [
     makeLocalImage("London Heathrow airport map", "airport", "United Kingdom", "/images/airport-references/lhr-terminal-map.png"),
@@ -1760,6 +1770,21 @@ const airportReferenceImagesByRegion: Record<string, PlaceImage[]> = {
   ],
   france: [
     makeLocalImage("Paris Charles de Gaulle airport map", "airport", "France", "/images/airport-references/cdg-terminal-map.png"),
+  ],
+  spain: [
+    makeLocalImage("Madrid-Barajas airport overview", "airport", "Spain", "/images/airport-references/madrid-barajas-overview.jpg"),
+  ],
+  "south-korea": [
+    makeLocalImage("Incheon Terminal 1 departure map", "airport", "South Korea", "/images/airport-references/incheon-terminal-1.jpg"),
+  ],
+  israel: [
+    makeLocalImage("Ben Gurion airport overview", "airport", "Israel", "/images/airport-references/ben-gurion-overview.jpg"),
+  ],
+  "south-africa": [
+    makeLocalImage("O. R. Tambo Level 1 map", "airport", "South Africa", "/images/airport-references/or-tambo-level-1.png"),
+  ],
+  "new-zealand": [
+    makeLocalImage("Auckland airport overview", "airport", "New Zealand", "/images/airport-references/auckland-overview.png"),
   ],
   netherlands: [
     makeLocalImage("Amsterdam Schiphol airport map", "airport", "Netherlands", "/images/airport-references/schiphol-terminal-map.png"),
@@ -3815,6 +3840,7 @@ function MapTab({
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mapControlsHidden, setMapControlsHidden] = useState(false);
   const [trackerExpanded, setTrackerExpanded] = useState(false);
+  const [missingDataFilter, setMissingDataFilter] = useState<"all" | "population" | "capital" | "flag" | "image" | "transit">("all");
   const [regionCompletionRows, setRegionCompletionRows] = useState<RegionCompletionRow[]>([]);
   const selectedExportRegions = exportRegionIds
     .map((id) => regions.find((region) => region.id === id))
@@ -3915,7 +3941,15 @@ function MapTab({
   const minimalProfileCount = regions.length - completedProfileCount - partialProfileCount;
   const regionCompleteCount = regionCompletionRows.filter((row) => row.complete).length;
   const missingRegionRows = regionCompletionRows.filter((row) => !row.complete);
-  const visibleRegionCompletionRows = trackerExpanded ? regionCompletionRows : regionCompletionRows.slice(0, 12);
+  const filteredRegionCompletionRows = regionCompletionRows.filter((row) => {
+    if (missingDataFilter === "all") return !row.complete;
+    if (missingDataFilter === "population") return !row.hasPopulation;
+    if (missingDataFilter === "capital") return !row.hasCapital;
+    if (missingDataFilter === "flag") return !row.hasFlag;
+    if (missingDataFilter === "image") return !row.hasImage;
+    return !row.hasTransit;
+  });
+  const visibleRegionCompletionRows = trackerExpanded ? filteredRegionCompletionRows : filteredRegionCompletionRows.slice(0, 12);
 
   useEffect(() => {
     setCountrySearch(selectedRegion?.name ?? "");
@@ -3923,6 +3957,7 @@ function MapTab({
 
   useEffect(() => {
     setTrackerExpanded(false);
+    setMissingDataFilter("all");
     if (!selectedRegion || !gadmLevelOneFiles[selectedRegion.id]) {
       setRegionCompletionRows([]);
       return;
@@ -4144,6 +4179,32 @@ function MapTab({
                 {missingRegionRows.length > 0 ? (
                   <p className="tracker-missing">Missing: {missingRegionRows.slice(0, 7).map((row) => row.name).join(", ")}{missingRegionRows.length > 7 ? "..." : ""}</p>
                 ) : null}
+                <div className="missing-data-filters" aria-label="Filter regions by missing field">
+                  {([
+                    ["all", "All missing"],
+                    ["population", "Population"],
+                    ["capital", "Capital"],
+                    ["flag", "Flag"],
+                    ["image", "Image"],
+                    ["transit", "Transit"],
+                  ] as const).map(([value, label]) => {
+                    const count = regionCompletionRows.filter((row) => value === "all" ? !row.complete : !row[`has${value[0].toUpperCase()}${value.slice(1)}` as keyof RegionCompletionRow]).length;
+                    return (
+                      <button
+                        key={value}
+                        type="button"
+                        className={missingDataFilter === value ? "selected" : ""}
+                        aria-pressed={missingDataFilter === value}
+                        onClick={() => { setMissingDataFilter(value); setTrackerExpanded(false); }}
+                      >
+                        {label} <span>{count}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+                <p className="tracker-filter-summary">
+                  Showing {filteredRegionCompletionRows.length} region{filteredRegionCompletionRows.length === 1 ? "" : "s"} missing {missingDataFilter === "all" ? "one or more required fields" : missingDataFilter}.
+                </p>
                 <div className="tracker-region-list">
                   {visibleRegionCompletionRows.map((row) => (
                     <div key={row.code} className={row.complete ? "complete" : "partial"}>
@@ -4156,11 +4217,11 @@ function MapTab({
                     </div>
                   ))}
                 </div>
-                {regionCompletionRows.length > visibleRegionCompletionRows.length ? (
+                {filteredRegionCompletionRows.length > visibleRegionCompletionRows.length ? (
                   <button type="button" className="tracker-toggle" onClick={() => setTrackerExpanded(true)}>
                     Show all regions
                   </button>
-                ) : trackerExpanded && regionCompletionRows.length > 12 ? (
+                ) : trackerExpanded && filteredRegionCompletionRows.length > 12 ? (
                   <button type="button" className="tracker-toggle" onClick={() => setTrackerExpanded(false)}>
                     Show fewer
                   </button>

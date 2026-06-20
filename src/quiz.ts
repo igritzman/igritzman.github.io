@@ -122,6 +122,12 @@ function isImageQuestion(question: Question) {
 }
 
 const airportCityByCode: Record<string, string> = {
+  LJU: "Ljubljana",
+  MBX: "Maribor",
+  ICN: "Incheon / Seoul",
+  MAD: "Madrid",
+  TLV: "Tel Aviv / Jerusalem",
+  JNB: "Johannesburg",
   TPE: "Taipei",
   TSA: "Taipei Songshan",
   KHH: "Kaohsiung",
@@ -322,19 +328,21 @@ export function pickQuestions(startDifficulty: DifficultyLevel, count = 10, prof
   const pools = difficultyLevels.map((level) => allQuestions.filter((question) => question.difficulty === level));
   const lowestDailyIndex = Math.max(0, levelIndex(startDifficulty) - 1);
   const highestDailyIndex = Math.min(difficultyLevels.length - 1, levelIndex(startDifficulty) + Math.ceil(count / 5));
-  const targetTransportCount = Math.round(count * 0.7);
+  const targetTransportCount = Math.round(count * 0.5);
   const maxGeneralCount = count - targetTransportCount;
   const maxFlagCount = allowedFlagCount(count, startDifficulty);
-  const targetImageCount = Math.max(1, Math.round(count * 0.1));
-  const maxImageCount = Math.max(targetImageCount, Math.ceil(count * 0.15));
+  const targetImageCount = Math.max(1, Math.round(count * 0.2));
+  const maxImageCount = Math.max(targetImageCount, Math.ceil(count * 0.25));
   const canAddQuestion = (question: Question) => {
     const categoryCount = selected.filter((item) => item.category === question.category).length;
     const maxCategoryCount = Math.max(2, Math.ceil(count * 0.34));
     const generalCount = selected.filter((item) => !isTransportQuestion(item)).length;
     const imageCount = selected.filter(isImageQuestion).length;
+    const airportCount = selected.filter((item) => item.category === "airports" || item.category === "airport-codes").length;
     if (!isTransportQuestion(question) && generalCount >= maxGeneralCount) return false;
     if (isImageQuestion(question) && imageCount >= maxImageCount) return false;
     if (question.category === "flags" && categoryCount >= maxFlagCount) return false;
+    if ((question.category === "airports" || question.category === "airport-codes") && airportCount >= Math.max(2, Math.ceil(count * 0.2))) return false;
     return categoryCount < maxCategoryCount;
   };
 
