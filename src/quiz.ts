@@ -122,6 +122,14 @@ function isImageQuestion(question: Question) {
 }
 
 const airportCityByCode: Record<string, string> = {
+  JFK: "New York–JFK",
+  LHR: "London Heathrow",
+  LGW: "London Gatwick",
+  MAN: "Manchester Airport",
+  ORD: "Chicago O'Hare",
+  MDW: "Chicago Midway",
+  DFW: "Dallas Fort Worth",
+  DAL: "Dallas Love Field",
   LJU: "Ljubljana",
   MBX: "Maribor",
   ICN: "Incheon / Seoul",
@@ -145,8 +153,7 @@ const airportCityByCode: Record<string, string> = {
 function airportPromptTarget(region: (typeof regions)[number], airportCode?: string) {
   const codeCity = airportCode ? airportCityByCode[airportCode.toUpperCase()] : undefined;
   if (codeCity) return codeCity;
-  const preferredCity = region.majorCities.find((city) => city !== region.capital) ?? region.majorCities[0] ?? region.capital ?? region.name;
-  return preferredCity && !preferredCity.includes("Largest commercial") && !preferredCity.includes("Primary airport") ? preferredCity : region.name;
+  return airportCode ? `${region.name}'s ${airportCode} gateway` : region.name;
 }
 
 function allowedFlagCount(count: number, startDifficulty: DifficultyLevel) {
@@ -196,7 +203,7 @@ function buildMonthlyRotationQuestions(monthKey = currentMonthKey()) {
           inputType: primaryAirport.length === 3 && primaryAirport.toUpperCase() === primaryAirport ? "typed" : "multiple-choice",
           prompt: primaryAirport.startsWith("No ")
             ? `Day ${day + 1}: which airport note belongs to ${region.name}?`
-            : `Day ${day + 1}: identify a major airport clue for ${airportPromptTarget(region, primaryAirport)}.`,
+            : `Day ${day + 1}: what is the IATA code for ${airportPromptTarget(region, primaryAirport)}?`,
           answer: primaryAirport,
           aliases: primaryAirport.length === 3 ? [primaryAirport.toLowerCase()] : undefined,
           choices: primaryAirport.length === 3 ? undefined : choicesFor(primaryAirport, regions.flatMap((item) => item.airports.slice(0, 1)), seed),
@@ -328,7 +335,7 @@ export function pickQuestions(startDifficulty: DifficultyLevel, count = 10, prof
   const pools = difficultyLevels.map((level) => allQuestions.filter((question) => question.difficulty === level));
   const lowestDailyIndex = Math.max(0, levelIndex(startDifficulty) - 1);
   const highestDailyIndex = Math.min(difficultyLevels.length - 1, levelIndex(startDifficulty) + Math.ceil(count / 5));
-  const targetTransportCount = Math.round(count * 0.5);
+  const targetTransportCount = Math.round(count * 0.4);
   const maxGeneralCount = count - targetTransportCount;
   const maxFlagCount = allowedFlagCount(count, startDifficulty);
   const targetImageCount = Math.max(1, Math.round(count * 0.2));
@@ -342,7 +349,7 @@ export function pickQuestions(startDifficulty: DifficultyLevel, count = 10, prof
     if (!isTransportQuestion(question) && generalCount >= maxGeneralCount) return false;
     if (isImageQuestion(question) && imageCount >= maxImageCount) return false;
     if (question.category === "flags" && categoryCount >= maxFlagCount) return false;
-    if ((question.category === "airports" || question.category === "airport-codes") && airportCount >= Math.max(2, Math.ceil(count * 0.2))) return false;
+    if ((question.category === "airports" || question.category === "airport-codes") && airportCount >= Math.max(1, Math.ceil(count * 0.1))) return false;
     return categoryCount < maxCategoryCount;
   };
 

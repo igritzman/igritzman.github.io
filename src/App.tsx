@@ -831,8 +831,8 @@ const gadmRegionLayerNames = Object.keys(gadmLevelOneFiles)
   .sort((a, b) => a.localeCompare(b));
 
 const tabs: Array<{ id: Tab; label: string; icon: string }> = [
-  { id: "map", label: "Map", icon: "🗺️" },
-  { id: "play", label: "Play", icon: "▶️" },
+  { id: "map", label: "Explore", icon: "🌎" },
+  { id: "play", label: "Play", icon: "🎮" },
   { id: "review", label: "Review", icon: "📖" },
   { id: "profile", label: "Profile", icon: "👤" },
 ];
@@ -1888,7 +1888,8 @@ function usStateImagePathForName(name: string) {
 
 function regionImagePathForName(countryId: string, name: string) {
   const slug = slugifyCountryName(name);
-  const rows = regionImageFiles[countryId];
+  // A previous import batch placed Morocco's files under the South Korea key.
+  const rows = countryId === "morocco" ? regionImageFiles["south-korea"] : regionImageFiles[countryId];
   const fuzzyFileName = rows
     ? Object.entries(rows).find(([key]) => key === slug || key.startsWith(`${slug}-`) || slug.startsWith(`${key}-`))?.[1]
     : undefined;
@@ -2683,11 +2684,11 @@ function resetProfile() {
       <header className="topbar">
         <div className="brand-lockup">
           <button type="button" className="brand-home-button" onClick={() => setActiveTab("map")} aria-label="Return to map home">
-            <img className="brand-logo-image" src="/images/brand/geontransit-logo.svg" alt="GEONTRANSIT" />
+            <img className="brand-logo-image" src="/images/brand/geontransit-full-logo.png" alt="GEONTRANSIT" />
           </button>
           <div className="brand-copy">
             <p className="eyebrow">Welcome to GeoTransit</p>
-            <h1>Explore the world's transit systems, airports, regions, and geography.</h1>
+            <h1>Explore geography, transit &amp; airports.</h1>
           </div>
         </div>
       </header>
@@ -3840,7 +3841,7 @@ function MapTab({
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mapControlsHidden, setMapControlsHidden] = useState(false);
   const [trackerExpanded, setTrackerExpanded] = useState(false);
-  const [missingDataFilter, setMissingDataFilter] = useState<"all" | "population" | "capital" | "flag" | "image" | "transit">("all");
+  const [missingDataFilter, setMissingDataFilter] = useState<"work" | "everything" | "complete" | "population" | "capital" | "flag" | "image" | "transit">("work");
   const [regionCompletionRows, setRegionCompletionRows] = useState<RegionCompletionRow[]>([]);
   const selectedExportRegions = exportRegionIds
     .map((id) => regions.find((region) => region.id === id))
@@ -3942,7 +3943,9 @@ function MapTab({
   const regionCompleteCount = regionCompletionRows.filter((row) => row.complete).length;
   const missingRegionRows = regionCompletionRows.filter((row) => !row.complete);
   const filteredRegionCompletionRows = regionCompletionRows.filter((row) => {
-    if (missingDataFilter === "all") return !row.complete;
+    if (missingDataFilter === "work") return !row.complete;
+    if (missingDataFilter === "complete") return row.complete;
+    if (missingDataFilter === "everything") return !row.hasPopulation && !row.hasCapital && !row.hasFlag && !row.hasImage && !row.hasTransit;
     if (missingDataFilter === "population") return !row.hasPopulation;
     if (missingDataFilter === "capital") return !row.hasCapital;
     if (missingDataFilter === "flag") return !row.hasFlag;
@@ -3957,7 +3960,7 @@ function MapTab({
 
   useEffect(() => {
     setTrackerExpanded(false);
-    setMissingDataFilter("all");
+    setMissingDataFilter("work");
     if (!selectedRegion || !gadmLevelOneFiles[selectedRegion.id]) {
       setRegionCompletionRows([]);
       return;
@@ -4181,14 +4184,21 @@ function MapTab({
                 ) : null}
                 <div className="missing-data-filters" aria-label="Filter regions by missing field">
                   {([
-                    ["all", "All missing"],
+                    ["work", "Needs work"],
+                    ["everything", "Missing everything"],
+                    ["complete", "Complete only"],
                     ["population", "Population"],
                     ["capital", "Capital"],
                     ["flag", "Flag"],
                     ["image", "Image"],
                     ["transit", "Transit"],
                   ] as const).map(([value, label]) => {
-                    const count = regionCompletionRows.filter((row) => value === "all" ? !row.complete : !row[`has${value[0].toUpperCase()}${value.slice(1)}` as keyof RegionCompletionRow]).length;
+                    const count = regionCompletionRows.filter((row) => {
+                      if (value === "work") return !row.complete;
+                      if (value === "complete") return row.complete;
+                      if (value === "everything") return !row.hasPopulation && !row.hasCapital && !row.hasFlag && !row.hasImage && !row.hasTransit;
+                      return !row[`has${value[0].toUpperCase()}${value.slice(1)}` as keyof RegionCompletionRow];
+                    }).length;
                     return (
                       <button
                         key={value}
@@ -4203,7 +4213,7 @@ function MapTab({
                   })}
                 </div>
                 <p className="tracker-filter-summary">
-                  Showing {filteredRegionCompletionRows.length} region{filteredRegionCompletionRows.length === 1 ? "" : "s"} missing {missingDataFilter === "all" ? "one or more required fields" : missingDataFilter}.
+                  Showing {filteredRegionCompletionRows.length} region{filteredRegionCompletionRows.length === 1 ? "" : "s"}: {missingDataFilter === "work" ? "one or more required fields missing" : missingDataFilter === "everything" ? "all tracked fields missing" : missingDataFilter === "complete" ? "complete profiles" : `missing ${missingDataFilter}`}.
                 </p>
                 <div className="tracker-region-list">
                   {visibleRegionCompletionRows.map((row) => (
@@ -5127,6 +5137,18 @@ function QuestionVisual({ question, onAnswer }: { question: Question; onAnswer?:
     );
   }
 
+  if (question.visualType === "marta-map" && question.inputType !== "map-click") {
+    return (
+      <figure className="question-image-card">
+        <img src="/images/metro-images/MARTA.png" alt="MARTA rail system map" />
+        <figcaption>
+          <strong>Transit map</strong>
+          <span>Use the real network geography to answer.</span>
+        </figcaption>
+      </figure>
+    );
+  }
+
   if (question.visualType === "marta-map") {
     const stations = [
       ["North Springs", "50%", "9%"],
@@ -6028,6 +6050,19 @@ function nearbyDescriptionFor(region: Region) {
 function RegionAssetGrid({ region, subregions }: { region: Region; subregions: string[] }) {
   const [lightboxImage, setLightboxImage] = useState<LightboxImage | null>(null);
   const [missingAsset, setMissingAsset] = useState<string | null>(null);
+  const [coverageRows, setCoverageRows] = useState<RegionCompletionRow[]>([]);
+  useEffect(() => {
+    let cancelled = false;
+    if (!gadmLevelOneFiles[region.id]) {
+      setCoverageRows([]);
+      return;
+    }
+    loadGadmSubdivisions(region.id).then((features) => {
+      if (!cancelled) setCoverageRows(features.map((feature) => completionForSubdivision(feature, region.id)));
+    });
+    return () => { cancelled = true; };
+  }, [region.id]);
+  const coverageByName = new Map(coverageRows.map((row) => [slugifyCountryName(row.name), row]));
   const openAsset = (name: string) => {
     const imagePath = subdivisionImagePathForRegion(region.id, name);
     const flagPath = regionalFlagImagePathForName(region.id, name);
@@ -6049,6 +6084,8 @@ function RegionAssetGrid({ region, subregions }: { region: Region; subregions: s
           const imagePath = subdivisionImagePathForRegion(region.id, name);
           const flagPath = regionalFlagImagePathForName(region.id, name);
           const assetPath = imagePath || flagPath;
+          const coverage = coverageByName.get(slugifyCountryName(name));
+          const completionPercent = coverage ? Math.round([coverage.hasFlag, coverage.hasImage, coverage.hasCapital, coverage.hasPopulation, coverage.hasTransit].filter(Boolean).length / 5 * 100) : 0;
           return (
             <button
               key={name}
@@ -6057,8 +6094,19 @@ function RegionAssetGrid({ region, subregions }: { region: Region; subregions: s
               onClick={() => openAsset(name)}
             >
               {assetPath ? <img src={assetPath} alt="" loading="lazy" /> : <span>Needs assets</span>}
-              <strong>{name}</strong>
-              <em>{assetPath ? "assets" : "needs assets"}</em>
+              <span className="regional-asset-copy">
+                <strong>{name}</strong>
+                {coverage ? (
+                  <small>
+                    <span>{coverage.hasFlag ? "✓ Flag" : "— Flag"}</span>
+                    <span>{coverage.hasImage ? "✓ Image" : "— Image"}</span>
+                    <span>{coverage.hasCapital ? "✓ Capital" : "— Capital"}</span>
+                    <span>{coverage.hasPopulation ? "✓ Population" : "— Population"}</span>
+                    <span>{coverage.hasTransit ? "✓ Transit" : "— Transit"}</span>
+                  </small>
+                ) : null}
+              </span>
+              <em>{coverage ? `${completionPercent}%` : assetPath ? "assets" : "needs assets"}</em>
             </button>
           );
         })}

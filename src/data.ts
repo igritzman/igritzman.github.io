@@ -2668,7 +2668,7 @@ function flagCodeForRegion(id: string, name: string) {
 
 const generatedProfileOverrides: Record<string, Partial<Pick<Region, "majorCities" | "airports" | "rail" | "metro" | "highways" | "maritime" | "landmarks" | "riversMountains" | "placesOfInterest" | "funFacts">>> = {
   "united-states": {
-    majorCities: ["Washington, D.C.", "New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "Dallas", "San Antonio", "San Diego", "Austin", "Jacksonville", "San Francisco", "Seattle", "Denver", "Minneapolis", "Portland", "Tampa", "Miami", "Orlando", "Atlanta"],
+    majorCities: ["Washington, D.C.", "New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "Dallas", "San Antonio", "San Diego", "Austin", "Jacksonville", "San Francisco", "Seattle", "Denver", "Minneapolis", "Detroit", "St. Louis", "Indianapolis", "Boston", "Charlotte", "Portland", "Tampa", "Miami", "Orlando", "Atlanta"],
     airports: ["JFK", "LGA", "EWR", "PHL", "BOS", "DCA", "IAD", "ATL", "MIA", "FLL", "MCO", "TPA", "CLT", "DTW", "MSP", "STL", "ORD", "DFW", "IAH", "DEN", "PHX", "LAS", "SEA", "SFO", "LAX"],
     rail: ["Amtrak Northeast Corridor", "Brightline Florida", "Tri-Rail South Florida", "SunRail Orlando", "Caltrain/BART Bay Area"],
     metro: ["NYC Subway", "Los Angeles Metro", "Miami Metrorail/Metromover", "Chicago L", "BART", "MARTA", "DART", "Boston T"],
@@ -3295,8 +3295,9 @@ const generatedPositionOverrides: Record<string, { x: number; y: number }> = {
   greenland: { x: 31, y: 18 },
   "saint-vincent-and-the-grenadines": { x: 34, y: 52 },
   andorra: { x: 48, y: 42 },
-  azores: { x: 39, y: 43 },
-  "canary-islands": { x: 42, y: 50 },
+  // North Atlantic island positions: Azores near 38°N, 26°W; Canaries near 28°N, 16°W.
+  azores: { x: 42.9, y: 34.8 },
+  "canary-islands": { x: 45.4, y: 40.8 },
   monaco: { x: 50, y: 42 },
   "san-marino": { x: 52, y: 42 },
   "vatican-city": { x: 52, y: 45 },
