@@ -154,25 +154,19 @@ input {
   position: relative;
   z-index: 1;
   display: grid;
-  gap: clamp(1.25rem, 2.8vw, 2rem);
   justify-items: center;
   width: min(1120px, calc(100% - 2rem));
   padding: clamp(1.2rem, 3vw, 2rem);
   text-align: center;
-  transform: translateY(1vh);
-}
-
-.landing-logo {
-  width: min(980px, 88vw);
-  height: auto;
-  object-fit: contain;
-  border-radius: 0;
-  box-shadow: none;
-  filter: drop-shadow(0 18px 44px rgba(0, 0, 0, 0.34));
+  transform: translateY(12vh);
 }
 
 .landing-start-button {
-  width: min(540px, 86vw);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.8rem, 2vw, 1.25rem);
+  width: min(440px, 82vw);
   min-height: clamp(66px, 9vw, 86px);
   padding: 0 2.25rem;
   border-color: rgba(183, 244, 97, 0.82);
@@ -182,11 +176,28 @@ input {
   color: #fff;
   font-size: clamp(1.15rem, 2.4vw, 1.65rem);
   font-weight: 950;
+  letter-spacing: 0.015em;
   box-shadow: 0 0 0 4px rgba(183, 244, 97, 0.16), 0 18px 44px rgba(0, 0, 0, 0.36);
 }
 
-.landing-start-button::after {
-  content: "";
+.landing-start-button:hover,
+.landing-start-button:focus-visible {
+  border-color: #d5ff99;
+  background: linear-gradient(135deg, #85bd29, #264f16);
+  box-shadow: 0 0 0 5px rgba(183, 244, 97, 0.2), 0 22px 52px rgba(0, 0, 0, 0.42);
+  transform: translateY(-2px);
+}
+
+.landing-start-arrow {
+  display: inline-grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.88);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.35em;
+  line-height: 1;
 }
 
 .topbar {

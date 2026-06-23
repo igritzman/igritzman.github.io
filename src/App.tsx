@@ -2417,9 +2417,9 @@ function LandingScreen({ onStart }: { onStart: () => void }) {
       <img className="landing-hero-image" src="/images/brand/geotransit-hero.png" alt="" />
       <div className="landing-overlay" />
       <section className="landing-content">
-        <img className="landing-logo" src="/images/brand/geontransit-wide-logo.png" alt="GEONTRANSIT" />
         <button type="button" className="landing-start-button" onClick={onStart}>
-          Start Here
+          <span>Start Here</span>
+          <span className="landing-start-arrow" aria-hidden="true">→</span>
         </button>
       </section>
     </main>
