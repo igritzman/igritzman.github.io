@@ -88,11 +88,11 @@ export const transitTimeMachineImages: TransitTimeMachineEntry[] = [
     "Tokyo's rail network during the rapid postwar and Olympics-era expansion.",
     "Modern Tokyo Metro and connected urban rail network.",
   ], ["tokyo-early.jpg", "tokyo-mid.jpg", "tokyo-modern.png"]),
-  network("London", "United Kingdom", "London Underground", [1863, 1950, 2026], [
+  network("London", "United Kingdom", "London Underground", [1863, 2010, 2026], [
     "The Metropolitan Railway opened the world's first underground passenger railway.",
     "Postwar London consolidated and extended the familiar Underground network.",
     "The current Tube network and its cross-London connections.",
-  ], ["london-early.jpg", "", "london-modern.png"]),
+  ], ["london-early.jpg", "london-mid.webp", "london-modern.png"]),
   network("New York", "United States", "New York City Subway", [1904, 1950, 2026], [
     "The first IRT subway connected City Hall with Upper Manhattan.",
     "The unified postwar system linked former IRT, BMT, and IND routes.",
@@ -103,41 +103,41 @@ export const transitTimeMachineImages: TransitTimeMachineEntry[] = [
     "The Harbour Bridge era reshaped rail access to the north shore.",
     "Sydney Metro and suburban rail form a growing multi-layer network.",
   ], ["sydney-early.jpg", "sydney-mid.jpg", "sydney-modern.jpg"]),
-  network("Shanghai", "China", "Shanghai Metro", [1993, 2010, 2026], [
+  network("Shanghai", "China", "Shanghai urban rail", [1908, 2010, 2026], [
     "Shanghai opened its first metro line in the early 1990s.",
     "Expo-era construction accelerated the network's expansion.",
     "One of the world's largest rapid-transit networks serves metropolitan Shanghai.",
-  ], ["", "", "shanghai-modern.png"]),
+  ], ["shanghai-early.webp", "shanghai-mid.png", "shanghai-modern.png"]),
   network("Taipei", "Taiwan", "Taipei Metro", [1996, 2008, 2026], [
     "The Muzha Line introduced modern rapid transit to Taipei.",
     "Cross-city lines turned the initial corridors into a connected network.",
     "The current MRT links Taipei and New Taipei with airport and regional rail.",
-  ], ["", "", "taipei-modern.png"]),
+  ], ["taipei-early.png", "", "taipei-modern.png"]),
   network("Tashkent", "Uzbekistan", "Tashkent Metro", [1977, 1991, 2026], [
     "Central Asia's first metro opened with ornate stations and one initial line.",
     "The network expanded as Tashkent entered the post-Soviet era.",
     "The modern system combines legacy lines with new orbital extensions.",
   ], ["tashkent-early.jpg", "", "tashkent-modern.jpg"]),
-  network("Washington DC", "United States", "Washington Metro", [1976, 2001, 2026], [
+  network("Washington DC", "United States", "Washington Metro", [1978, 1984, 2026], [
     "Metro opened its first Red Line segment in the monumental core.",
     "The original five-line plan matured into a regional network.",
     "The current system includes the Silver Line connection toward Dulles Airport.",
-  ], ["", "", "washington-dc-modern.png"]),
-  network("Toronto", "Canada", "Toronto subway", [1954, 1978, 2026], [
+  ], ["washington-dc-early.png", "washington-dc-mid.png", "washington-dc-modern.png"]),
+  network("Toronto", "Canada", "Toronto subway", [1954, 2010, 2026], [
     "Canada's first subway opened beneath Yonge Street.",
     "The Bloor-Danforth and Spadina corridors created a wider rapid-transit grid.",
     "Today's TTC subway connects with streetcars, buses, and regional GO services.",
-  ], ["", "", "toronto-modern.png"]),
-  network("Madrid", "Spain", "Madrid Metro", [1919, 1961, 2026], [
+  ], ["toronto-early.jpg", "toronto-mid.png", "toronto-modern.png"]),
+  network("Madrid", "Spain", "Madrid Metro", [1919, 2010, 2026], [
     "Madrid's first metro linked Sol and Cuatro Caminos.",
     "Mid-century extensions pushed rapid transit beyond the historic center.",
     "The current network is among Europe's largest by route length.",
-  ], ["", "", "madrid-modern.png"]),
-  network("Paris", "France", "Paris Métro / RER", [1900, 1950, 2026], [
+  ], ["madrid-early.jpg", "madrid-mid.jpg", "madrid-modern.png"]),
+  network("Paris", "France", "Paris Metro / RER", [1900, 2010, 2026], [
     "Paris opened Métro Line 1 for the 1900 Exposition.",
     "Dense infill and extensions made the Métro a defining part of daily Paris.",
     "Métro, RER, tram, and Grand Paris projects form the modern network.",
-  ], ["paris-early.jpg", "", "paris-modern.png"]),
+  ], ["paris-early.jpg", "paris-mid.jpg", "paris-modern.png"]),
   network("Copenhagen", "Denmark", "Copenhagen S-train / Metro", [1934, 2002, 2026], [
     "The S-train introduced electrified suburban service to Copenhagen.",
     "The automated Metro added a new rapid-transit layer at the turn of the century.",

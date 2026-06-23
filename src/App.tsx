@@ -9,7 +9,7 @@ import countryImageManifest from "./countryImageManifest.json";
 import regionFlagManifest from "./regionFlagManifest.json";
 import regionImageManifest from "./regionImageManifest.json";
 import usStateImageManifest from "./usStateImageManifest.json";
-import { TransitTimeMachinePanel } from "./components/TransitTimeMachinePanel";
+import { TransitTimeMachineSlideshow as TransitTimeMachinePanel } from "./components/TransitTimeMachineSlideshow";
 import { transitTimeMachineImages } from "./data/transitTimeMachineImages";
 import { getPlaceImportance, hasCustomPlaceImportance } from "./data/placeImportance";
 import { getTransitTimeMachineCompletion } from "./utils/transitTimeMachineAssets";
@@ -86,6 +86,7 @@ type AskCardItem = {
   regionId?: string;
   flag?: string;
   note?: string;
+  mapQuery?: string;
 };
 
 type AskCard = {
@@ -2415,14 +2416,10 @@ function hydrateSavedRun(savedRun: QuizRun | null) {
 function LandingScreen({ onStart }: { onStart: () => void }) {
   return (
     <main className="landing-screen" aria-label="GEOTRANSIT landing page">
-      <img className="landing-hero-image" src="/images/brand/geotransit-hero.png" alt="" />
-      <div className="landing-overlay" />
-      <section className="landing-content">
-        <button type="button" className="landing-start-button" onClick={onStart}>
-          <span>Start Here</span>
-          <span className="landing-start-arrow" aria-hidden="true">→</span>
-        </button>
-      </section>
+      <button type="button" className="landing-hero-button" onClick={onStart} aria-label="Start Here">
+        <img className="landing-hero-image" src="/images/brand/geotransit-hero.png" alt="GEONTRANSIT — Start Here" />
+      </button>
+      <div className="landing-overlay" aria-hidden="true" />
     </main>
   );
 }
@@ -2444,7 +2441,6 @@ function App() {
   const [touristAttractionsLayer, setTouristAttractionsLayer] = useState(false);
   const [selectedAttractionId, setSelectedAttractionId] = useState<string | null>(null);
   const [transitSystemsLayer, setTransitSystemsLayer] = useState(false);
-  const [airportsLayer, setAirportsLayer] = useState(false);
   const [selectedTransitSystemId, setSelectedTransitSystemId] = useState<string | null>(null);
   const [questionCount, setQuestionCount] = useState<10 | 15 | 20 | 150>(10);
   const [selectedStartLevel, setSelectedStartLevel] = useState<DifficultyLevel>("gateway");
@@ -2803,15 +2799,12 @@ function resetProfile() {
           onTouristAttractionsLayerChange={setTouristAttractionsLayer}
           transitSystemsLayer={transitSystemsLayer}
           onTransitSystemsLayerChange={setTransitSystemsLayer}
-          airportsLayer={airportsLayer}
-          onAirportsLayerChange={setAirportsLayer}
           onClearLayerSelection={() => {
             setSelectedRegionId(null);
             setSelectedAttractionId(null);
             setSelectedTransitSystemId(null);
             setTouristAttractionsLayer(false);
             setTransitSystemsLayer(false);
-            setAirportsLayer(false);
           }}
           selectedAttractionId={selectedAttractionId}
           selectedTransitSystemId={selectedTransitSystemId}
@@ -3808,8 +3801,6 @@ function MapTab({
   onTouristAttractionsLayerChange,
   transitSystemsLayer,
   onTransitSystemsLayerChange,
-  airportsLayer,
-  onAirportsLayerChange,
   onClearLayerSelection,
   selectedAttractionId,
   selectedTransitSystemId,
@@ -3836,8 +3827,6 @@ function MapTab({
   onTouristAttractionsLayerChange: (enabled: boolean) => void;
   transitSystemsLayer: boolean;
   onTransitSystemsLayerChange: (enabled: boolean) => void;
-  airportsLayer: boolean;
-  onAirportsLayerChange: (enabled: boolean) => void;
   onClearLayerSelection: () => void;
   selectedAttractionId: string | null;
   selectedTransitSystemId: string | null;
@@ -4047,7 +4036,6 @@ function MapTab({
     const region = regions.find((item) => item.id === airport.countryId);
     setCountrySearch(`${airport.code} · ${airport.city}`);
     setCountrySearchFocused(false);
-    onAirportsLayerChange(true);
     if (region) onSelectRegion(region.id);
     onMapZoomChange(Math.max(mapZoom, 5.6));
     onMapPanChange({ x: 0, y: 0 });
@@ -4386,14 +4374,6 @@ function MapTab({
             />
             Transit networks
           </label>
-          <label className={`overlay-toggle airport-toggle ${airportsLayer ? "active" : ""}`}>
-            <input
-              type="checkbox"
-              checked={airportsLayer}
-              onChange={(event) => onAirportsLayerChange(event.target.checked)}
-            />
-            Airports
-          </label>
           <button type="button" className="clear-layer-button" onClick={onClearLayerSelection}>
             Clear Selection
           </button>
@@ -4432,7 +4412,6 @@ function MapTab({
             selectedAttractionId={selectedAttractionId}
             onAttractionSelect={onAttractionSelect}
             transitSystemsLayer={transitSystemsLayer}
-            airportsLayer={airportsLayer}
             selectedTransitSystemId={selectedTransitSystemId}
             onTransitSystemSelect={onTransitSystemSelect}
             zoom={mapZoom}
@@ -4459,7 +4438,6 @@ function MapTab({
           <span><strong>Labels</strong> city names appear at deep zoom</span>
           <span><strong>Regions</strong> detailed subdivisions appear at 480%+</span>
           <span><strong>Transit</strong> toggle network pins in Map tools</span>
-          <span><strong>Airports</strong> optional IATA markers, off by default</span>
         </div>
         <AskGeoInTransitPanel currentRegion={selectedRegion} onSelectRegion={selectRegionAndZoom} />
         <details className="export-panel compact-tool-panel">
@@ -4849,7 +4827,6 @@ function OperationsMap({
   selectedAttractionId = null,
   onAttractionSelect,
   transitSystemsLayer = false,
-  airportsLayer = false,
   selectedTransitSystemId = null,
   onTransitSystemSelect,
   onBackgroundSelect,
@@ -4870,7 +4847,6 @@ function OperationsMap({
   selectedAttractionId?: string | null;
   onAttractionSelect?: (attraction: (typeof projectedTouristAttractions)[number]) => void;
   transitSystemsLayer?: boolean;
-  airportsLayer?: boolean;
   selectedTransitSystemId?: string | null;
   onTransitSystemSelect?: (system: (typeof projectedTransitSystems)[number]) => void;
   onBackgroundSelect?: () => void;
@@ -5102,23 +5078,6 @@ function OperationsMap({
             </span>
           ))}
         </div>
-        {airportsLayer ? (
-          <div className="airport-marker-layer" aria-label="Airport code markers">
-            {projectedAirportLabels.map((airport) => (
-              <button
-                key={airport.code}
-                type="button"
-                className="airport-marker"
-                style={{ left: `${airport.x}%`, top: `${airport.y}%`, transform: `translate(-50%, -50%) scale(${1 / zoom})` }}
-                onClick={() => onSelect(airport.countryId)}
-                title={`${airport.code} · ${airport.name}: ${airport.fact}`}
-                aria-label={`Select ${airport.name}`}
-              >
-                <span>{airport.code}</span>
-              </button>
-            ))}
-          </div>
-        ) : null}
         {showRegionalBoundaries && dcSubdivision && dcProjected ? (
           <button
             type="button"
@@ -5267,10 +5226,12 @@ function QuizMap({ onAnswer }: { onAnswer: (answer: string) => void }) {
 
 function QuestionVisual({ question, onAnswer }: { question: Question; onAnswer?: (answer: string) => void }) {
   const metroImageSrc = question.image ? metroImageByPrompt[question.image] : "";
+  const shouldRedactMap = question.id.includes("map") || question.visualType === "station-map" || question.visualType === "marta-map" || question.visualType === "wmata-map";
   if (metroImageSrc) {
     return (
-      <figure className="question-image-card">
-        <img src={metroImageSrc} alt={question.visualCaption ?? question.image ?? "Transit image prompt"} />
+      <figure className={`question-image-card ${shouldRedactMap ? "quiz-map-redacted" : ""}`}>
+        <img src={metroImageSrc} alt={shouldRedactMap ? "Redacted transit network reference" : "Transit image prompt"} />
+        {shouldRedactMap ? <span className="quiz-redaction-note">Labels concealed for quiz play</span> : null}
         <figcaption>
           <strong>Reference image</strong>
           <span>Use the visual clues, not the caption, to answer.</span>
@@ -5281,8 +5242,9 @@ function QuestionVisual({ question, onAnswer }: { question: Question; onAnswer?:
 
   if (question.image?.startsWith("/") && question.visualType !== "flag" && question.visualType !== "regional-flag") {
     return (
-      <figure className="question-image-card">
-        <img src={question.image} alt={question.visualCaption ?? "Visual question reference"} />
+      <figure className={`question-image-card ${shouldRedactMap ? "quiz-map-redacted" : ""}`}>
+        <img src={question.image} alt={shouldRedactMap ? "Redacted map reference" : "Visual question reference"} />
+        {shouldRedactMap ? <span className="quiz-redaction-note">Labels concealed for quiz play</span> : null}
         <figcaption>
           <strong>Visual clue</strong>
           <span>Use the vehicle, streetscape, map, and network design to answer.</span>
@@ -5293,8 +5255,9 @@ function QuestionVisual({ question, onAnswer }: { question: Question; onAnswer?:
 
   if (question.visualType === "marta-map" && question.inputType !== "map-click") {
     return (
-      <figure className="question-image-card">
-        <img src="/images/metro-images/MARTA.png" alt="MARTA rail system map" />
+      <figure className="question-image-card quiz-map-redacted">
+        <img src="/images/metro-images/MARTA.png" alt="Redacted four-line transit system map" />
+        <span className="quiz-redaction-note">Station labels concealed for quiz play</span>
         <figcaption>
           <strong>Transit map</strong>
           <span>Use the real network geography to answer.</span>
@@ -5351,8 +5314,8 @@ function QuestionVisual({ question, onAnswer }: { question: Question; onAnswer?:
         <span className="station-dot center">Metro Center</span>
         <span className="station-dot union">Union</span>
         <span className="station-dot rosslyn">Rosslyn</span>
-        <strong>{question.image}</strong>
-        <em>{question.visualCaption}</em>
+        <strong>Unlabeled network diagram</strong>
+        <em>Use line geometry and transfer patterns.</em>
       </div>
     );
   }
@@ -5395,8 +5358,8 @@ function QuestionVisual({ question, onAnswer }: { question: Question; onAnswer?:
         <button className="station-pin osaka" onClick={() => onAnswer?.("Osaka")} aria-label="Select Osaka">Osaka</button>
         <button className="station-pin hiroshima" onClick={() => onAnswer?.("Hiroshima Station")} aria-label="Select Hiroshima Station">?</button>
         <button className="station-pin fukuoka" onClick={() => onAnswer?.("Fukuoka")} aria-label="Select Fukuoka">Fukuoka</button>
-        <strong>{question.image}</strong>
-        <em>{question.visualCaption}</em>
+        <strong>Unlabeled station diagram</strong>
+        <em>Use relative position and network structure.</em>
       </div>
     );
   }
@@ -5420,8 +5383,8 @@ function QuestionVisual({ question, onAnswer }: { question: Question; onAnswer?:
           <span className="platform-line" />
           <span className="city-sign">Tokyo</span>
         </div>
-        <strong>{question.image}</strong>
-        <em>{question.visualCaption}</em>
+        <strong>Visual geography clue</strong>
+        <em>Use the scene without relying on place-name labels.</em>
       </div>
     );
   }
@@ -5455,8 +5418,8 @@ function WmataStationMap({ question, onAnswer }: { question: Question; onAnswer?
           title="Station"
         />
       ))}
-      <strong>{question.image}</strong>
-      <em>{question.visualCaption}</em>
+      <strong>Redacted transit reference</strong>
+      <em>Use line colors and topology.</em>
     </div>
   );
 }
@@ -5590,7 +5553,7 @@ function RegionPanel({
       <div className="fact-box compact-facts">
         <p><strong>Population:</strong> {region.population}</p>
       </div>
-      <details className="place-importance" open>
+      <details className="place-importance">
         <summary>
           <span>{importance.title}</span>
           {!customImportance ? <em>Needs custom importance text</em> : null}
@@ -5738,7 +5701,9 @@ function EmptyRegionPanel() {
 
 function fallbackPlaceImportance(region: Region) {
   const nonCapitalCities = region.majorCities.filter((city) => city.toLowerCase() !== region.capital.toLowerCase()).slice(0, 4);
-  const transit = [...region.metro, ...region.rail].filter(Boolean).slice(0, 2);
+  const transit = [...region.metro, ...region.rail].filter(Boolean).slice(0, 3);
+  const geography = region.riversMountains.filter(Boolean).slice(0, 2);
+  const corridors = [...region.highways, ...region.maritime].filter(Boolean).slice(0, 2);
   return {
     id: region.id,
     title: `Why ${region.name} matters`,
@@ -5746,9 +5711,13 @@ function fallbackPlaceImportance(region: Region) {
     transitHighlights: [transit.length
       ? `${transit.join(" and ")} provide useful starting points for understanding the country’s passenger network.`
       : "Regional road, aviation, rail, or maritime links connect population centers where available."],
-    geographicHighlights: [`The country’s settlement pattern, terrain, and international gateways influence how people travel between regions.`],
+    geographicHighlights: [geography.length
+      ? `${geography.join(" and ")} help explain where population and transport corridors concentrate.`
+      : `The country’s settlement pattern, terrain, and international gateways influence how people travel between regions.`],
     majorNonCapitalCities: nonCapitalCities,
-    regionalNotes: ["This profile is ready for a more specific regional transport story as curated information is added."],
+    regionalNotes: [corridors.length
+      ? `${corridors.join(" and ")} add regional road, freight, port, or ferry context beyond the capital.`
+      : `${region.airports.slice(0, 2).join(" and ") || "Regional gateways"} connect the profile with wider domestic and international travel.`],
   };
 }
 
@@ -5777,10 +5746,10 @@ const askGeoTransitCards: AskCard[] = [
     category: "Transit systems",
     summary: "Morocco is a clean example of national rail, high-speed rail, and city tramways working at different scales.",
     items: [
-      { label: "Al Boraq", regionId: "morocco", flag: "MA", note: "Tangier, Rabat, Casablanca high-speed rail." },
-      { label: "ONCF", regionId: "morocco", flag: "MA", note: "National rail backbone and intercity network." },
-      { label: "Casablanca Tramway", regionId: "morocco", flag: "MA", note: "Urban surface transit in Morocco's largest city." },
-      { label: "Rabat-Sale Tramway", regionId: "morocco", flag: "MA", note: "Capital-region tram across the Bou Regreg." },
+      { label: "Al Boraq", regionId: "morocco", flag: "MA", note: "Tangier, Rabat, Casablanca high-speed rail.", mapQuery: "Al Boraq Morocco stations" },
+      { label: "ONCF", regionId: "morocco", flag: "MA", note: "National rail backbone and intercity network.", mapQuery: "ONCF Morocco railway stations" },
+      { label: "Casablanca Tramway", regionId: "morocco", flag: "MA", note: "Urban surface transit in Morocco's largest city.", mapQuery: "Casablanca Tramway stations" },
+      { label: "Rabat-Sale Tramway", regionId: "morocco", flag: "MA", note: "Capital-region tram across the Bou Regreg.", mapQuery: "Rabat Sale Tramway stations" },
     ],
     image: { src: "/images/ask/rabat-sale-tram.jpg", alt: "Rabat-Sale tram beside the historic city walls" },
   },
@@ -5911,9 +5880,9 @@ const askGeoTransitCards: AskCard[] = [
     category: "Integrated transit",
     summary: "Klang Valley riders move among automated LRT, MRT, KTM commuter rail, monorail, and KLIA airport express services through shared interchange hubs.",
     items: [
-      { label: "Malaysia", regionId: "malaysia", flag: "MY", note: "Kelana Jaya LRT provides the automated east-west spine through central Kuala Lumpur." },
-      { label: "KL Sentral", regionId: "malaysia", flag: "MY", note: "The main interchange joins commuter rail, airport express, monorail access, and intercity trains." },
-      { label: "Klang Valley", regionId: "malaysia", flag: "MY", note: "Integrated ticketing and interchange design unite multiple operators and technologies." },
+      { label: "Malaysia", regionId: "malaysia", flag: "MY", note: "Kelana Jaya LRT provides the automated east-west spine through central Kuala Lumpur.", mapQuery: "Kelana Jaya Line Kuala Lumpur" },
+      { label: "KL Sentral", regionId: "malaysia", flag: "MY", note: "The main interchange joins commuter rail, airport express, monorail access, and intercity trains.", mapQuery: "KL Sentral station" },
+      { label: "Klang Valley", regionId: "malaysia", flag: "MY", note: "Integrated ticketing and interchange design unite multiple operators and technologies.", mapQuery: "Klang Valley transit stations" },
     ],
     image: { src: "/images/ask/kuala-lumpur-kelana-jaya.jpg", alt: "Rapid KL Kelana Jaya Line train" },
   },
@@ -6136,6 +6105,11 @@ function AskGeoInTransitPanel({ currentRegion, onSelectRegion }: { currentRegion
                           <button type="button" onClick={() => onSelectRegion(item.regionId!)}>
                             Open profile
                           </button>
+                        ) : null}
+                        {item.mapQuery ? (
+                          <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.mapQuery)}`} target="_blank" rel="noreferrer">
+                            View on map
+                          </a>
                         ) : null}
                       </div>
                     ))}
