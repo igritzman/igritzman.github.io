@@ -9,6 +9,9 @@ import countryImageManifest from "./countryImageManifest.json";
 import regionFlagManifest from "./regionFlagManifest.json";
 import regionImageManifest from "./regionImageManifest.json";
 import usStateImageManifest from "./usStateImageManifest.json";
+import { TransitTimeMachinePanel } from "./components/TransitTimeMachinePanel";
+import { transitTimeMachineImages } from "./data/transitTimeMachineImages";
+import { getTransitTimeMachineCompletion } from "./utils/transitTimeMachineAssets";
 import { createDefaultProfile, loadFriends, loadProfile, loadProfiles, loadRun, saveFriends, saveProfile, saveProfiles, saveRun } from "./storage";
 import type { DifficultyLevel, LocalFriend, PlayerProfile, Question, QuizRun, Region } from "./types";
 
@@ -3838,10 +3841,13 @@ function MapTab({
   const [lastCsvExport, setLastCsvExport] = useState<CsvExport | null>(null);
   const [countrySearch, setCountrySearch] = useState(selectedRegion?.name ?? "");
   const [countrySearchFocused, setCountrySearchFocused] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => window.matchMedia("(max-width: 640px)").matches);
   const [mapControlsHidden, setMapControlsHidden] = useState(false);
   const [trackerExpanded, setTrackerExpanded] = useState(false);
+  const [focusedSubdivisionCode, setFocusedSubdivisionCode] = useState<string | null>(null);
   const [missingDataFilter, setMissingDataFilter] = useState<"work" | "everything" | "complete" | "population" | "capital" | "flag" | "image" | "transit">("work");
+  const [timeMachineFilter, setTimeMachineFilter] = useState<"needs" | "early" | "mid" | "modern" | "complete">("needs");
+  const [selectedTimeMachineCity, setSelectedTimeMachineCity] = useState<string | null>(null);
   const [regionCompletionRows, setRegionCompletionRows] = useState<RegionCompletionRow[]>([]);
   const selectedExportRegions = exportRegionIds
     .map((id) => regions.find((region) => region.id === id))
@@ -3866,6 +3872,7 @@ function MapTab({
     if (hasDetailedRegions) onRegionalBoundaryLayerChange(true);
     onMapZoomChange(nextZoom);
     onMapPanChange({ x: 0, y: 0 });
+    setSidebarCollapsed(false);
   };
   const selectedRegionId = selectedRegion?.id ?? "";
   const toggleExportRegion = (id: string) => {
@@ -3953,6 +3960,15 @@ function MapTab({
     return !row.hasTransit;
   });
   const visibleRegionCompletionRows = trackerExpanded ? filteredRegionCompletionRows : filteredRegionCompletionRows.slice(0, 12);
+  const filteredTimeMachineEntries = transitTimeMachineImages.filter((entry) => {
+    const missing = entry.eras.filter((era) => !era.imageUrl);
+    if (timeMachineFilter === "complete") return missing.length === 0;
+    if (timeMachineFilter === "needs") return missing.length > 0;
+    return entry.eras.some((era) => era.key === timeMachineFilter && !era.imageUrl);
+  });
+  const selectedTimeMachineEntry = selectedTimeMachineCity
+    ? transitTimeMachineImages.find((entry) => entry.city === selectedTimeMachineCity) ?? null
+    : null;
 
   useEffect(() => {
     setCountrySearch(selectedRegion?.name ?? "");
@@ -3961,6 +3977,7 @@ function MapTab({
   useEffect(() => {
     setTrackerExpanded(false);
     setMissingDataFilter("work");
+    setFocusedSubdivisionCode(null);
     if (!selectedRegion || !gadmLevelOneFiles[selectedRegion.id]) {
       setRegionCompletionRows([]);
       return;
@@ -4217,14 +4234,26 @@ function MapTab({
                 </p>
                 <div className="tracker-region-list">
                   {visibleRegionCompletionRows.map((row) => (
-                    <div key={row.code} className={row.complete ? "complete" : "partial"}>
+                    <button
+                      key={row.code}
+                      type="button"
+                      className={row.complete ? "complete" : "partial"}
+                      onClick={() => {
+                        setFocusedSubdivisionCode(row.code);
+                        onRegionalBoundaryLayerChange(true);
+                        onMapZoomChange(Math.max(mapZoom, 5.4));
+                        setMapControlsHidden(false);
+                        setSidebarCollapsed(false);
+                      }}
+                      aria-label={`Open ${row.name} regional profile on the map`}
+                    >
                       <strong>{row.complete ? "✓" : "✗"} {row.name}</strong>
                       <span title="Population">{row.hasPopulation ? "Population ✓" : "Population ✗"}</span>
                       <span title="Flag or coat of arms">{row.hasFlag ? "Flag ✓" : "Flag ✗"}</span>
                       <span title="Capital">{row.hasCapital ? "Capital ✓" : "Capital ✗"}</span>
                       <span title="Image">{row.hasImage ? "Image ✓" : "Image ✗"}</span>
                       <span title="Transit where applicable">{row.hasTransit ? "Transit ✓" : "Transit - optional"}</span>
-                    </div>
+                    </button>
                   ))}
                 </div>
                 {filteredRegionCompletionRows.length > visibleRegionCompletionRows.length ? (
@@ -4240,6 +4269,71 @@ function MapTab({
             ) : selectedRegion && gadmLevelOneFiles[selectedRegion.id] ? (
               <div className="regional-completion-tracker loading">Loading regions...</div>
             ) : null}
+            <section className="time-machine-assets-dashboard">
+              <div className="tracker-head">
+                <div>
+                  <strong>Transit Time Machine Assets</strong>
+                  <span>Historical and current maps for {transitTimeMachineImages.length} networks</span>
+                </div>
+                <em>{transitTimeMachineImages.filter((entry) => getTransitTimeMachineCompletion(entry.city) === 100).length} complete</em>
+              </div>
+              <div className="missing-data-filters" aria-label="Filter Transit Time Machine assets">
+                {([[
+                  "needs", "Needs assets",
+                ], [
+                  "early", "Missing early image",
+                ], [
+                  "mid", "Missing mid-era image",
+                ], [
+                  "modern", "Missing modern image",
+                ], [
+                  "complete", "Complete only",
+                ]] as const).map(([value, label]) => (
+                  <button
+                    key={value}
+                    type="button"
+                    className={timeMachineFilter === value ? "selected" : ""}
+                    aria-pressed={timeMachineFilter === value}
+                    onClick={() => setTimeMachineFilter(value)}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              <div className="time-machine-asset-list">
+                {filteredTimeMachineEntries.slice(0, 8).map((entry) => {
+                  const completion = getTransitTimeMachineCompletion(entry.city);
+                  return (
+                    <article key={entry.city}>
+                      <div>
+                        <strong>{entry.city}</strong>
+                        <span>{entry.system}</span>
+                      </div>
+                      <div className="era-status-row" aria-label={`${entry.city} era map status`}>
+                        {entry.eras.map((era) => (
+                          <span className={era.imageUrl ? "ready" : "missing"} key={era.key}>
+                            {era.key === "mid" ? "Mid" : era.key[0].toUpperCase() + era.key.slice(1)} {era.imageUrl ? "✓" : "—"}
+                          </span>
+                        ))}
+                      </div>
+                      <strong className="completion-pill">{completion}%</strong>
+                      <button type="button" className="secondary-button" onClick={() => setSelectedTimeMachineCity(entry.city)}>
+                        Open profile
+                      </button>
+                    </article>
+                  );
+                })}
+              </div>
+              {filteredTimeMachineEntries.length > 8 ? (
+                <p className="tracker-filter-summary">Showing 8 of {filteredTimeMachineEntries.length}. Refine the filter to keep the dashboard compact.</p>
+              ) : null}
+              {selectedTimeMachineEntry ? (
+                <div className="time-machine-inline-profile">
+                  <button type="button" className="time-machine-close" onClick={() => setSelectedTimeMachineCity(null)} aria-label="Close Transit Time Machine profile">×</button>
+                  <TransitTimeMachinePanel entry={selectedTimeMachineEntry} />
+                </div>
+              ) : null}
+            </section>
           </details>
           <label className={`overlay-toggle ${operationalOverlay ? "active" : ""}`}>
             <input
@@ -4293,6 +4387,7 @@ function MapTab({
           </button>
           <OperationsMap
             selectedId={selectedRegionId}
+            focusedSubdivisionCode={focusedSubdivisionCode}
             onSelect={selectRegionAndZoom}
             mapStyle={mapStyle}
             countryLayer={countryLayer}
@@ -4706,6 +4801,7 @@ function triggerCsvDownload(csvExport: CsvExport) {
 
 function OperationsMap({
   selectedId,
+  focusedSubdivisionCode = null,
   onSelect,
   compact = false,
   mapStyle = "default",
@@ -4725,6 +4821,7 @@ function OperationsMap({
   onZoomChange,
 }: {
   selectedId: string;
+  focusedSubdivisionCode?: string | null;
   onSelect: (id: string) => void;
   compact?: boolean;
   mapStyle?: MapStyle;
@@ -4777,6 +4874,12 @@ function OperationsMap({
       cancelled = true;
     };
   }, [regionalBoundaryLayer, selectedId, supportsGadmRegions, zoom]);
+
+  useEffect(() => {
+    if (!focusedSubdivisionCode || gadmSubdivisions.length === 0) return;
+    const focused = gadmSubdivisions.find((feature) => subdivisionCode(feature) === focusedSubdivisionCode);
+    if (focused) setSelectedSubdivision(focused);
+  }, [focusedSubdivisionCode, gadmSubdivisions]);
 
   return (
     <div
@@ -5137,6 +5240,18 @@ function QuestionVisual({ question, onAnswer }: { question: Question; onAnswer?:
     );
   }
 
+  if (question.image?.startsWith("/") && question.visualType !== "flag" && question.visualType !== "regional-flag") {
+    return (
+      <figure className="question-image-card">
+        <img src={question.image} alt={question.visualCaption ?? "Visual question reference"} />
+        <figcaption>
+          <strong>Visual clue</strong>
+          <span>Use the vehicle, streetscape, map, and network design to answer.</span>
+        </figcaption>
+      </figure>
+    );
+  }
+
   if (question.visualType === "marta-map" && question.inputType !== "map-click") {
     return (
       <figure className="question-image-card">
@@ -5415,6 +5530,7 @@ function RegionPanel({
   const nearbyRegions = nearbyRegionsFor(region.id);
   const practiceTopicOptions = practiceTopicOptionsForRegion(region, regionTransitSystems.length, regionAttractions.length);
   const [practiceTopics, setPracticeTopics] = useState<PracticeTopic[]>(practiceTopicOptions.map((topic) => topic.id));
+  const importance = whyThisPlaceMatters(region);
   useEffect(() => {
     setPracticeTopics(practiceTopicOptions.map((topic) => topic.id));
   }, [region.id]);
@@ -5434,6 +5550,10 @@ function RegionPanel({
       <div className="fact-box compact-facts">
         <p><strong>Population:</strong> {region.population}</p>
       </div>
+      <details className="place-importance" open>
+        <summary>Why is this place important?</summary>
+        <p>{importance}</p>
+      </details>
       {profileImage && <PlaceImageCard image={profileImage} />}
       {airportReferenceImages.length > 0 && <ProfileImageGallery title="Airport references" images={airportReferenceImages} />}
       {nearbyRegions.length > 0 && (
@@ -5565,6 +5685,21 @@ function EmptyRegionPanel() {
   );
 }
 
+function whyThisPlaceMatters(region: Region) {
+  const custom: Record<string, string> = {
+    japan: "Japan links some of the world's busiest metropolitan railways with the Shinkansen high-speed network, major island airports, and ferry corridors. Its transport geography shows how dense cities and mountainous islands can function as one national system.",
+    "united-kingdom": "The United Kingdom pioneered passenger railways and the world's first underground railway. London remains a global transit laboratory, while regional rail, ferries, and airports connect a compact island nation.",
+    "united-states": "The United States combines continental-scale aviation and highways with globally significant subway, commuter-rail, and intercity corridors. Washington, D.C. is the capital while New York is the largest city—a useful lesson in political and urban geography.",
+    canada: "Canada's population is concentrated along a handful of long-distance corridors. Ottawa is the capital, Toronto is the largest city, and rail, aviation, ferries, and winter infrastructure connect communities across enormous distances.",
+    morocco: "Morocco is a bridge between Africa, the Atlantic, and the Mediterranean. Al Boraq high-speed rail, major ports, trams in Casablanca and Rabat-Salé, ferries, and airports make that relationship visible.",
+    portugal: "Portugal faces both continental Europe and the Atlantic world. Lisbon and Porto anchor mainland rail while Madeira and the Azores show how aviation and maritime links shape island regions.",
+  };
+  if (custom[region.id]) return custom[region.id];
+  const city = region.majorCities[0] ?? region.capital;
+  const transit = region.metro[0] ?? region.rail[0] ?? "regional transport corridors";
+  return `${region.name} matters because ${city} anchors its population and economic geography while ${transit} connects people to the capital, surrounding regions, and international gateways. Its airports, landmarks, and physical geography explain why travel patterns developed the way they did.`;
+}
+
 const askGeoTransitCards: AskCard[] = [
   {
     id: "hungary-neighbors",
@@ -5595,17 +5730,17 @@ const askGeoTransitCards: AskCard[] = [
       { label: "Casablanca Tramway", regionId: "morocco", flag: "MA", note: "Urban surface transit in Morocco's largest city." },
       { label: "Rabat-Sale Tramway", regionId: "morocco", flag: "MA", note: "Capital-region tram across the Bou Regreg." },
     ],
-    image: { src: "/images/metro-images/Railways_Morocco.png", alt: "Morocco railways map" },
+    image: { src: "/images/ask/rabat-sale-tram.jpg", alt: "Rabat-Sale tram beside the historic city walls" },
   },
   {
     id: "spain-portugal-hsr",
     tab: "Rail",
     title: "Compare Spain and Portugal High-Speed Rail",
     category: "Country comparison",
-    summary: "Spain has one of the world's largest high-speed rail networks; Portugal is more corridor-focused, with Lisbon-Porto and cross-border links carrying the comparison.",
+    summary: "Compare two Iberian models: Spain's Madrid-centered AVE web and Portugal's Lisbon-Porto spine, regional urban rail, and developing cross-border links.",
     items: [
-      { label: "Spain", regionId: "spain", flag: "ES", note: "Large AVE network radiating from Madrid." },
-      { label: "Portugal", regionId: "portugal", flag: "PT", note: "Lisbon-Porto and Iberian cross-border planning are the core story." },
+      { label: "Spain", regionId: "spain", flag: "ES", note: "AVE radiates from Madrid toward Barcelona, Seville, Valencia, Malaga, Galicia, and the French border." },
+      { label: "Portugal", regionId: "portugal", flag: "PT", note: "Alfa Pendular, Porto Metro, Lisbon Metro, and suburban rail form a corridor-focused network." },
     ],
     compareIds: ["spain", "portugal"],
     image: { src: "/images/region-images/imported/portugal/lisbon.jpg", alt: "Portugal and Lisbon corridor context for Iberian rail comparison" },
@@ -5648,6 +5783,9 @@ const askGeoTransitCards: AskCard[] = [
       { label: "Singapore", regionId: "singapore", flag: "SG", note: "MRT planning is the island's main urban mobility skeleton." },
       { label: "United Kingdom", regionId: "united-kingdom", flag: "GB", note: "National Rail and London transport dominate the island pattern." },
       { label: "Sri Lanka", regionId: "sri-lanka", flag: "LK", note: "Coastal and hill-country rail show terrain contrast." },
+      { label: "Ireland", regionId: "ireland", flag: "IE", note: "Dublin DART, Luas, and intercity rail connect an island network focused on the capital." },
+      { label: "Taiwan", regionId: "taiwan", flag: "TW", note: "HSR, conventional rail, and metro systems follow the dense western spine." },
+      { label: "Cyprus", regionId: "cyprus", flag: "CY", note: "An island contrast: intercity buses, ports, and airports operate without an active railway." },
     ],
     image: { src: "/images/metro-images/Singapore_MRT_Network.svg.png", alt: "Singapore MRT network map" },
   },
@@ -5691,6 +5829,13 @@ const askGeoTransitCards: AskCard[] = [
       { label: "Slovakia", regionId: "slovakia", flag: "SK", note: "Bratislava's position makes borders part of daily mobility." },
       { label: "Singapore", regionId: "singapore", flag: "SG", note: "Johor Bahru links show metro, bus, and border pressure." },
       { label: "United States", regionId: "united-states", flag: "US", note: "San Diego-Tijuana shows border-region mobility at scale." },
+      { label: "Mexico", regionId: "mexico", flag: "MX", note: "Tijuana and Ciudad Juarez pair with U.S. transit networks across heavily used crossings." },
+      { label: "France", regionId: "france", flag: "FR", note: "Geneva-region rail and tram links cross the French-Swiss boundary." },
+      { label: "Switzerland", regionId: "switzerland", flag: "CH", note: "Leman Express turns Geneva into a cross-border regional rail hub." },
+      { label: "Denmark", regionId: "denmark", flag: "DK", note: "Oresund trains join Copenhagen and Malmo across the strait." },
+      { label: "Sweden", regionId: "sweden", flag: "SE", note: "Malmo connects directly to Copenhagen by regional rail." },
+      { label: "Brazil", regionId: "brazil", flag: "BR", note: "Foz do Iguacu links by bus and bridge to Paraguay and Argentina." },
+      { label: "Paraguay", regionId: "paraguay", flag: "PY", note: "Ciudad del Este forms a busy cross-border urban pair with Foz do Iguacu." },
     ],
   },
   {
@@ -5706,6 +5851,35 @@ const askGeoTransitCards: AskCard[] = [
       { label: "United Arab Emirates", regionId: "uae", flag: "AE", note: "Abu Dhabi capital context contrasts with Dubai's metro." },
     ],
     image: { src: "/images/metro-images/Seilbahnnetz_La_PazBolivia.svg.png", alt: "La Paz cable car network map" },
+  },
+  {
+    id: "kuala-lumpur-integrated-rail",
+    tab: "Rail",
+    title: "How Kuala Lumpur Blends Five Rail Modes",
+    category: "Integrated transit",
+    summary: "Klang Valley riders move among automated LRT, MRT, KTM commuter rail, monorail, and KLIA airport express services through shared interchange hubs.",
+    items: [
+      { label: "Malaysia", regionId: "malaysia", flag: "MY", note: "Kelana Jaya LRT provides the automated east-west spine through central Kuala Lumpur." },
+      { label: "KL Sentral", regionId: "malaysia", flag: "MY", note: "The main interchange joins commuter rail, airport express, monorail access, and intercity trains." },
+      { label: "Klang Valley", regionId: "malaysia", flag: "MY", note: "Integrated ticketing and interchange design unite multiple operators and technologies." },
+    ],
+    image: { src: "/images/ask/kuala-lumpur-kelana-jaya.jpg", alt: "Rapid KL Kelana Jaya Line train" },
+  },
+  {
+    id: "hidden-transit-gems",
+    tab: "Hidden Gems",
+    title: "Hidden Transit Gems Worth Exploring",
+    category: "Transit discovery",
+    summary: "Smaller or unusual systems reveal how cities solve terrain, heritage, waterfront, and regional-access problems without copying megacity metros.",
+    items: [
+      { label: "Morocco", regionId: "morocco", flag: "MA", note: "Rabat-Sale and Casablanca use modern trams in very different urban settings." },
+      { label: "Germany", regionId: "germany", flag: "DE", note: "Wuppertal's suspended railway runs above the Wupper River." },
+      { label: "Chile", regionId: "chile", flag: "CL", note: "Valparaiso combines suburban rail with historic hillside funiculars." },
+      { label: "Norway", regionId: "norway", flag: "NO", note: "Bergen Light Rail links the center, suburbs, and airport through steep coastal terrain." },
+      { label: "Turkey", regionId: "turkey", flag: "TR", note: "Izmir ferries function as everyday urban transit across the bay." },
+      { label: "Colombia", regionId: "colombia", flag: "CO", note: "Medellin integrates metro rail and cable cars across a mountain valley." },
+    ],
+    image: { src: "/images/ask/casablanca-tram.jpg", alt: "Casablanca Tramway in the city center" },
   },
   {
     id: "global-airport-hubs",
@@ -5765,6 +5939,10 @@ const askGeoTransitCards: AskCard[] = [
       { label: "Russia", regionId: "russia", flag: "RU", note: "Siberia and the Far East are far from Moscow by rail and air." },
       { label: "Chile", regionId: "chile", flag: "CL", note: "Patagonia and Atacama sit at opposite ends of a long country." },
       { label: "France", regionId: "france", flag: "FR", note: "Corsica and overseas geography change the profile." },
+      { label: "Canada", regionId: "canada", flag: "CA", note: "The Arctic territories and Pacific coast are extremely distant from Ottawa." },
+      { label: "Australia", regionId: "australia", flag: "AU", note: "Perth, Darwin, Tasmania, and remote interior regions sit far from Canberra." },
+      { label: "United States", regionId: "united-states", flag: "US", note: "Alaska, Hawaii, and Pacific territories make capital distance a major transport story." },
+      { label: "China", regionId: "china", flag: "CN", note: "Xinjiang, Tibet, Yunnan, and the northeast contrast sharply with Beijing." },
     ],
     image: { src: "/images/region-images/imported/chile/magallanes-y-antartica-chilena.jpg", alt: "Southern Chile regional geography" },
   },
@@ -5779,6 +5957,9 @@ const askGeoTransitCards: AskCard[] = [
       { label: "Australia", regionId: "australia", flag: "AU", note: "Canberra is the capital; Sydney and Melbourne dominate transport." },
       { label: "Turkey", regionId: "turkey", flag: "TR", note: "Ankara is capital; Istanbul is the largest global gateway." },
       { label: "Brazil", regionId: "brazil", flag: "BR", note: "Brasilia is capital; Sao Paulo is the largest metro economy." },
+      { label: "United States", regionId: "united-states", flag: "US", note: "Washington, D.C. is the capital; New York is the largest city and rail hub." },
+      { label: "Canada", regionId: "canada", flag: "CA", note: "Ottawa is the capital; Toronto is the largest metropolitan and transit center." },
+      { label: "China", regionId: "china", flag: "CN", note: "Beijing is the capital; Shanghai is the largest conventional city, while Chongqing is the largest municipality by population." },
     ],
     image: { src: "/images/country-images/Brazil.jpg", alt: "Brazil profile image" },
   },

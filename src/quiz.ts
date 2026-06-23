@@ -153,7 +153,7 @@ const airportCityByCode: Record<string, string> = {
 function airportPromptTarget(region: (typeof regions)[number], airportCode?: string) {
   const codeCity = airportCode ? airportCityByCode[airportCode.toUpperCase()] : undefined;
   if (codeCity) return codeCity;
-  return airportCode ? `${region.name}'s ${airportCode} gateway` : region.name;
+  return `${region.name}'s principal international gateway`;
 }
 
 function allowedFlagCount(count: number, startDifficulty: DifficultyLevel) {
@@ -175,7 +175,10 @@ function buildMonthlyRotationQuestions(monthKey = currentMonthKey()) {
       const regionPool = difficulty === "gateway" || difficulty === "connector" ? easyRotationRegions : rotationRegions;
       const region = regionPool[(day * slotsPerDay + slot) % regionPool.length];
       const seed = `${monthKey}-${day}-${slot}-${region.id}`;
-      const template = slot % 10;
+      // Airport-code prompts occupy one slot in twenty; the rest emphasize
+      // capitals, transit, regions, physical geography, and visual clues.
+      const templateCycle = [0, 2, 3, 4, 5, 6, 7, 8, 9, 0, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1];
+      const template = templateCycle[slot % templateCycle.length];
       const primaryAirport = region.airports[0];
       const primaryRail = region.rail[0];
       const primaryMetro = region.metro[0];
