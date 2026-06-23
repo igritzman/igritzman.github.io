@@ -11,6 +11,7 @@ import regionImageManifest from "./regionImageManifest.json";
 import usStateImageManifest from "./usStateImageManifest.json";
 import { TransitTimeMachinePanel } from "./components/TransitTimeMachinePanel";
 import { transitTimeMachineImages } from "./data/transitTimeMachineImages";
+import { getPlaceImportance, hasCustomPlaceImportance } from "./data/placeImportance";
 import { getTransitTimeMachineCompletion } from "./utils/transitTimeMachineAssets";
 import { createDefaultProfile, loadFriends, loadProfile, loadProfiles, loadRun, saveFriends, saveProfile, saveProfiles, saveRun } from "./storage";
 import type { DifficultyLevel, LocalFriend, PlayerProfile, Question, QuizRun, Region } from "./types";
@@ -2443,6 +2444,7 @@ function App() {
   const [touristAttractionsLayer, setTouristAttractionsLayer] = useState(false);
   const [selectedAttractionId, setSelectedAttractionId] = useState<string | null>(null);
   const [transitSystemsLayer, setTransitSystemsLayer] = useState(false);
+  const [airportsLayer, setAirportsLayer] = useState(false);
   const [selectedTransitSystemId, setSelectedTransitSystemId] = useState<string | null>(null);
   const [questionCount, setQuestionCount] = useState<10 | 15 | 20 | 150>(10);
   const [selectedStartLevel, setSelectedStartLevel] = useState<DifficultyLevel>("gateway");
@@ -2801,12 +2803,15 @@ function resetProfile() {
           onTouristAttractionsLayerChange={setTouristAttractionsLayer}
           transitSystemsLayer={transitSystemsLayer}
           onTransitSystemsLayerChange={setTransitSystemsLayer}
+          airportsLayer={airportsLayer}
+          onAirportsLayerChange={setAirportsLayer}
           onClearLayerSelection={() => {
             setSelectedRegionId(null);
             setSelectedAttractionId(null);
             setSelectedTransitSystemId(null);
             setTouristAttractionsLayer(false);
             setTransitSystemsLayer(false);
+            setAirportsLayer(false);
           }}
           selectedAttractionId={selectedAttractionId}
           selectedTransitSystemId={selectedTransitSystemId}
@@ -3803,6 +3808,8 @@ function MapTab({
   onTouristAttractionsLayerChange,
   transitSystemsLayer,
   onTransitSystemsLayerChange,
+  airportsLayer,
+  onAirportsLayerChange,
   onClearLayerSelection,
   selectedAttractionId,
   selectedTransitSystemId,
@@ -3829,6 +3836,8 @@ function MapTab({
   onTouristAttractionsLayerChange: (enabled: boolean) => void;
   transitSystemsLayer: boolean;
   onTransitSystemsLayerChange: (enabled: boolean) => void;
+  airportsLayer: boolean;
+  onAirportsLayerChange: (enabled: boolean) => void;
   onClearLayerSelection: () => void;
   selectedAttractionId: string | null;
   selectedTransitSystemId: string | null;
@@ -3947,6 +3956,7 @@ function MapTab({
     return !completion.complete && [completion.hasCapital, completion.hasPopulation, completion.hasFlag, completion.hasImage].filter(Boolean).length >= 2;
   }).length;
   const minimalProfileCount = regions.length - completedProfileCount - partialProfileCount;
+  const missingImportanceRegions = sortedRegions.filter((region) => !hasCustomPlaceImportance(region.id));
   const regionCompleteCount = regionCompletionRows.filter((row) => row.complete).length;
   const missingRegionRows = regionCompletionRows.filter((row) => !row.complete);
   const filteredRegionCompletionRows = regionCompletionRows.filter((row) => {
@@ -4037,7 +4047,7 @@ function MapTab({
     const region = regions.find((item) => item.id === airport.countryId);
     setCountrySearch(`${airport.code} · ${airport.city}`);
     setCountrySearchFocused(false);
-    onTransitSystemsLayerChange(true);
+    onAirportsLayerChange(true);
     if (region) onSelectRegion(region.id);
     onMapZoomChange(Math.max(mapZoom, 5.6));
     onMapPanChange({ x: 0, y: 0 });
@@ -4175,7 +4185,24 @@ function MapTab({
               <span><strong>Fully complete</strong>{completedProfileCount}</span>
               <span><strong>Partially complete</strong>{partialProfileCount}</span>
               <span><strong>Minimal data</strong>{minimalProfileCount}</span>
+              <span><strong>Needs importance text</strong>{missingImportanceRegions.length}</span>
             </div>
+            <details className="importance-coverage-dashboard">
+              <summary>
+                <span>Place importance coverage</span>
+                <em>{regions.length - missingImportanceRegions.length}/{regions.length} custom</em>
+              </summary>
+              <p>Profiles listed here use a neutral fallback until country-specific transit and geography text is added.</p>
+              <div className="importance-missing-list">
+                {missingImportanceRegions.slice(0, 12).map((region) => (
+                  <button type="button" key={region.id} onClick={() => selectRegionAndZoom(region.id)}>
+                    {region.name}
+                    <span>Needs custom importance text</span>
+                  </button>
+                ))}
+              </div>
+              {missingImportanceRegions.length > 12 ? <small>Showing 12 of {missingImportanceRegions.length} profiles needing custom text.</small> : null}
+            </details>
             <select
               id="regional-layer-country"
               value={selectedRegionId}
@@ -4359,6 +4386,14 @@ function MapTab({
             />
             Transit networks
           </label>
+          <label className={`overlay-toggle airport-toggle ${airportsLayer ? "active" : ""}`}>
+            <input
+              type="checkbox"
+              checked={airportsLayer}
+              onChange={(event) => onAirportsLayerChange(event.target.checked)}
+            />
+            Airports
+          </label>
           <button type="button" className="clear-layer-button" onClick={onClearLayerSelection}>
             Clear Selection
           </button>
@@ -4397,6 +4432,7 @@ function MapTab({
             selectedAttractionId={selectedAttractionId}
             onAttractionSelect={onAttractionSelect}
             transitSystemsLayer={transitSystemsLayer}
+            airportsLayer={airportsLayer}
             selectedTransitSystemId={selectedTransitSystemId}
             onTransitSystemSelect={onTransitSystemSelect}
             zoom={mapZoom}
@@ -4423,6 +4459,7 @@ function MapTab({
           <span><strong>Labels</strong> city names appear at deep zoom</span>
           <span><strong>Regions</strong> detailed subdivisions appear at 480%+</span>
           <span><strong>Transit</strong> toggle network pins in Map tools</span>
+          <span><strong>Airports</strong> optional IATA markers, off by default</span>
         </div>
         <AskGeoInTransitPanel currentRegion={selectedRegion} onSelectRegion={selectRegionAndZoom} />
         <details className="export-panel compact-tool-panel">
@@ -4812,6 +4849,7 @@ function OperationsMap({
   selectedAttractionId = null,
   onAttractionSelect,
   transitSystemsLayer = false,
+  airportsLayer = false,
   selectedTransitSystemId = null,
   onTransitSystemSelect,
   onBackgroundSelect,
@@ -4832,6 +4870,7 @@ function OperationsMap({
   selectedAttractionId?: string | null;
   onAttractionSelect?: (attraction: (typeof projectedTouristAttractions)[number]) => void;
   transitSystemsLayer?: boolean;
+  airportsLayer?: boolean;
   selectedTransitSystemId?: string | null;
   onTransitSystemSelect?: (system: (typeof projectedTransitSystems)[number]) => void;
   onBackgroundSelect?: () => void;
@@ -5063,7 +5102,7 @@ function OperationsMap({
             </span>
           ))}
         </div>
-        {(transitSystemsLayer || zoom > 2.2) ? (
+        {airportsLayer ? (
           <div className="airport-marker-layer" aria-label="Airport code markers">
             {projectedAirportLabels.map((airport) => (
               <button
@@ -5530,7 +5569,8 @@ function RegionPanel({
   const nearbyRegions = nearbyRegionsFor(region.id);
   const practiceTopicOptions = practiceTopicOptionsForRegion(region, regionTransitSystems.length, regionAttractions.length);
   const [practiceTopics, setPracticeTopics] = useState<PracticeTopic[]>(practiceTopicOptions.map((topic) => topic.id));
-  const importance = whyThisPlaceMatters(region);
+  const customImportance = getPlaceImportance(region.id);
+  const importance = customImportance ?? fallbackPlaceImportance(region);
   useEffect(() => {
     setPracticeTopics(practiceTopicOptions.map((topic) => topic.id));
   }, [region.id]);
@@ -5551,8 +5591,19 @@ function RegionPanel({
         <p><strong>Population:</strong> {region.population}</p>
       </div>
       <details className="place-importance" open>
-        <summary>Why is this place important?</summary>
-        <p>{importance}</p>
+        <summary>
+          <span>{importance.title}</span>
+          {!customImportance ? <em>Needs custom importance text</em> : null}
+        </summary>
+        <ul>
+          <li>{importance.capitalNote}</li>
+          {importance.majorNonCapitalCities.length > 0 ? (
+            <li><strong>Major transit cities:</strong> {importance.majorNonCapitalCities.join(", ")}.</li>
+          ) : null}
+          {importance.transitHighlights.slice(0, 1).map((item) => <li key={item}>{item}</li>)}
+          {importance.geographicHighlights.slice(0, 1).map((item) => <li key={item}>{item}</li>)}
+          {importance.regionalNotes.slice(0, 1).map((item) => <li key={item}>{item}</li>)}
+        </ul>
       </details>
       {profileImage && <PlaceImageCard image={profileImage} />}
       {airportReferenceImages.length > 0 && <ProfileImageGallery title="Airport references" images={airportReferenceImages} />}
@@ -5685,19 +5736,20 @@ function EmptyRegionPanel() {
   );
 }
 
-function whyThisPlaceMatters(region: Region) {
-  const custom: Record<string, string> = {
-    japan: "Japan links some of the world's busiest metropolitan railways with the Shinkansen high-speed network, major island airports, and ferry corridors. Its transport geography shows how dense cities and mountainous islands can function as one national system.",
-    "united-kingdom": "The United Kingdom pioneered passenger railways and the world's first underground railway. London remains a global transit laboratory, while regional rail, ferries, and airports connect a compact island nation.",
-    "united-states": "The United States combines continental-scale aviation and highways with globally significant subway, commuter-rail, and intercity corridors. Washington, D.C. is the capital while New York is the largest city—a useful lesson in political and urban geography.",
-    canada: "Canada's population is concentrated along a handful of long-distance corridors. Ottawa is the capital, Toronto is the largest city, and rail, aviation, ferries, and winter infrastructure connect communities across enormous distances.",
-    morocco: "Morocco is a bridge between Africa, the Atlantic, and the Mediterranean. Al Boraq high-speed rail, major ports, trams in Casablanca and Rabat-Salé, ferries, and airports make that relationship visible.",
-    portugal: "Portugal faces both continental Europe and the Atlantic world. Lisbon and Porto anchor mainland rail while Madeira and the Azores show how aviation and maritime links shape island regions.",
+function fallbackPlaceImportance(region: Region) {
+  const nonCapitalCities = region.majorCities.filter((city) => city.toLowerCase() !== region.capital.toLowerCase()).slice(0, 4);
+  const transit = [...region.metro, ...region.rail].filter(Boolean).slice(0, 2);
+  return {
+    id: region.id,
+    title: `Why ${region.name} matters`,
+    capitalNote: `${region.capital} is the national government center and an important transport anchor.`,
+    transitHighlights: [transit.length
+      ? `${transit.join(" and ")} provide useful starting points for understanding the country’s passenger network.`
+      : "Regional road, aviation, rail, or maritime links connect population centers where available."],
+    geographicHighlights: [`The country’s settlement pattern, terrain, and international gateways influence how people travel between regions.`],
+    majorNonCapitalCities: nonCapitalCities,
+    regionalNotes: ["This profile is ready for a more specific regional transport story as curated information is added."],
   };
-  if (custom[region.id]) return custom[region.id];
-  const city = region.majorCities[0] ?? region.capital;
-  const transit = region.metro[0] ?? region.rail[0] ?? "regional transport corridors";
-  return `${region.name} matters because ${city} anchors its population and economic geography while ${transit} connects people to the capital, surrounding regions, and international gateways. Its airports, landmarks, and physical geography explain why travel patterns developed the way they did.`;
 }
 
 const askGeoTransitCards: AskCard[] = [

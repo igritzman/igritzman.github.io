@@ -1772,7 +1772,7 @@ h3 {
 
 .country-completeness-dashboard {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 0.4rem;
 }
 
@@ -5964,15 +5964,81 @@ h3 {
 }
 
 .place-importance summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem;
   color: #f2cf72;
   font-weight: 800;
   cursor: pointer;
 }
 
-.place-importance p {
+.place-importance summary em {
+  padding: 0.22rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(244, 206, 114, 0.12);
+  color: #f4ce72;
+  font-size: 0.66rem;
+  font-style: normal;
+}
+
+.place-importance ul {
+  display: grid;
+  gap: 0.42rem;
   margin: 0.55rem 0 0;
+  padding-left: 1.1rem;
   color: #d4e3e8;
   line-height: 1.55;
+  font-size: 0.86rem;
+}
+
+.place-importance li::marker {
+  color: #43d8bf;
+}
+
+.importance-coverage-dashboard {
+  margin: 0.7rem 0;
+  padding: 0.65rem;
+  border: 1px solid rgba(141, 179, 185, 0.18);
+  border-radius: 10px;
+  background: rgba(5, 16, 22, 0.46);
+}
+
+.importance-coverage-dashboard summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.importance-coverage-dashboard summary em,
+.importance-coverage-dashboard p,
+.importance-coverage-dashboard small {
+  color: #a9bec4;
+  font-size: 0.72rem;
+  font-style: normal;
+}
+
+.importance-missing-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 0.35rem;
+  margin: 0.55rem 0;
+}
+
+.importance-missing-list button {
+  display: grid;
+  gap: 0.1rem;
+  min-height: 46px;
+  padding: 0.45rem 0.55rem;
+  text-align: left;
+}
+
+.importance-missing-list button span {
+  color: #f4ce72;
+  font-size: 0.65rem;
 }
 
 @media (max-width: 760px) {
