@@ -3212,6 +3212,11 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
       visual: "discover",
     },
     {
+      title: "Use the Time Machine",
+      text: "Open Transit Time Machine below Map tools, choose a complete network such as Washington DC, then select a year or press Play evolution. Click a map to enlarge it; swipe on mobile or use the arrow keys on desktop.",
+      visual: "time-machine",
+    },
+    {
       title: "Use the Links",
       text: "Example: Hong Kong links open HKG Airport in Google Maps, MTR and Airport Express references, Star Ferry context, and Transitland network maps.",
       visual: "sidebar",
@@ -3270,7 +3275,7 @@ function GuideOverlay({ onClose }: { onClose: () => void }) {
               Previous
             </button>
             <button type="button" className="primary-action" onClick={nextStep}>
-              {activeStep === guideSteps.length - 1 ? "Start Using App" : "Play Next"}
+              {activeStep === guideSteps.length - 1 ? "Start Using App" : "Next"}
             </button>
           </div>
         </div>
@@ -3353,6 +3358,14 @@ function GuideVisual({ type }: { type: string }) {
             </div>
           </div>
         </>
+      )}
+      {type === "time-machine" && (
+        <div className="guide-time-machine-demo">
+          <strong>Washington DC · Transit Time Machine</strong>
+          <div><span>1976</span><span>1984</span><span>2000</span><span>2026</span></div>
+          <p>Select a year, play the evolution, or enlarge a historical map.</p>
+          <button type="button" tabIndex={-1}>▶ Play evolution</button>
+        </div>
       )}
       {type === "regions" && (
         <div className="guide-region-demo">
@@ -3846,6 +3859,7 @@ function MapTab({
   const [missingDataFilter, setMissingDataFilter] = useState<"work" | "everything" | "complete" | "population" | "capital" | "flag" | "image" | "transit">("work");
   const [timeMachineFilter, setTimeMachineFilter] = useState<"needs" | "early" | "mid" | "modern" | "complete">("needs");
   const [selectedTimeMachineCity, setSelectedTimeMachineCity] = useState<string | null>(null);
+  const [timeMachineListExpanded, setTimeMachineListExpanded] = useState(false);
   const [regionCompletionRows, setRegionCompletionRows] = useState<RegionCompletionRow[]>([]);
   const selectedExportRegions = exportRegionIds
     .map((id) => regions.find((region) => region.id === id))
@@ -3963,7 +3977,7 @@ function MapTab({
     const missing = entry.eras.filter((era) => !era.imageUrl);
     if (timeMachineFilter === "complete") return missing.length === 0;
     if (timeMachineFilter === "needs") return missing.length > 0;
-    return entry.eras.some((era) => era.key === timeMachineFilter && !era.imageUrl);
+    return entry.eras.some((era) => era.phase === timeMachineFilter && !era.imageUrl);
   });
   const selectedTimeMachineEntry = selectedTimeMachineCity
     ? transitTimeMachineImages.find((entry) => entry.city === selectedTimeMachineCity) ?? null
@@ -4162,6 +4176,30 @@ function MapTab({
             />
             Regional boundaries
           </label>
+          <details className="time-machine-feature">
+            <summary>
+              <span>🕒 Transit Time Machine</span>
+              <em>Explore network evolution</em>
+            </summary>
+            <p>Choose a city, select any available year, or play the maps as a full historical sequence.</p>
+            <div className="time-machine-featured-cities">
+              {transitTimeMachineImages
+                .filter((entry) => getTransitTimeMachineCompletion(entry.city) === 100)
+                .slice(0, 6)
+                .map((entry) => (
+                  <button type="button" key={entry.city} onClick={() => setSelectedTimeMachineCity(entry.city)}>
+                    <strong>{entry.city}</strong>
+                    <span>{entry.eras.length} years</span>
+                  </button>
+                ))}
+            </div>
+            {selectedTimeMachineEntry ? (
+              <div className="time-machine-inline-profile">
+                <button type="button" className="time-machine-close" onClick={() => setSelectedTimeMachineCity(null)} aria-label="Close Transit Time Machine profile">×</button>
+                <TransitTimeMachinePanel entry={selectedTimeMachineEntry} />
+              </div>
+            ) : null}
+          </details>
           <details className="region-availability-note">
             <summary>
               <span>Advanced</span>
@@ -4316,7 +4354,7 @@ function MapTab({
                 ))}
               </div>
               <div className="time-machine-asset-list">
-                {filteredTimeMachineEntries.slice(0, 8).map((entry) => {
+                {filteredTimeMachineEntries.slice(0, timeMachineListExpanded ? filteredTimeMachineEntries.length : 8).map((entry) => {
                   const completion = getTransitTimeMachineCompletion(entry.city);
                   return (
                     <article key={entry.city}>
@@ -4325,11 +4363,15 @@ function MapTab({
                         <span>{entry.system}</span>
                       </div>
                       <div className="era-status-row" aria-label={`${entry.city} era map status`}>
-                        {entry.eras.map((era) => (
-                          <span className={era.imageUrl ? "ready" : "missing"} key={era.key}>
-                            {era.key === "mid" ? "Mid" : era.key[0].toUpperCase() + era.key.slice(1)} {era.imageUrl ? "✓" : "—"}
-                          </span>
-                        ))}
+                        {(["early", "mid", "modern"] as const).map((phase) => {
+                          const phaseEras = entry.eras.filter((era) => era.phase === phase);
+                          const ready = phaseEras.length > 0 && phaseEras.every((era) => Boolean(era.imageUrl));
+                          return (
+                            <span className={ready ? "ready" : "missing"} key={phase}>
+                              {phase === "mid" ? "Mid" : phase[0].toUpperCase() + phase.slice(1)} {ready ? "✓" : "—"}
+                            </span>
+                          );
+                        })}
                       </div>
                       <strong className="completion-pill">{completion}%</strong>
                       <button type="button" className="secondary-button" onClick={() => setSelectedTimeMachineCity(entry.city)}>
@@ -4340,13 +4382,9 @@ function MapTab({
                 })}
               </div>
               {filteredTimeMachineEntries.length > 8 ? (
-                <p className="tracker-filter-summary">Showing 8 of {filteredTimeMachineEntries.length}. Refine the filter to keep the dashboard compact.</p>
-              ) : null}
-              {selectedTimeMachineEntry ? (
-                <div className="time-machine-inline-profile">
-                  <button type="button" className="time-machine-close" onClick={() => setSelectedTimeMachineCity(null)} aria-label="Close Transit Time Machine profile">×</button>
-                  <TransitTimeMachinePanel entry={selectedTimeMachineEntry} />
-                </div>
+                <button type="button" className="tracker-toggle" onClick={() => setTimeMachineListExpanded((value) => !value)}>
+                  {timeMachineListExpanded ? "Show fewer networks" : `Show all ${filteredTimeMachineEntries.length} networks`}
+                </button>
               ) : null}
             </section>
           </details>
@@ -5555,7 +5593,7 @@ function RegionPanel({
       </div>
       <details className="place-importance">
         <summary>
-          <span>{importance.title}</span>
+          <span>Fast Facts: {region.name}</span>
           {!customImportance ? <em>Needs custom importance text</em> : null}
         </summary>
         <ul>

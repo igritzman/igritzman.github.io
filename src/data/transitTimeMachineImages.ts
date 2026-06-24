@@ -1,7 +1,8 @@
 export type TransitTimeMachineEraKey = "early" | "mid" | "modern";
 
 export type TransitTimeMachineEra = {
-  key: TransitTimeMachineEraKey;
+  key: string;
+  phase: TransitTimeMachineEraKey;
   label: string;
   year: number;
   searchQueries: string[];
@@ -17,6 +18,7 @@ export type TransitTimeMachineEntry = {
   city: string;
   country: string;
   system: string;
+  mapQuery: string;
   eras: TransitTimeMachineEra[];
 };
 
@@ -35,6 +37,7 @@ function era(
   const imageUrl = file ? `${assetRoot}/${file}` : "";
   return {
     key,
+    phase: key,
     label,
     year,
     searchQueries: queries,
@@ -62,6 +65,7 @@ function network(
     city,
     country,
     system,
+    mapQuery: exactCityMapQueries[city] ?? `${city}, ${country}`,
     eras: [
       era("early", "Early network", years[0], [
         `${city} transit map ${years[0]}`,
@@ -79,6 +83,47 @@ function network(
         `${slug} rail network map official`,
       ], captions[2], files[2]),
     ],
+  };
+}
+
+const exactCityMapQueries: Record<string, string> = {
+  London: "London, England, United Kingdom",
+  "New York": "New York City, New York, United States",
+  Sydney: "Sydney, New South Wales, Australia",
+  "Washington DC": "Washington, DC, United States",
+  Toronto: "Toronto, Ontario, Canada",
+  "Mexico City": "Mexico City, Mexico",
+  "Sao Paulo": "Sao Paulo, Brazil",
+  "Hong Kong": "Hong Kong, China",
+};
+
+function timelineEra(
+  city: string,
+  year: number,
+  label: string,
+  file: string,
+  caption: string,
+  phase: TransitTimeMachineEraKey,
+): TransitTimeMachineEra {
+  const item = era(phase, label, year, [
+    `${city} transit map ${year}`,
+    `${city} historical transit network ${year}`,
+  ], caption, file, "Transit Assets (3).zip");
+  return { ...item, key: String(year), phase };
+}
+
+function timeline(
+  city: string,
+  country: string,
+  system: string,
+  eras: TransitTimeMachineEra[],
+): TransitTimeMachineEntry {
+  return {
+    city,
+    country,
+    system,
+    mapQuery: exactCityMapQueries[city] ?? `${city}, ${country}`,
+    eras: [...eras].sort((a, b) => a.year - b.year),
   };
 }
 
@@ -118,16 +163,32 @@ export const transitTimeMachineImages: TransitTimeMachineEntry[] = [
     "The network expanded as Tashkent entered the post-Soviet era.",
     "The modern system combines legacy lines with new orbital extensions.",
   ], ["tashkent-early.jpg", "", "tashkent-modern.jpg"]),
-  network("Washington DC", "United States", "Washington Metro", [1978, 1984, 2026], [
-    "Metro opened its first Red Line segment in the monumental core.",
-    "The original five-line plan matured into a regional network.",
-    "The current system includes the Silver Line connection toward Dulles Airport.",
-  ], ["washington-dc-early.png", "washington-dc-mid.png", "washington-dc-modern.png"]),
-  network("Toronto", "Canada", "Toronto subway", [1954, 2010, 2026], [
-    "Canada's first subway opened beneath Yonge Street.",
-    "The Bloor-Danforth and Spadina corridors created a wider rapid-transit grid.",
-    "Today's TTC subway connects with streetcars, buses, and regional GO services.",
-  ], ["toronto-early.jpg", "toronto-mid.png", "toronto-modern.png"]),
+  timeline("Washington DC", "United States", "Washington Metro", [
+    timelineEra("Washington DC", 1976, "Opening network", "washington-dc-1976.png", "Metro opened its first Red Line stations between Farragut North and Rhode Island Avenue.", "early"),
+    timelineEra("Washington DC", 1977, "Regional expansion", "washington-dc-1977.png", "The first extensions began carrying Metro beyond the original downtown segment.", "early"),
+    timelineEra("Washington DC", 1978, "Orange Line era", "washington-dc-1978.png", "Orange Line service added a major east-west spine through the monumental core.", "early"),
+    timelineEra("Washington DC", 1979, "Northern growth", "washington-dc-1979.png", "New stations extended the young system farther into the region.", "early"),
+    timelineEra("Washington DC", 1980, "Blue Line growth", "washington-dc-1980.png", "The Blue Line strengthened the cross-Potomac regional connection.", "mid"),
+    timelineEra("Washington DC", 1981, "Connected core", "washington-dc-1981.png", "More of the planned five-line framework was now visible on the map.", "mid"),
+    timelineEra("Washington DC", 1984, "Red Line expansion", "washington-dc-1984.png", "The Red Line reached farther into Montgomery County as the system matured.", "mid"),
+    timelineEra("Washington DC", 1986, "Four-line network", "washington-dc-1986.png", "Rapid expansion turned Metro into a genuinely regional network.", "mid"),
+    timelineEra("Washington DC", 1990, "Green Line begins", "washington-dc-1990.png", "The first Green Line segment introduced the fifth color of the original plan.", "mid"),
+    timelineEra("Washington DC", 1991, "Green Line grows", "washington-dc-1991.png", "New Green Line service filled important gaps in the District.", "mid"),
+    timelineEra("Washington DC", 1994, "Maturing system", "washington-dc-1994.png", "Metro's five-line structure increasingly resembled the planned regional system.", "mid"),
+    timelineEra("Washington DC", 2004, "New York Avenue era", "washington-dc-2004.png", "An infill station opened at New York Avenue, later renamed NoMa–Gallaudet U.", "mid"),
+    timelineEra("Washington DC", 2006, "Regional infill", "washington-dc-2006.png", "The established network continued to add access and prepare for its next major branch.", "mid"),
+    timelineEra("Washington DC", 2012, "Silver Line construction", "washington-dc-2012.png", "The map anticipated the new route through Tysons toward Dulles.", "mid"),
+    timelineEra("Washington DC", 2014, "Silver Line opens", "washington-dc-2014.png", "Silver Line service reached Tysons and Reston, reshaping the western network.", "modern"),
+    timelineEra("Washington DC", 2017, "SafeTrack era", "washington-dc-2017.png", "The six-line system focused on renewal while regional growth continued.", "modern"),
+    timelineEra("Washington DC", 2022, "Dulles connection", "washington-dc-2022.png", "The Silver Line extension finally connected Metro with Dulles Airport and Loudoun County.", "modern"),
+    timelineEra("Washington DC", 2026, "Current network", "washington-dc-2026.png", "Today's six-line system connects the District, Maryland, Virginia, and both major airports.", "modern"),
+  ]),
+  timeline("Toronto", "Canada", "Toronto subway", [
+    timelineEra("Toronto", 1954, "Opening network", "toronto-early.jpg", "Canada's first subway opened beneath Yonge Street.", "early"),
+    timelineEra("Toronto", 2000, "Integrated city network", "toronto-mid.png", "The 2000 map shows TTC rapid transit and streetcar corridors across the amalgamated city.", "mid"),
+    timelineEra("Toronto", 2016, "Pre-extension network", "toronto-2016.png", "The network immediately before the Line 1 extension to Vaughan shows its established urban spine.", "mid"),
+    timelineEra("Toronto", 2026, "Current network", "toronto-modern.png", "Today's TTC subway connects with streetcars, buses, and regional GO services.", "modern"),
+  ]),
   network("Madrid", "Spain", "Madrid Metro", [1919, 2010, 2026], [
     "Madrid's first metro linked Sol and Cuatro Caminos.",
     "Mid-century extensions pushed rapid transit beyond the historic center.",
@@ -143,11 +204,6 @@ export const transitTimeMachineImages: TransitTimeMachineEntry[] = [
     "The automated Metro added a new rapid-transit layer at the turn of the century.",
     "Metro, S-train, regional rail, and the Øresund link now operate together.",
   ], ["", "", "copenhagen-modern.png"]),
-  network("Addis Ababa", "Ethiopia", "Addis Ababa Light Rail", [2015, 2020, 2026], [
-    "Africa's first modern light-rail system opened with two crossing corridors.",
-    "The initial network settled into daily operation across the capital.",
-    "The current system remains a landmark experiment in African urban rail.",
-  ], ["", "", "addis-ababa-modern.png"]),
   network("Warsaw", "Poland", "Warsaw Metro / tram network", [1925, 1995, 2026], [
     "Early plans imagined a rapid-transit spine beneath a growing Warsaw.",
     "The first Metro line finally opened after decades of interruption and rebuilding.",
@@ -158,11 +214,6 @@ export const transitTimeMachineImages: TransitTimeMachineEntry[] = [
     "The eastern and western systems moved toward a unified metro.",
     "The T-bane, tram, ferry, and regional rail form Oslo's integrated network.",
   ], ["", "", "oslo-modern.avif"]),
-  network("Jerusalem", "Israel", "Jerusalem Light Rail", [2011, 2020, 2026], [
-    "The Red Line introduced modern tram service across Jerusalem.",
-    "Operating experience set the stage for a broader light-rail program.",
-    "The expanding network links major civic, residential, and historic districts.",
-  ], ["", "", "jerusalem-modern.png"]),
   network("Buenos Aires", "Argentina", "Buenos Aires Subte", [1913, 1950, 2026], [
     "Line A made Buenos Aires the first Latin American city with a subway.",
     "Several private-era lines had become a recognizable central network.",
@@ -188,16 +239,6 @@ export const transitTimeMachineImages: TransitTimeMachineEntry[] = [
     "Division transformed routes and stations on both sides of the Berlin Wall.",
     "The reunified U-Bahn and S-Bahn once again operate as one regional network.",
   ], ["berlin-early.jpg", "", "berlin-modern.png"]),
-  network("Abu Dhabi", "United Arab Emirates", "Abu Dhabi public transport plan", [2008, 2020, 2026], [
-    "Early master plans proposed rail corridors for a rapidly growing capital.",
-    "Bus reform and future metro planning shaped the expansion era.",
-    "Current plans emphasize integrated bus, rapid-transit, and intercity links.",
-  ], ["", "", "abu-dhabi-modern.jpg"]),
-  network("Dubai", "United Arab Emirates", "Dubai Metro", [2009, 2020, 2026], [
-    "The Red Line opened as the Arabian Peninsula's first major urban metro.",
-    "Route 2020 extended automated rail toward the Expo site.",
-    "Metro, tram, buses, and marine transit support a fast-growing city.",
-  ], ["", "", "dubai-modern.jpg"]),
   network("Hong Kong", "China", "Hong Kong MTR", [1979, 2007, 2026], [
     "The Modified Initial System introduced high-capacity metro service.",
     "Rail mergers and new cross-harbour links broadened the regional network.",

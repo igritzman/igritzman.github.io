@@ -13,7 +13,7 @@ export function getMissingTransitTimeMachineAssets() {
       city: entry.city,
       country: entry.country,
       system: entry.system,
-      era: era.key as TransitTimeMachineEraKey,
+      era: era.phase as TransitTimeMachineEraKey,
       year: era.year,
       searchQueries: era.searchQueries,
       preferredSources: era.preferredSources,

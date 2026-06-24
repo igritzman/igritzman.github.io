@@ -26,6 +26,24 @@ export function TransitTimeMachineSlideshow({ entry }: { entry: TransitTimeMachi
     return () => window.clearInterval(timer);
   }, [playing, entry.eras.length]);
 
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setLightboxOpen(false);
+        setPlaying(false);
+      }
+      if (event.key === "ArrowLeft") move(-1);
+      if (event.key === "ArrowRight") move(1);
+      if (event.key === " ") {
+        event.preventDefault();
+        setPlaying((value) => !value);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [lightboxOpen, entry.eras.length]);
+
   return (
     <section className="time-machine-panel" aria-label={`${entry.city} Transit Time Machine`}>
       <header className="time-machine-heading">
@@ -34,7 +52,7 @@ export function TransitTimeMachineSlideshow({ entry }: { entry: TransitTimeMachi
           <h3>{entry.city}</h3>
           <p>{entry.system} · {entry.country}</p>
         </div>
-        <span className="time-machine-coverage">{availableCount}/3 maps</span>
+        <span className="time-machine-coverage">{availableCount}/{entry.eras.length} maps</span>
       </header>
 
       <div className="time-machine-stage">
@@ -62,8 +80,11 @@ export function TransitTimeMachineSlideshow({ entry }: { entry: TransitTimeMachi
         </div>
         <p className="time-machine-caption">{era.caption}</p>
         <div className="time-machine-controls">
-          <button type="button" className="secondary-button" onClick={() => setPlaying((value) => !value)}>{playing ? "Pause evolution" : "▶ Play evolution"}</button>
-          <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${entry.city} transit`)}`} target="_blank" rel="noreferrer">Explore city map</a>
+          <button type="button" className="secondary-button" onClick={() => {
+            if (!playing) setLightboxOpen(true);
+            setPlaying((value) => !value);
+          }}>{playing ? "Pause evolution" : "▶ Play evolution"}</button>
+          <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(entry.mapQuery)}`} target="_blank" rel="noreferrer">Explore city map</a>
         </div>
         <input aria-label={`Choose ${entry.city} transit era`} type="range" min="0" max={entry.eras.length - 1} step="1" value={activeEra} onChange={(event) => { setPlaying(false); setActiveEra(Number(event.target.value)); }} />
         <div className="time-machine-ticks" aria-hidden="true">{entry.eras.map((item) => <span key={item.key}>{item.year}</span>)}</div>
@@ -80,9 +101,13 @@ export function TransitTimeMachineSlideshow({ entry }: { entry: TransitTimeMachi
 
       {lightboxOpen && era.imageUrl ? (
         <div className="time-machine-lightbox" role="dialog" aria-modal="true" aria-label={`${entry.city} ${era.year} map enlargement`}>
-          <button type="button" className="time-machine-lightbox-close" onClick={() => setLightboxOpen(false)} aria-label="Close enlarged map">×</button>
+          <button type="button" className="time-machine-lightbox-close" onClick={() => { setLightboxOpen(false); setPlaying(false); }} aria-label="Close enlarged map">×</button>
           <img src={era.imageUrl} alt={`${entry.city} transit map in ${era.year}`} />
-          <div><strong>{entry.city} · {era.year}</strong><span>{era.caption}</span></div>
+          <div className="time-machine-lightbox-caption">
+            <strong>{entry.city} · {era.year}</strong>
+            <span>{era.caption}</span>
+            <small>← → change year · Space pauses · Esc closes</small>
+          </div>
         </div>
       ) : null}
     </section>

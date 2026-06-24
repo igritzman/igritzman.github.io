@@ -5783,6 +5783,60 @@ h3 {
 }
 
 /* Transit Time Machine */
+.time-machine-feature {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin-top: 0.65rem;
+  border: 1px solid rgba(68, 217, 192, 0.28);
+  border-radius: 12px;
+  background: rgba(10, 28, 38, 0.72);
+}
+
+.time-machine-feature > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.7rem 0.8rem;
+  cursor: pointer;
+}
+
+.time-machine-feature > summary em {
+  color: #f2cf72;
+  font-size: 0.74rem;
+  font-style: normal;
+}
+
+.time-machine-feature > p {
+  margin: 0;
+  padding: 0 0.8rem 0.7rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.time-machine-featured-cities {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+  padding: 0 0.8rem 0.8rem;
+}
+
+.time-machine-featured-cities button {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+  padding: 0.55rem;
+  border-color: rgba(125, 211, 199, 0.2);
+  background: rgba(7, 17, 27, 0.72);
+  text-align: left;
+}
+
+.time-machine-featured-cities span {
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
 .time-machine-assets-dashboard {
   margin-top: 1rem;
   padding-top: 1rem;
@@ -5793,6 +5847,12 @@ h3 {
   display: grid;
   gap: 0.55rem;
   margin-top: 0.75rem;
+}
+
+.time-machine-assets-dashboard .time-machine-asset-list {
+  max-height: 620px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .time-machine-asset-list > article {
@@ -5849,6 +5909,9 @@ h3 {
 
 .time-machine-inline-profile {
   position: relative;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   margin-top: 0.9rem;
 }
 
@@ -5863,6 +5926,10 @@ h3 {
 }
 
 .time-machine-panel {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
   padding: 1rem;
   border: 1px solid rgba(78, 221, 196, 0.32);
   border-radius: 18px;
@@ -5910,7 +5977,12 @@ h3 {
 
 .time-machine-ticks {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: clamp(0.9rem, 3vw, 2.2rem);
+  width: 100%;
+  min-width: 0;
+  padding-bottom: 0.2rem;
+  overflow-x: auto;
   color: var(--muted);
   font-size: 0.75rem;
 }
@@ -5921,6 +5993,9 @@ h3 {
 
 .time-machine-stage {
   display: grid;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   gap: 0.65rem;
   margin-top: 1rem;
 }
@@ -6005,10 +6080,15 @@ h3 {
 }
 
 .time-machine-thumbnail-row {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   gap: 0.55rem;
   margin-top: 0.75rem;
+  padding-bottom: 0.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
 }
 
 .time-machine-thumbnail-row button {
@@ -6022,6 +6102,8 @@ h3 {
   background: rgba(7, 17, 27, 0.72);
   padding: 0.4rem;
   text-align: left;
+  flex: 0 0 min(220px, 72vw);
+  scroll-snap-align: start;
 }
 
 .time-machine-thumbnail-row button.is-active {
@@ -6066,6 +6148,42 @@ h3 {
   gap: 0.2rem;
   color: #d4e3e8;
   text-align: center;
+}
+
+.time-machine-lightbox-caption small {
+  color: #8fa9b2;
+}
+
+.guide-time-machine-demo {
+  display: grid;
+  gap: 0.7rem;
+  width: min(620px, 100%);
+  margin: auto;
+  padding: 1rem;
+  border: 1px solid rgba(68, 217, 192, 0.28);
+  border-radius: 16px;
+  background: rgba(7, 17, 27, 0.84);
+}
+
+.guide-time-machine-demo > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.35rem;
+  color: #f2cf72;
+}
+
+.guide-time-machine-demo > div::before {
+  content: "";
+  position: absolute;
+}
+
+.guide-time-machine-demo p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.guide-time-machine-demo button {
+  width: fit-content;
 }
 
 .time-machine-lightbox-close {
@@ -6276,6 +6394,19 @@ h3 {
 }
 
 @media (max-width: 760px) {
+  .time-machine-feature {
+    width: calc(100vw - 3rem);
+    max-width: calc(100vw - 3rem);
+  }
+
+  .time-machine-featured-cities {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .time-machine-feature > summary {
+    align-items: flex-start;
+  }
+
   .time-machine-asset-list > article {
     grid-template-columns: 1fr auto;
   }
